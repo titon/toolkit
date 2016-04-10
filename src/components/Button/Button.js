@@ -12,7 +12,8 @@ import states from '../../prop-types/states';
 
 export default class Button extends Component {
     static defaultProps = {
-        elementClassName: 'button'
+        elementClassName: 'button',
+        type: 'button'
     };
 
     static propTypes = {
@@ -25,7 +26,8 @@ export default class Button extends Component {
         primary: PropTypes.bool,
         secondary: PropTypes.bool,
         small: PropTypes.bool,
-        state: states
+        state: states,
+        type: PropTypes.oneOf(['button', 'submit'])
     };
 
     state = {
@@ -94,7 +96,7 @@ export default class Button extends Component {
             disabled: props.disabled,
             onMouseDown: this.handleOnMouseDown,
             onMouseUp: this.handleOnMouseUp,
-            type: 'button'
+            type: props.type
         };
 
         return (

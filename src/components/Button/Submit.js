@@ -4,9 +4,12 @@
  * @link        http://titon.io
  */
 
+import React from 'react';
 import Button from './Button';
-import Link from './Link';
-import Submit from './Submit';
 
-export { Link, Submit };
-export default Button;
+export default class Submit extends Button {
+    static defaultProps = {
+        ...Button.defaultProps,
+        type: 'submit'
+    };
+}

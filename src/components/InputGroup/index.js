@@ -4,9 +4,8 @@
  * @link        http://titon.io
  */
 
-import Button from './Button';
-import Link from './Link';
-import Submit from './Submit';
+import InputGroup from './InputGroup';
+import Addon from './Addon';
 
-export { Link, Submit };
-export default Button;
+export { Addon };
+export default InputGroup;

@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import Titon from '../Titon';
 import Accordion from '../components/Accordion';
 import Breadcrumb from '../components/Breadcrumb';
-import Button, { Link } from '../components/Button';
+import Button, { Link, Submit } from '../components/Button';
 import ButtonGroup from '../components/ButtonGroup';
 import Carousel from '../components/carousel';
 import Checkbox from '../components/Checkbox';
@@ -15,6 +15,7 @@ import Form from '../components/Form';
 import Gateway from '../components/Gateway';
 import { Row, Col } from '../components/Grid';
 import Input from '../components/Input';
+import InputGroup, { Addon } from '../components/InputGroup';
 import Label, { Badge } from '../components/Label';
 import { Background, Image } from '../components/LazyLoad';
 import { Message, Spinner, Wave } from '../components/Loader';
@@ -302,7 +303,7 @@ const formMarkup = (
             </Form.FieldList>
 
             <Form.ActionBar>
-                <button type="submit">Submit</button>
+                <Submit>Submit</Submit>
             </Form.ActionBar>
         </Form>
 
@@ -318,7 +319,7 @@ const formMarkup = (
             </Form.FieldList>
 
             <Form.ActionBar>
-                <button type="submit">Submit</button>
+                <Submit>Submit</Submit>
             </Form.ActionBar>
         </Form>
     </div>
@@ -426,8 +427,32 @@ const inputMarkup = (
 
         <br />
 
-        <button type="submit">Submit</button>
+        <Submit>Submit</Submit>
     </form>
+);
+
+const inputGroupMarkup = (
+    <div>
+        <InputGroup>
+            <Addon>http://</Addon>
+            <Input name="url" type="url" />
+        </InputGroup>
+
+        <br />
+
+        <InputGroup>
+            <Input name="email" type="text" />
+            <Addon>@</Addon>
+            <Input name="domain" type="text" />
+        </InputGroup>
+
+        <br />
+
+        <InputGroup>
+            <Input name="query" type="text" />
+            <Submit>Search</Submit>
+        </InputGroup>
+    </div>
 );
 
 const labelMarkup = (
@@ -705,7 +730,7 @@ const tabsMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {labelMarkup}
+            {inputGroupMarkup}
 
             <Modal.Gate name="modal" />
         </Gateway>
