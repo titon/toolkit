@@ -45,7 +45,7 @@
 
     @if (is-feature-enabled("all-modifiers") or index($titon-temp-label-modifiers, "badge")) {
         #{map-get($titon-label, "class-modifier-badge")} {
-            border-radius: 1rem;
+            border-radius: 50%;
         }
     }
 

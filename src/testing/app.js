@@ -15,6 +15,7 @@ import Form from '../components/Form';
 import Gateway from '../components/Gateway';
 import { Row, Col } from '../components/Grid';
 import Input from '../components/Input';
+import Label, { Badge } from '../components/Label';
 import { Background, Image } from '../components/LazyLoad';
 import { Message, Spinner, Wave } from '../components/Loader';
 import Mask from '../components/Mask';
@@ -429,6 +430,28 @@ const inputMarkup = (
     </form>
 );
 
+const labelMarkup = (
+    <div>
+        <Label>Foo</Label>
+        <Label small>Foo</Label>
+        <Label large>Foo</Label>
+        <Label state="error">Foo</Label>
+
+        <br />
+
+        <Label arrow="left">Bar</Label>
+        <Label arrow="right">Bar</Label>
+        <Label ribbon="left">Bar</Label>
+        <Label ribbon="right">Bar</Label>
+
+        <br />
+
+        <Badge>1</Badge>
+        <Badge small>12</Badge>
+        <Badge large state="info">123</Badge>
+    </div>
+);
+
 const lazyLoadMarkup = (
     <div>
         <div style={{ height: 1000 }} />
@@ -682,7 +705,8 @@ const tabsMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {buttonGroupMarkup}
+            {labelMarkup}
+
             <Modal.Gate name="modal" />
         </Gateway>
     </div>
