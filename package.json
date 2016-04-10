@@ -39,42 +39,42 @@
     },
 
     "dependencies": {
-        "react": "15.0.0-rc.2",
-        "react-dom": "15.0.0-rc.2",
-        "lodash": "~4.6"
+        "react": "^15.0",
+        "react-dom": "^15.0",
+        "lodash": "^4.9"
     },
     "devDependencies": {
-        "directory-tree": "~0.1",
+        "directory-tree": "^0.1",
 
-        "node-sass": "~3.4",
-        "sass-lint": "~1.5",
-        "autoprefixer": "~6.3",
-        "postcss-cli": "~2.5",
+        "node-sass": "^3.4",
+        "sass-lint": "^1.5",
+        "autoprefixer": "^6.3",
+        "postcss-cli": "^2.5",
 
-        "react-addons-test-utils": "15.0.0-rc.2",
-        "eslint": "~2.4",
-        "eslint-plugin-react": "~4.2",
-        "eslint-plugin-sorting": "~0.0",
-        "babel-eslint": "6.0.0-beta.6",
-        "babel-core": "~6.7",
-        "babel-cli": "~6.6",
+        "react-addons-test-utils": "^15.0",
+        "eslint": "^2.4",
+        "eslint-plugin-react": "^4.3",
+        "eslint-plugin-sorting": "^0.0",
+        "babel-eslint": "^6.0",
+        "babel-core": "^6.7",
+        "babel-cli": "^6.7",
         "babel-preset-es2015": "*",
         "babel-preset-react": "*",
         "babel-preset-stage-1": "*",
         "babel-plugin-transform-decorators-legacy": "*",
 
-        "karma": "~0.13",
-        "karma-jasmine": "~0.3",
+        "karma": "^0.13",
+        "karma-jasmine": "^0.3",
         "karma-ie-launcher": "*",
         "karma-safari-launcher": "*",
         "karma-chrome-launcher": "*",
         "karma-firefox-launcher": "*",
-        "karma-browserify": "~5.0",
-        "jasmine-core": "~2.4",
-        "enzyme": "~2.1",
-        "browserify": "~13.0",
-        "babelify": "~7.2",
-        "watchify": "~3.7",
-        "envify": "~3.4"
+        "karma-browserify": "^5.0",
+        "jasmine-core": "^2.4",
+        "enzyme": "^2.2",
+        "browserify": "^13.0",
+        "babelify": "^7.2",
+        "watchify": "^3.7",
+        "envify": "^3.4"
     }
 }
