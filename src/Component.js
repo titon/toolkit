@@ -161,6 +161,15 @@ export default class Component extends React.Component {
     }
 
     /**
+     * Return the `ReactElement` associated with the component.
+     *
+     * @returns {ReactElement}
+     */
+    getInternalElement() {
+        return this._reactInternalInstance._currentElement;
+    }
+
+    /**
      * Return the UID for the current component.
      * The UID could either be inherited from the parent, or generate per instance.
      *

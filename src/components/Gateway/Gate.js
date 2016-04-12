@@ -21,6 +21,7 @@ export default class Gate extends Component {
     };
 
     static propTypes = {
+        animation: PropTypes.string,
         className: cssClass,
         contract: PropTypes.func.isRequired,
         elementClassName: cssClass.isRequired,
@@ -112,7 +113,8 @@ export default class Gate extends Component {
                 className={this.formatClass(
                     props.elementClassName,
                     props.className,
-                    props.gateClassName
+                    props.gateClassName,
+                    props.animation
                 )}
                 {...this.inheritNativeProps(props)}>
 

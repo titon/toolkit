@@ -8,7 +8,7 @@
     $titon-temp-toast-positions: map-get($titon-toast, "positions");
     $titon-temp-toast-animations: map-get($titon-toast, "animations");
 
-    #{map-get($titon-toast, "class-wrapper")} {
+    #{map-get($titon-toast, "class-gate")} {
         position: fixed;
         margin: theme-setting("margin");
         width: 20%;
@@ -92,9 +92,6 @@
     #{map-get($titon-toast, "class")} {
         margin-top: 1rem;
         transition: all map-get($titon-toast, "transition");
-        opacity: 0;
-        visibility: hidden;
-        background: #fff;
         padding: theme-setting("medium-padding");
     }
 

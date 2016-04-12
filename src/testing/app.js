@@ -29,6 +29,7 @@ import Select from '../components/Select';
 import Steps from '../components/Steps';
 import Switch from '../components/Switch';
 import Tabs from '../components/Tabs';
+import Toast from '../components/Toast';
 
 Titon.options.debug = true;
 
@@ -727,12 +728,29 @@ const tabsMarkup = (
     </Tabs>
 );
 
+const createToast = () => (
+    <Toast key={Date.now().toString(16)} gateName="toasts">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. Nullam gravida eget nunc vel volutpat.
+    </Toast>
+);
+
+const toastMarkup = (
+    <div>
+        <GateButton onClick={context => {
+            context.warpIn('toasts', createToast());
+        }}>
+            Add Toast
+        </GateButton>
+    </div>
+);
+
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {inputGroupMarkup}
+            {toastMarkup}
 
-            <Modal.Gate name="modal" />
+            <Modal.Gate name="modals" />
+            <Toast.Gate name="toasts" />
         </Gateway>
     </div>
 ), document.getElementById('app'));

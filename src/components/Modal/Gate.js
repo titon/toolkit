@@ -23,19 +23,4 @@ export default class Gate extends BaseGate {
             'slide-in-bottom', 'slide-in-left', 'slide-in-right'
         ])
     };
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param {ReactElement[]} children
-     * @returns {ReactElement[]}
-     */
-    renderChildren(children) {
-        // TODO implement react-motion
-        return (
-            <div className={this.formatClass(this.props.animation)}>
-                {children}
-            </div>
-        );
-    }
 }

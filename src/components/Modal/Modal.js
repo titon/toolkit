@@ -28,7 +28,7 @@ export default class Modal extends Component {
         blackOut: true,
         close: <span className="x" />,
         closeClassName: ['modal', 'close'],
-        closeable: true,
+        dismissable: true,
         elementClassName: 'modal',
         fullScreen: false,
         innerClassName: ['modal', 'inner'],
@@ -42,7 +42,7 @@ export default class Modal extends Component {
         className: cssClass,
         close: PropTypes.node,
         closeClassName: cssClass.isRequired,
-        closeable: PropTypes.bool,
+        dismissable: PropTypes.bool,
         elementClassName: cssClass.isRequired,
         fullScreen: PropTypes.bool,
         gateName: PropTypes.string.isRequired,
@@ -90,11 +90,11 @@ export default class Modal extends Component {
      * and locking the scroll, based on the defined props.
      */
     componentWillMount() {
-        let { closeable, blackOut, stopScroll } = this.props;
+        let { dismissable, blackOut, stopScroll } = this.props;
 
         this.emitEvent('showing');
 
-        if (closeable) {
+        if (dismissable) {
             window.addEventListener('keydown', this.handleOnKeyDown);
         }
 
@@ -116,11 +116,11 @@ export default class Modal extends Component {
      * Reverse the logic that was initialized during mounting.
      */
     componentWillUnmount() {
-        let { closeable, blackOut, stopScroll } = this.props;
+        let { dismissable, blackOut, stopScroll } = this.props;
 
         this.emitEvent('hiding');
 
-        if (closeable) {
+        if (dismissable) {
             window.removeEventListener('keydown', this.handleOnKeyDown);
         }
 
@@ -140,7 +140,7 @@ export default class Modal extends Component {
      */
     @bind
     hideModal() {
-        this.context.warpOut(this.props.gateName, this._reactInternalInstance._currentElement);
+        this.context.warpOut(this.props.gateName, this.getInternalElement());
     }
 
     /**
@@ -195,7 +195,7 @@ export default class Modal extends Component {
                 aria-describedby={this.formatID('modal-content')}
                 aria-hidden={false}
                 aria-expanded={true}
-                onClick={props.closeable ? this.handleOnClickOut : null}
+                onClick={props.dismissable ? this.handleOnClickOut : null}
                 {...this.inheritNativeProps(props)}>
 
                 <div className={this.formatClass(props.outerClassName)}>
@@ -203,7 +203,7 @@ export default class Modal extends Component {
                         {props.children}
                     </div>
 
-                    {props.closeable && (
+                    {props.dismissable && (
                         <button
                             type="button" role="button"
                             className={this.formatClass(props.closeClassName)}
