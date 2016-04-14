@@ -11,6 +11,7 @@ import cssClass from '../../prop-types/cssClass';
 import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';
 import { defaultProps, propTypes } from './PropTypes';
+import '../../polyfills/Array.includes';
 
 export default class Input extends Component {
     static defaultProps = {
@@ -38,18 +39,18 @@ export default class Input extends Component {
 
         let defaultValue = props.defaultValue,
             defaultChecked = props.defaultChecked,
-            componentName = this.constructor.name.toLowerCase();
+            compName = this.constructor.name.toLowerCase();
 
         // Select
-        if (componentName === 'select') {
+        if (compName === 'select') {
             if (props.multiple) {
                 defaultValue = Array.isArray(defaultValue) ? defaultValue : [defaultValue];
             } else {
                 defaultValue = String(defaultValue);
             }
 
-        // Checkbox
-        } else if (componentName === 'checkbox' || props.type === 'checkbox') {
+        // Checkbox, Switch
+        } else if (compName === 'switch' || compName === 'checkbox' || props.type === 'checkbox') {
             if (props.multiple) {
                 invariant(defaultValue,
                     'A default value is required when using `multiple` checkboxes.');
@@ -58,7 +59,7 @@ export default class Input extends Component {
             }
 
         // Radio
-        } else if (componentName === 'radio' || props.type === 'radio') {
+        } else if (compName === 'radio' || props.type === 'radio') {
             invariant(defaultValue, 'A default value is required when using radios.');
 
             if (typeof defaultChecked === 'string') {
@@ -68,7 +69,7 @@ export default class Input extends Component {
 
         this.state = {
             checked: Boolean(defaultChecked),
-            type: (componentName === 'input') ? props.type : componentName,
+            type: (compName === 'input') ? props.type : compName,
             value: defaultValue
         };
     }
@@ -153,6 +154,7 @@ export default class Input extends Component {
             // Add specific props and append a value to the ID
             case 'checkbox':
             case 'radio':
+            case 'switch':
                 inputProps.type = state.type;
                 inputProps.checked = state.checked;
                 inputProps.multiple = props.multiple;
@@ -202,7 +204,7 @@ export default class Input extends Component {
      * @returns {Boolean}
      */
     isChoiceType() {
-        return (this.state.type === 'checkbox' || this.state.type === 'radio');
+        return ['checkbox', 'radio', 'switch'].includes(this.state.type);
     }
 
     /**

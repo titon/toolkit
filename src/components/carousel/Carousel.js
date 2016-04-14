@@ -55,7 +55,6 @@ export default class Carousel extends Component {
         index: 0,
         stopped: true
     };
-    timer = null;
 
     /**
      * Define a context that is passed to all children.

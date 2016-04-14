@@ -23,14 +23,14 @@ export default class Component extends React.Component {
         uid: PropTypes.string
     };
 
-    state = {};
-    version = '3.0.0';
-
     /**
      * Generate a UID for all components.
      */
     constructor() {
         super();
+
+        this.state = {};
+        this.version = '3.0.0';
 
         this.generateUID();
     }

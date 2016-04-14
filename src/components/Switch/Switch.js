@@ -5,59 +5,29 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import bind from '../../decorators/bind';
+import Input from '../Input/Input';
 import cssClass from '../../prop-types/cssClass';
+import { defaultProps, propTypes } from '../Input/PropTypes';
 
-export default class Switch extends Component {
+export default class Switch extends Input {
     static defaultProps = {
+        ...defaultProps,
         barClassName: ['switch', 'bar'],
-        defaultChecked: false,
-        disabled: false,
         elementClassName: 'switch',
-        required: false,
         stacked: false,
         toggleClassName: ['switch', 'toggle']
     };
 
     static propTypes = {
+        ...propTypes,
         barClassName: cssClass.isRequired,
         className: cssClass,
-        defaultChecked: PropTypes.bool,
-        defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        disabled: PropTypes.bool,
         elementClassName: cssClass.isRequired,
         labelOff: PropTypes.string,
         labelOn: PropTypes.string,
-        name: PropTypes.string.isRequired,
-        required: PropTypes.bool,
         stacked: PropTypes.bool,
         toggleClassName: cssClass.isRequired
     };
-
-    /**
-     * Validate props.
-     *
-     * @param {Object} props
-     */
-    constructor(props) {
-        super();
-
-        this.state = {
-            checked: props.defaultChecked,
-            value: props.defaultValue || 1
-        };
-    }
-
-    /**
-     * Handler that toggles the checked state when the toggle is clicked.
-     */
-    @bind
-    handleOnChange() {
-        this.setState({
-            checked: !this.state.checked
-        });
-    }
 
     /**
      * Render the custom switch using a checkbox.
@@ -66,35 +36,25 @@ export default class Switch extends Component {
      */
     render() {
         let props = this.props,
-            state = this.state,
-            name = props.name;
+            inputProps = this.gatherProps(false),
+            stateClasses = this.gatherStateClasses();
+
+        // Force back to a checkbox
+        inputProps.type = 'checkbox';
 
         return (
             <span
-                id={this.formatID('switch', name)}
-                className={this.formatClass(props.elementClassName, props.className, {
-                    '@stacked': props.stacked,
-                    'is-checked': state.checked,
-                    'is-disabled': props.disabled,
-                    'is-required': props.required
-                })}
-                aria-checked={state.checked}
+                id={this.formatID('switch', inputProps.id)}
+                className={this.formatClass(props.elementClassName, props.className, stateClasses)}
+                aria-checked={this.state.checked}
                 aria-disabled={props.disabled}
                 {...this.inheritNativeProps(props)}>
 
-                <input
-                    id={name}
-                    name={name}
-                    type="checkbox"
-                    value={state.value}
-                    checked={state.checked}
-                    disabled={props.disabled}
-                    required={props.required}
-                    onChange={this.handleOnChange} />
+                <input {...inputProps} />
 
                 <label
-                    htmlFor={name}
-                    className={this.formatClass(props.barClassName)}
+                    htmlFor={inputProps.id}
+                    className={this.formatClass(props.barClassName, stateClasses)}
                     data-switch-on={props.labelOn}
                     data-switch-off={props.labelOff}>
 
