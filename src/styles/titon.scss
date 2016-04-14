@@ -34,7 +34,6 @@ $titon-settings-flags: (
     "small-size": true,
     "large-size": true,
     // Temporarily enabled for dev
-    "all-effects": true,
     "all-modifiers": true,
     "all-animations": true,
     "all-modules": true,
@@ -95,17 +94,7 @@ $titon-settings-theme: (
     "medium-padding": .75rem,
     "large-font-size": 1.3rem,
     "large-padding": 1rem,
-
-    // Border radius
     "round-radius": .2rem,
-    "pill-radius": 2rem,
-    "oval-radius": unquote("7rem / 2.75rem"),
-    "oval-x-radius": 7rem,
-    "oval-y-radius": 2.75rem,
-    "skew-radius": 1rem 3rem,
-    "skew-reverse-radius": 3rem 1rem,
-    "skew-x-radius": 1rem,
-    "skew-y-radius": 3rem,
 ) !default;
 
 /**
@@ -140,11 +129,11 @@ $titon-settings-zindex: (
  */
 
 $titon-settings-breakpoints: (
-    "xsmall": (null, 640px),
-    "small": (641px, 960px),
-    "medium": (961px, 1280px),
-    "large": (1281px, 1680px),
-    "xlarge": (1681px, null),
+    "xs": (null, 640px),
+    "sm": (641px, 960px),
+    "md": (961px, 1280px),
+    "lg": (1281px, 1680px),
+    "xl": (1681px, null),
 ) !default;
 
 //------------------------------ Components ------------------------------//
@@ -233,12 +222,6 @@ $titon-flex: (
     "width": 100%,
     "gutter": false,
     "grid-gutter": 1rem,
-    "sizes": (
-        "xsmall": (6, breakpoint-setting("xsmall", 1), breakpoint-setting("xsmall", 2)),
-        "small": (12, breakpoint-setting("small", 1), breakpoint-setting("small", 2)),
-        "medium": (12, breakpoint-setting("medium", 1), breakpoint-setting("medium", 2)),
-        "large": (12, breakpoint-setting("large", 1), null), // Leave open ended
-    )
 ) !default;
 
 $titon-flyout: (
@@ -264,12 +247,6 @@ $titon-grid: (
     "width": 100%,
     "gutter": false,
     "push-pull": true,
-    "sizes": (
-        "xsmall": (6, breakpoint-setting("xsmall", 1), breakpoint-setting("xsmall", 2)),
-        "small": (12, breakpoint-setting("small", 1), breakpoint-setting("small", 2)),
-        "medium": (12, breakpoint-setting("medium", 1), breakpoint-setting("medium", 2)),
-        "large": (12, breakpoint-setting("large", 1), null), // Leave open ended
-    )
 ) !default;
 
 $titon-input: (
@@ -281,7 +258,6 @@ $titon-input: (
 $titon-input-group: (
     "class": bem("input-group"),
     "class-addon": bem("input-group", "addon"),
-    "effects": ("round") // round
 ) !default;
 
 $titon-label: (

@@ -4,10 +4,22 @@
  * @link        http://titon.io
  */
 
+/* eslint sorting/sort-object-props: 0 */
+
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import cssClass from '../../prop-types/cssClass';
 import range from '../../prop-types/range';
+
+const SPAN_CLASSES = {
+    self: 'self',
+    span: 'span',
+    xsmall: 'xs',
+    small: 'sm',
+    medium: 'md',
+    large: 'lg',
+    xlarge: 'xl'
+};
 
 export default class Block extends Component {
     static defaultProps = {
@@ -42,11 +54,11 @@ export default class Block extends Component {
             grow = props.grow,
             classes = {};
 
-        ['self', 'span', 'xsmall', 'small', 'medium', 'large', 'xlarge'].forEach(size => {
-            let span = props[size];
+        Object.keys(SPAN_CLASSES).forEach(key => {
+            let span = props[key];
 
             if (span) {
-                classes[size + '-' + span] = true;
+                classes[SPAN_CLASSES[key] + '-' + span] = true;
             }
         });
 

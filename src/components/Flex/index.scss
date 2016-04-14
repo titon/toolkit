@@ -8,6 +8,12 @@
     $titon-temp-flex-modifiers: map-get($titon-flex, "modifiers");
     $titon-temp-flex-width: map-get($titon-flex, "width");
     $titon-temp-flex-grid-gutter: map-get($titon-flex, "grid-gutter");
+    $titon-temp-flex-sizes: (
+        "xs": (6, breakpoint-setting("xs", 1), breakpoint-setting("xs", 2)),
+        "sm": (12, breakpoint-setting("sm", 1), breakpoint-setting("sm", 2)),
+        "md": (12, breakpoint-setting("md", 1), breakpoint-setting("md", 2)),
+        "lg": (12, breakpoint-setting("lg", 1), null), // Leave open ended
+    );
 
     #{map-get($titon-flex, "class-region")} {
         @include flex-region($titon-temp-flex-width);
@@ -42,7 +48,7 @@
     }
 
     // Responsive sizes
-    @each $size, $options in map-get($titon-flex, "sizes") {
+    @each $size, $options in $titon-temp-flex-sizes {
         $size-columns: nth($options, 1);
 
         @include in-range( (nth($options, 2), nth($options, 3)) ) {

@@ -257,7 +257,7 @@ const dropMarkup = (
 
 const flexMarkup = (
     <div style={{ width: '100%' }}>
-        <Region flow="center" orientation="vertical">
+        <Region flow="center">
             <Block shrink={1} grow={0}>
                 1<br />
                 Grow: 0<br />
@@ -756,7 +756,7 @@ const toastMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {switchMarkup}
+            {flexMarkup}
 
             <Modal.Gate name="modals" />
             <Toast.Gate name="toasts" />

@@ -11,6 +11,27 @@ import Component from '../../Component';
 import cssClass from '../../prop-types/cssClass';
 import range from '../../prop-types/range';
 
+const SPAN_CLASSES = {
+    span: 'span',
+    push: 'push',
+    pull: 'pull',
+    xsmall: 'xs',
+    xsmallPush: 'xs-push',
+    xsmallPull: 'xs-pull',
+    small: 'sm',
+    smallPush: 'sm-push',
+    smallPull: 'sm-pull',
+    medium: 'md',
+    mediumPush: 'md-push',
+    mediumPull: 'md-pull',
+    large: 'lg',
+    largePush: 'lg-push',
+    largePull: 'lg-pull',
+    xlarge: 'xl',
+    xlargePush: 'xl-push',
+    xlargePull: 'xl-pull'
+};
+
 export default class Col extends Component {
     static defaultProps = {
         elementClassName: 'col'
@@ -52,19 +73,18 @@ export default class Col extends Component {
         let props = this.props,
             classes = {};
 
-        Object.keys(Col.propTypes).forEach(key => {
+        Object.keys(SPAN_CLASSES).forEach(key => {
             let span = props[key];
 
             if (span) {
-                // Must be last on `classes`
-                if (key === 'end') {
-                    classes.end = true;
-
-                } else if (!key.match(/children|className/i)) {
-                    classes[key.replace('P', '-p') + '-' + span] = true;
-                }
+                classes[SPAN_CLASSES[key] + '-' + span] = true;
             }
         });
+
+        // End needs to be last to override any styles
+        if (props.end) {
+            classes.end = true;
+        }
 
         return (
             <div

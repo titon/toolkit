@@ -7,6 +7,12 @@
 @include export("grid") {
     $titon-temp-grid-width: map-get($titon-grid, "width");
     $titon-temp-grid-gutter: map-get($titon-grid, "gutter");
+    $titon-temp-grid-sizes: (
+        "xs": (6, breakpoint-setting("xs", 1), breakpoint-setting("xs", 2)),
+        "sm": (12, breakpoint-setting("sm", 1), breakpoint-setting("sm", 2)),
+        "md": (12, breakpoint-setting("md", 1), breakpoint-setting("md", 2)),
+        "lg": (12, breakpoint-setting("lg", 1), null), // Leave open ended
+    );
 
     // Row wrapper
     #{map-get($titon-grid, "class-row")} {
@@ -34,7 +40,7 @@
     }
 
     // Responsive sizes
-    @each $size, $options in map-get($titon-grid, "sizes") {
+    @each $size, $options in $titon-temp-grid-sizes {
         $size-columns: nth($options, 1);
 
         @include in-range( (nth($options, 2), nth($options, 3)) ) {

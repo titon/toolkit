@@ -41,6 +41,7 @@ export default class Region extends Component {
                     ['@' + props.orientation]: Boolean(props.orientation),
                     ['flow-' + props.flow]: Boolean(props.flow)
                 })}
+                aria-orientation={props.orientation}
                 {...this.inheritNativeProps(props)}>
 
                 {props.children}

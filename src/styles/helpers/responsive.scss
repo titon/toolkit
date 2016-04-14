@@ -69,7 +69,7 @@
  * Maximum width cascading media query for the xsmall breakpoint.
  */
 @mixin if-xsmall() {
-    @include if-max(breakpoint-setting("xsmall", 2)) {
+    @include if-max(breakpoint-setting("xs", 2)) {
         @content;
     }
 }
@@ -78,7 +78,7 @@
  * Minimum width cascading media query for the small breakpoint.
  */
 @mixin if-small() {
-    @include if-min(breakpoint-setting("small", 1)) {
+    @include if-min(breakpoint-setting("sm", 1)) {
         @content;
     }
 }
@@ -87,7 +87,7 @@
  * Minimum width cascading media query for the medium breakpoint.
  */
 @mixin if-medium() {
-    @include if-min(breakpoint-setting("medium", 1)) {
+    @include if-min(breakpoint-setting("md", 1)) {
         @content;
     }
 }
@@ -96,7 +96,7 @@
  * Minimum width cascading media query for the large breakpoint.
  */
 @mixin if-large() {
-    @include if-min(breakpoint-setting("large", 1)) {
+    @include if-min(breakpoint-setting("lg", 1)) {
         @content;
     }
 }
@@ -105,7 +105,7 @@
  * Minimum width cascading media query for the xlarge breakpoint.
  */
 @mixin if-xlarge() {
-    @include if-min(breakpoint-setting("xlarge", 1)) {
+    @include if-min(breakpoint-setting("xl", 1)) {
         @content;
     }
 }
@@ -144,7 +144,7 @@
  * A media query block that includes styles between a range of two xsmall breakpoints.
  */
 @mixin in-xsmall {
-    @include in-range(breakpoint-setting("xsmall")) {
+    @include in-range(breakpoint-setting("xs")) {
         @content;
     }
 }
@@ -153,7 +153,7 @@
  * A media query block that includes styles between a range of two small breakpoints.
  */
 @mixin in-small {
-    @include in-range(breakpoint-setting("small")) {
+    @include in-range(breakpoint-setting("sm")) {
         @content;
     }
 }
@@ -162,7 +162,7 @@
  * A media query block that includes styles between a range of two medium breakpoints.
  */
 @mixin in-medium {
-    @include in-range(breakpoint-setting("medium")) {
+    @include in-range(breakpoint-setting("md")) {
         @content;
     }
 }
@@ -171,7 +171,7 @@
  * A media query block that includes styles between a range of two large breakpoints.
  */
 @mixin in-large {
-    @include in-range(breakpoint-setting("large")) {
+    @include in-range(breakpoint-setting("lg")) {
         @content;
     }
 }
@@ -180,7 +180,7 @@
  * A media query block that includes styles between a range of two xlarge breakpoints.
  */
 @mixin in-xlarge {
-    @include in-range(breakpoint-setting("xlarge")) {
+    @include in-range(breakpoint-setting("xl")) {
         @content;
     }
 }
