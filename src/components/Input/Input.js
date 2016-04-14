@@ -23,7 +23,8 @@ export default class Input extends Component {
         ...propTypes,
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        size: PropTypes.oneOf(['small', 'large']),
+        large: PropTypes.bool,
+        small: PropTypes.bool,
         type: PropTypes.string
     };
 
@@ -141,7 +142,8 @@ export default class Input extends Component {
             inputProps = {
                 ...inputProps,
                 className: this.formatClass(props.elementClassName, props.className, {
-                    ['@' + props.size]: Boolean(props.size),
+                    '@large': Boolean(props.large),
+                    '@small': Boolean(props.small),
                     ['@' + state.type]: true,
                     ...this.gatherStateClasses()
                 }),

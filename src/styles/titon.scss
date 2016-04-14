@@ -150,13 +150,9 @@ $titon-settings-breakpoints: (
 //------------------------------ Components ------------------------------//
 
 $titon-global: (
-    "class-small": ".small",
-    "class-large": ".large",
-    "class-round": ".round",
-    "class-oval": ".oval",
-    "class-pill": ".pill",
-    "class-skew": ".skew",
-    "class-end": ".end",
+    "class-small-modifier": "small",
+    "class-large-modifier": "large",
+    "class-end": bem("end"),
     "class-transition": bem("transition"),
     "span-count": 12
 ) !default;

@@ -18,7 +18,8 @@ export default class Choice extends Component {
         className: cssClass,
         elementClassName: cssClass.isRequired,
         inputID: PropTypes.string.isRequired,
-        size: PropTypes.oneOf(['small', 'large'])
+        large: PropTypes.bool,
+        small: PropTypes.bool,
     };
 
     /**
@@ -33,7 +34,8 @@ export default class Choice extends Component {
             <label
                 htmlFor={props.inputID}
                 className={this.formatClass(props.elementClassName, props.className, {
-                    ['@' + props.size]: Boolean(props.size)
+                    '@large': Boolean(props.large),
+                    '@small': Boolean(props.small)
                 })}
                 {...this.inheritNativeProps(props)}>
 

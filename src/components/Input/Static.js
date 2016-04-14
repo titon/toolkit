@@ -17,7 +17,8 @@ export default class Static extends Component {
         children: PropTypes.node,
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        size: PropTypes.oneOf(['small', 'large'])
+        large: PropTypes.bool,
+        small: PropTypes.bool,
     };
 
     /**
@@ -31,7 +32,8 @@ export default class Static extends Component {
         return (
             <span
                 className={this.formatClass(props.elementClassName, props.className, {
-                    ['@' + props.size]: Boolean(props.size)
+                    '@large': Boolean(props.large),
+                    '@small': Boolean(props.small)
                 })}
                 {...this.inheritNativeProps(props)}>
 

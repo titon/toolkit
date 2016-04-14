@@ -428,6 +428,13 @@ const inputMarkup = (
 
         <br />
 
+        <Input name="small" small />
+        <Input name="large" large />
+        <Input.Static small />
+        <Input.Static large />
+        <Input.Choice small />
+        <Input.Choice large />
+
         <Submit>Submit</Submit>
     </form>
 );
@@ -467,8 +474,10 @@ const labelMarkup = (
 
         <Label arrow="left">Bar</Label>
         <Label arrow="right">Bar</Label>
+        <Label arrow="right" small>Bar</Label>
         <Label ribbon="left">Bar</Label>
         <Label ribbon="right">Bar</Label>
+        <Label ribbon="right" large>Bar</Label>
 
         <br />
 
@@ -747,7 +756,7 @@ const toastMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {toastMarkup}
+            {labelMarkup}
 
             <Modal.Gate name="modals" />
             <Toast.Gate name="toasts" />

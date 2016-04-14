@@ -61,50 +61,24 @@ $titon-internal-modules-exported: () !global;
 }
 
 /**
- * Generate a self selector or parent selector for assigning size classes
-
- * @param bool [$self] - Apply to self
- * @param bool [$parent] - Apply to parent
- */
-@mixin is-size($size, $self: true, $parent: false) {
-    $selectors: ();
-
-    @if $self {
-        $selectors: append($selectors, unquote("&" + $size), "comma");
-    }
-
-    @if $parent {
-        $selectors: append($selectors, unquote($size + " &"), "comma");
-    }
-
-    #{$selectors} {
-        @content;
-    }
-}
-
-/**
- * Include content for the small size if enabled in the feature flags.
+ * Include content for the small modifier size if enabled in the feature flags.
  *
- * @param bool [$self] - Apply to self
- * @param bool [$parent] - Apply to parent
+ * @param string $component
  */
-@mixin is-size-small($self: true, $parent: false) {
+@mixin generate-size-small($component: "") {
     @if is-feature-enabled("small-size") {
-        @include is-size(map-get($titon-global, "class-small"), $self, $parent) {
+        #{bem($component, "", map-get($titon-global, "class-small-modifier"))} {
             @content;
         }
     }
 }
 
 /**
- * Include content for the large size if enabled in the feature flags.
- *
- * @param bool [$self] - Apply to self
- * @param bool [$parent] - Apply to parent
+ * Include content for the large modifier size if enabled in the feature flags.
  */
-@mixin is-size-large($self: true, $parent: false) {
+@mixin generate-size-large($component: "") {
     @if is-feature-enabled("large-size") {
-        @include is-size(map-get($titon-global, "class-large"), $self, $parent) {
+        #{bem($component, "", map-get($titon-global, "class-large-modifier"))} {
             @content;
         }
     }
