@@ -18,6 +18,7 @@ export default class Image extends LazyLoad {
 
     static propTypes = {
         ...LazyLoad.propTypes,
+        alt: PropTypes.string,
         cacheBust: PropTypes.bool,
         className: cssClass,
         elementClassName: cssClass.isRequired,
@@ -65,8 +66,8 @@ export default class Image extends LazyLoad {
 
         return (
             <img
-                alt=""
                 ref="element"
+                alt={props.alt || ''}
                 src={this.getSourcePath()}
                 className={this.formatClass(props.elementClassName, props.className, {
                     'is-loaded': this.state.loaded,

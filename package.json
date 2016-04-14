@@ -1,80 +1,87 @@
 {
-    "version": "2.1.7",
-    "name": "titon-toolkit",
-    "description": "A collection of extensible front-end UI components and behaviors for the responsive and mobile web.",
-    "keywords": [
-        "titon", "toolkit", "css", "sass", "scss", "jquery", "javascript", "ui", "interface",
-        "framework", "bootstrap", "modular", "component", "responsive", "fluid", "mobile", "behavior"
-    ],
-    "copyright": "Copyright 2010-2015, The Titon Project",
-    "license": "BSD-3-Clause",
-    "homepage": "http://titon.io",
-    "author": {
-        "name": "Miles Johnson",
-        "url": "http://milesj.me"
-    },
-    "bugs": "https://github.com/titon/toolkit/issues",
-    "repository": "github:titon/toolkit",
-
-    "scripts": {
-        "env": "env",
-
-        "js": "browserify -t [ babelify --presets [ es2015 react stage-1 ] --plugins [ transform-decorators-legacy ] ] -t [ envify --NODE_ENV development ] ./src/testing/app.js > ./build/titon.js",
-        "js:lint": "eslint --config ./.eslint.json --ignore-path ./.eslintignore ./src --",
-        "js:watch": "watchify ./src/testing/app.js -o ./build/titon.js -t [ babelify --presets [ es2015 react stage-1 ] --plugins [ transform-decorators-legacy ] ] -t [ envify --NODE_ENV development ]",
-
-        "css": "node-sass --indent-width 4 --output-style expanded --source-map ./build --importer ./build/tasks/import-scss-index.js ./src/testing/style.scss ./build/titon.css",
-        "css:lint": "sass-lint --config ./.scsslint.yml",
-        "css:watch": "",
-        "css:prefix": "postcss --use autoprefixer --config ./.postcss.json --output ./build/titon.css ./build/titon.css",
-
-        "build": "npm run build:js && npm run build:css",
-        "build:js": "npm run js",
-        "build:css": "npm run css && npm run css:prefix",
-
-        "test": "karma start ./.karma.js",
-        "lint": "npm run js:lint && npm run css:lint",
-        "watch": "npm run js:watch && npm run css:watch",
-        "publish": "babel --presets es2015,react,stage-1 --out-dir ./dist ./src"
-    },
-
-    "dependencies": {
-        "react": "^15.0",
-        "react-dom": "^15.0",
-        "lodash": "^4.9"
-    },
-    "devDependencies": {
-        "directory-tree": "^0.1",
-
-        "node-sass": "^3.4",
-        "sass-lint": "^1.5",
-        "autoprefixer": "^6.3",
-        "postcss-cli": "^2.5",
-
-        "react-addons-test-utils": "^15.0",
-        "eslint": "^2.4",
-        "eslint-plugin-react": "^4.3",
-        "eslint-plugin-sorting": "^0.0",
-        "babel-eslint": "^6.0",
-        "babel-core": "^6.7",
-        "babel-cli": "^6.7",
-        "babel-preset-es2015": "*",
-        "babel-preset-react": "*",
-        "babel-preset-stage-1": "*",
-        "babel-plugin-transform-decorators-legacy": "*",
-
-        "karma": "^0.13",
-        "karma-jasmine": "^0.3",
-        "karma-ie-launcher": "*",
-        "karma-safari-launcher": "*",
-        "karma-chrome-launcher": "*",
-        "karma-firefox-launcher": "*",
-        "karma-browserify": "^5.0",
-        "jasmine-core": "^2.4",
-        "enzyme": "^2.2",
-        "browserify": "^13.0",
-        "babelify": "^7.2",
-        "watchify": "^3.7",
-        "envify": "^3.4"
-    }
+  "version": "2.1.7",
+  "name": "titon-toolkit",
+  "description": "A collection of extensible front-end UI components and behaviors for the responsive and mobile web.",
+  "keywords": [
+    "titon",
+    "toolkit",
+    "css",
+    "sass",
+    "scss",
+    "jquery",
+    "javascript",
+    "ui",
+    "interface",
+    "framework",
+    "bootstrap",
+    "modular",
+    "component",
+    "responsive",
+    "fluid",
+    "mobile",
+    "behavior"
+  ],
+  "copyright": "Copyright 2010-2015, The Titon Project",
+  "license": "BSD-3-Clause",
+  "homepage": "http://titon.io",
+  "author": {
+    "name": "Miles Johnson",
+    "url": "http://milesj.me"
+  },
+  "bugs": "https://github.com/titon/toolkit/issues",
+  "repository": "github:titon/toolkit",
+  "scripts": {
+    "env": "env",
+    "js": "browserify -t [ babelify --presets [ es2015 react stage-1 ] --plugins [ transform-decorators-legacy ] ] -t [ envify --NODE_ENV development ] ./src/testing/app.js > ./build/titon.js",
+    "js:lint": "eslint --config ./.eslint.json --ignore-path ./.eslintignore ./src --",
+    "js:watch": "watchify ./src/testing/app.js -o ./build/titon.js -t [ babelify --presets [ es2015 react stage-1 ] --plugins [ transform-decorators-legacy ] ] -t [ envify --NODE_ENV development ]",
+    "css": "node-sass --indent-width 4 --output-style expanded --source-map ./build --importer ./build/tasks/import-scss-index.js ./src/testing/style.scss ./build/titon.css",
+    "css:lint": "sass-lint --config ./.scsslint.yml",
+    "css:watch": "",
+    "css:prefix": "postcss --use autoprefixer --config ./.postcss.json --output ./build/titon.css ./build/titon.css",
+    "build": "npm run build:js && npm run build:css",
+    "build:js": "npm run js",
+    "build:css": "npm run css && npm run css:prefix",
+    "test": "karma start ./.karma.js",
+    "lint": "npm run js:lint && npm run css:lint",
+    "watch": "npm run js:watch && npm run css:watch",
+    "publish": "babel --presets es2015,react,stage-1 --out-dir ./dist ./src"
+  },
+  "dependencies": {
+    "react": "^15.0",
+    "react-dom": "^15.0",
+    "lodash": "^4.11"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.3",
+    "babel-cli": "^6.7",
+    "babel-core": "^6.7",
+    "babel-eslint": "^6.0",
+    "babel-plugin-transform-decorators-legacy": "*",
+    "babel-preset-es2015": "*",
+    "babel-preset-react": "*",
+    "babel-preset-stage-1": "*",
+    "babelify": "^7.2",
+    "browserify": "^13.0",
+    "directory-tree": "^0.1",
+    "envify": "^3.4",
+    "enzyme": "^2.2",
+    "eslint": "^2.4",
+    "eslint-plugin-jsx-a11y": "^0.6",
+    "eslint-plugin-react": "^4.3",
+    "eslint-plugin-sorting": "^0.0",
+    "jasmine-core": "^2.4",
+    "karma": "^0.13",
+    "karma-browserify": "^5.0",
+    "karma-chrome-launcher": "*",
+    "karma-firefox-launcher": "*",
+    "karma-ie-launcher": "*",
+    "karma-jasmine": "^0.3",
+    "karma-safari-launcher": "*",
+    "node-sass": "^3.4",
+    "postcss-cli": "^2.5",
+    "react-addons-test-utils": "^15.0",
+    "sass-lint": "^1.5",
+    "watchify": "^3.7"
+  }
 }

@@ -432,8 +432,8 @@ const inputMarkup = (
         <Input name="large" large />
         <Input.Static small />
         <Input.Static large />
-        <Input.Choice small />
-        <Input.Choice large />
+        <Input.Choice inputID="small" small />
+        <Input.Choice inputID="large" large />
 
         <Submit>Submit</Submit>
     </form>
@@ -756,7 +756,7 @@ const toastMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {labelMarkup}
+            {switchMarkup}
 
             <Modal.Gate name="modals" />
             <Toast.Gate name="toasts" />

@@ -2,7 +2,7 @@
     "root": true,
     "parser": "babel-eslint",
     "extends": "eslint:recommended",
-    "plugins": ["react", "sorting"],
+    "plugins": ["react", "sorting", "jsx-a11y"],
     "parserOptions": {
         "ecmaVersion": 7,
         "ecmaFeatures": {
@@ -253,6 +253,17 @@
         }],
         "react/sort-prop-types": 0,
         "react/wrap-multilines": 2,
+
+        // Accessibility
+        "jsx-a11y/img-uses-alt": 2,
+        "jsx-a11y/onclick-uses-role": 2,
+        "jsx-a11y/mouse-events-map-to-key-events": 2,
+        "jsx-a11y/use-onblur-not-onchange": 0,
+        "jsx-a11y/no-access-key": 2,
+        "jsx-a11y/label-uses-for": 2,
+        "jsx-a11y/redundant-alt": 2,
+        "jsx-a11y/no-hash-href": 2,
+        "jsx-a11y/valid-aria-role": 2,
 
         // Plugins
         "sorting/sort-object-props": [1, { "ignoreCase": false, "ignoreMethods": false }]

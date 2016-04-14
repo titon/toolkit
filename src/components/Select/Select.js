@@ -368,6 +368,7 @@ export default class Select extends InputSelect {
                 </select>
 
                 <div
+                    role="button"
                     className={this.formatClass(props.toggleClassName, stateClasses)}
                     onClick={this.handleOnClickLabel}
                     aria-controls={native ? null : this.formatID('select-toggle', inputProps.id)}

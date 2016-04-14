@@ -96,6 +96,7 @@ export default class Overlay extends Component {
 
         return (
             <div
+                role="presentation"
                 id={this.formatID('mask-overlay')}
                 className={this.formatClass(props.elementClassName, props.className, {
                     'is-collapsible': props.collapsible,
