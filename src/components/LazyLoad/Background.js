@@ -10,13 +10,13 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Background extends LazyLoad {
     static defaultProps = {
-        elementClassName: ['lazy-load', 'bg'],
-        ...LazyLoad.defaultProps
+        ...LazyLoad.defaultProps,
+        elementClassName: ['lazy-load', 'bg']
     };
 
     static propTypes = {
-        elementClassName: cssClass.isRequired,
-        ...LazyLoad.propTypes
+        ...LazyLoad.propTypes,
+        elementClassName: cssClass.isRequired
     };
 
     /**

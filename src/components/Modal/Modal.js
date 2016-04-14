@@ -186,6 +186,7 @@ export default class Modal extends Component {
                 role="dialog"
                 id={this.formatID('modal')}
                 className={this.formatClass(props.elementClassName, props.className, {
+                    'is-dismissable': props.dismissable,
                     'is-expanded': true,
                     'is-fullscreen': props.fullScreen
                 })}

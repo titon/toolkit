@@ -6,18 +6,18 @@
 
 import React, { PropTypes } from 'react';
 import Modal from './Modal';
-import { default as BaseGate } from '../Gateway/Gate';
+import Gate from '../Gateway/Gate';
 
-export default class Gate extends BaseGate {
+export default class ModalGate extends Gate {
     static defaultProps = {
-        ...BaseGate.defaultProps,
+        ...Gate.defaultProps,
         animation: 'fade',
         contract: Modal,
         gateClassName: ['modal', 'gate']
     };
 
     static propTypes = {
-        ...BaseGate.propTypes,
+        ...Gate.propTypes,
         animation: PropTypes.oneOf([
             'fade', 'from-above', 'from-below', 'slide-in-top',
             'slide-in-bottom', 'slide-in-left', 'slide-in-right'

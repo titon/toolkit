@@ -12,7 +12,6 @@ import { RETINA } from '../../flags';
 export default class Image extends LazyLoad {
     static defaultProps = {
         ...LazyLoad.defaultProps,
-        cacheBust: false,
         elementClassName: ['lazy-load', 'image']
     };
 

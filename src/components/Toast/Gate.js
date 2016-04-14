@@ -6,11 +6,11 @@
 
 import React, { PropTypes } from 'react';
 import Toast from './Toast';
-import { default as BaseGate } from '../Gateway/Gate';
+import Gate from '../Gateway/Gate';
 
-export default class Gate extends BaseGate {
+export default class ToastGate extends Gate {
     static defaultProps = {
-        ...BaseGate.defaultProps,
+        ...Gate.defaultProps,
         animation: 'fade',
         contract: Toast,
         gateClassName: ['toast', 'gate'],
@@ -18,7 +18,7 @@ export default class Gate extends BaseGate {
     };
 
     static propTypes = {
-        ...BaseGate.propTypes,
+        ...Gate.propTypes,
         animation: PropTypes.oneOf([
             'fade', 'slide-up', 'slide-down', 'slide-left', 'slide-right'
         ]),

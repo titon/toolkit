@@ -72,7 +72,9 @@ export default class Toast extends Component {
         return (
             <div
                 role="note"
-                className={this.formatClass(props.elementClassName, props.className)}
+                className={this.formatClass(props.elementClassName, props.className, {
+                    'is-dismissable': props.dismissable
+                })}
                 onClick={props.dismissable ? this.hideToast : null}>
 
                 {props.children}
