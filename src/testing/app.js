@@ -29,6 +29,7 @@ import Radio from '../components/Radio';
 import Select from '../components/Select';
 import Steps from '../components/Steps';
 import Switch from '../components/Switch';
+import Table from '../components/Table';
 import Tabs from '../components/Tabs';
 import Toast from '../components/Toast';
 
@@ -743,6 +744,74 @@ const switchMarkup = (
     </div>
 );
 
+const tableMarkup = (
+    <div>
+        <Table>
+            <thead>
+                <tr>
+                    <th>Col 1</th>
+                    <th>Col 2</th>
+                    <th>Col 3</th>
+                    <th>Col 4</th>
+                    <th>Col 5</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                    <td>Sed imperdiet nisi in lectus euismod cursus.</td>
+                    <td>Nulla facilisi. Nullam gravida eget nunc vel volutpat.</td>
+                    <td>Ut interdum dapibus lacus sed volutpat.</td>
+                    <td>Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh..</td>
+                </tr>
+            </tbody>
+        </Table>
+
+        <Table striped hoverable sortable>
+            <thead>
+                <tr>
+                    <th>Col 1</th>
+                    <th>Col 2</th>
+                    <th>Col 3</th>
+                    <th>Col 4</th>
+                    <th>Col 5</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                    <td>Sed imperdiet nisi in lectus euismod cursus.</td>
+                    <td>Nulla facilisi. Nullam gravida eget nunc vel volutpat.</td>
+                    <td>Ut interdum dapibus lacus sed volutpat.</td>
+                    <td>Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh..</td>
+                </tr>
+                <tr>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                    <td>Sed imperdiet nisi in lectus euismod cursus.</td>
+                    <td>Nulla facilisi. Nullam gravida eget nunc vel volutpat.</td>
+                    <td>Ut interdum dapibus lacus sed volutpat.</td>
+                    <td>Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh..</td>
+                </tr>
+                <Table.Divider colSpan={5}>Divider</Table.Divider>
+                <tr>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                    <td>Sed imperdiet nisi in lectus euismod cursus.</td>
+                    <td>Nulla facilisi. Nullam gravida eget nunc vel volutpat.</td>
+                    <td>Ut interdum dapibus lacus sed volutpat.</td>
+                    <td>Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh..</td>
+                </tr>
+                <tr>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                    <td>Sed imperdiet nisi in lectus euismod cursus.</td>
+                    <td>Nulla facilisi. Nullam gravida eget nunc vel volutpat.</td>
+                    <td>Ut interdum dapibus lacus sed volutpat.</td>
+                    <td>Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh..</td>
+                </tr>
+            </tbody>
+        </Table>
+    </div>
+);
+
 const tabsMarkup = (
     <Tabs uid="a" persistState={true} useCookie={false} collapsible={true} fragments={[
         { hash: 'foo', index: 0 },
@@ -794,7 +863,7 @@ const toastMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {noticeMarkup}
+            {tableMarkup}
 
             <Modal.Gate name="modals" />
             <Toast.Gate name="toasts" />
