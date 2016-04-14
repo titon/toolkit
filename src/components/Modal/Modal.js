@@ -13,7 +13,6 @@ import Foot from './Foot';
 import bind from '../../decorators/bind';
 import children from '../../prop-types/children';
 import cssClass from '../../prop-types/cssClass';
-import collection from '../../prop-types/collection';
 import invariant from '../../utility/invariant';
 import CONTEXT_TYPES from './ContextTypes';
 
@@ -47,12 +46,12 @@ export default class Modal extends Component {
         fullScreen: PropTypes.bool,
         gateName: PropTypes.string.isRequired,
         innerClassName: cssClass.isRequired,
-        onHidden: collection.func,
-        onHiding: collection.func,
-        onShowing: collection.func,
-        onShown: collection.func,
         outerClassName: cssClass.isRequired,
         stopScroll: PropTypes.bool
+    };
+
+    state = {
+        expanded: false
     };
 
     /**
@@ -81,19 +80,13 @@ export default class Modal extends Component {
     }
 
     /**
-     * Since modal's are stateless components and are always expanded,
-     * we need to manage all logic while mounting and unmounting.
-     *
-     * This includes binding events, toggling blackouts,
-     * and locking the scroll, based on the defined props.
+     * Before mounting, lock scrolling and display a blackout, it applicable.
      */
     componentWillMount() {
         let { dismissable, blackOut, stopScroll } = this.props;
 
-        this.emitEvent('showing');
-
         if (dismissable) {
-            window.addEventListener('keydown', this.handleOnKeyDown);
+            window.addEventListener('keyup', this.handleOnKeyUp);
         }
 
         if (blackOut) {
@@ -103,11 +96,17 @@ export default class Modal extends Component {
         if (stopScroll) {
             DocumentState.disableScrolling();
         }
+    }
 
-        this.emitEvent('shown');
-
-        // TODO somehow trigger the expanded state after a mount?
-        // Would be nice to have a small animation or something.
+    /**
+     * Set the expanded state once mounted to trigger any transitions.
+     * We must do this after a mount, as modal's are passed through to gateways.
+     */
+    componentDidMount() {
+        /* eslint react/no-did-mount-set-state: 0 */
+        this.setState({
+            expanded: true
+        });
     }
 
     /**
@@ -116,10 +115,8 @@ export default class Modal extends Component {
     componentWillUnmount() {
         let { dismissable, blackOut, stopScroll } = this.props;
 
-        this.emitEvent('hiding');
-
         if (dismissable) {
-            window.removeEventListener('keydown', this.handleOnKeyDown);
+            window.removeEventListener('keyup', this.handleOnKeyUp);
         }
 
         if (blackOut) {
@@ -129,8 +126,6 @@ export default class Modal extends Component {
         if (stopScroll) {
             DocumentState.enableScrolling();
         }
-
-        this.emitEvent('hidden');
     }
 
     /**
@@ -155,8 +150,8 @@ export default class Modal extends Component {
      * @param {SyntheticEvent} e
      */
     @bind
-    handleOnClickOut(e) {
-        if (e.target === e.currentTarget) {
+    handleOnClickOut({ target, currentTarget }) {
+        if (target === currentTarget) {
             this.hideModal();
         }
     }
@@ -167,8 +162,8 @@ export default class Modal extends Component {
      * @param {SyntheticEvent} e
      */
     @bind
-    handleOnKeyDown(e) {
-        if (e.key === 'Escape') {
+    handleOnKeyUp({ key }) {
+        if (key === 'Escape') {
             this.hideModal();
         }
     }
@@ -179,7 +174,8 @@ export default class Modal extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let props = this.props;
+        let props = this.props,
+            { expanded } = this.state;
 
         return (
             <div
@@ -187,13 +183,13 @@ export default class Modal extends Component {
                 id={this.formatID('modal')}
                 className={this.formatClass(props.elementClassName, props.className, {
                     'is-dismissable': props.dismissable,
-                    'is-expanded': true,
+                    'is-expanded': expanded,
                     'is-fullscreen': props.fullScreen
                 })}
                 aria-labelledby={this.formatID('modal-title')}
                 aria-describedby={this.formatID('modal-content')}
-                aria-hidden={false}
-                aria-expanded={true}
+                aria-hidden={!expanded}
+                aria-expanded={expanded}
                 onClick={props.dismissable ? this.handleOnClickOut : null}
                 {...this.inheritNativeProps(props)}>
 

@@ -7,9 +7,11 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
+import collection from '../../prop-types/collection';
 import cssClass from '../../prop-types/cssClass';
 import invariant from '../../utility/invariant';
 import CONTEXT_TYPES from './ContextTypes';
+import '../../polyfills/Array.includes';
 
 export default class Gate extends Component {
     static contextTypes = {
@@ -17,6 +19,7 @@ export default class Gate extends Component {
     };
 
     static defaultProps = {
+        animation: 'fade',
         elementClassName: 'gate'
     };
 
@@ -26,11 +29,17 @@ export default class Gate extends Component {
         contract: PropTypes.func.isRequired,
         elementClassName: cssClass.isRequired,
         gateClassName: cssClass.isRequired,
-        name: PropTypes.string.isRequired
+        name: PropTypes.string.isRequired,
+        onEntered: collection.func,
+        onEntering: collection.func,
+        onLeaving: collection.func,
+        onLeft: collection.func
     };
 
     state = {
-        children: []
+        children: [],
+        enteringElement: null,
+        leavingElement: null
     };
 
     /**
@@ -46,15 +55,50 @@ export default class Gate extends Component {
     }
 
     /**
+     * Trigger `entering` and `leaving` events when an element is warped.
+     *
+     * @param {Object} nextProps
+     * @param {Object} nextState
+     */
+    componentWillUpdate(nextProps, nextState) {
+        if (nextState.enteringElement) {
+            this.emitEvent('entering', nextState.enteringElement);
+        }
+
+        if (nextState.leavingElement) {
+            this.emitEvent('leaving', nextState.leavingElement);
+        }
+    }
+
+    /**
+     * Trigger `entered` and `left` events when an element is warped.
+     */
+    componentDidUpdate() {
+        let { enteringElement, leavingElement } = this.state;
+
+        if (enteringElement) {
+            this.emitEvent('entered', enteringElement);
+        }
+
+        if (leavingElement) {
+            this.emitEvent('left', leavingElement);
+        }
+    }
+
+    /**
      * Handles the adding of elements from the gateway.
      *
      * @param {ReactElement} element
      */
     @bind
     handleOnWarpIn(element) {
-        if (this.isValidElement(element)) {
+        let { children } = this.state;
+
+        if (this.isValidElement(element) && !children.includes(element)) {
             this.setState({
-                children: this.state.children.concat([element])
+                children: children.concat([element]),
+                enteringElement: element,
+                leavingElement: null
             });
         }
     }
@@ -66,9 +110,13 @@ export default class Gate extends Component {
      */
     @bind
     handleOnWarpOut(element) {
-        if (this.isValidElement(element)) {
+        let { children } = this.state;
+
+        if (this.isValidElement(element) && children.includes(element)) {
             this.setState({
-                children: this.state.children.filter(el => el !== element)
+                children: children.filter(el => el !== element),
+                enteringElement: null,
+                leavingElement: element
             });
         }
     }

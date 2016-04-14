@@ -11,7 +11,6 @@ import Gate from '../Gateway/Gate';
 export default class ModalGate extends Gate {
     static defaultProps = {
         ...Gate.defaultProps,
-        animation: 'fade',
         contract: Modal,
         gateClassName: ['modal', 'gate']
     };

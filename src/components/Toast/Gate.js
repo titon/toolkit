@@ -11,7 +11,6 @@ import Gate from '../Gateway/Gate';
 export default class ToastGate extends Gate {
     static defaultProps = {
         ...Gate.defaultProps,
-        animation: 'fade',
         contract: Toast,
         gateClassName: ['toast', 'gate'],
         position: 'bottom-left'
