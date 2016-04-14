@@ -97,7 +97,7 @@ export default class Input extends Component {
             ? [nextState.checked, nextState.value]
             : [nextState.value, this.state.value];
 
-        this.emitEvent('changing', args);
+        this.emitEvent('changing', ...args);
     }
 
     /**
@@ -112,7 +112,7 @@ export default class Input extends Component {
                 ? [state.checked, state.value]
                 : [state.value, prevState.value];
 
-        this.emitEvent('changed', args);
+        this.emitEvent('changed', ...args);
     }
 
     /**

@@ -137,7 +137,7 @@ export default class Carousel extends Component {
             animating: false
         });
 
-        this.emitEvent('cycled', [this.state.index]);
+        this.emitEvent('cycled', this.state.index);
     }
 
     /**
@@ -147,7 +147,7 @@ export default class Carousel extends Component {
      * and because `componentWillUpdate()` does not allow state changes.
      */
     beforeAnimation() {
-        this.emitEvent('cycling', [this.state.index]);
+        this.emitEvent('cycling', this.state.index);
     }
 
     /**

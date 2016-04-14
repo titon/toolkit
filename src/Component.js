@@ -33,9 +33,9 @@ export default class Component extends React.Component {
      * This *must not* be used for native DOM events, use `handleEvent()` instead.
      *
      * @param {String} type
-     * @param {*[]} [args]
+     * @param {...*} [args]
      */
-    emitEvent(type, args = []) {
+    emitEvent(type, ...args) {
         let debug = this.props.debug || Titon.options.debug,
             name = this.constructor.name,
             uid = this.getUID();

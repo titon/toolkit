@@ -103,7 +103,7 @@ export default class Pagination extends Component {
      * @param {Object} nextState
      */
     componentWillUpdate(nextProps, nextState) {
-        this.emitEvent('paging', [nextState.page, this.state.page]);
+        this.emitEvent('paging', nextState.page, this.state.page);
     }
 
     /**
@@ -113,7 +113,7 @@ export default class Pagination extends Component {
      * @param {Object} prevState
      */
     componentDidUpdate(prevProps, prevState) {
-        this.emitEvent('paged', [this.state.page, prevState.page]);
+        this.emitEvent('paged', this.state.page, prevState.page);
     }
 
     /**

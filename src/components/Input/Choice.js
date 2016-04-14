@@ -19,7 +19,7 @@ export default class Choice extends Component {
         elementClassName: cssClass.isRequired,
         inputID: PropTypes.string.isRequired,
         large: PropTypes.bool,
-        small: PropTypes.bool,
+        small: PropTypes.bool
     };
 
     /**

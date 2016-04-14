@@ -18,7 +18,7 @@ export default class Static extends Component {
         className: cssClass,
         elementClassName: cssClass.isRequired,
         large: PropTypes.bool,
-        small: PropTypes.bool,
+        small: PropTypes.bool
     };
 
     /**
