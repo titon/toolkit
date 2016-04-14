@@ -317,6 +317,7 @@ $titon-modal: (
 
 $titon-notice: (
     "class": bem("notice"),
+    "class-body": bem("notice", "body"),
     "class-close": bem("notice", "close"),
     "class-title": bem("notice", "title"),
 ) !default;

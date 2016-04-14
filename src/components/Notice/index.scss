@@ -6,33 +6,32 @@
 
 @include export("notice") {
     #{map-get($titon-notice, "class")} {
-        margin: theme-setting("margin") 0;
-        padding: theme-setting("medium-padding");
+        margin-bottom: theme-setting("margin");
 
         hr {
             border: 0;
             border-top: 1px solid white(.15);
         }
-
-        p:first-child {
-            margin-top: 0;
-        }
     }
 
     #{map-get($titon-notice, "class-close")} {
         float: bidi-opposite-alignment();
-        margin-#{bidi-alignment()}: theme-setting("margin");
+        margin-#{bidi-alignment()}: theme-setting("small-padding");
+        margin-bottom: theme-setting("small-padding");
         line-height: 1;
         padding: theme-setting("small-padding");
         background: none;
         border: 0;
+        position: relative;
+        z-index: 1;
+    }
 
-        & ~ p {
-            margin: 0;
-        }
+    #{map-get($titon-notice, "class-body")},
+    #{map-get($titon-notice, "class-title")} {
+        padding: theme-setting("medium-padding");
     }
 
     #{map-get($titon-notice, "class-title")} {
-        margin: 0 0 (theme-setting("margin") / 2) 0;
+        padding-bottom: 0;
     }
 }

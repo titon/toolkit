@@ -21,6 +21,7 @@ import { Background, Image } from '../components/LazyLoad';
 import { Message, Spinner, Wave } from '../components/Loader';
 import Mask from '../components/Mask';
 import Modal from '../components/Modal';
+import Notice from '../components/Notice';
 import OffCanvas from '../components/OffCanvas';
 import Pagination from '../components/Pagination';
 import Progress from '../components/Progress';
@@ -593,6 +594,43 @@ const modalMarkup = (
     </div>
 );
 
+const noticeMarkup = (
+    <div>
+        <Notice>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. Nullam gravida eget nunc vel volutpat. Ut interdum dapibus lacus sed volutpat. Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh, ut interdum sapien mi vitae velit. Nam vestibulum elit luctus ante tempor, ut bibendum mauris molestie.
+        </Notice>
+
+        <Notice state="info">
+            Pellentesque mollis quis diam ut iaculis. Etiam scelerisque lacus vitae mi placerat fringilla. Sed eget augue eu sem pellentesque consectetur. Integer in justo risus. Nullam pellentesque magna sit amet metus aliquam volutpat non vitae lectus. Duis dignissim velit et justo pellentesque placerat. Ut vel sodales sapien. Nam sit amet luctus tellus.
+        </Notice>
+
+        <Notice state="debug" title="Debugging">
+            Fusce ornare tortor sed maximus consequat. Integer pulvinar dui sed enim viverra pulvinar. Vestibulum consequat fringilla porttitor. Morbi efficitur dictum sem, sed tincidunt metus varius in. Donec nisl augue, pretium vel orci non, efficitur laoreet tortor.
+        </Notice>
+
+        <Notice state="warning" dismissable>
+            Ut interdum dapibus lacus sed volutpat. Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh, ut interdum sapien mi vitae velit. Nam vestibulum elit luctus ante tempor, ut bibendum mauris molestie. Vestibulum at pellentesque nulla. Pellentesque ex neque, ullamcorper sit amet lacus vel, tincidunt posuere est.
+            <hr />
+            Fusce ornare tortor sed maximus consequat. Integer pulvinar dui sed enim viverra pulvinar. Vestibulum consequat fringilla porttitor. Morbi efficitur dictum sem, sed tincidunt metus varius in. Donec nisl augue, pretium vel orci non, efficitur laoreet tortor.
+        </Notice>
+
+        <Notice state="error" title="Validation Errors" dismissable>
+            <ul>
+                <li>Ut interdum dapibus lacus sed volutpat.</li>
+                <li>Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh, ut interdum sapien mi vitae velit.</li>
+                <li>Nam vestibulum elit luctus ante tempor, ut bibendum mauris molestie.</li>
+                <li>Vestibulum at pellentesque nulla. Pellentesque ex neque, ullamcorper sit amet lacus vel, tincidunt posuere est.</li>
+            </ul>
+        </Notice>
+
+        <Notice state="success">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. Nullam gravida eget nunc vel volutpat. Ut interdum dapibus lacus sed volutpat. Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh, ut interdum sapien mi vitae velit. Nam vestibulum elit luctus ante tempor, ut bibendum mauris molestie. Vestibulum at pellentesque nulla. Pellentesque ex neque, ullamcorper sit amet lacus vel, tincidunt posuere est. Pellentesque mollis quis diam ut iaculis. Etiam scelerisque lacus vitae mi placerat fringilla. Sed eget augue eu sem pellentesque consectetur. Integer in justo risus. Nullam pellentesque magna sit amet metus aliquam volutpat non vitae lectus. Duis dignissim velit et justo pellentesque placerat. Ut vel sodales sapien. Nam sit amet luctus tellus.</p>
+
+            <p>Fusce ornare tortor sed maximus consequat. Integer pulvinar dui sed enim viverra pulvinar. Vestibulum consequat fringilla porttitor. Morbi efficitur dictum sem, sed tincidunt metus varius in. Donec nisl augue, pretium vel orci non, efficitur laoreet tortor. Phasellus eget nulla a sem commodo suscipit eu vel lorem. Mauris lectus neque, fermentum sit amet mauris at, imperdiet porttitor eros. Pellentesque iaculis diam quis sem feugiat, et consectetur nisl faucibus. Donec pellentesque diam mollis urna dictum, sed auctor ligula imperdiet. Duis tincidunt dolor nec iaculis viverra.</p>
+        </Notice>
+    </div>
+);
+
 const offCanvasMarkup = (
     <OffCanvas swipe={true} showOnLoad={true} animation="squish" multiple={true}>
         <OffCanvas.MainContent>
@@ -756,7 +794,7 @@ const toastMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {modalMarkup}
+            {noticeMarkup}
 
             <Modal.Gate name="modals" />
             <Toast.Gate name="toasts" />
