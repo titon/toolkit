@@ -48,14 +48,12 @@ export default class OffCanvas extends Component {
     };
 
     /**
-     * Generate a UID and validate props.
+     * Validate props.
      *
      * @param {Object} props
      */
     constructor(props) {
         super();
-
-        this.generateUID();
 
         // Only a select few animations can support showing all sidebars on page load
         let { showOnLoad, multiple, animation } = props;

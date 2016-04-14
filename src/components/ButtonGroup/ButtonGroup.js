@@ -24,15 +24,6 @@ export default class ButtonGroup extends Component {
     };
 
     /**
-     * Generate a UID.
-     */
-    constructor() {
-        super();
-
-        this.generateUID();
-    }
-
-    /**
      * Render the button group as a list of buttons.
      *
      * @returns {ReactElement}

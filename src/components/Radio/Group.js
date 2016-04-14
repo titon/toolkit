@@ -37,8 +37,6 @@ export default class Group extends Component {
         this.state = {
             value: props.defaultChecked
         };
-
-        this.generateUID();
     }
 
     /**

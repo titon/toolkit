@@ -55,16 +55,7 @@ export default class Carousel extends Component {
         index: 0,
         stopped: true
     };
-
-    /**
-     * Generate a UID.
-     */
-    constructor() {
-        super();
-
-        this.timer = null;
-        this.generateUID();
-    }
+    timer = null;
 
     /**
      * Define a context that is passed to all children.

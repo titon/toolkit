@@ -24,15 +24,6 @@ export default class Breadcrumb extends Component {
     };
 
     /**
-     * Generate a UID.
-     */
-    constructor() {
-        super();
-
-        this.generateUID();
-    }
-
-    /**
      * Render the breadcrumb list.
      *
      * @returns {ReactElement}

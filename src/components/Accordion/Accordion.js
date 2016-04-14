@@ -37,15 +37,6 @@ export default class Accordion extends Component {
     };
 
     /**
-     * Generate a UID.
-     */
-    constructor() {
-        super();
-
-        this.generateUID();
-    }
-
-    /**
      * Define a context that is passed to all children.
      *
      * @returns {Object}

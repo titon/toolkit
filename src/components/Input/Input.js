@@ -71,8 +71,6 @@ export default class Input extends Component {
             type: (componentName === 'input') ? props.type : componentName,
             value: defaultValue
         };
-
-        this.generateUID();
     }
 
     /**

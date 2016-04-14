@@ -27,6 +27,15 @@ export default class Component extends React.Component {
     version = '3.0.0';
 
     /**
+     * Generate a UID for all components.
+     */
+    constructor() {
+        super();
+
+        this.generateUID();
+    }
+
+    /**
      * Emit a custom event and notify all listeners defined on the prop of the same name.
      * If the `debug` property is enabled, print out helpful information.
      *

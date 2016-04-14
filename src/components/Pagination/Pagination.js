@@ -54,7 +54,7 @@ export default class Pagination extends Component {
     };
 
     /**
-     * Setup state and generate a UID.
+     * Setup state.
      *
      * @param {Object} props
      */
@@ -64,8 +64,6 @@ export default class Pagination extends Component {
         this.state = {
             page: this.clampPage(props.currentPage, props.totalPages)
         };
-
-        this.generateUID();
     }
 
     /**

@@ -56,7 +56,7 @@ export default class Modal extends Component {
     };
 
     /**
-     * Generate a UID.
+     * Validate that a modal is instantiated within a gateway.
      *
      * @param {Object} props
      * @param {Object} context
@@ -66,8 +66,6 @@ export default class Modal extends Component {
 
         invariant(typeof context.warpOut !== 'undefined',
             'A `Modal` must be instantiated within a `Gateway`.');
-
-        this.generateUID();
     }
 
     /**

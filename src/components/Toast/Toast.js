@@ -30,7 +30,7 @@ export default class Toast extends Component {
     };
 
     /**
-     * Generate a UID.
+     * Validate that a toast is instantiated within a gateway.
      *
      * @param {Object} props
      * @param {Object} context
@@ -40,8 +40,6 @@ export default class Toast extends Component {
 
         invariant(typeof context.warpOut !== 'undefined',
             'A `Toast` must be instantiated within a `Gateway`.');
-
-        this.generateUID();
     }
 
     /**

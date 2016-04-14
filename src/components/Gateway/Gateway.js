@@ -25,6 +25,8 @@ export default class Gateway extends Component {
         elementClassName: cssClass.isRequired
     };
 
+    gates = {};
+
     /**
      * Only one instance of the `Gateway` should be used.
      */
@@ -33,8 +35,6 @@ export default class Gateway extends Component {
 
         invariant(!instantiated, 'Only one `Gateway` may exist.');
         instantiated = true;
-
-        this.gates = {};
     }
 
     /**

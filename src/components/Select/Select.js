@@ -66,8 +66,6 @@ export default class Select extends InputSelect {
             options: this.extractOptions(props.options),
             value: this.extractValues(props.defaultValue, props.multiple)
         };
-
-        this.generateUID();
     }
 
     /**

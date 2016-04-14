@@ -28,10 +28,6 @@ export default class Sidebar extends Component {
         side: PropTypes.oneOf(['left', 'right']).isRequired
     };
 
-    state = {
-        expanded: false
-    };
-
     /**
      * Verify the `expanded` state.
      *
@@ -41,8 +37,9 @@ export default class Sidebar extends Component {
     constructor(props, context) {
         super();
 
-        /* eslint react/no-direct-mutation-state: 0 */
-        this.state.expanded = context.isSidebarActive(props.side);
+        this.state = {
+            expanded: context.isSidebarActive(props.side)
+        };
     }
 
     /**
