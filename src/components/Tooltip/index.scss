@@ -8,17 +8,16 @@
     $titon-temp-tooltip-arrow-width: map-get($titon-tooltip, "arrow-width");
     $titon-temp-tooltip-arrow-width-double: ($titon-temp-tooltip-arrow-width * 2);
     $titon-temp-tooltip-animations: map-get($titon-tooltip, "animations");
+    $titon-temp-tooltip-background-color: map-get($titon-tooltip, "background-color");
 
     #{map-get($titon-tooltip, "class")},
     #{map-get($titon-popover, "class")} {
-        @extend %placeholder-position-absolute;
-        border: 0;
+        position: absolute;
+        max-width: 18rem;
         z-index: map-get($titon-settings-zindex, "tooltip");
-        max-width: 15rem;
-        visibility: hidden;
         transition: all map-get($titon-tooltip, "transition");
-        background: #fff;
-        padding: theme-setting("small-padding");
+        // Use padding as its calculated in box size widths
+        padding: #{$titon-temp-tooltip-arrow-width-double}px;
     }
 
     #{map-get($titon-tooltip, "class-arrow")},
@@ -35,6 +34,12 @@
         }
     }
 
+    #{map-get($titon-tooltip, "class-inner")} {
+        padding: theme-setting("small-padding");
+        position: relative;
+        background: $titon-temp-tooltip-background-color;
+    }
+
     //-------------------- Positions --------------------//
 
     #{map-get($titon-tooltip, "class")} {
@@ -45,12 +50,12 @@
         }
 
         &.center-left #{map-get($titon-tooltip, "class-arrow")} {
-            border-left-color: #fff;
+            border-left-color: $titon-temp-tooltip-background-color;
             right: -#{$titon-temp-tooltip-arrow-width-double}px;
         }
 
         &.center-right #{map-get($titon-tooltip, "class-arrow")} {
-            border-right-color: #fff;
+            border-right-color: $titon-temp-tooltip-background-color;
             left: -#{$titon-temp-tooltip-arrow-width-double}px;
         }
 
@@ -61,12 +66,12 @@
         }
 
         &.top-center #{map-get($titon-tooltip, "class-arrow")} {
-            border-top-color: #fff;
+            border-top-color: $titon-temp-tooltip-background-color;
             bottom: -#{$titon-temp-tooltip-arrow-width-double}px;
         }
 
         &.bottom-center #{map-get($titon-tooltip, "class-arrow")} {
-            border-bottom-color: #fff;
+            border-bottom-color: $titon-temp-tooltip-background-color;
             top: -#{$titon-temp-tooltip-arrow-width-double}px;
         }
     }

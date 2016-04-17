@@ -17,7 +17,7 @@ export default class Notice extends Component {
         close: <span className="x" />,
         closeClassName: ['notice', 'close'],
         elementClassName: 'notice',
-        titleClassName: ['notice', 'title']
+        headClassName: ['notice', 'head']
     };
 
     static propTypes = {
@@ -28,9 +28,9 @@ export default class Notice extends Component {
         closeClassName: cssClass.isRequired,
         dismissable: PropTypes.bool,
         elementClassName: cssClass.isRequired,
+        headClassName: cssClass.isRequired,
         state: states,
-        title: PropTypes.node,
-        titleClassName: cssClass.isRequired
+        title: PropTypes.node
     };
 
     state = {
@@ -81,7 +81,7 @@ export default class Notice extends Component {
                 )}
 
                 {props.title && (
-                    <div className={this.formatClass(props.titleClassName)}>
+                    <div className={this.formatClass(props.headClassName)}>
                         {props.title}
                     </div>
                 )}

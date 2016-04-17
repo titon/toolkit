@@ -241,6 +241,10 @@ $titon-form: (
     "modifiers": ("inline"), // inline
 ) !default;
 
+$titon-gateway: (
+    "class": bem("gateway"),
+) !default;
+
 $titon-grid: (
     "class-row": bem("row"),
     "class-column": bem("col"),
@@ -317,9 +321,9 @@ $titon-modal: (
 
 $titon-notice: (
     "class": bem("notice"),
+    "class-head": bem("notice", "head"),
     "class-body": bem("notice", "body"),
     "class-close": bem("notice", "close"),
-    "class-title": bem("notice", "title"),
 ) !default;
 
 $titon-off-canvas: (
@@ -416,10 +420,12 @@ $titon-toast: (
 
 $titon-tooltip: (
     "class": bem("tooltip"),
+    "class-inner": bem("tooltip", "inner"),
     "class-arrow": bem("tooltip", "arrow"),
     "animations": ("fade"), // fade, from-above, from-below, flip-rotate
     "arrow-width": 6,
     "transition": .15s,
+    "background-color": black(.65),
 ) !default;
 
 $titon-type-ahead: (

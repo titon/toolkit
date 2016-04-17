@@ -32,6 +32,7 @@ import Switch from '../components/Switch';
 import Table from '../components/Table';
 import Tabs from '../components/Tabs';
 import Toast from '../components/Toast';
+import Tooltip from '../components/Tooltip';
 
 Titon.options.debug = true;
 
@@ -860,13 +861,46 @@ const toastMarkup = (
     </div>
 );
 
+const createTooltip = (position) => (
+    <Tooltip key={position} position={position} title="Tooltip Title">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </Tooltip>
+);
+
+const tooltipMarkup = (
+    <div style={{ padding: 250 }}>
+        <Tooltip.Trigger gateName="tooltips" tooltip={createTooltip('center-left')} mode="click">
+            <Button>Center Left (Click)</Button>
+        </Tooltip.Trigger>
+
+        &nbsp;
+
+        <Tooltip.Trigger gateName="tooltips" tooltip={createTooltip('top-center')} mode="hover">
+            <Button>Top Center (Hover)</Button>
+        </Tooltip.Trigger>
+
+        &nbsp;
+
+        <Tooltip.Trigger gateName="tooltips" tooltip={createTooltip('bottom-center')} mode="click">
+            <Button>Bottom Center (Click)</Button>
+        </Tooltip.Trigger>
+
+        &nbsp;
+
+        <Tooltip.Trigger gateName="tooltips" tooltip={createTooltip('center-right')} mode="hover">
+            <Button>Center Right (Hover)</Button>
+        </Tooltip.Trigger>
+    </div>
+);
+
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {tableMarkup}
+            {tooltipMarkup}
 
             <Modal.Gate name="modals" />
             <Toast.Gate name="toasts" />
+            <Tooltip.Gate name="tooltips" />
         </Gateway>
     </div>
 ), document.getElementById('app'));

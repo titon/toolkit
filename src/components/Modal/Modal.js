@@ -169,7 +169,7 @@ export default class Modal extends Component {
     }
 
     /**
-     * Render the modal wrapper.
+     * Render the modal element.
      *
      * @returns {ReactElement}
      */

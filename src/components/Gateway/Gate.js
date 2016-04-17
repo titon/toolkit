@@ -20,7 +20,7 @@ export default class Gate extends Component {
 
     static defaultProps = {
         animation: 'fade',
-        elementClassName: 'gate'
+        elementClassName: ['gateway', 'gate']
     };
 
     static propTypes = {

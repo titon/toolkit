@@ -26,12 +26,12 @@
         z-index: 1;
     }
 
-    #{map-get($titon-notice, "class-body")},
-    #{map-get($titon-notice, "class-title")} {
+    #{map-get($titon-notice, "class-head")},
+    #{map-get($titon-notice, "class-body")} {
         padding: theme-setting("medium-padding");
     }
 
-    #{map-get($titon-notice, "class-title")} {
+    #{map-get($titon-notice, "class-head")} {
         padding-bottom: 0;
     }
 }
