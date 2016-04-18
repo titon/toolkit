@@ -6,10 +6,12 @@
 
 import Tooltip from './Tooltip';
 import Gate from './Gate';
+import Warp from './Warp';
 import Trigger from './Trigger';
 
 Tooltip.Gate = Gate;
+Tooltip.Warp = Warp;
 Tooltip.Trigger = Trigger;
 
-export { Gate, Trigger };
+export { Gate, Warp, Trigger };
 export default Tooltip;

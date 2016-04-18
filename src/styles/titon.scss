@@ -422,6 +422,7 @@ $titon-tooltip: (
     "class": bem("tooltip"),
     "class-inner": bem("tooltip", "inner"),
     "class-arrow": bem("tooltip", "arrow"),
+    "class-trigger": bem("tooltip", "trigger"),
     "animations": ("fade"), // fade, from-above, from-below, flip-rotate
     "arrow-width": 6,
     "transition": .15s,

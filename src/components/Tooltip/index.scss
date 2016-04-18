@@ -10,8 +10,7 @@
     $titon-temp-tooltip-animations: map-get($titon-tooltip, "animations");
     $titon-temp-tooltip-background-color: map-get($titon-tooltip, "background-color");
 
-    #{map-get($titon-tooltip, "class")},
-    #{map-get($titon-popover, "class")} {
+    #{map-get($titon-tooltip, "class")} {
         position: absolute;
         max-width: 18rem;
         z-index: map-get($titon-settings-zindex, "tooltip");
@@ -20,8 +19,7 @@
         padding: #{$titon-temp-tooltip-arrow-width-double}px;
     }
 
-    #{map-get($titon-tooltip, "class-arrow")},
-    #{map-get($titon-popover, "class-arrow")} {
+    #{map-get($titon-tooltip, "class-arrow")} {
         width: 0;
         height: 0;
         border: #{$titon-temp-tooltip-arrow-width}px solid transparent;
@@ -112,6 +110,50 @@
                 &.show {
                     transform: rotate(0deg);
                 }
+            }
+        }
+    }
+
+    //-------------------- Trigger --------------------//
+
+    #{map-get($titon-tooltip, "class-trigger")} {
+        position: relative;
+
+        #{map-get($titon-tooltip, "class")} {
+            display: none;
+
+            &.top-center {
+                bottom: 100%;
+            }
+
+            &.center-left {
+                right: 100%;
+            }
+
+            &.center-right {
+                left: 100%;
+            }
+
+            &.bottom-center {
+                top: 100%;
+            }
+
+            &.top-center,
+            &.bottom-center {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            &.center-left,
+            &.center-right {
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        &:hover {
+            #{map-get($titon-tooltip, "class")} {
+                display: block;
             }
         }
     }

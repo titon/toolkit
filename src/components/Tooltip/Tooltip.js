@@ -8,14 +8,9 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Component from '../../Component';
 import cssClass from '../../prop-types/cssClass';
-import invariant from '../../utility/invariant';
 import positionRelativeTo from '../../utility/positionRelativeTo';
 
 export default class Tooltip extends Component {
-    static contextTypes = {
-        warpOut: PropTypes.func
-    };
-
     static defaultProps = {
         arrowClassName: ['tooltip', 'arrow'],
         bodyClassName: ['tooltip', 'body'],
@@ -43,22 +38,9 @@ export default class Tooltip extends Component {
         yOffset: PropTypes.number
     };
 
-    /**
-     * Validate that a tooltip is instantiated within a gateway.
-     *
-     * @param {Object} props
-     * @param {Object} context
-     */
-    constructor(props, context) {
-        super();
-
-        invariant(typeof context.warpOut !== 'undefined',
-            'A `Tooltip` must be instantiated within a `Gateway`.');
-
-        this.state = {
-            sourceElement: null
-        };
-    }
+    state = {
+        sourceElement: null
+    };
 
     /**
      * We need to mount the component before we can calculate the dimensions of the element,
@@ -67,9 +49,11 @@ export default class Tooltip extends Component {
      */
     componentDidMount() {
         /* eslint react/no-did-mount-set-state: 0 */
-        this.setState({
-            sourceElement: ReactDOM.findDOMNode(this)
-        });
+        if (this.props.targetElement) {
+            this.setState({
+                sourceElement: ReactDOM.findDOMNode(this)
+            });
+        }
     }
 
     /**

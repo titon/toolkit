@@ -869,27 +869,35 @@ const createTooltip = (position) => (
 
 const tooltipMarkup = (
     <div style={{ padding: 250 }}>
-        <Tooltip.Trigger gateName="tooltips" tooltip={createTooltip('center-left')} mode="click">
+        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('center-left')} mode="click">
             <Button>Center Left (Click)</Button>
-        </Tooltip.Trigger>
+        </Tooltip.Warp>
 
         &nbsp;
 
-        <Tooltip.Trigger gateName="tooltips" tooltip={createTooltip('top-center')} mode="hover">
+        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('top-center')} mode="hover">
             <Button>Top Center (Hover)</Button>
-        </Tooltip.Trigger>
+        </Tooltip.Warp>
 
         &nbsp;
 
-        <Tooltip.Trigger gateName="tooltips" tooltip={createTooltip('bottom-center')} mode="click">
+        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('bottom-center')} mode="click">
             <Button>Bottom Center (Click)</Button>
-        </Tooltip.Trigger>
+        </Tooltip.Warp>
 
         &nbsp;
 
-        <Tooltip.Trigger gateName="tooltips" tooltip={createTooltip('center-right')} mode="hover">
+        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('center-right')} mode="hover">
             <Button>Center Right (Hover)</Button>
-        </Tooltip.Trigger>
+        </Tooltip.Warp>
+
+        <br /><br />
+
+        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. <Tooltip.Trigger tooltip={createTooltip('center-left')} inline><b>Nullam gravida eget nunc vel volutpat.</b></Tooltip.Trigger> Ut interdum dapibus lacus sed volutpat. Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh, ut interdum sapien mi vitae velit. <Tooltip.Trigger tooltip={createTooltip('top-center')} inline><b>Nam vestibulum elit luctus ante tempor</b></Tooltip.Trigger>, ut bibendum mauris molestie. Vestibulum at pellentesque nulla. Pellentesque ex neque, ullamcorper sit amet lacus vel, tincidunt posuere est. <Tooltip.Trigger tooltip={createTooltip('center-right')} inline><b>Pellentesque mollis quis diam ut iaculis.</b></Tooltip.Trigger> Etiam scelerisque lacus vitae mi placerat fringilla. Sed eget augue eu sem pellentesque consectetur. Integer in justo risus. Nullam pellentesque magna sit amet metus aliquam volutpat non vitae lectus. Duis dignissim velit et justo pellentesque placerat. <Tooltip.Trigger tooltip={createTooltip('bottom-center')} inline><b>Ut vel sodales sapien. Nam sit amet luctus tellus.</b></Tooltip.Trigger></div>
+
+        <br /><br />
+
+        <Tooltip.Trigger tooltip={createTooltip()}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. Nullam gravida eget nunc vel volutpat.</Tooltip.Trigger>
     </div>
 );
 
