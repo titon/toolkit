@@ -26,8 +26,10 @@ export default function positionRelativeTo(
 ) {
     let { top, left } = baseOffset,
         [ edgeY, edgeX ] = position.split('-'),
-        srcWidth = sourceElement.offsetWidth,
-        srcHeight = sourceElement.offsetHeight,
+        srcSize = sourceElement.getBoundingClientRect(),
+        srcWidth = srcSize.width,
+        srcHeight = srcSize.height,
+        relSize = {},
         relTop = 0,
         relHeight = 0,
         relWidth = 0;
@@ -39,12 +41,13 @@ export default function positionRelativeTo(
 
     // Else position it relative to the element
     } else {
-        top += relativeTo.offsetTop;
-        left += relativeTo.offsetLeft;
+        relSize = relativeTo.getBoundingClientRect();
+        relHeight = relSize.height;
+        relWidth = relSize.width;
+        relTop = relSize.top + window.scrollY;
 
-        relHeight = relativeTo.offsetHeight;
-        relWidth = relativeTo.offsetWidth;
-        relTop = relativeTo.offsetTop;
+        top += relTop;
+        left += relSize.left;
     }
 
     // Shift around based on edge positioning
