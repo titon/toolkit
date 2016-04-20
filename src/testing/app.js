@@ -861,39 +861,81 @@ const toastMarkup = (
     </div>
 );
 
-const createTooltip = (position) => (
-    <Tooltip key={position} position={position} title="Tooltip Title">
+const createTooltip = (position, inline) => (
+    <Tooltip key={position + Date.now().toString(16)} position={position} title={inline ? '' : 'Tooltip Title'}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     </Tooltip>
 );
 
 const tooltipMarkup = (
     <div style={{ padding: 250 }}>
-        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('center-left')} mode="click">
-            <Button>Center Left (Click)</Button>
+        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('top-left')} mode="click">
+            <Button>Top Left (Click)</Button>
         </Tooltip.Warp>
 
         &nbsp;
 
-        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('top-center')} mode="hover">
-            <Button>Top Center (Hover)</Button>
+        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('top')} mode="hover">
+            <Button>Top (Hover)</Button>
         </Tooltip.Warp>
 
         &nbsp;
 
-        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('bottom-center')} mode="click">
-            <Button>Bottom Center (Click)</Button>
-        </Tooltip.Warp>
-
-        &nbsp;
-
-        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('center-right')} mode="hover">
-            <Button>Center Right (Hover)</Button>
+        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('top-right')} mode="hover">
+            <Button>Top Right (Hover)</Button>
         </Tooltip.Warp>
 
         <br /><br />
 
-        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. <Tooltip.Trigger tooltip={createTooltip('center-left')} inline><b>Nullam gravida eget nunc vel volutpat.</b></Tooltip.Trigger> Ut interdum dapibus lacus sed volutpat. Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh, ut interdum sapien mi vitae velit. <Tooltip.Trigger tooltip={createTooltip('top-center')} inline><b>Nam vestibulum elit luctus ante tempor</b></Tooltip.Trigger>, ut bibendum mauris molestie. Vestibulum at pellentesque nulla. Pellentesque ex neque, ullamcorper sit amet lacus vel, tincidunt posuere est. <Tooltip.Trigger tooltip={createTooltip('center-right')} inline><b>Pellentesque mollis quis diam ut iaculis.</b></Tooltip.Trigger> Etiam scelerisque lacus vitae mi placerat fringilla. Sed eget augue eu sem pellentesque consectetur. Integer in justo risus. Nullam pellentesque magna sit amet metus aliquam volutpat non vitae lectus. Duis dignissim velit et justo pellentesque placerat. <Tooltip.Trigger tooltip={createTooltip('bottom-center')} inline><b>Ut vel sodales sapien. Nam sit amet luctus tellus.</b></Tooltip.Trigger></div>
+        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('left')} mode="hover">
+            <Button>Left (Hover)</Button>
+        </Tooltip.Warp>
+
+        &nbsp;
+
+        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('right')} mode="click">
+            <Button>Right (Click)</Button>
+        </Tooltip.Warp>
+
+        <br /><br />
+
+        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('bottom-left')} mode="hover">
+            <Button>Bottom Left (Hover)</Button>
+        </Tooltip.Warp>
+
+        &nbsp;
+
+        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('bottom')} mode="click">
+            <Button>Bottom (Click)</Button>
+        </Tooltip.Warp>
+
+        &nbsp;
+
+        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('bottom-right')} mode="click">
+            <Button>Bottom Right (Click)</Button>
+        </Tooltip.Warp>
+
+        <br /><br />
+
+        <div>
+            Lorem ipsum dolor sit amet.
+            <Tooltip.Trigger tooltip={createTooltip('top-left', true)} inline><b>Top Left: Lorem ipsum dolor sit amet.</b></Tooltip.Trigger>
+            Lorem ipsum dolor sit amet.
+            <Tooltip.Trigger tooltip={createTooltip('top', true)} inline><b>Top: Lorem ipsum dolor sit amet.</b></Tooltip.Trigger>
+            Lorem ipsum dolor sit amet.
+            <Tooltip.Trigger tooltip={createTooltip('top-right', true)} inline><b>Top Right: Lorem ipsum dolor sit amet.</b></Tooltip.Trigger>
+            Lorem ipsum dolor sit amet.
+            <Tooltip.Trigger tooltip={createTooltip('left', true)} inline><b>Left: Lorem ipsum dolor sit amet.</b></Tooltip.Trigger>
+            Lorem ipsum dolor sit amet.
+            <Tooltip.Trigger tooltip={createTooltip('right', true)} inline><b>Right: Lorem ipsum dolor sit amet.</b></Tooltip.Trigger>
+            Lorem ipsum dolor sit amet.
+            <Tooltip.Trigger tooltip={createTooltip('bottom-left', true)} inline><b>Bottom Left: Lorem ipsum dolor sit amet.</b></Tooltip.Trigger>
+            Lorem ipsum dolor sit amet.
+            <Tooltip.Trigger tooltip={createTooltip('bottom', true)} inline><b>Bottom: Lorem ipsum dolor sit amet.</b></Tooltip.Trigger>
+            Lorem ipsum dolor sit amet.
+            <Tooltip.Trigger tooltip={createTooltip('bottom-right', true)} inline><b>Bottom Right: Lorem ipsum dolor sit amet.</b></Tooltip.Trigger>
+            Lorem ipsum dolor sit amet.
+        </div>
 
         <br /><br />
 

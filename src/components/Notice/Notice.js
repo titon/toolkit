@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
 import cssClass from '../../prop-types/cssClass';
-import states from '../../prop-types/states';
+import { states } from '../PropTypes';
 import '../../polyfills/Array.includes';
 
 export default class Notice extends Component {

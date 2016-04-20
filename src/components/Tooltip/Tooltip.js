@@ -11,6 +11,7 @@ import bind from '../../decorators/bind';
 import cssClass from '../../prop-types/cssClass';
 import debounce from '../../decorators/debounce';
 import positionRelativeTo from '../../utility/positionRelativeTo';
+import { positions } from '../PropTypes';
 
 export default class Tooltip extends Component {
     static defaultProps = {
@@ -19,7 +20,7 @@ export default class Tooltip extends Component {
         elementClassName: 'tooltip',
         headClassName: ['tooltip', 'head'],
         innerClassName: ['tooltip', 'inner'],
-        position: 'top-center',
+        position: 'top',
         xOffset: 0,
         yOffset: 0
     };
@@ -32,7 +33,7 @@ export default class Tooltip extends Component {
         elementClassName: cssClass.isRequired,
         headClassName: cssClass.isRequired,
         innerClassName: cssClass.isRequired,
-        position: PropTypes.oneOf(['top-center', 'bottom-center', 'center-left', 'center-right']),
+        position: positions,
         // Is an HTML element, but element/node prop types don't work
         targetElement: PropTypes.object,
         title: PropTypes.node,
@@ -114,7 +115,7 @@ export default class Tooltip extends Component {
                 role="tooltip"
                 id={this.formatID('tooltip')}
                 className={this.formatClass(props.elementClassName, props.className, {
-                    [props.position]: true
+                    ['position--' + props.position]: true
                 })}
                 style={this.calculatePosition()}
                 aria-labelledby={props.title ? this.formatID('tooltip-title') : null}

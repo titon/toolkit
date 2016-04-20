@@ -5,6 +5,7 @@
  */
 
 @include export("tooltip") {
+    $titon-temp-tooltip-arrow-class: map-get($titon-tooltip, "class-arrow");
     $titon-temp-tooltip-arrow-width: map-get($titon-tooltip, "arrow-width");
     $titon-temp-tooltip-arrow-width-double: ($titon-temp-tooltip-arrow-width * 2);
     $titon-temp-tooltip-animations: map-get($titon-tooltip, "animations");
@@ -19,7 +20,7 @@
         padding: #{$titon-temp-tooltip-arrow-width-double}px;
     }
 
-    #{map-get($titon-tooltip, "class-arrow")} {
+    #{$titon-temp-tooltip-arrow-class} {
         width: 0;
         height: 0;
         border: #{$titon-temp-tooltip-arrow-width}px solid transparent;
@@ -41,35 +42,75 @@
     //-------------------- Positions --------------------//
 
     #{map-get($titon-tooltip, "class")} {
-        &.center-left #{map-get($titon-tooltip, "class-arrow")},
-        &.center-right #{map-get($titon-tooltip, "class-arrow")} {
-            top: 50%;
-            margin-top: -#{$titon-temp-tooltip-arrow-width}px;
+        &.position--top #{$titon-temp-tooltip-arrow-class},
+        &.position--bottom #{$titon-temp-tooltip-arrow-class} {
+            transform: translateX(-50%);
+            left: 50%;
         }
 
-        &.center-left #{map-get($titon-tooltip, "class-arrow")} {
+        &.position--left #{$titon-temp-tooltip-arrow-class},
+        &.position--right #{$titon-temp-tooltip-arrow-class} {
+            transform: translateY(-50%);
+            top: 50%;
+        }
+
+        //----- Top -----//
+
+        &.position--top-left #{$titon-temp-tooltip-arrow-class} {
+            border-top-color: $titon-temp-tooltip-background-color;
+            border-right-color: $titon-temp-tooltip-background-color;
+            right: 0;
+        }
+
+        &.position--top #{$titon-temp-tooltip-arrow-class} {
+            border-top-color: $titon-temp-tooltip-background-color;
+        }
+
+        &.position--top-right #{$titon-temp-tooltip-arrow-class} {
+            border-top-color: $titon-temp-tooltip-background-color;
+            border-left-color: $titon-temp-tooltip-background-color;
+            left: 0;
+        }
+
+        &.position--top #{$titon-temp-tooltip-arrow-class},
+        &.position--top-left #{$titon-temp-tooltip-arrow-class},
+        &.position--top-right #{$titon-temp-tooltip-arrow-class} {
+            bottom: -#{$titon-temp-tooltip-arrow-width-double}px;
+        }
+
+        //----- Middle -----//
+
+        &.position--left #{$titon-temp-tooltip-arrow-class} {
             border-left-color: $titon-temp-tooltip-background-color;
             right: -#{$titon-temp-tooltip-arrow-width-double}px;
         }
 
-        &.center-right #{map-get($titon-tooltip, "class-arrow")} {
+        &.position--right #{$titon-temp-tooltip-arrow-class} {
             border-right-color: $titon-temp-tooltip-background-color;
             left: -#{$titon-temp-tooltip-arrow-width-double}px;
         }
 
-        &.top-center #{map-get($titon-tooltip, "class-arrow")},
-        &.bottom-center #{map-get($titon-tooltip, "class-arrow")} {
-            left: 50%;
-            margin-left: -#{$titon-temp-tooltip-arrow-width}px;
-        }
+        //----- Bottom -----//
 
-        &.top-center #{map-get($titon-tooltip, "class-arrow")} {
-            border-top-color: $titon-temp-tooltip-background-color;
-            bottom: -#{$titon-temp-tooltip-arrow-width-double}px;
-        }
-
-        &.bottom-center #{map-get($titon-tooltip, "class-arrow")} {
+        &.position--bottom-left #{$titon-temp-tooltip-arrow-class} {
             border-bottom-color: $titon-temp-tooltip-background-color;
+            border-right-color: $titon-temp-tooltip-background-color;
+            right: 0;
+        }
+
+        &.position--bottom #{$titon-temp-tooltip-arrow-class} {
+            border-bottom-color: $titon-temp-tooltip-background-color;
+        }
+
+        &.position--bottom-right #{$titon-temp-tooltip-arrow-class} {
+            border-bottom-color: $titon-temp-tooltip-background-color;
+            border-left-color: $titon-temp-tooltip-background-color;
+            left: 0;
+        }
+
+        &.position--bottom #{$titon-temp-tooltip-arrow-class},
+        &.position--bottom-left #{$titon-temp-tooltip-arrow-class},
+        &.position--bottom-right #{$titon-temp-tooltip-arrow-class} {
             top: -#{$titon-temp-tooltip-arrow-width-double}px;
         }
     }
@@ -122,32 +163,40 @@
         #{map-get($titon-tooltip, "class")} {
             display: none;
 
-            &.top-center {
+            &.position--top,
+            &.position--bottom {
+                transform: translateX(-50%);
+                left: 50%;
+            }
+
+            &.position--top,
+            &.position--top-left,
+            &.position--top-right {
                 bottom: 100%;
             }
 
-            &.center-left {
+            &.position--left,
+            &.position--top-left,
+            &.position--bottom-left {
                 right: 100%;
             }
 
-            &.center-right {
+            &.position--right,
+            &.position--top-right,
+            &.position--bottom-right {
                 left: 100%;
             }
 
-            &.bottom-center {
-                top: 100%;
-            }
-
-            &.top-center,
-            &.bottom-center {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            &.center-left,
-            &.center-right {
-                top: 50%;
+            &.position--left,
+            &.position--right {
                 transform: translateY(-50%);
+                top: 50%;
+            }
+
+            &.position--bottom,
+            &.position--bottom-left,
+            &.position--bottom-right {
+                top: 100%;
             }
         }
 

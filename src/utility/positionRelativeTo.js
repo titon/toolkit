@@ -7,22 +7,22 @@
 /* eslint max-params: 0, array-bracket-spacing: 0 */
 
 /**
- * Calculate a `top` and `left` value to position an element relative to another element using
+ * Calculate `top` and `left` values to position an element relative to another element using
  * absolute positioning.
+ *
+ * Supported positions: top, top-left, top-right, left, right, bottom, bottom-left, bottom-right.
  *
  * @param {String} position
  * @param {Element} sourceElement - The element to position
  * @param {Element|Event} relativeTo - The element or event to calculate relative to
  * @param {Object} baseOffset - Initial top and left values
- * @param {Boolean} isMouse - Whether this should follow the mouse or not
  * @returns {{left: number, top: number}}
  */
 export default function positionRelativeTo(
     position,
     sourceElement,
     relativeTo,
-    baseOffset = { left: 0, top: 0 },
-    isMouse = false
+    baseOffset = { left: 0, top: 0 }
 ) {
     let { top, left } = baseOffset,
         [ edgeY, edgeX ] = position.split('-'),
@@ -33,6 +33,12 @@ export default function positionRelativeTo(
         relTop = 0,
         relHeight = 0,
         relWidth = 0;
+
+    // Fix the x axis
+    if (edgeY === 'left' || edgeY === 'right') {
+        edgeX = edgeY;
+        edgeY = null;
+    }
 
     // If an event is used, position it near the mouse
     if (relativeTo.preventDefault) {
@@ -54,21 +60,21 @@ export default function positionRelativeTo(
     if (edgeY === 'top') {
         top -= srcHeight;
 
-    } else if (edgeY === 'center') {
-        top -= Math.round((srcHeight / 2) - (relHeight / 2));
-
     } else if (edgeY === 'bottom') {
         top += relHeight;
+
+    } else {
+        top -= Math.round((srcHeight / 2) - (relHeight / 2));
     }
 
     if (edgeX === 'left') {
         left -= srcWidth;
 
-    } else if (edgeX === 'center') {
-        left -= Math.round((srcWidth / 2) - (relWidth / 2));
-
     } else if (edgeX === 'right') {
         left += relWidth;
+
+    } else {
+        left -= Math.round((srcWidth / 2) - (relWidth / 2));
     }
 
     // Shift again to keep it within the viewport
@@ -84,26 +90,6 @@ export default function positionRelativeTo(
 
     } else if ((top + srcHeight) > (window.outerHeight + window.scrollY)) {
         top = relTop - srcHeight;
-    }
-
-    // Increase the offset in case we are following the mouse cursor
-    // We need to leave some padding for the literal cursor to not cause a flicker
-    if (isMouse) {
-        if (edgeY === 'center') {
-            if (edgeX === 'left') {
-                left -= 15;
-            } else if (edgeX === 'right') {
-                left += 15;
-            }
-        }
-
-        if (edgeX === 'center') {
-            if (edgeY === 'top') {
-                top -= 10;
-            } else if (edgeY === 'bottom') {
-                top += 10;
-            }
-        }
     }
 
     return {

@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import cssClass from '../../prop-types/cssClass';
-import states from '../../prop-types/states';
+import { states } from '../PropTypes';
 
 export default class Badge extends Component {
     static defaultProps = {
