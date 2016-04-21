@@ -21,6 +21,7 @@ export default class Tooltip extends Component {
         headClassName: ['tooltip', 'head'],
         innerClassName: ['tooltip', 'inner'],
         position: 'top',
+        type: 'tooltip',
         xOffset: 0,
         yOffset: 0
     };
@@ -37,6 +38,7 @@ export default class Tooltip extends Component {
         // Is an HTML element, but element/node prop types don't work
         targetElement: PropTypes.object,
         title: PropTypes.node,
+        type: PropTypes.oneOf(['tooltip', 'popover']),
         xOffset: PropTypes.number,
         yOffset: PropTypes.number
     };
@@ -108,31 +110,31 @@ export default class Tooltip extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let props = this.props;
+        let { type, ...props } = this.props;
 
         return (
             <div
                 role="tooltip"
-                id={this.formatID('tooltip')}
+                id={this.formatID(type)}
                 className={this.formatClass(props.elementClassName, props.className, {
                     ['@' + props.position]: true
                 })}
                 style={this.calculatePosition()}
-                aria-labelledby={props.title ? this.formatID('tooltip-title') : null}
-                aria-describedby={this.formatID('tooltip-content')}
+                aria-labelledby={props.title ? this.formatID(type + '-title') : null}
+                aria-describedby={this.formatID(type + '-content')}
                 {...this.inheritNativeProps(props)}>
 
                 <div className={this.formatClass(props.innerClassName)}>
                     {props.title && (
                         <div
-                            id={this.formatID('tooltip-title')}
+                            id={this.formatID(type + '-title')}
                             className={this.formatClass(props.headClassName)}>
                             {props.title}
                         </div>
                     )}
 
                     <div
-                        id={this.formatID('tooltip-content')}
+                        id={this.formatID(type + '-content')}
                         className={this.formatClass(props.bodyClassName)}>
                         {props.children}
                     </div>
