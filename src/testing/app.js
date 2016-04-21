@@ -875,7 +875,7 @@ const tooltipMarkup = (
 
         &nbsp;
 
-        <Tooltip.Warp gateName="tooltips" tooltip={createTooltip('top')} mode="hover">
+        <Tooltip.Warp gateName="tooltips" tooltip="Created using a string. This is the default!" mode="hover">
             <Button>Top (Hover)</Button>
         </Tooltip.Warp>
 
@@ -939,7 +939,7 @@ const tooltipMarkup = (
 
         <br /><br />
 
-        <Tooltip.Trigger tooltip={createTooltip()}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. Nullam gravida eget nunc vel volutpat.</Tooltip.Trigger>
+        <Tooltip.Trigger tooltip="This is a tiny tooltip.">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. Nullam gravida eget nunc vel volutpat.</Tooltip.Trigger>
     </div>
 );
 

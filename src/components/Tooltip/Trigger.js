@@ -6,6 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import Tooltip from './Tooltip';
 import cssClass from '../../prop-types/cssClass';
 
 export default class Trigger extends Component {
@@ -18,7 +19,7 @@ export default class Trigger extends Component {
         className: cssClass,
         elementClassName: cssClass.isRequired,
         inline: PropTypes.bool,
-        tooltip: PropTypes.element.isRequired
+        tooltip: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired
     };
 
     /**
@@ -27,13 +28,20 @@ export default class Trigger extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let props = this.props,
+        let { tooltip, ...props } = this.props,
             Tag = props.inline ? 'span' : 'div';
+
+        // Convert to an element if not already one
+        if (!React.isValidElement(tooltip)) {
+            tooltip = (
+                <Tooltip>{tooltip}</Tooltip>
+            );
+        }
 
         return (
             <Tag className={this.formatClass(props.elementClassName, props.className)}>
                 {props.children}
-                {props.tooltip}
+                {tooltip}
             </Tag>
         );
     }

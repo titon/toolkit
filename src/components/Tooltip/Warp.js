@@ -7,6 +7,7 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Component from '../../Component';
+import Tooltip from './Tooltip';
 import bind from '../../decorators/bind';
 import invariant from '../../utility/invariant';
 
@@ -24,7 +25,7 @@ export default class Warp extends Component {
         children: PropTypes.node.isRequired,
         gateName: PropTypes.string.isRequired,
         mode: PropTypes.oneOf(['click', 'hover']),
-        tooltip: PropTypes.element.isRequired
+        tooltip: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired
     };
 
     state = {
@@ -66,9 +67,22 @@ export default class Warp extends Component {
      */
     @bind
     showTooltip() {
-        let element = React.cloneElement(this.props.tooltip, {
-            targetElement: ReactDOM.findDOMNode(this)
-        });
+        let tooltip = this.props.tooltip,
+            element = null,
+            targetElement = ReactDOM.findDOMNode(this);
+
+        // Already an element
+        if (React.isValidElement(tooltip)) {
+            element = React.cloneElement(tooltip, { targetElement });
+
+        // Create an element
+        } else {
+            element = (
+                <Tooltip key={this.getUID()} targetElement={targetElement}>
+                    {tooltip}
+                </Tooltip>
+            );
+        }
 
         this.context.warpIn(this.props.gateName, element);
 
@@ -102,8 +116,8 @@ export default class Warp extends Component {
             };
 
         if (mode === 'hover') {
-            props.onMouseEnter = this.showTooltip;
-            props.onMouseLeave = this.hideTooltip;
+            props.onMouseOver = this.showTooltip;
+            props.onMouseOut = this.hideTooltip;
         } else {
             props.onClick = this.toggleTooltip;
         }
