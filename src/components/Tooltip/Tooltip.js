@@ -115,7 +115,7 @@ export default class Tooltip extends Component {
                 role="tooltip"
                 id={this.formatID('tooltip')}
                 className={this.formatClass(props.elementClassName, props.className, {
-                    ['position--' + props.position]: true
+                    ['@' + props.position]: true
                 })}
                 style={this.calculatePosition()}
                 aria-labelledby={props.title ? this.formatID('tooltip-title') : null}

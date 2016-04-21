@@ -5,13 +5,14 @@
  */
 
 @include export("tooltip") {
+    $titon-temp-tooltip-class: map-get($titon-tooltip, "class");
     $titon-temp-tooltip-arrow-class: map-get($titon-tooltip, "class-arrow");
     $titon-temp-tooltip-arrow-width: map-get($titon-tooltip, "arrow-width");
     $titon-temp-tooltip-arrow-width-double: ($titon-temp-tooltip-arrow-width * 2);
     $titon-temp-tooltip-animations: map-get($titon-tooltip, "animations");
     $titon-temp-tooltip-background-color: map-get($titon-tooltip, "background-color");
 
-    #{map-get($titon-tooltip, "class")} {
+    #{$titon-temp-tooltip-class} {
         position: absolute;
         max-width: 18rem;
         z-index: map-get($titon-settings-zindex, "tooltip");
@@ -41,83 +42,81 @@
 
     //-------------------- Positions --------------------//
 
-    #{map-get($titon-tooltip, "class")} {
-        &.position--top #{$titon-temp-tooltip-arrow-class},
-        &.position--bottom #{$titon-temp-tooltip-arrow-class} {
-            transform: translateX(-50%);
-            left: 50%;
-        }
+    #{bem($titon-temp-tooltip-class, "", "top")} #{$titon-temp-tooltip-arrow-class},
+    #{bem($titon-temp-tooltip-class, "", "bottom")} #{$titon-temp-tooltip-arrow-class} {
+        transform: translateX(-50%);
+        left: 50%;
+    }
 
-        &.position--left #{$titon-temp-tooltip-arrow-class},
-        &.position--right #{$titon-temp-tooltip-arrow-class} {
-            transform: translateY(-50%);
-            top: 50%;
-        }
+    #{bem($titon-temp-tooltip-class, "", "left")} #{$titon-temp-tooltip-arrow-class},
+    #{bem($titon-temp-tooltip-class, "", "right")} #{$titon-temp-tooltip-arrow-class} {
+        transform: translateY(-50%);
+        top: 50%;
+    }
 
-        //----- Top -----//
+    //----- Top -----//
 
-        &.position--top-left #{$titon-temp-tooltip-arrow-class} {
-            border-top-color: $titon-temp-tooltip-background-color;
-            border-right-color: $titon-temp-tooltip-background-color;
-            right: 0;
-        }
+    #{bem($titon-temp-tooltip-class, "", "top-left")} #{$titon-temp-tooltip-arrow-class} {
+        border-top-color: $titon-temp-tooltip-background-color;
+        border-right-color: $titon-temp-tooltip-background-color;
+        right: 0;
+    }
 
-        &.position--top #{$titon-temp-tooltip-arrow-class} {
-            border-top-color: $titon-temp-tooltip-background-color;
-        }
+    #{bem($titon-temp-tooltip-class, "", "top")} #{$titon-temp-tooltip-arrow-class} {
+        border-top-color: $titon-temp-tooltip-background-color;
+    }
 
-        &.position--top-right #{$titon-temp-tooltip-arrow-class} {
-            border-top-color: $titon-temp-tooltip-background-color;
-            border-left-color: $titon-temp-tooltip-background-color;
-            left: 0;
-        }
+    #{bem($titon-temp-tooltip-class, "", "top-right")} #{$titon-temp-tooltip-arrow-class} {
+        border-top-color: $titon-temp-tooltip-background-color;
+        border-left-color: $titon-temp-tooltip-background-color;
+        left: 0;
+    }
 
-        &.position--top #{$titon-temp-tooltip-arrow-class},
-        &.position--top-left #{$titon-temp-tooltip-arrow-class},
-        &.position--top-right #{$titon-temp-tooltip-arrow-class} {
-            bottom: -#{$titon-temp-tooltip-arrow-width-double}px;
-        }
+    #{bem($titon-temp-tooltip-class, "", "top")} #{$titon-temp-tooltip-arrow-class},
+    #{bem($titon-temp-tooltip-class, "", "top-left")} #{$titon-temp-tooltip-arrow-class},
+    #{bem($titon-temp-tooltip-class, "", "top-right")} #{$titon-temp-tooltip-arrow-class} {
+        bottom: -#{$titon-temp-tooltip-arrow-width-double}px;
+    }
 
-        //----- Middle -----//
+    //----- Middle -----//
 
-        &.position--left #{$titon-temp-tooltip-arrow-class} {
-            border-left-color: $titon-temp-tooltip-background-color;
-            right: -#{$titon-temp-tooltip-arrow-width-double}px;
-        }
+    #{bem($titon-temp-tooltip-class, "", "left")} #{$titon-temp-tooltip-arrow-class} {
+        border-left-color: $titon-temp-tooltip-background-color;
+        right: -#{$titon-temp-tooltip-arrow-width-double}px;
+    }
 
-        &.position--right #{$titon-temp-tooltip-arrow-class} {
-            border-right-color: $titon-temp-tooltip-background-color;
-            left: -#{$titon-temp-tooltip-arrow-width-double}px;
-        }
+    #{bem($titon-temp-tooltip-class, "", "right")} #{$titon-temp-tooltip-arrow-class} {
+        border-right-color: $titon-temp-tooltip-background-color;
+        left: -#{$titon-temp-tooltip-arrow-width-double}px;
+    }
 
-        //----- Bottom -----//
+    //----- Bottom -----//
 
-        &.position--bottom-left #{$titon-temp-tooltip-arrow-class} {
-            border-bottom-color: $titon-temp-tooltip-background-color;
-            border-right-color: $titon-temp-tooltip-background-color;
-            right: 0;
-        }
+    #{bem($titon-temp-tooltip-class, "", "bottom-left")} #{$titon-temp-tooltip-arrow-class} {
+        border-bottom-color: $titon-temp-tooltip-background-color;
+        border-right-color: $titon-temp-tooltip-background-color;
+        right: 0;
+    }
 
-        &.position--bottom #{$titon-temp-tooltip-arrow-class} {
-            border-bottom-color: $titon-temp-tooltip-background-color;
-        }
+    #{bem($titon-temp-tooltip-class, "", "bottom")} #{$titon-temp-tooltip-arrow-class} {
+        border-bottom-color: $titon-temp-tooltip-background-color;
+    }
 
-        &.position--bottom-right #{$titon-temp-tooltip-arrow-class} {
-            border-bottom-color: $titon-temp-tooltip-background-color;
-            border-left-color: $titon-temp-tooltip-background-color;
-            left: 0;
-        }
+    #{bem($titon-temp-tooltip-class, "", "bottom-right")} #{$titon-temp-tooltip-arrow-class} {
+        border-bottom-color: $titon-temp-tooltip-background-color;
+        border-left-color: $titon-temp-tooltip-background-color;
+        left: 0;
+    }
 
-        &.position--bottom #{$titon-temp-tooltip-arrow-class},
-        &.position--bottom-left #{$titon-temp-tooltip-arrow-class},
-        &.position--bottom-right #{$titon-temp-tooltip-arrow-class} {
-            top: -#{$titon-temp-tooltip-arrow-width-double}px;
-        }
+    #{bem($titon-temp-tooltip-class, "", "bottom")} #{$titon-temp-tooltip-arrow-class},
+    #{bem($titon-temp-tooltip-class, "", "bottom-left")} #{$titon-temp-tooltip-arrow-class},
+    #{bem($titon-temp-tooltip-class, "", "bottom-right")} #{$titon-temp-tooltip-arrow-class} {
+        top: -#{$titon-temp-tooltip-arrow-width-double}px;
     }
 
     //-------------------- Animations --------------------//
 
-    #{map-get($titon-tooltip, "class")} {
+    #{$titon-temp-tooltip-class} {
         @if (is-feature-enabled("all-animations") or index($titon-temp-tooltip-animations, "fade")) {
             &.fade {
                 opacity: 0;
@@ -160,49 +159,45 @@
     #{map-get($titon-tooltip, "class-trigger")} {
         position: relative;
 
-        #{map-get($titon-tooltip, "class")} {
-            display: none;
-
-            &.position--top,
-            &.position--bottom {
-                transform: translateX(-50%);
-                left: 50%;
-            }
-
-            &.position--top,
-            &.position--top-left,
-            &.position--top-right {
-                bottom: 100%;
-            }
-
-            &.position--left,
-            &.position--top-left,
-            &.position--bottom-left {
-                right: 100%;
-            }
-
-            &.position--right,
-            &.position--top-right,
-            &.position--bottom-right {
-                left: 100%;
-            }
-
-            &.position--left,
-            &.position--right {
-                transform: translateY(-50%);
-                top: 50%;
-            }
-
-            &.position--bottom,
-            &.position--bottom-left,
-            &.position--bottom-right {
-                top: 100%;
-            }
+        #{bem($titon-temp-tooltip-class, "", "top")},
+        #{bem($titon-temp-tooltip-class, "", "bottom")} {
+            transform: translateX(-50%);
+            left: 50%;
         }
 
-        &:hover {
-            #{map-get($titon-tooltip, "class")} {
-                display: block;
+        #{bem($titon-temp-tooltip-class, "", "top")},
+        #{bem($titon-temp-tooltip-class, "", "top-left")},
+        #{bem($titon-temp-tooltip-class, "", "top-right")} {
+            bottom: 100%;
+        }
+
+        #{bem($titon-temp-tooltip-class, "", "left")},
+        #{bem($titon-temp-tooltip-class, "", "top-left")},
+        #{bem($titon-temp-tooltip-class, "", "bottom-left")} {
+            right: 100%;
+        }
+
+        #{bem($titon-temp-tooltip-class, "", "right")},
+        #{bem($titon-temp-tooltip-class, "", "top-right")},
+        #{bem($titon-temp-tooltip-class, "", "bottom-right")} {
+            left: 100%;
+        }
+
+        #{bem($titon-temp-tooltip-class, "", "left")},
+        #{bem($titon-temp-tooltip-class, "", "right")} {
+            transform: translateY(-50%);
+            top: 50%;
+        }
+
+        #{bem($titon-temp-tooltip-class, "", "bottom")},
+        #{bem($titon-temp-tooltip-class, "", "bottom-left")},
+        #{bem($titon-temp-tooltip-class, "", "bottom-right")} {
+            top: 100%;
+        }
+
+        &:not(:hover) {
+            #{$titon-temp-tooltip-class} {
+                display: none;
             }
         }
     }
