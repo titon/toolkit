@@ -7,19 +7,15 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import SlideCollapse from '../../transitions/SlideCollapse';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Section extends Component {
+    static module = MODULE;
     static contextTypes = CONTEXT_TYPES;
-
-    static defaultProps = {
-        elementClassName: ['accordion', 'section']
-    };
 
     static propTypes = {
         children: PropTypes.node,
-        elementClassName: cssClass.isRequired,
         expanded: PropTypes.bool.isRequired,
         index: PropTypes.number.isRequired
     };
@@ -39,7 +35,7 @@ export default class Section extends Component {
                 <section
                     role="tabpanel"
                     id={this.formatID('accordion-section', index)}
-                    className={this.formatClass(props.elementClassName, {
+                    className={this.formatChildClass('section', {
                         'is-expanded': expanded
                     })}
                     aria-labelledby={this.formatID('accordion-header', index)}

@@ -15,17 +15,17 @@ import invariant from './invariant';
  * Instantiate with a primary class name:
  *
  *      let className =
- *          new ClassBuilder('unique');         // .unique
- *          new ClassBuilder('unique', 'pre-'); // .pre-unique
+ *          new ClassBuilder('unique');             // .unique
+ *          new ClassBuilder('unique', 'pre-');     // .pre-unique
  *
  * Add secondary classes:
  *
  *      className
- *          .add('foo')                     // .foo
- *          .add('foo', 'element');         // .foo-element
- *          .add('foo', '', 'modifier');    // .foo--modifier
- *          .add(['foo', 'element'])        // .foo-element
- *          .add({                          // .foo--modifier
+ *          .addClass('foo')                        // .foo
+ *          .addClass('foo', 'element');            // .foo-element
+ *          .addClass('foo', '', 'modifier');       // .foo--modifier
+ *          .addClass(['foo', 'element'])           // .foo-element
+ *          .addClass({                             // .foo--modifier
  *              block: 'foo',
  *              modifier: 'modifier'
  *          });
@@ -33,12 +33,12 @@ import invariant from './invariant';
  * Add modifier classes that append to the primary class:
  *
  *      className
- *          .mod('inverse')                 // .unique--inverse
- *          .mod('reverse');                // .unique--reverse
+ *          .addModifier('inverse')                 // .unique--inverse
+ *          .addModifier('reverse');                // .unique--reverse
  *
  * Map modifier (@) and tertiary classes that evaluate to true:
  *
- *      className.map({
+ *      className.mapClasses({
  *          'is-active': true,
  *          'is-disabled': false,
  *          'no-scroll': true,

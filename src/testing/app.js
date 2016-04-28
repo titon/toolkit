@@ -946,7 +946,7 @@ const tooltipMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {tooltipMarkup}
+            {accordionMarkup}
 
             <Modal.Gate name="modals" />
             <Toast.Gate name="toasts" />

@@ -12,6 +12,12 @@ import cssClass from '../../prop-types/cssClass';
 import debounce from '../../decorators/debounce';
 
 export default class SlideCollapse extends Component {
+    static module = {
+        classNames: {
+            default: 'slide-collapse'
+        }
+    };
+
     static defaultProps = {
         direction: 'vertical',
         elementClassName: ['slide', 'collapse'],

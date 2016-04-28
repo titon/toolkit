@@ -4,10 +4,6 @@
  * @link        http://titon.io
  */
 
-import Accordion from './Accordion';
-import Item from './Item';
+import defineModule from '../../utility/defineModule';
 
-Accordion.Item = Item;
-
-export { Item };
-export default Accordion;
+export default defineModule('Accordion', '3.0.0', 'accordion', ['header', 'section']);

@@ -19,9 +19,11 @@ import wrapFunctions from './utility/wrapFunctions';
 import './polyfills/Performance.now.js';
 
 export default class Component extends React.Component {
-    static contextTypes = {};
-    static defaultProps = {};
-    static propTypes = {};
+    static module = {
+        classNames: {},
+        name: 'Component',
+        version: '3.0.0'
+    };
 
     /**
      * Generate a UID for all components.
@@ -30,8 +32,6 @@ export default class Component extends React.Component {
         super();
 
         this.state = {};
-        this.version = '3.0.0';
-
         this.generateUID();
     }
 
@@ -45,14 +45,15 @@ export default class Component extends React.Component {
      * @param {...*} [args]
      */
     emitEvent(type, ...args) {
-        let debug = this.props.debug || Titon.options.debug,
-            name = this.constructor.name,
+        let { module, name } = this.constructor,
+            debug = this.props.debug || Titon.options.debug,
             uid = this.getUID();
 
         if (debug && window.console) {
             /* eslint no-console: 0 */
 
-            console.log(name + (uid ? `#${uid}` : ''), performance.now().toFixed(3), type, ...args);
+            console.log(`${module.name}.${name}` + (uid ? `#${uid}` : ''),
+                performance.now().toFixed(3), type, ...args);
 
             if (debug === 'verbose') {
                 console.dir(this);
@@ -70,24 +71,24 @@ export default class Component extends React.Component {
     }
 
     /**
-     * Format an element level class name based on the `className` prop and defined argument..
+     * Format an element level class name based on the defined argument.
      *
-     * @param {String} elementClass
+     * @param {String} elementName
      * @param {...String|Array|Object} params
      * @returns {String}
      */
-    formatChildClass(elementClass, ...params) {
-        return formatElementClass(this.getBlockClass(), elementClass, ...params);
+    formatChildClass(elementName, ...params) {
+        return formatClass(this.getModuleClass(elementName), ...params);
     }
 
     /**
-     * Format a block level class name based on the `className` prop.
+     * Format a block level class name.
      *
      * @param {...String|Array|Object} params
      * @returns {String}
      */
     formatClass(...params) {
-        return formatClass(this.getBlockClass(), ...params);
+        return formatClass(this.getModuleClass(), ...params);
     }
 
     /**
@@ -153,29 +154,15 @@ export default class Component extends React.Component {
     }
 
     /**
-     * Attempt to find the block level CSS class name.
-     * Will be found in the props if the top level component,
-     * else will be found in the context if a child component.
+     * Attempt to find the block or element class name within the modules classnames mapping.
      *
      * @returns {String}
      */
-    getBlockClass() {
-        let { name, propTypes, contextTypes } = this.constructor,
-            propClass = this.props.className,
-            contextClass = this.context.className,
-            className = '';
+    getModuleClass(element = 'default') {
+        let { name, module } = this.constructor,
+            className = module.classNames[element];
 
-        // Top level parent
-        if (propTypes.className && propClass) {
-            className = propClass;
-        }
-
-        // Inherited from context
-        if (contextTypes.className && contextClass) {
-            className = contextClass;
-        }
-
-        invariant(className, 'Block level class name not found for %s.', name);
+        invariant(className, 'Module class name not found for `%s`.', name);
 
         return className;
     }
@@ -187,7 +174,6 @@ export default class Component extends React.Component {
      */
     getDefaultChildContext() {
         return {
-            className: this.getBlockClass(),
             uid: this.getUID()
         };
     }
@@ -232,7 +218,7 @@ export default class Component extends React.Component {
      * @returns {Object}
      */
     inheritNativeProps(props) {
-        return omit(props, ['children', ...Object.keys(this.constructor.propTypes)]);
+        return omit(props, ['children', 'className', ...Object.keys(this.constructor.propTypes)]);
     }
 
     /**
