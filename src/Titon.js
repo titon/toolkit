@@ -51,8 +51,4 @@ const Titon = Object.freeze({
     version: '%version%'
 });
 
-if (window) {
-    window.Titon = Titon;
-}
-
 export default Titon;

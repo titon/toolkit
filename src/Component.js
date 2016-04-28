@@ -4,24 +4,24 @@
  * @link        http://titon.io
  */
 
-import React, { Children, PropTypes } from 'react';
+/* eslint react/prop-types: 0 */
+
+import React, { Children } from 'react';
 import Titon from './Titon';
-import ClassBuilder from './utility/ClassBuilder';
 import assign from 'lodash/assign';
+import formatClass from './utility/formatClass';
+import formatElementClass from './utility/formatElementClass';
+import formatID from './utility/formatID';
 import generateUID from './utility/generateUID';
+import invariant from './utility/invariant';
 import omit from 'lodash/omit';
 import wrapFunctions from './utility/wrapFunctions';
 import './polyfills/Performance.now.js';
 
 export default class Component extends React.Component {
-    static defaultProps = {
-        debug: false
-    };
-
-    static propTypes = {
-        debug: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-        uid: PropTypes.string
-    };
+    static contextTypes = {};
+    static defaultProps = {};
+    static propTypes = {};
 
     /**
      * Generate a UID for all components.
@@ -70,38 +70,24 @@ export default class Component extends React.Component {
     }
 
     /**
-     * Format a unique HTML class name based on the passed parameters.
-     * The primary class name passed will automatically be namespaced,
-     * while all other classes will not.
+     * Format an element level class name based on the `className` prop and defined argument..
      *
-     * @param {String|Array|Object} className
+     * @param {String} elementClass
      * @param {...String|Array|Object} params
      * @returns {String}
      */
-    formatClass(className, ...params) {
-        if (!className) {
-            return '';
-        }
+    formatChildClass(elementClass, ...params) {
+        return formatElementClass(this.getBlockClass(), elementClass, ...params);
+    }
 
-        let namespace = Titon.options.autoNamespace ? Titon.options.namespace : '',
-            builder = new ClassBuilder(className, namespace);
-
-        // Append additional classes
-        params.forEach(param => {
-            if (typeof param === 'string' || Array.isArray(param)) {
-                builder.add(param);
-
-            } else if (typeof param === 'object') {
-                if (param.block) {
-                    builder.add(param);
-
-                } else {
-                    builder.map(param);
-                }
-            }
-        });
-
-        return builder.toString();
+    /**
+     * Format a block level class name based on the `className` prop.
+     *
+     * @param {...String|Array|Object} params
+     * @returns {String}
+     */
+    formatClass(...params) {
+        return formatClass(this.getBlockClass(), ...params);
     }
 
     /**
@@ -111,10 +97,7 @@ export default class Component extends React.Component {
      * @returns {String}
      */
     formatID(...params) {
-        return ['titon', this.getUID(), ...params]
-            .join('-')
-            .trim()
-            .replace('--', '-');
+        return formatID('titon', this.getUID(), ...params);
     }
 
     /**
@@ -167,6 +150,46 @@ export default class Component extends React.Component {
         });
 
         return obj;
+    }
+
+    /**
+     * Attempt to find the block level CSS class name.
+     * Will be found in the props if the top level component,
+     * else will be found in the context if a child component.
+     *
+     * @returns {String}
+     */
+    getBlockClass() {
+        let { name, propTypes, contextTypes } = this.constructor,
+            propClass = this.props.className,
+            contextClass = this.context.className,
+            className = '';
+
+        // Top level parent
+        if (propTypes.className && propClass) {
+            className = propClass;
+        }
+
+        // Inherited from context
+        if (contextTypes.className && contextClass) {
+            className = contextClass;
+        }
+
+        invariant(className, 'Block level class name not found for %s.', name);
+
+        return className;
+    }
+
+    /**
+     * Define a context that is passed to all children.
+     *
+     * @returns {Object}
+     */
+    getDefaultChildContext() {
+        return {
+            className: this.getBlockClass(),
+            uid: this.getUID()
+        };
     }
 
     /**

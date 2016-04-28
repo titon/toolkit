@@ -4,11 +4,10 @@
  * @link        http://titon.io
  */
 
-/* eslint react/sort-prop-types: 0, sorting/sort-object-props: 0 */
+/* eslint require-jsdoc: 0, react/sort-prop-types: 0, sorting/sort-object-props: 0 */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
+import formatClass from '../../utility/formatClass';
 import range from '../../prop-types/range';
 
 const SPAN_CLASSES = {
@@ -32,67 +31,55 @@ const SPAN_CLASSES = {
     xlargePull: 'xl-pull'
 };
 
-export default class Col extends Component {
-    static defaultProps = {
-        elementClassName: 'col'
-    };
+export default function Col(props) {
+    let classes = {};
 
-    static propTypes = {
-        children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
+    Object.keys(SPAN_CLASSES).forEach(key => {
+        let span = props[key];
 
-        // This is ugly, a better way?
-        span: range.span12,
-        push: range.span12,
-        pull: range.span12,
-        xsmall: range.span6,
-        xsmallPush: range.span6,
-        xsmallPull: range.span6,
-        small: range.span12,
-        smallPush: range.span12,
-        smallPull: range.span12,
-        medium: range.span12,
-        mediumPush: range.span12,
-        mediumPull: range.span12,
-        large: range.span12,
-        largePush: range.span12,
-        largePull: range.span12,
-        xlarge: range.span18,
-        xlargePush: range.span18,
-        xlargePull: range.span18,
-        end: PropTypes.bool
-    };
-
-    /**
-     * Render the grid column.
-     *
-     * @returns {ReactElement}
-     */
-    render() {
-        let props = this.props,
-            classes = {};
-
-        Object.keys(SPAN_CLASSES).forEach(key => {
-            let span = props[key];
-
-            if (span) {
-                classes[SPAN_CLASSES[key] + '-' + span] = true;
-            }
-        });
-
-        // End needs to be last to override any styles
-        if (props.end) {
-            classes.end = true;
+        if (span) {
+            classes[SPAN_CLASSES[key] + '-' + span] = true;
         }
+    });
 
-        return (
-            <div
-                className={this.formatClass(props.elementClassName, props.className, classes)}
-                {...this.inheritNativeProps(props)}>
-
-                {props.children}
-            </div>
-        );
+    // End needs to be last to override any styles
+    if (props.end) {
+        classes.end = true;
     }
+
+    return (
+        <div className={formatClass(props.className, classes)}>
+            {props.children}
+        </div>
+    );
 }
+
+Col.defaultProps = {
+    className: 'col'
+};
+
+Col.propTypes = {
+    children: PropTypes.node,
+    className: PropTypes.string.isRequired,
+
+    // This is ugly, a better way?
+    span: range.span12,
+    push: range.span12,
+    pull: range.span12,
+    xsmall: range.span6,
+    xsmallPush: range.span6,
+    xsmallPull: range.span6,
+    small: range.span12,
+    smallPush: range.span12,
+    smallPull: range.span12,
+    medium: range.span12,
+    mediumPush: range.span12,
+    mediumPull: range.span12,
+    large: range.span12,
+    largePush: range.span12,
+    largePull: range.span12,
+    xlarge: range.span18,
+    xlargePush: range.span18,
+    xlargePull: range.span18,
+    end: PropTypes.bool
+};
