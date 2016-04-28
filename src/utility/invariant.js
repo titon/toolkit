@@ -19,13 +19,14 @@ import { DEV, PROD } from '../flags';
  * @param {*} condition
  * @param {String} message
  * @param {...String} params
+ * @returns {Boolean}
  */
 export default function invariant(condition, message = '', ...params) {
     let error = null,
         index = 0;
 
     if (condition) {
-        return;
+        return true;
 
     } else if (message === '') {
         error = new Error('`invariant()` requires an error message.');
@@ -45,4 +46,6 @@ export default function invariant(condition, message = '', ...params) {
     } else if (DEV) {
         throw error;
     }
+
+    return false;
 }

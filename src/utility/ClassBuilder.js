@@ -66,7 +66,7 @@ export default class ClassBuilder {
         this.classes = [];
 
         // Add the primary class and then save a reference
-        this.add(primaryClass);
+        this.addClass(primaryClass);
         this.primaryClass = this.classes[0];
     }
 
@@ -79,10 +79,22 @@ export default class ClassBuilder {
      * @param {Boolean} [prefix]
      * @returns {ClassBuilder}
      */
-    add(block, element = '', modifier = '', prefix = true) {
+    addClass(block, element = '', modifier = '', prefix = true) {
         this.classes.push(
             (prefix ? this.prefix : '') + formatBEM(block, element, modifier)
         );
+
+        return this;
+    }
+
+    /**
+     * Add a modifier class based on the current primary class.
+     *
+     * @param {String} modifier
+     * @returns {ClassBuilder}
+     */
+    addModifier(modifier) {
+        this.addClass(this.primaryClass, '', modifier, false);
 
         return this;
     }
@@ -95,11 +107,11 @@ export default class ClassBuilder {
      * @param {Object} classes
      * @returns {ClassBuilder}
      */
-    map(classes) {
+    mapClasses(classes) {
         Object.keys(classes).forEach(key => {
             if (classes[key]) {
                 if (key.charAt(0) === '@') {
-                    this.mod(key.substr(1));
+                    this.addModifier(key.substr(1));
 
                 } else {
                     this.classes.push(key);
@@ -111,14 +123,26 @@ export default class ClassBuilder {
     }
 
     /**
-     * Add a modifier class based on the current primary class.
+     * Loop through a list of possible classes and either add a secondary class,
+     * add a modifier class, or map multiple classes.
      *
-     * @param {String} modifier
+     * @param {...String|Array|Object} params
      * @returns {ClassBuilder}
      */
-    mod(modifier) {
-        // Primary should already be prefixed so don't do it again
-        this.classes.push(formatBEM(this.primaryClass, '', modifier));
+    mapParams(...params) {
+        params.forEach(param => {
+            if (typeof param === 'string' || Array.isArray(param)) {
+                this.addClass(param);
+
+            } else if (typeof param === 'object') {
+                if (param.block) {
+                    this.addClass(param);
+
+                } else {
+                    this.mapClasses(param);
+                }
+            }
+        });
 
         return this;
     }
