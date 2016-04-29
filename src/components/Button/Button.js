@@ -7,20 +7,24 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
-import cssClass from '../../prop-types/cssClass';
 import { states } from '../PropTypes';
+import MODULE from './module';
 
 export default class Button extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        elementClassName: 'button',
+        disabled: false,
+        large: false,
+        primary: false,
+        secondary: false,
+        small: false,
         type: 'button'
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
         disabled: PropTypes.bool,
-        elementClassName: cssClass.isRequired,
         href: PropTypes.string,
         large: PropTypes.bool,
         primary: PropTypes.bool,
@@ -65,12 +69,12 @@ export default class Button extends Component {
         let { pressed } = this.state,
             props = this.props,
             buttonProps = {
-                className: this.formatClass(props.elementClassName, props.className, {
+                className: this.formatClass({
                     ['@large']: props.large,
                     ['@primary']: props.primary,
                     ['@secondary']: props.secondary,
                     ['@small']: props.small,
-                    ['@' + props.state]: Boolean(props.state),
+                    ['@' + props.state]: props.state,
                     'is-disabled': props.disabled,
                     'is-pressed': pressed
                 }),

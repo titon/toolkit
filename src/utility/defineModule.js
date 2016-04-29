@@ -12,19 +12,22 @@ import generateClassNames from './generateClassNames';
  *
  * @param {String} name
  * @param {String} version
- * @param {String} blockClass
- * @param {String[]} elementClasses
+ * @param {Object} options
  * @returns {Object}
  */
-export default function defineModule(name, version, blockClass, elementClasses = []) {
+export default function defineModule(name, version, options = {}) {
     const module = {};
 
     Object.defineProperty(module, 'name', { value: name });
     Object.defineProperty(module, 'version', { value: version });
-    Object.defineProperty(module, 'classNames', {
-        value: generateClassNames(blockClass, elementClasses),
-        writable: true
-    });
+
+    // Generate BEM styled class names
+    if (options.blockClass || options.elementClasses) {
+        Object.defineProperty(module, 'classNames', {
+            value: generateClassNames(options.blockClass || '', options.elementClasses || []),
+            writable: true
+        });
+    }
 
     return module;
 }

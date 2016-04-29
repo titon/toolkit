@@ -4,6 +4,7 @@
  * @link        http://titon.io
  */
 
+import Titon from '../Titon';
 import formatBEM from './formatBEM';
 
 /**
@@ -15,10 +16,11 @@ import formatBEM from './formatBEM';
  * @returns {Object}
  */
 export default function generateClassNames(blockClass, elementClasses = []) {
-    let classNames = { default: blockClass };
+    let namespace = Titon.options.namespace;
+    let classNames = { default: namespace + formatBEM(blockClass) };
 
     elementClasses.forEach(elementClass => {
-        classNames[elementClass] = formatBEM(blockClass, elementClass);
+        classNames[elementClass] = namespace + formatBEM(blockClass, elementClass);
     });
 
     return classNames;

@@ -6,9 +6,12 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Link extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {
@@ -24,7 +27,11 @@ export default class Link extends Component {
         let props = this.props;
 
         return (
-            <a role="menuitem" {...this.inheritNativeProps(props)}>
+            <a
+                role="menuitem"
+                className={this.formatChildClass('link')}
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </a>
         );

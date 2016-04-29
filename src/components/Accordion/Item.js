@@ -16,6 +16,7 @@ import MODULE from './module';
 
 export default class Item extends Component {
     static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {

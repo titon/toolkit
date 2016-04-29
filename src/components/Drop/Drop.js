@@ -12,9 +12,12 @@ import bind from '../../decorators/bind';
 import children from '../../prop-types/children';
 import collection from '../../prop-types/collection';
 import isOutsideElement from '../../utility/isOutsideElement';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Drop extends Component {
+    static module = MODULE;
+
     static childContextTypes = CONTEXT_TYPES;
 
     static propTypes = {

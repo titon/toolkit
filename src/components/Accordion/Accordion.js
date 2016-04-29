@@ -15,6 +15,7 @@ import MODULE from './module';
 
 export default class Accordion extends Component {
     static module = MODULE;
+
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {

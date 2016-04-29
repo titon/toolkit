@@ -9,21 +9,18 @@
 import React, { PropTypes } from 'react';
 import Col from './Col';
 import children from '../../prop-types/children';
-import formatClass from '../../utility/formatClass';
+import MODULE from './module';
 
-export default function Row(props) {
+export default function Row({ children }) {
     return (
-        <div className={formatClass(props.className)}>
-            {props.children}
+        <div className={MODULE.classNames.row}>
+            {children}
         </div>
     );
 }
 
-Row.defaultProps = {
-    className: 'row'
-};
+Row.module = MODULE;
 
 Row.propTypes = {
-    children: children(Col),
-    className: PropTypes.string.isRequired
+    children: children(Col)
 };

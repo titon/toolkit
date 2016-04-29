@@ -10,30 +10,33 @@ import React, { PropTypes } from 'react';
 import Block from './Block';
 import children from '../../prop-types/children';
 import formatClass from '../../utility/formatClass';
+import MODULE from './module';
 
 export default function Region(props) {
     return (
         <div
-            className={formatClass(props.className, {
+            className={formatClass(MODULE.classNames.region, {
                 '@grid': props.grid,
                 '@wrap': props.wrap,
-                ['@' + props.orientation]: Boolean(props.orientation),
-                ['flow-' + props.flow]: Boolean(props.flow)
+                ['@' + props.orientation]: props.orientation,
+                ['flow-' + props.flow]: props.flow
             })}
-            aria-orientation={props.orientation}>
-
+            aria-orientation={props.orientation}
+        >
             {props.children}
         </div>
     );
 }
 
+Region.module = MODULE;
+
 Region.defaultProps = {
-    className: 'region'
+    grid: false,
+    wrap: false
 };
 
 Region.propTypes = {
     children: children(Block),
-    className: PropTypes.string.isRequired,
     flow: PropTypes.oneOf(['top', 'left', 'bottom', 'right', 'center', 'between', 'around']),
     grid: PropTypes.bool,
     orientation: PropTypes.oneOf(['horizontal', 'vertical']),

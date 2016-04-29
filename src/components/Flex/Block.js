@@ -9,6 +9,7 @@
 import React, { PropTypes } from 'react';
 import formatClass from '../../utility/formatClass';
 import range from '../../prop-types/range';
+import MODULE from './module';
 
 const SPAN_CLASSES = {
     self: 'self',
@@ -33,25 +34,29 @@ export default function Block({ shrink, order, grow, ...props }) {
 
     return (
         <div
-            className={formatClass(props.className, classes)}
+            className={formatClass(MODULE.classNames.block, classes)}
             style={{
-                flexGrow: (typeof grow === 'number' && grow >= 0) ? grow : null,
-                flexShrink: (typeof shrink === 'number' && shrink >= 0) ? shrink : null,
-                order: (typeof order === 'number' && order >= 0) ? order : null
-            }}>
-
+                flexGrow: (grow >= 0) ? grow : null,
+                flexShrink: (shrink >= 0) ? shrink : null,
+                order: (order >= 0) ? order : null
+            }}
+        >
             {props.children}
         </div>
     );
 }
 
+Block.module = MODULE;
+
 Block.defaultProps = {
-    className: 'block'
+    className: 'block',
+    grow: -1,
+    order: -1,
+    shrink: -1
 };
 
 Block.propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string.isRequired,
     grow: PropTypes.number,
     large: range.span12,
     medium: range.span12,

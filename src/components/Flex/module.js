@@ -6,7 +6,6 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Accordion', '3.0.0', {
-    blockClass: 'accordion',
-    elementClasses: ['header', 'section']
+export default defineModule('Flex', '3.0.0', {
+    elementClasses: ['region', 'block']
 });

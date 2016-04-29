@@ -7,20 +7,16 @@
 import React, { Children, PropTypes } from 'react';
 import Component from '../../Component';
 import Menu from './Menu';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Item extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
 
-    static defaultProps = {
-        elementClassName: ['drop', 'item']
-    };
-
     static propTypes = {
-        children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired
+        children: PropTypes.node
     };
 
     /**
@@ -35,12 +31,12 @@ export default class Item extends Component {
 
         return (
             <li
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatChildClass('item', {
                     'has-children': nested
                 })}
                 aria-haspopup={nested}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </li>
         );

@@ -22,9 +22,6 @@ const Titon = Object.freeze({
 
     /** Configurable options. */
     options: {
-        // Automatically prefix namespace to classes
-        autoNamespace: true,
-
         // Prefix prepended to every cookie
         cookiePrefix: 'titon.',
 

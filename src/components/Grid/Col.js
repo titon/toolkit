@@ -9,6 +9,7 @@
 import React, { PropTypes } from 'react';
 import formatClass from '../../utility/formatClass';
 import range from '../../prop-types/range';
+import MODULE from './module';
 
 const SPAN_CLASSES = {
     span: 'span',
@@ -31,7 +32,7 @@ const SPAN_CLASSES = {
     xlargePull: 'xl-pull'
 };
 
-export default function Col(props) {
+export default function Col({ children, end, ...props }) {
     let classes = {};
 
     Object.keys(SPAN_CLASSES).forEach(key => {
@@ -43,24 +44,25 @@ export default function Col(props) {
     });
 
     // End needs to be last to override any styles
-    if (props.end) {
+    if (end) {
         classes.end = true;
     }
 
     return (
-        <div className={formatClass(props.className, classes)}>
-            {props.children}
+        <div className={formatClass(MODULE.classNames.col, classes)}>
+            {children}
         </div>
     );
 }
 
+Col.module = MODULE;
+
 Col.defaultProps = {
-    className: 'col'
+    end: false
 };
 
 Col.propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string.isRequired,
 
     // This is ugly, a better way?
     span: range.span12,

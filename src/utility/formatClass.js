@@ -4,7 +4,6 @@
  * @link        http://titon.io
  */
 
-import Titon from '../Titon';
 import ClassBuilder from './ClassBuilder';
 
 /**
@@ -17,7 +16,5 @@ import ClassBuilder from './ClassBuilder';
  * @returns {String}
  */
 export default function formatClass(className, ...params) {
-    return new ClassBuilder(className, Titon.options.autoNamespace ? Titon.options.namespace : '')
-        .mapParams(...params)
-        .toString();
+    return new ClassBuilder(className).mapParams(...params).toString();
 }

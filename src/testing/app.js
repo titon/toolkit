@@ -9,6 +9,7 @@ import Button, { Link, Submit } from '../components/Button';
 import ButtonGroup from '../components/ButtonGroup';
 import Carousel from '../components/carousel';
 import Checkbox from '../components/Checkbox';
+import Divider from '../components/Divider';
 import Drop from '../components/Drop';
 import { Region, Block } from '../components/Flex';
 import Form from '../components/Form';
@@ -220,6 +221,13 @@ const checkboxMarkup = (
         <Checkbox name="baz" multiple={true} defaultValue="1" />
         <Checkbox name="baz" multiple={true} defaultValue="2" defaultChecked={true} />
         <Checkbox name="baz" multiple={true} defaultValue="3" />
+    </div>
+);
+
+const dividerMarkup = (
+    <div>
+        <Divider />
+        <Divider>or</Divider>
     </div>
 );
 
@@ -946,7 +954,7 @@ const tooltipMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {accordionMarkup}
+            {gridMarkup}
 
             <Modal.Gate name="modals" />
             <Toast.Gate name="toasts" />

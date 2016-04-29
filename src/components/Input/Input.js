@@ -22,6 +22,7 @@ export default class Input extends Component {
 
     static propTypes = {
         ...propTypes,
+        children: PropTypes.node,
         className: cssClass,
         elementClassName: cssClass.isRequired,
         large: PropTypes.bool,

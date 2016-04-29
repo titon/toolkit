@@ -10,7 +10,6 @@ import React, { Children } from 'react';
 import Titon from './Titon';
 import assign from 'lodash/assign';
 import formatClass from './utility/formatClass';
-import formatElementClass from './utility/formatElementClass';
 import formatID from './utility/formatID';
 import generateUID from './utility/generateUID';
 import invariant from './utility/invariant';
@@ -24,6 +23,9 @@ export default class Component extends React.Component {
         name: 'Component',
         version: '3.0.0'
     };
+
+    static contextTypes = {};
+    static propTypes = {};
 
     /**
      * Generate a UID for all components.

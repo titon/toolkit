@@ -12,6 +12,7 @@ import MODULE from './module';
 
 export default class Section extends Component {
     static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {

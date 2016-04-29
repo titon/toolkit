@@ -6,7 +6,7 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Accordion', '3.0.0', {
-    blockClass: 'accordion',
-    elementClasses: ['header', 'section']
+export default defineModule('Breadcrumb', '3.0.0', {
+    blockClass: 'breadcrumb',
+    elementClasses: ['item']
 });
