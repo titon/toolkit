@@ -41,8 +41,8 @@ export default class Section extends Component {
                     })}
                     aria-labelledby={this.formatID('accordion-header', index)}
                     aria-hidden={!expanded}
-                    aria-expanded={expanded}>
-
+                    aria-expanded={expanded}
+                >
                     {props.children}
                 </section>
             </SlideCollapse>

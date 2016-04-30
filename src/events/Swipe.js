@@ -15,6 +15,10 @@ const abs = Math.abs;
 
 @bind
 export default class Swipe extends Component {
+    static module = {
+        classNames: { default: 'event-swipe' }
+    };
+
     static defaultProps = {
         // Minimum distance required to travel
         distance: 50,

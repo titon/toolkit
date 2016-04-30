@@ -6,21 +6,18 @@
 
 import React, { PropTypes } from 'react';
 import LazyLoad from './LazyLoad';
-import cssClass from '../../prop-types/cssClass';
 import { RETINA } from '../../flags';
 
 export default class Image extends LazyLoad {
     static defaultProps = {
         ...LazyLoad.defaultProps,
-        elementClassName: ['lazy-load', 'image']
+        cacheBust: false
     };
 
     static propTypes = {
         ...LazyLoad.propTypes,
         alt: PropTypes.string,
         cacheBust: PropTypes.bool,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         filler: PropTypes.string,
         retinaSrc: PropTypes.string,
         src: PropTypes.string.isRequired
@@ -68,11 +65,12 @@ export default class Image extends LazyLoad {
                 ref="element"
                 alt={props.alt || ''}
                 src={this.getSourcePath()}
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatChildClass('image', {
                     'is-loaded': this.state.loaded,
                     'is-retina': (RETINA && props.retinaSrc)
                 })}
-                {...this.inheritNativeProps(props)} />
+                {...this.inheritNativeProps(props)}
+            />
         );
     }
 }

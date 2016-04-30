@@ -57,8 +57,8 @@ export default class Header extends Component {
                 aria-selected={active}
                 aria-expanded={active}
                 tabIndex={tabIndex(this)}
-                onClick={this.handleOnClick}>
-
+                onClick={this.handleOnClick}
+            >
                 {props.children}
             </header>
         );

@@ -6,11 +6,12 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
+import MODULE from './module';
 
 export default class Form extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        elementClassName: 'form',
         inline: false,
         method: 'get',
         multipart: false
@@ -19,8 +20,6 @@ export default class Form extends Component {
     static propTypes = {
         action: PropTypes.string.isRequired,
         children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         inline: PropTypes.bool,
         method: PropTypes.oneOf(['get', 'post', 'put']),
         multipart: PropTypes.bool
@@ -40,11 +39,11 @@ export default class Form extends Component {
                 action={props.action}
                 method={props.method}
                 encType={encType}
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatClass({
                     '@inline': props.inline
                 })}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </form>
         );

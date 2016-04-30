@@ -7,23 +7,16 @@
 import React from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
-import cssClass from '../../prop-types/cssClass';
 import invariant from '../../utility/invariant';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 let instantiated = false;
 
 export default class Gateway extends Component {
+    static module = MODULE;
+
     static childContextTypes = CONTEXT_TYPES;
-
-    static defaultProps = {
-        elementClassName: 'gateway'
-    };
-
-    static propTypes = {
-        className: cssClass,
-        elementClassName: cssClass.isRequired
-    };
 
     /**
      * Only one instance of the `Gateway` should be used.
@@ -117,9 +110,9 @@ export default class Gateway extends Component {
 
         return (
             <div
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)}>
-
+                className={this.formatClass()}
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </div>
         );

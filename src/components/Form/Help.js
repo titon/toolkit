@@ -6,17 +6,13 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
+import MODULE from './module';
 
 export default class Help extends Component {
-    static defaultProps = {
-        elementClassName: ['field', 'help']
-    };
+    static module = MODULE;
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         inputID: PropTypes.string
     };
 
@@ -26,15 +22,15 @@ export default class Help extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let props = this.props;
+        let { children, inputID, ...props } = this.props;
 
         return (
             <div
-                id={props.inputID ? (props.inputID + '-help') : null}
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)}>
-
-                {props.children}
+                id={inputID ? (inputID + '-help') : null}
+                className={this.formatChildClass('help')}
+                {...this.inheritNativeProps(props)}
+            >
+                {children}
             </div>
         );
     }

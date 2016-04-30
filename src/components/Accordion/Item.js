@@ -95,16 +95,16 @@ export default class Item extends Component {
                 <Header
                     index={props.index}
                     active={expanded}
-                    onClick={props.onClickHeader}>
-
+                    onClick={props.onClickHeader}
+                >
                     {props.header}
                 </Header>
 
                 <Section
                     index={props.index}
                     expanded={expanded}
-                    {...this.inheritNativeProps(props)}>
-
+                    {...this.inheritNativeProps(props)}
+                >
                     {props.children}
                 </Section>
             </li>

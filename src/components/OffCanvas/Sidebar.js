@@ -6,21 +6,17 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
 import collection from '../../prop-types/collection';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Sidebar extends Component {
-    static contextTypes = CONTEXT_TYPES;
+    static module = MODULE;
 
-    static defaultProps = {
-        elementClassName: ['off-canvas', 'sidebar']
-    };
+    static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         onHidden: collection.func,
         onHiding: collection.func,
         onShowing: collection.func,
@@ -91,15 +87,15 @@ export default class Sidebar extends Component {
         return (
             <aside
                 role="complementary"
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatChildClass('sidebar', {
                     ['@' + props.side]: true,
                     'is-expanded': expanded
                 })}
                 aria-hidden={!expanded}
                 aria-expanded={expanded}
                 data-offcanvas-sidebar={props.side}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </aside>
         );

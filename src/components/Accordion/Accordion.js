@@ -173,8 +173,8 @@ export default class Accordion extends Component {
                 })}
                 aria-live="off"
                 aria-multiselectable={props.multiple}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </ul>
         );

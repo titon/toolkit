@@ -6,9 +6,9 @@
 
 /* eslint require-jsdoc: 0 */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Col from './Col';
-import children from '../../prop-types/children';
+import childrenOf from '../../prop-types/children';
 import MODULE from './module';
 
 export default function Row({ children }) {
@@ -22,5 +22,5 @@ export default function Row({ children }) {
 Row.module = MODULE;
 
 Row.propTypes = {
-    children: children(Col)
+    children: childrenOf(Col)
 };

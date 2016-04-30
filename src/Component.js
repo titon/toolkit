@@ -158,13 +158,14 @@ export default class Component extends React.Component {
     /**
      * Attempt to find the block or element class name within the modules classnames mapping.
      *
+     * @param {String} element
      * @returns {String}
      */
     getModuleClass(element = 'default') {
         let { name, module } = this.constructor,
             className = module.classNames[element];
 
-        invariant(className, 'Module class name not found for `%s`.', name);
+        invariant(className, 'Module class name "%s" not found for `%s`.', element, name);
 
         return className;
     }

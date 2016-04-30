@@ -6,17 +6,13 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
+import MODULE from './module';
 
 export default class InputGroup extends Component {
-    static defaultProps = {
-        elementClassName: 'input-group'
-    };
+    static module = MODULE;
 
     static propTypes = {
-        children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired
+        children: PropTypes.node
     };
 
     /**
@@ -29,9 +25,9 @@ export default class InputGroup extends Component {
 
         return (
             <span
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)}>
-
+                className={this.formatClass()}
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </span>
         );

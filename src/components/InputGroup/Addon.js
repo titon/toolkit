@@ -6,17 +6,18 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
+import MODULE from './module';
 
 export default class Addon extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        elementClassName: ['input-group', 'addon']
+        large: false,
+        small: false
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         large: PropTypes.bool,
         small: PropTypes.bool
     };
@@ -31,12 +32,12 @@ export default class Addon extends Component {
 
         return (
             <span
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatChildClass('addon', {
                     ['@large']: props.large,
                     ['@small']: props.small
                 })}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </span>
         );

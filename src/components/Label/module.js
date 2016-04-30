@@ -4,9 +4,8 @@
  * @link        http://titon.io
  */
 
-import { PropTypes } from 'react';
+import defineModule from '../../utility/defineModule';
 
-export default Object.freeze({
-    hideModal: PropTypes.func.isRequired,
-    uid: PropTypes.string.isRequired
+export default defineModule('Label', '3.0.0', {
+    blockClass: 'label'
 });

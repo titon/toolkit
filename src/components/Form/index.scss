@@ -24,7 +24,7 @@
 
     //-------------------- Fields, Labels --------------------//
 
-    #{map-get($titon-form, "class-fields")} {
+    #{map-get($titon-form, "class-field-list")} {
         @extend %placeholder-list;
 
         > li + li {
@@ -32,13 +32,13 @@
         }
     }
 
-    #{map-get($titon-form, "class-field-label")} {
+    #{map-get($titon-form, "class-label")} {
         display: block;
         vertical-align: middle;
         margin-bottom: .5em;
     }
 
-    #{map-get($titon-form, "class-field-help")} {
+    #{map-get($titon-form, "class-help")} {
         margin-top: .5em;
         font-size: theme-setting("small-font-size");
     }
@@ -51,9 +51,9 @@
 
     @if (is-feature-enabled("all-modifiers") or index($titon-temp-form-modifiers, "inline")) {
         #{map-get($titon-form, "class-modifier-inline")} {
-            #{map-get($titon-form, "class-fields")},
-            #{map-get($titon-form, "class-fields")} > li,
-            #{map-get($titon-form, "class-field-label")},
+            #{map-get($titon-form, "class-field-list")},
+            #{map-get($titon-form, "class-field-list")} > li,
+            #{map-get($titon-form, "class-label")},
             #{map-get($titon-form, "class-actions")} {
                 display: inline-block;
                 vertical-align: middle;
@@ -61,15 +61,15 @@
                 margin: 0;
             }
 
-            #{map-get($titon-form, "class-fields")} > li {
+            #{map-get($titon-form, "class-field-list")} > li {
                 margin-#{bidi-opposite-alignment()}: theme-setting("margin");
             }
 
-            #{map-get($titon-form, "class-field-label")} {
+            #{map-get($titon-form, "class-label")} {
                 margin-#{bidi-opposite-alignment()}: (theme-setting("margin") / 2);
             }
 
-            #{map-get($titon-form, "class-field-help")} {
+            #{map-get($titon-form, "class-help")} {
                 display: none;
             }
         }

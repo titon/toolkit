@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Input from '../Input/Input';
 import cssClass from '../../prop-types/cssClass';
-import { defaultProps, propTypes } from '../Input/PropTypes';
+import { defaultProps, propTypes } from '../Input/propTypes';
 
 export default class Switch extends Input {
     static defaultProps = {

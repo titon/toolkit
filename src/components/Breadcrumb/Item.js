@@ -26,8 +26,10 @@ export default class Item extends Component {
 
         return (
             <li>
-                <a className={this.formatChildClass('item')}
-                    {...this.inheritNativeProps(props)}>
+                <a
+                    className={this.formatChildClass('item')}
+                    {...this.inheritNativeProps(props)}
+                >
                     {props.children}
                     <span className="caret">{props.caret || '/'}</span>
                 </a>

@@ -5,7 +5,7 @@
  */
 
 import { PropTypes } from 'react';
-import { optionShape, optionList } from '../Input/PropTypes';
+import { optionShape, optionList } from '../Input/propTypes';
 
 const CONTEXT_TYPES = {
     expanded: PropTypes.bool,

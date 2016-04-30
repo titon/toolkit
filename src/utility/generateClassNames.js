@@ -16,8 +16,8 @@ import formatBEM from './formatBEM';
  * @returns {Object}
  */
 export default function generateClassNames(blockClass, elementClasses = []) {
-    let namespace = Titon.options.namespace;
-    let classNames = { default: namespace + formatBEM(blockClass) };
+    let namespace = Titon.options.namespace,
+        classNames = { default: namespace + formatBEM(blockClass) };
 
     elementClasses.forEach(elementClass => {
         classNames[elementClass] = namespace + formatBEM(blockClass, elementClass);

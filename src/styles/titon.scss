@@ -233,10 +233,10 @@ $titon-flyout: (
 $titon-form: (
     "class": bem("form"),
     "class-actions": bem("form", "actions"),
-    "class-fields": bem("fields"),
-    "class-field": bem("field"),
-    "class-field-help": bem("field", "help"),
-    "class-field-label": bem("field", "label"),
+    "class-field-list": bem("form", "field-list"),
+    "class-field": bem("form", "field"),
+    "class-help": bem("form", "help"),
+    "class-label": bem("form", "label"),
     "class-modifier-inline": bem("form", "", "inline"),
     "modifiers": ("inline"), // inline
 ) !default;

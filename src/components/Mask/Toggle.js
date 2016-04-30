@@ -7,9 +7,12 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Toggle extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {

@@ -12,41 +12,34 @@ import Head from './Head';
 import Foot from './Foot';
 import bind from '../../decorators/bind';
 import children from '../../prop-types/children';
-import cssClass from '../../prop-types/cssClass';
 import invariant from '../../utility/invariant';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Modal extends Component {
+    static module = MODULE;
+
     static childContextTypes = CONTEXT_TYPES;
 
     static contextTypes = {
-        warpOut: PropTypes.func
+        warpOut: PropTypes.func.isRequired
     };
 
     static defaultProps = {
         blackOut: true,
         close: <span className="x" />,
-        closeClassName: ['modal', 'close'],
         dismissable: true,
-        elementClassName: 'modal',
         fullScreen: false,
-        innerClassName: ['modal', 'inner'],
-        outerClassName: ['modal', 'outer'],
         stopScroll: true
     };
 
     static propTypes = {
         blackOut: PropTypes.bool,
         children: children(Body, Head, Foot),
-        className: cssClass,
         close: PropTypes.node,
-        closeClassName: cssClass.isRequired,
         dismissable: PropTypes.bool,
-        elementClassName: cssClass.isRequired,
         fullScreen: PropTypes.bool,
         gateName: PropTypes.string.isRequired,
-        innerClassName: cssClass.isRequired,
-        outerClassName: cssClass.isRequired,
         stopScroll: PropTypes.bool
     };
 
@@ -181,7 +174,7 @@ export default class Modal extends Component {
             <div
                 role="dialog"
                 id={this.formatID('modal')}
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatClass({
                     'is-dismissable': props.dismissable,
                     'is-expanded': expanded,
                     'is-fullscreen': props.fullScreen
@@ -191,18 +184,19 @@ export default class Modal extends Component {
                 aria-hidden={!expanded}
                 aria-expanded={expanded}
                 onClick={props.dismissable ? this.handleOnClickOut : null}
-                {...this.inheritNativeProps(props)}>
-
-                <div className={this.formatClass(props.outerClassName)}>
-                    <div className={this.formatClass(props.innerClassName)}>
+                {...this.inheritNativeProps(props)}
+            >
+                <div className={this.formatChildClass('outer')}>
+                    <div className={this.formatChildClass('inner')}>
                         {props.children}
                     </div>
 
                     {props.dismissable && (
                         <button
                             type="button" role="button"
-                            className={this.formatClass(props.closeClassName)}
-                            onClick={this.handleOnClick}>
+                            className={this.formatChildClass('close')}
+                            onClick={this.handleOnClick}
+                        >
                             {props.close}
                         </button>
                     )}

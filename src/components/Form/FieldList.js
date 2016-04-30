@@ -4,21 +4,15 @@
  * @link        http://titon.io
  */
 
-import React from 'react';
+import React, { Children, PropTypes } from 'react';
 import Component from '../../Component';
-import Field from './Field';
-import children from '../../prop-types/children';
-import cssClass from '../../prop-types/cssClass';
+import MODULE from './module';
 
 export default class FieldList extends Component {
-    static defaultProps = {
-        elementClassName: 'fields'
-    };
+    static module = MODULE;
 
     static propTypes = {
-        children: children(Field),
-        className: cssClass,
-        elementClassName: cssClass.isRequired
+        children: PropTypes.node
     };
 
     /**
@@ -31,10 +25,12 @@ export default class FieldList extends Component {
 
         return (
             <ol
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)}>
-
-                {props.children}
+                className={this.formatChildClass('field-list')}
+                {...this.inheritNativeProps(props)}
+            >
+                {Children.map(props.children, child => (
+                    <li>{child}</li>
+                ))}
             </ol>
         );
     }

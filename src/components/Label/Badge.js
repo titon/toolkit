@@ -6,18 +6,19 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
 import { states } from '../PropTypes';
+import MODULE from './module';
 
 export default class Badge extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        elementClassName: 'label'
+        large: false,
+        small: false
     };
 
     static propTypes = {
         children: PropTypes.string,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         large: PropTypes.bool,
         small: PropTypes.bool,
         state: states
@@ -33,14 +34,14 @@ export default class Badge extends Component {
 
         return (
             <span
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatClass({
                     '@badge': true,
                     ['@large']: props.large,
                     ['@small']: props.small,
-                    ['@' + props.state]: Boolean(props.state)
+                    ['@' + props.state]: props.state
                 })}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </span>
         );

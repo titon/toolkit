@@ -36,8 +36,8 @@ export default class Breadcrumb extends Component {
                 id={this.formatID('breadcrumb')}
                 className={this.formatClass()}
                 aria-label={props.label}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 <ol>
                     {props.children}
                 </ol>

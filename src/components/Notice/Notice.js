@@ -7,28 +7,22 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
-import cssClass from '../../prop-types/cssClass';
 import { states } from '../PropTypes';
+import MODULE from './module';
 import '../../polyfills/Array.includes';
 
 export default class Notice extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        bodyClassName: ['notice', 'body'],
         close: <span className="x" />,
-        closeClassName: ['notice', 'close'],
-        elementClassName: 'notice',
-        headClassName: ['notice', 'head']
+        dismissable: false
     };
 
     static propTypes = {
-        bodyClassName: cssClass.isRequired,
         children: PropTypes.node,
-        className: cssClass,
         close: PropTypes.node,
-        closeClassName: cssClass.isRequired,
         dismissable: PropTypes.bool,
-        elementClassName: cssClass.isRequired,
-        headClassName: cssClass.isRequired,
         state: states,
         title: PropTypes.node
     };
@@ -65,28 +59,29 @@ export default class Notice extends Component {
         return (
             <div
                 role={role}
-                className={this.formatClass(props.elementClassName, props.className, {
-                    ['@' + props.state]: Boolean(props.state),
+                className={this.formatClass({
+                    ['@' + props.state]: props.state,
                     'is-dismissable': props.dismissable
                 })}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.dismissable && (
                     <button
                         type="button" role="button"
-                        className={this.formatClass(props.closeClassName)}
-                        onClick={this.handleOnClick}>
+                        className={this.formatChildClass('close')}
+                        onClick={this.handleOnClick}
+                    >
                         {props.close}
                     </button>
                 )}
 
                 {props.title && (
-                    <div className={this.formatClass(props.headClassName)}>
+                    <div className={this.formatChildClass('head')}>
                         {props.title}
                     </div>
                 )}
 
-                <div className={this.formatClass(props.bodyClassName)}>
+                <div className={this.formatChildClass('body')}>
                     {props.children}
                 </div>
             </div>

@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import Input from '../Input/Input';
 import bind from '../../decorators/bind';
 import cssClass from '../../prop-types/cssClass';
-import { defaultProps, propTypes } from '../Input/PropTypes';
+import { defaultProps, propTypes } from '../Input/propTypes';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Radio extends Input {
