@@ -9,7 +9,7 @@ import Component from '../Component';
 import bind from '../../decorators/bind';
 import { states } from '../propTypes';
 import MODULE from './module';
-import '../../polyfills/Array.includes';
+import 'core-js/modules/es7.array.includes';
 
 export default class Notice extends Component {
     static module = MODULE;

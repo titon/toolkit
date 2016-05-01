@@ -12,7 +12,7 @@ import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
-import '../../polyfills/Array.find';
+import 'core-js/modules/es6.array.find';
 
 export default class Tabs extends Component {
     static module = MODULE;

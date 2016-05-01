@@ -7,7 +7,6 @@
 import checkIsEvent from './helpers/checkIsEvent';
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
-import '../polyfills/Element.matches.js';
 
 /**
  * The `delegate` decorator will wrap an event handler method and delegate

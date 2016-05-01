@@ -15,7 +15,6 @@ import generateUID from '../utility/generateUID';
 import invariant from '../utility/invariant';
 import omit from 'lodash/omit';
 import wrapFunctions from '../utility/wrapFunctions';
-import '../polyfills/Performance.now.js';
 
 export default class Component extends React.Component {
     static module = {
@@ -58,7 +57,7 @@ export default class Component extends React.Component {
             /* eslint no-console: 0 */
 
             console.log(`${module.name}.${name}` + (uid ? `#${uid}` : ''),
-                performance.now().toFixed(3), type, ...args);
+                (Date.now() / 1000).toFixed(3), type, ...args);
 
             if (debug === 'verbose') {
                 console.dir(this);

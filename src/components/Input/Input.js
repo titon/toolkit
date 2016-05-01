@@ -11,7 +11,7 @@ import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';
 import { defaultInputProps, defaultSizeProps, inputPropTypes, sizePropTypes } from '../propTypes';
 import MODULE from './module';
-import '../../polyfills/Array.includes';
+import 'core-js/modules/es7.array.includes';
 
 export default class Input extends Component {
     static module = MODULE;

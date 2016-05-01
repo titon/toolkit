@@ -63,6 +63,7 @@
     "babel-preset-stage-1": "*",
     "babelify": "^7.2",
     "browserify": "^13.0",
+    "core-js": "^2.3.0",
     "directory-tree": "^0.1",
     "envify": "^3.4",
     "enzyme": "^2.2",

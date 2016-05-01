@@ -11,7 +11,7 @@ import collection from '../../prop-types/collection';
 import invariant from '../../utility/invariant';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
-import '../../polyfills/Array.includes';
+import 'core-js/modules/es7.array.includes';
 
 export default class Gate extends Component {
     static module = MODULE;

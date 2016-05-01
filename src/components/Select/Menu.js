@@ -10,8 +10,8 @@ import bind from '../../decorators/bind';
 import { showHidePropTypes } from '../propTypes';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
-import '../../polyfills/Array.includes';
-import '../../polyfills/Object.values';
+import 'core-js/modules/es7.array.includes';
+import 'core-js/modules/es7.object.values';
 
 export default class Menu extends Component {
     static module = MODULE;

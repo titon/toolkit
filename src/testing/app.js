@@ -822,7 +822,7 @@ const tableMarkup = (
 );
 
 const tabsMarkup = (
-    <Tabs uid="a" persistState={true} useCookie={false} collapsible={true} fragments={[
+    <Tabs uid="a" persistState={true} useCookie={false} useFragment collapsible={true} fragments={[
         { hash: 'foo', index: 0 },
         { hash: 'bar', index: 1 },
         { hash: 'baz', index: 2 }
@@ -954,7 +954,7 @@ const tooltipMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {tooltipMarkup}
+            {selectMarkup}
 
             <Modal.Gate name="modals" />
             <Toast.Gate name="toasts" />

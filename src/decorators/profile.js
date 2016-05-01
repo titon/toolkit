@@ -7,11 +7,9 @@
 /* eslint no-console: 0 */
 
 import checkIsMethod from './helpers/checkIsMethod';
-import '../polyfills/Performance.now.js';
 
 /**
  * The `profile` decorator can be used for profiling the time it took to execute a specific method.
- * The profiler uses the built-in `performance.now()`, which is accurate to 1000th of a millisecond.
  *
  * @param {Object} target
  * @param {String} name
@@ -26,9 +24,9 @@ export default function profile(target, name, descriptor) {
             let oldMethod = descriptor[method];
 
             descriptor[method] = function profileDescriptor() {
-                let start = performance.now(),
+                let start = Date.now(),
                     result = oldMethod.apply(this, arguments),
-                    stop = (performance.now() - start).toFixed(4);
+                    stop = (Date.now() - start).toFixed(4);
 
                 console.info(
                     `${name}() took ${stop} milliseconds to run using the arguments:`,
