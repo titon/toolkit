@@ -6,13 +6,11 @@
 
 import { PropTypes } from 'react';
 
-const CONTEXT_TYPES = {
-    activeSides: PropTypes.arrayOf(PropTypes.oneOf(['left', 'right'])),
-    hideSidebar: PropTypes.func,
-    isSidebarActive: PropTypes.func,
-    showSidebar: PropTypes.func,
-    toggleSidebar: PropTypes.func,
-    uid: PropTypes.string
-};
-
-export default CONTEXT_TYPES;
+export default Object.freeze({
+    activeSides: PropTypes.arrayOf(PropTypes.oneOf(['left', 'right'])).isRequired,
+    hideSidebar: PropTypes.func.isRequired,
+    isSidebarActive: PropTypes.func.isRequired,
+    showSidebar: PropTypes.func.isRequired,
+    toggleSidebar: PropTypes.func.isRequired,
+    uid: PropTypes.string.isRequired
+});

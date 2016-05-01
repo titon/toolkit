@@ -1,0 +1,105 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("popover") {
+    $titon-popover-arrow-width: map-get($titon-popover, "arrow-width");
+    $titon-popover-arrow-width-double: ($titon-popover-arrow-width * 2);
+    $titon-popover-arrow-width-shadow: ($titon-popover-arrow-width - 2);
+    $titon-popover-animations: map-get($titon-popover, "animations");
+
+    #{generate-class-name($titon-popover)} {
+        z-index: map-get($titon-settings-zindex, "popover");
+        max-width: 300px;
+        transition: all map-get($titon-popover, "transition");
+        padding: theme-setting("medium-padding");
+    }
+
+    #{generate-class-name($titon-popover, "arrow")} {
+        border: #{$titon-popover-arrow-width}px solid transparent;
+
+        &::after {
+            border: #{$titon-popover-arrow-width-shadow}px solid transparent;
+            top: -#{$titon-popover-arrow-width-shadow}px;
+            left: -#{$titon-popover-arrow-width-shadow}px;
+        }
+    }
+
+    //-------------------- Positions --------------------//
+
+    #{generate-class-name($titon-popover)} {
+        &.center-left #{generate-class-name($titon-popover, "arrow")},
+        &.center-right #{generate-class-name($titon-popover, "arrow")} {
+            top: 50%;
+            margin-top: -#{$titon-popover-arrow-width}px;
+        }
+
+        &.center-left #{generate-class-name($titon-popover, "arrow")} {
+            border-left-color: #fff;
+            right: -#{$titon-popover-arrow-width-double}px;
+        }
+
+        &.center-right #{generate-class-name($titon-popover, "arrow")} {
+            border-right-color: #fff;
+            left: -#{$titon-popover-arrow-width-double}px;
+        }
+
+        &.top-center #{generate-class-name($titon-popover, "arrow")},
+        &.bottom-center #{generate-class-name($titon-popover, "arrow")} {
+            left: 50%;
+            margin-left: -#{$titon-popover-arrow-width}px;
+        }
+
+        &.top-center #{generate-class-name($titon-popover, "arrow")} {
+            border-top-color: #fff;
+            bottom: -#{$titon-popover-arrow-width-double}px;
+        }
+
+        &.bottom-center #{generate-class-name($titon-popover, "arrow")} {
+            border-bottom-color: #fff;
+            top: -#{$titon-popover-arrow-width-double}px;
+        }
+    }
+
+    //-------------------- Animations --------------------//
+
+    #{generate-class-name($titon-popover)} {
+        @if (is-feature-enabled("all-animations") or index($titon-popover-animations, "fade")) {
+            &.fade {
+                opacity: 0;
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($titon-popover-animations, "from-above")) {
+            &.from-above {
+                transform: scale(1.2);
+
+                &.show {
+                    transform: scale(1);
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($titon-popover-animations, "from-below")) {
+            &.from-below {
+                transform: scale(0.8);
+
+                &.show {
+                    transform: scale(1);
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($titon-popover-animations, "flip-rotate")) {
+            &.flip-rotate {
+                transform: rotate(-15deg);
+
+                &.show {
+                    transform: rotate(0deg);
+                }
+            }
+        }
+    }
+}

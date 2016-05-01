@@ -4,16 +4,15 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import CONTEXT_TYPES from './ContextTypes';
+import React from 'react';
+import Component from '../Component';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Link extends Component {
-    static contextTypes = CONTEXT_TYPES;
+    static module = MODULE;
 
-    static propTypes = {
-        children: PropTypes.node
-    };
+    static contextTypes = CONTEXT_TYPES;
 
     /**
      * Render the drop link.
@@ -24,7 +23,11 @@ export default class Link extends Component {
         let props = this.props;
 
         return (
-            <a role="menuitem" {...this.inheritNativeProps(props)}>
+            <a
+                role="menuitem"
+                className={this.formatChildClass('link')}
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </a>
         );

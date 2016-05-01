@@ -5,27 +5,27 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import bind from '../../decorators/bind';
-import cssClass from '../../prop-types/cssClass';
 import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';
-import { defaultProps, propTypes } from './PropTypes';
+import { defaultInputProps, defaultSizeProps, inputPropTypes, sizePropTypes } from '../propTypes';
+import MODULE from './module';
 import '../../polyfills/Array.includes';
 
 export default class Input extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        ...defaultProps,
-        elementClassName: 'input',
+        ...defaultInputProps,
+        ...defaultSizeProps,
         type: 'text'
     };
 
     static propTypes = {
-        ...propTypes,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
-        large: PropTypes.bool,
-        small: PropTypes.bool,
+        ...inputPropTypes,
+        ...sizePropTypes,
+        children: PropTypes.node,
         type: PropTypes.string
     };
 
@@ -140,9 +140,9 @@ export default class Input extends Component {
         if (native) {
             inputProps = {
                 ...inputProps,
-                className: this.formatClass(props.elementClassName, props.className, {
-                    '@large': Boolean(props.large),
-                    '@small': Boolean(props.small),
+                className: this.formatClass({
+                    '@large': props.large,
+                    '@small': props.small,
                     ['@' + state.type]: true,
                     ...this.gatherStateClasses()
                 }),

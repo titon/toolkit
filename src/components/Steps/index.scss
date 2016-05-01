@@ -5,7 +5,9 @@
  */
 
 @include export("steps") {
-    #{map-get($titon-steps, "class")} {
+    $titon-steps-class-item: generate-class-name($titon-steps, "item");
+
+    #{generate-class-name($titon-steps)} {
         font-size: theme-setting("medium-font-size");
         background: theme-setting("bg-light");
         display: inline-block;
@@ -18,13 +20,13 @@
 
         li {
             &:first-child {
-                #{map-get($titon-steps, "class-item")} {
+                #{$titon-steps-class-item} {
                     padding-#{bidi-alignment()}: 2em;
                 }
             }
 
             &:last-child {
-                #{map-get($titon-steps, "class-item")} {
+                #{$titon-steps-class-item} {
                     &::after {
                         display: none;
                     }
@@ -34,7 +36,7 @@
     }
 
     // Use em's to scale against the font size defined on .steps
-    #{map-get($titon-steps, "class-item")} {
+    #{$titon-steps-class-item} {
         padding-#{bidi-alignment()}: 3.5em;
         padding-#{bidi-opposite-alignment()}: 2em;
         position: relative;

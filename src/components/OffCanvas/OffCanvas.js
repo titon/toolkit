@@ -5,24 +5,25 @@
  */
 
 import React, { Children, PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import DocumentState from '../../machines/DocumentState';
 import MainContent from './MainContent';
 import Sidebar from './Sidebar';
 import Swipe from '../../events/Swipe';
 import bind from '../../decorators/bind';
 import children from '../../prop-types/children';
-import cssClass from '../../prop-types/cssClass';
 import invariant from '../../utility/invariant';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 import { TOUCH } from '../../flags';
 
 export default class OffCanvas extends Component {
+    static module = MODULE;
+
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
         animation: 'push',
-        elementClassName: 'off-canvas',
         multiple: true,
         showOnLoad: false,
         stopScroll: true,
@@ -35,8 +36,6 @@ export default class OffCanvas extends Component {
             'reveal', 'on-top', 'squish'
         ]),
         children: children(MainContent, Sidebar),
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         multiple: PropTypes.bool,
         showOnLoad: PropTypes.bool,
         stopScroll: PropTypes.bool,
@@ -249,13 +248,13 @@ export default class OffCanvas extends Component {
             <Swipe {...swipeProps}>
                 <div
                     id={this.formatID('off-canvas')}
-                    className={this.formatClass(props.elementClassName, props.className, {
+                    className={this.formatClass({
                         [props.animation]: true,
                         'move-left': this.isSidebarActive('right'),
                         'move-right': this.isSidebarActive('left')
                     })}
-                    {...this.inheritNativeProps(props)}>
-
+                    {...this.inheritNativeProps(props)}
+                >
                     {props.children}
                 </div>
             </Swipe>

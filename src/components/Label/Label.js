@@ -5,23 +5,22 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
-import { states } from '../PropTypes';
+import Component from '../Component';
+import { defaultSizeProps, sizePropTypes, states } from '../propTypes';
+import MODULE from './module';
 
 export default class Label extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        elementClassName: 'label'
+        ...defaultSizeProps
     };
 
     static propTypes = {
+        ...sizePropTypes,
         arrow: PropTypes.oneOf(['left', 'right']),
         children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
-        large: PropTypes.bool,
         ribbon: PropTypes.oneOf(['left', 'right']),
-        small: PropTypes.bool,
         state: states
     };
 
@@ -35,15 +34,15 @@ export default class Label extends Component {
 
         return (
             <span
-                className={this.formatClass(props.elementClassName, props.className, {
-                    ['@arrow-' + props.arrow]: Boolean(props.arrow),
+                className={this.formatClass({
+                    ['@arrow-' + props.arrow]: props.arrow,
                     ['@large']: props.large,
                     ['@small']: props.small,
-                    ['@ribbon-' + props.ribbon]: Boolean(props.ribbon),
-                    ['@' + props.state]: Boolean(props.state)
+                    ['@ribbon-' + props.ribbon]: props.ribbon,
+                    ['@' + props.state]: props.state
                 })}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </span>
         );

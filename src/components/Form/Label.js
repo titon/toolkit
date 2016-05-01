@@ -5,18 +5,14 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
+import Component from '../Component';
+import MODULE from './module';
 
 export default class Label extends Component {
-    static defaultProps = {
-        elementClassName: ['field', 'label']
-    };
+    static module = MODULE;
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         inputID: PropTypes.string.isRequired
     };
 
@@ -26,16 +22,16 @@ export default class Label extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let props = this.props;
+        let { children, inputID, ...props } = this.props;
 
         return (
             <label
-                id={props.inputID + '-label'}
-                htmlFor={props.inputID}
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)}>
-
-                {props.children}
+                id={inputID + '-label'}
+                htmlFor={inputID}
+                className={this.formatChildClass('label')}
+                {...this.inheritNativeProps(props)}
+            >
+                {children}
             </label>
         );
     }

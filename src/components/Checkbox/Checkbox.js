@@ -4,25 +4,12 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Input from '../Input/Input';
-import cssClass from '../../prop-types/cssClass';
-import { defaultProps, propTypes } from '../Input/PropTypes';
+import MODULE from './module';
 
 export default class Checkbox extends Input {
-    static defaultProps = {
-        ...defaultProps,
-        elementClassName: 'checkbox',
-        toggleClassName: ['checkbox', 'toggle']
-    };
-
-    static propTypes = {
-        ...propTypes,
-        children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
-        toggleClassName: cssClass.isRequired
-    };
+    static module = MODULE;
 
     /**
      * Render the custom checkbox.
@@ -35,21 +22,22 @@ export default class Checkbox extends Input {
             stateClasses = this.gatherStateClasses();
 
         return (
-            <div
+            <span
                 id={this.formatID('checkbox', inputProps.id)}
-                className={this.formatClass(props.elementClassName, props.className, stateClasses)}
+                className={this.formatClass(stateClasses)}
                 aria-checked={this.state.checked}
                 aria-disabled={props.disabled}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 <input {...inputProps} />
 
                 <label
                     htmlFor={inputProps.id}
-                    className={this.formatClass(props.toggleClassName, stateClasses)} />
+                    className={this.formatChildClass('toggle', stateClasses)}
+                />
 
                 {props.children}
-            </div>
+            </span>
         );
     }
 }

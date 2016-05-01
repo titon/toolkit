@@ -5,20 +5,19 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
+import Component from '../Component';
+import MODULE from './module';
 
 export default class Item extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        complete: false,
-        elementClassName: ['steps', 'item']
+        complete: false
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
-        complete: PropTypes.bool,
-        elementClassName: cssClass.isRequired
+        complete: PropTypes.bool
     };
 
     /**
@@ -33,11 +32,11 @@ export default class Item extends Component {
             <li>
                 <button
                     type="button" role="button"
-                    className={this.formatClass(props.elementClassName, props.className, {
+                    className={this.formatChildClass('item', {
                         'is-complete': props.complete
                     })}
-                    {...this.inheritNativeProps(props)}>
-
+                    {...this.inheritNativeProps(props)}
+                >
                     {props.children}
                 </button>
             </li>

@@ -22,9 +22,6 @@ const Titon = Object.freeze({
 
     /** Configurable options. */
     options: {
-        // Automatically prefix namespace to classes
-        autoNamespace: true,
-
         // Prefix prepended to every cookie
         cookiePrefix: 'titon.',
 
@@ -32,7 +29,7 @@ const Titon = Object.freeze({
         debug: false,
 
         // BEM element separator
-        elementSeparator: '-',
+        elementSeparator: '__',
 
         // Logger function that handles invariants
         logger() {},
@@ -50,9 +47,5 @@ const Titon = Object.freeze({
     /** Current version. */
     version: '%version%'
 });
-
-if (window) {
-    window.Titon = Titon;
-}
 
 export default Titon;

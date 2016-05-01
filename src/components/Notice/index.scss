@@ -5,7 +5,7 @@
  */
 
 @include export("notice") {
-    #{map-get($titon-notice, "class")} {
+    #{generate-class-name($titon-notice)} {
         margin-bottom: theme-setting("margin");
 
         hr {
@@ -14,7 +14,7 @@
         }
     }
 
-    #{map-get($titon-notice, "class-close")} {
+    #{generate-class-name($titon-notice, "close")} {
         float: bidi-opposite-alignment();
         margin-#{bidi-alignment()}: theme-setting("small-padding");
         margin-bottom: theme-setting("small-padding");
@@ -26,12 +26,12 @@
         z-index: 1;
     }
 
-    #{map-get($titon-notice, "class-head")},
-    #{map-get($titon-notice, "class-body")} {
+    #{generate-class-name($titon-notice, "head")},
+    #{generate-class-name($titon-notice, "body")} {
         padding: theme-setting("medium-padding");
     }
 
-    #{map-get($titon-notice, "class-head")} {
+    #{generate-class-name($titon-notice, "head")} {
         padding-bottom: 0;
     }
 }

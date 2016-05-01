@@ -5,7 +5,7 @@
  */
 
 @include export("matrix") {
-    #{map-get($titon-matrix, "class")} {
+    #{generate-class-name($titon-matrix)} {
         @extend %placeholder-list;
         @extend %placeholder-clear-fix;
         position: relative;

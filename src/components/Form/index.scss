@@ -5,7 +5,12 @@
  */
 
 @include export("form") {
-    $titon-temp-form-modifiers: map-get($titon-form, "modifiers");
+    $titon-form-class-field-list: generate-class-name($titon-form, "field-list");
+    $titon-form-class-field: generate-class-name($titon-form, "field");
+    $titon-form-class-label: generate-class-name($titon-form, "field");
+    $titon-form-class-actions: generate-class-name($titon-form, "actions");
+    $titon-form-class-help: generate-class-name($titon-form, "help");
+    $titon-form-modifiers: map-get($titon-form, "modifiers");
 
     select[multiple],
     select[size] {
@@ -24,7 +29,7 @@
 
     //-------------------- Fields, Labels --------------------//
 
-    #{map-get($titon-form, "class-fields")} {
+    #{$titon-form-class-field-list} {
         @extend %placeholder-list;
 
         > li + li {
@@ -32,44 +37,45 @@
         }
     }
 
-    #{map-get($titon-form, "class-field-label")} {
+    #{$titon-form-class-label} {
         display: block;
         vertical-align: middle;
         margin-bottom: .5em;
     }
 
-    #{map-get($titon-form, "class-field-help")} {
+    #{$titon-form-class-help} {
         margin-top: .5em;
         font-size: theme-setting("small-font-size");
     }
 
-    #{map-get($titon-form, "class-actions")} {
+    #{$titon-form-class-actions} {
         text-align: center;
     }
 
     //-------------------- Modifiers --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-form-modifiers, "inline")) {
-        #{map-get($titon-form, "class-modifier-inline")} {
-            #{map-get($titon-form, "class-fields")},
-            #{map-get($titon-form, "class-fields")} > li,
-            #{map-get($titon-form, "class-field-label")},
-            #{map-get($titon-form, "class-actions")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-form-modifiers, "inline")) {
+        #{generate-class-name($titon-form, "", "inline")} {
+            #{$titon-form-class-field-list},
+            #{$titon-form-class-field-list} > li,
+            #{$titon-form-class-field},
+            #{$titon-form-class-label},
+            #{$titon-form-class-actions} {
                 display: inline-block;
                 vertical-align: middle;
                 line-height: normal;
                 margin: 0;
             }
 
-            #{map-get($titon-form, "class-fields")} > li {
+            #{$titon-form-class-field-list} > li {
                 margin-#{bidi-opposite-alignment()}: theme-setting("margin");
             }
 
-            #{map-get($titon-form, "class-field-label")} {
+            #{$titon-form-class-label} {
                 margin-#{bidi-opposite-alignment()}: (theme-setting("margin") / 2);
             }
 
-            #{map-get($titon-form, "class-field-help")} {
+            #{$titon-form-class-help} {
                 display: none;
             }
         }

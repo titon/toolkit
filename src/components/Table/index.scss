@@ -5,7 +5,9 @@
  */
 
 @include export("table") {
-    #{map-get($titon-table, "class")} {
+    $titon-table-class: generate-class-name($titon-table);
+
+    #{$titon-table-class} {
         width: 100%;
         background: theme-setting("bg-lightest");
         border-collapse: collapse;
@@ -33,12 +35,12 @@
         }
 
         // Divider
-        tbody tr#{map-get($titon-table, "class-divider")} {
+        tbody tr#{generate-class-name($titon-table, "divider")} {
             background: theme-setting("bg-light");
         }
     }
 
-    #{map-get($titon-table, "class-responsive")} {
+    #{generate-class-name($titon-table, "responsive")} {
         width: 100%;
         max-width: 100%;
         overflow-x: auto;
@@ -46,7 +48,7 @@
 
     //-------------------- States --------------------//
 
-    #{map-get($titon-table, "class")} {
+    #{$titon-table-class} {
         &.is-striped tbody tr {
             &:nth-child(even) {
                 background: lighten(theme-setting("bg-lightest"), 1.5%);
@@ -63,7 +65,7 @@
             }
         }
 
-        &.has-hover tbody tr:not(#{map-get($titon-table, "class-divider")}):hover {
+        &.has-hover tbody tr:not(#{generate-class-name($titon-table, "divider")}):hover {
             background: #fff;
         }
     }

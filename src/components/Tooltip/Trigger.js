@@ -5,19 +5,19 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Tooltip from './Tooltip';
-import cssClass from '../../prop-types/cssClass';
+import MODULE from './module';
 
 export default class Trigger extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        elementClassName: ['tooltip', 'trigger']
+        inline: false
     };
 
     static propTypes = {
         children: PropTypes.node.isRequired,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         inline: PropTypes.bool,
         tooltip: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired
     };
@@ -39,7 +39,7 @@ export default class Trigger extends Component {
         }
 
         return (
-            <Tag className={this.formatClass(props.elementClassName, props.className)}>
+            <Tag className={this.formatChildClass('trigger')}>
                 {props.children}
                 {tooltip}
             </Tag>

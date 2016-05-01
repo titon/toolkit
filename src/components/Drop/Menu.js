@@ -5,28 +5,28 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Divider from './Divider';
 import Header from './Header';
 import Item from './Item';
 import children from '../../prop-types/children';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Menu extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        elementClassName: 'drop',
-        modifier: 'down',
-        nested: false
+        direction: 'down',
+        nested: false,
+        reverse: false
     };
 
     static propTypes = {
         children: children(Divider, Header, Item),
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
-        modifier: PropTypes.oneOf(['up', 'down', 'left', 'right']),
+        direction: PropTypes.oneOf(['up', 'down', 'left', 'right']),
         nested: PropTypes.bool,
         reverse: PropTypes.bool
     };
@@ -37,23 +37,25 @@ export default class Menu extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let props = this.props,
-            modifier = props.modifier;
+        let { direction, ...props } = this.props,
+            { expanded } = this.context;
 
         return (
             <div
                 role="menu"
                 id={props.nested ? null : this.formatID('drop-menu')}
-                className={this.formatClass(props.elementClassName, props.className, {
-                    ['@down']: (modifier === 'down'),
-                    ['@left']: (modifier === 'left'),
-                    ['@right']: (modifier === 'right'),
-                    ['@up']: (modifier === 'up'),
-                    'is-expanded': (!props.nested && this.context.expanded),
+                className={this.formatClass({
+                    ['@down']: (direction === 'down'),
+                    ['@left']: (direction === 'left'),
+                    ['@right']: (direction === 'right'),
+                    ['@up']: (direction === 'up'),
+                    'is-branch': props.nested,
+                    'is-expanded': (!props.nested && expanded),
+                    'is-root': !props.nested,
                     'reverse-align': props.reverse
                 })}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 <ul>
                     {props.children}
                 </ul>

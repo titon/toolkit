@@ -5,21 +5,22 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Item from './Item';
 import Spacer from './Spacer';
 import bind from '../../decorators/bind';
-import cssClass from '../../prop-types/cssClass';
 import collection from '../../prop-types/collection';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Pagination extends Component {
+    static module = MODULE;
+
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
         currentPage: 1,
         edges: 5,
-        elementClassName: 'pagination',
         first: 'First',
         format: 'around',
         grouped: false,
@@ -32,14 +33,11 @@ export default class Pagination extends Component {
     };
 
     static propTypes = {
-        className: cssClass,
         currentPage: PropTypes.number,
         edges: PropTypes.number,
-        elementClassName: cssClass.isRequired,
         first: PropTypes.node,
         format: PropTypes.oneOf(['around', 'spaced']),
         grouped: PropTypes.bool,
-        itemClassName: cssClass,
         label: PropTypes.string,
         last: PropTypes.node,
         next: PropTypes.node,
@@ -48,7 +46,6 @@ export default class Pagination extends Component {
         prev: PropTypes.node,
         showControls: PropTypes.bool,
         spacer: PropTypes.string,
-        spacerClassName: cssClass,
         totalPages: PropTypes.number.isRequired,
         url: PropTypes.string.isRequired
     };
@@ -135,10 +132,7 @@ export default class Pagination extends Component {
      */
     createItem(page) {
         return (
-            <Item
-                key={page}
-                page={page}
-                className={this.props.itemClassName} />
+            <Item key={page} page={page} />
         );
     }
 
@@ -150,9 +144,7 @@ export default class Pagination extends Component {
      */
     createSpacer(key) {
         return (
-            <Spacer key={key} className={this.props.spacerClassName}>
-                {this.props.spacer}
-            </Spacer>
+            <Spacer key={key}>{this.props.spacer}</Spacer>
         );
     }
 
@@ -292,7 +284,7 @@ export default class Pagination extends Component {
     render() {
         let {
                 first, last, next, prev,
-                totalPages, itemClassName, showControls,
+                totalPages, showControls,
                 ...props
             } = this.props,
             page = this.state.page,
@@ -301,23 +293,13 @@ export default class Pagination extends Component {
         // Prepend first and previous
         if (first && (page > 1 || showControls)) {
             items.push(
-                <Item
-                    key="first"
-                    page={1}
-                    className={itemClassName}>
-                    {first}
-                </Item>
+                <Item key="first" page={1}>{first}</Item>
             );
         }
 
         if (prev && (page > 1 || showControls)) {
             items.push(
-                <Item
-                    key="prev"
-                    page={page - 1}
-                    className={itemClassName}>
-                    {prev}
-                </Item>
+                <Item key="prev" page={page - 1}>{prev}</Item>
             );
         }
 
@@ -327,23 +309,13 @@ export default class Pagination extends Component {
         // Append next and last
         if (next && (page < totalPages || showControls)) {
             items.push(
-                <Item
-                    key="next"
-                    page={page + 1}
-                    className={itemClassName}>
-                    {next}
-                </Item>
+                <Item key="next" page={page + 1}>{next}</Item>
             );
         }
 
         if (last && (page < totalPages || showControls)) {
             items.push(
-                <Item
-                    key="last"
-                    page={totalPages}
-                    className={itemClassName}>
-                    {last}
-                </Item>
+                <Item key="last" page={totalPages}>{last}</Item>
             );
         }
 
@@ -351,12 +323,12 @@ export default class Pagination extends Component {
             <nav
                 role="navigation"
                 id={this.formatID('pagination')}
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatClass({
                     '@grouped': props.grouped
                 })}
                 aria-label={props.label}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 <ol>
                     {items}
                 </ol>

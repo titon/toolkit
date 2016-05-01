@@ -4,23 +4,15 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import React from 'react';
+import Component from '../Component';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Target extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
-
-    static defaultProps = {
-        elementClassName: ['mask', 'target']
-    };
-
-    static propTypes = {
-        children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired
-    };
 
     state = {
         expanded: false
@@ -61,12 +53,12 @@ export default class Target extends Component {
         return (
             <div
                 id={this.formatID('mask-target')}
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatChildClass('target', {
                     'is-masked': expanded
                 })}
                 aria-controls={this.formatID('mask-overlay')}
-                aria-expanded={expanded}>
-
+                aria-expanded={expanded}
+            >
                 {props.children}
             </div>
         );

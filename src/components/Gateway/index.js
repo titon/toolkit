@@ -6,10 +6,8 @@
 
 import Gateway from './Gateway';
 import Gate from './Gate';
-import CONTEXT_TYPES from './ContextTypes';
 
-Gateway.CONTEXT_TYPES = CONTEXT_TYPES;
 Gateway.Gate = Gate;
 
-export { Gate, CONTEXT_TYPES };
+export { Gate };
 export default Gateway;

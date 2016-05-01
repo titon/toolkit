@@ -6,12 +6,10 @@
 
 import { PropTypes } from 'react';
 
-const CONTEXT_TYPES = {
-    checkedValue: PropTypes.string,
-    inputID: PropTypes.string,
-    inputName: PropTypes.string,
-    selectValue: PropTypes.func,
-    uid: PropTypes.string
-};
-
-export default CONTEXT_TYPES;
+export default Object.freeze({
+    checkedValue: PropTypes.string.isRequired,
+    inputID: PropTypes.string.isRequired,
+    inputName: PropTypes.string.isRequired,
+    selectValue: PropTypes.func.isRequired,
+    uid: PropTypes.string.isRequired
+});

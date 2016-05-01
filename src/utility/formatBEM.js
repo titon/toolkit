@@ -35,13 +35,19 @@ export default function formatBEM(block, element = '', modifier = '') {
         return formatBEM(block.block, block.element, block.modifier);
     }
 
+    let className = block || '';
+
     if (element) {
-        block += Titon.options.elementSeparator + element;
+        if (className) {
+            className += Titon.options.elementSeparator;
+        }
+
+        className += element;
     }
 
-    if (modifier) {
-        block += Titon.options.modifierSeparator + modifier;
+    if (modifier && className) {
+        className += Titon.options.modifierSeparator + modifier;
     }
 
-    return block;
+    return className;
 }

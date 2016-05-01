@@ -5,21 +5,20 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Item from './Item';
 import children from '../../prop-types/children';
-import cssClass from '../../prop-types/cssClass';
+import MODULE from './module';
 
 export default class Breadcrumb extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        elementClassName: 'breadcrumb',
         label: 'Navigation'
     };
 
     static propTypes = {
         children: children(Item),
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         label: PropTypes.string
     };
 
@@ -35,10 +34,10 @@ export default class Breadcrumb extends Component {
             <nav
                 role="navigation"
                 id={this.formatID('breadcrumb')}
-                className={this.formatClass(props.elementClassName, props.className)}
+                className={this.formatClass()}
                 aria-label={props.label}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 <ol>
                     {props.children}
                 </ol>

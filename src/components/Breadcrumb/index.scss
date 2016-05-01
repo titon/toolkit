@@ -5,7 +5,7 @@
  */
 
 @include export("breadcrumb") {
-    #{map-get($titon-breadcrumb, "class")} {
+    #{generate-class-name($titon-breadcrumb)} {
         ol {
             @extend %placeholder-list;
             display: flex;
@@ -22,7 +22,7 @@
         }
     }
 
-    #{map-get($titon-breadcrumb, "class-item")} {
+    #{generate-class-name($titon-breadcrumb, "item")} {
         @include size-medium;
         display: inline-block;
 

@@ -5,14 +5,15 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Bar from './Bar';
 import children from '../../prop-types/children';
-import cssClass from '../../prop-types/cssClass';
+import MODULE from './module';
 
 export default class Progress extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        elementClassName: 'progress',
         max: 100,
         min: 0,
         now: 0
@@ -20,11 +21,9 @@ export default class Progress extends Component {
 
     static propTypes = {
         children: children(Bar),
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
-        max: PropTypes.number,
-        min: PropTypes.number,
-        now: PropTypes.number
+        max: PropTypes.number.isRequired,
+        min: PropTypes.number.isRequired,
+        now: PropTypes.number.isRequired
     };
 
     /**
@@ -33,19 +32,17 @@ export default class Progress extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let props = this.props,
-            min = props.min,
-            max = props.max;
+        let { max, min, ...props } = this.props;
 
         return (
             <div
                 role="progressbar"
-                className={this.formatClass(props.elementClassName, props.className)}
+                className={this.formatClass()}
                 aria-valuemin={min}
                 aria-valuemax={max}
                 aria-valuenow={Math.min(Math.max(props.now, min), max)}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </div>
         );

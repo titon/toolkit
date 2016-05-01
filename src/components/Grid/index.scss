@@ -5,9 +5,11 @@
  */
 
 @include export("grid") {
-    $titon-temp-grid-width: map-get($titon-grid, "width");
-    $titon-temp-grid-gutter: map-get($titon-grid, "gutter");
-    $titon-temp-grid-sizes: (
+    $titon-grid-class-row: map-get($titon-grid, "class-row");
+    $titon-grid-class-col: map-get($titon-grid, "class-column");
+    $titon-grid-gutter: map-get($titon-grid, "gutter");
+    $titon-grid-width: map-get($titon-grid, "width");
+    $titon-grid-sizes: (
         "xs": (6, breakpoint-setting("xs", 1), breakpoint-setting("xs", 2)),
         "sm": (12, breakpoint-setting("sm", 1), breakpoint-setting("sm", 2)),
         "md": (12, breakpoint-setting("md", 1), breakpoint-setting("md", 2)),
@@ -15,19 +17,19 @@
     );
 
     // Row wrapper
-    #{map-get($titon-grid, "class-row")} {
-        @include grid-row($titon-temp-grid-width);
+    #{generate-class-name($titon-grid, $titon-grid-class-row)} {
+        @include grid-row($titon-grid-width);
     }
 
     // These should be the same for all sizes
-    #{map-get($titon-grid, "class-column")}[class*="span-"] {
-        @include grid-column($titon-temp-grid-width, $titon-temp-grid-gutter);
+    #{generate-class-name($titon-grid, $titon-grid-class-col)}[class*="span-"] {
+        @include grid-column($titon-grid-width, $titon-grid-gutter);
     }
 
     // Global Push and pull classes
     @if map-get($titon-grid, "push-pull") {
         @for $i from 1 through map-get($titon-global, "span-count") {
-            $span: grid-span($i, map-get($titon-global, "span-count"), $titon-temp-grid-width, $titon-temp-grid-gutter);
+            $span: grid-span($i, map-get($titon-global, "span-count"), $titon-grid-width, $titon-grid-gutter);
 
             .push-#{$i} {
                 #{bidi-alignment()}: $span;
@@ -40,18 +42,18 @@
     }
 
     // Responsive sizes
-    @each $size, $options in $titon-temp-grid-sizes {
+    @each $size, $options in $titon-grid-sizes {
         $size-columns: nth($options, 1);
 
         @include in-range( (nth($options, 2), nth($options, 3)) ) {
-            #{map-get($titon-grid, "class-column")}[class*="#{$size}-"] {
-                @include grid-column($titon-temp-grid-width, $titon-temp-grid-gutter);
+            #{generate-class-name($titon-grid, $titon-grid-class-col)}[class*="#{$size}-"] {
+                @include grid-column($titon-grid-width, $titon-grid-gutter);
             }
 
             @for $i from 1 through $size-columns {
-                $span: grid-span($i, $size-columns, $titon-temp-grid-width, $titon-temp-grid-gutter);
+                $span: grid-span($i, $size-columns, $titon-grid-width, $titon-grid-gutter);
 
-                #{map-get($titon-grid, "class-column")}.#{$size}-#{$i} {
+                #{generate-class-name($titon-grid, $titon-grid-class-col)}.#{$size}-#{$i} {
                     width: $span;
                 }
 

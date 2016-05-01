@@ -6,14 +6,12 @@
 
 import { PropTypes } from 'react';
 
-const CONTEXT_TYPES = {
-    activeIndices: PropTypes.arrayOf(PropTypes.number),
-    hideItem: PropTypes.func,
-    isItemActive: PropTypes.func,
-    isItemCollapsible: PropTypes.func,
-    showItem: PropTypes.func,
-    toggleItem: PropTypes.func,
-    uid: PropTypes.string
-};
-
-export default CONTEXT_TYPES;
+export default Object.freeze({
+    activeIndices: PropTypes.arrayOf(PropTypes.number).isRequired,
+    hideItem: PropTypes.func.isRequired,
+    isItemActive: PropTypes.func.isRequired,
+    isItemCollapsible: PropTypes.func.isRequired,
+    showItem: PropTypes.func.isRequired,
+    toggleItem: PropTypes.func.isRequired,
+    uid: PropTypes.string.isRequired
+});

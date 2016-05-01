@@ -5,17 +5,17 @@
  */
 
 @include export("pin") {
-    $titon-temp-pin-transition: map-get($titon-pin, "transition");
+    $titon-pin-transition: map-get($titon-pin, "transition");
 
-    #{map-get($titon-pin, "class")} {
+    #{generate-class-name($titon-pin)} {
         position: absolute;
 
         &.sticky {
-            transition: top ($titon-temp-pin-transition * 2) ease-in-out, right $titon-temp-pin-transition ease-in-out, left $titon-temp-pin-transition ease-in-out;
+            transition: top ($titon-pin-transition * 2) ease-in-out, right $titon-pin-transition ease-in-out, left $titon-pin-transition ease-in-out;
         }
 
         &.slide {
-            transition: top $titon-temp-pin-transition linear, right $titon-temp-pin-transition linear, left $titon-temp-pin-transition linear;
+            transition: top $titon-pin-transition linear, right $titon-pin-transition linear, left $titon-pin-transition linear;
         }
     }
 }

@@ -5,7 +5,7 @@
  */
 
 @include export("divider") {
-    #{map-get($titon-divider, "class")} {
+    #{generate-class-name($titon-divider)} {
         text-align: center;
         overflow: hidden;
 

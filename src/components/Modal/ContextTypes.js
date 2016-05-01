@@ -6,9 +6,7 @@
 
 import { PropTypes } from 'react';
 
-const CONTEXT_TYPES = {
-    hideModal: PropTypes.func,
-    uid: PropTypes.string
-};
-
-export default CONTEXT_TYPES;
+export default Object.freeze({
+    hideModal: PropTypes.func.isRequired,
+    uid: PropTypes.string.isRequired
+});

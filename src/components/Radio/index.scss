@@ -5,12 +5,12 @@
  */
 
 @include export("radio") {
-    #{map-get($titon-radio, "class")} {
-        @extend #{map-get($titon-checkbox, "class")};
+    #{generate-class-name($titon-radio)} {
+        @extend #{generate-class-name($titon-checkbox)};
     }
 
-    #{map-get($titon-radio, "class-toggle")} {
-        @extend #{map-get($titon-checkbox, "class-toggle")};
+    #{generate-class-name($titon-radio, "toggle")} {
+        @extend #{generate-class-name($titon-checkbox, "toggle")};
         border-radius: 50%;
     }
 }

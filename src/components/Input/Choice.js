@@ -5,21 +5,21 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
+import Component from '../Component';
+import { defaultSizeProps, sizePropTypes } from '../propTypes';
+import MODULE from './module';
 
 export default class Choice extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        elementClassName: ['input', 'choice']
+        ...defaultSizeProps
     };
 
     static propTypes = {
+        ...sizePropTypes,
         children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
-        inputID: PropTypes.string.isRequired,
-        large: PropTypes.bool,
-        small: PropTypes.bool
+        inputID: PropTypes.string.isRequired
     };
 
     /**
@@ -33,12 +33,12 @@ export default class Choice extends Component {
         return (
             <label
                 htmlFor={props.inputID}
-                className={this.formatClass(props.elementClassName, props.className, {
-                    '@large': Boolean(props.large),
-                    '@small': Boolean(props.small)
+                className={this.formatChildClass('choice', {
+                    '@large': props.large,
+                    '@small': props.small
                 })}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </label>
         );

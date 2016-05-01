@@ -4,38 +4,23 @@
  * @link        http://titon.io
  */
 
+/* eslint require-jsdoc: 0 */
+
 import React from 'react';
-import Component from '../../Component';
 import Col from './Col';
-import children from '../../prop-types/children';
-import cssClass from '../../prop-types/cssClass';
+import childrenOf from '../../prop-types/children';
+import MODULE from './module';
 
-export default class Row extends Component {
-    static defaultProps = {
-        elementClassName: 'row'
-    };
-
-    static propTypes = {
-        children: children(Col),
-        className: cssClass,
-        elementClassName: cssClass.isRequired
-    };
-
-    /**
-     * Render the grid row.
-     *
-     * @returns {ReactElement}
-     */
-    render() {
-        let props = this.props;
-
-        return (
-            <div
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)}>
-
-                {props.children}
-            </div>
-        );
-    }
+export default function Row({ children }) {
+    return (
+        <div className={MODULE.classNames.row}>
+            {children}
+        </div>
+    );
 }
+
+Row.module = MODULE;
+
+Row.propTypes = {
+    children: childrenOf(Col)
+};

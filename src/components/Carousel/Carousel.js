@@ -6,24 +6,25 @@
 
 import React, { Children, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Component from '../../Component';
+import Component from '../Component';
 import ItemList from './ItemList';
 import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Carousel extends Component {
+    static module = MODULE;
+
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
+        animation: 'slide',
         autoStart: true,
         defaultIndex: 0,
         duration: 5000,
-        elementClassName: 'carousel',
         infinite: true,
         loop: true,
-        modifier: 'slide',
         pauseOnHover: true,
         reverse: false,
         toCycle: 1,
@@ -31,15 +32,13 @@ export default class Carousel extends Component {
     };
 
     static propTypes = {
+        animation: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
         autoStart: PropTypes.bool,
         children: PropTypes.node,
-        className: cssClass,
         defaultIndex: PropTypes.number,
         duration: PropTypes.number,
-        elementClassName: cssClass.isRequired,
         infinite: PropTypes.bool,
         loop: PropTypes.bool,
-        modifier: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
         onCycled: collection.func,
         onCycling: collection.func,
         onStart: collection.func,
@@ -62,24 +61,26 @@ export default class Carousel extends Component {
      * @returns {Object}
      */
     getChildContext() {
+        let props = this.props;
+
         return {
             activeIndices: this.getActiveIndices(),
             afterAnimation: this.afterAnimation,
+            animation: props.animation,
             currentIndex: this.state.index,
             firstIndex: this.getFirstIndex(),
-            infiniteScroll: this.props.infinite,
+            infiniteScroll: props.infinite,
             isItemActive: this.isItemActive,
             itemCount: this.countItems(),
             lastIndex: this.getLastIndex(),
-            loopedScroll: this.props.loop,
-            modifier: this.props.modifier,
+            loopedScroll: props.loop,
             nextItem: this.nextItem,
             prevItem: this.prevItem,
             showItem: this.showItem,
             startCycle: this.startCycle,
             stopCycle: this.stopCycle,
             uid: this.getUID(),
-            visibleCount: this.props.toShow
+            visibleCount: props.toShow
         };
     }
 
@@ -416,8 +417,8 @@ export default class Carousel extends Component {
             <div
                 role="tablist"
                 id={this.formatID('carousel')}
-                className={this.formatClass(props.elementClassName, props.className, {
-                    ['@' + props.modifier]: true,
+                className={this.formatClass({
+                    [props.animation]: true,
                     'is-animating': this.state.animating,
                     'is-stopped': this.state.stopped,
                     'no-next': (!props.loop && this.isAtLast()),
@@ -426,8 +427,8 @@ export default class Carousel extends Component {
                 aria-live={props.autoStart ? 'assertive' : 'off'}
                 onMouseEnter={this.handleOnMouseEnter}
                 onMouseLeave={this.handleOnMouseLeave}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </div>
         );

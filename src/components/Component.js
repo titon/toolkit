@@ -4,23 +4,30 @@
  * @link        http://titon.io
  */
 
+/* eslint react/prop-types: 0 */
+
 import React, { Children, PropTypes } from 'react';
-import Titon from './Titon';
-import ClassBuilder from './utility/ClassBuilder';
+import Titon from '../Titon';
 import assign from 'lodash/assign';
-import generateUID from './utility/generateUID';
+import formatClass from '../utility/formatClass';
+import formatID from '../utility/formatID';
+import generateUID from '../utility/generateUID';
+import invariant from '../utility/invariant';
 import omit from 'lodash/omit';
-import wrapFunctions from './utility/wrapFunctions';
-import './polyfills/Performance.now.js';
+import wrapFunctions from '../utility/wrapFunctions';
+import '../polyfills/Performance.now.js';
 
 export default class Component extends React.Component {
-    static defaultProps = {
-        debug: false
+    static module = {
+        classNames: {},
+        name: 'Component',
+        version: '3.0.0'
     };
 
+    static contextTypes = {};
+
     static propTypes = {
-        debug: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-        uid: PropTypes.string
+        children: PropTypes.node
     };
 
     /**
@@ -30,8 +37,6 @@ export default class Component extends React.Component {
         super();
 
         this.state = {};
-        this.version = '3.0.0';
-
         this.generateUID();
     }
 
@@ -45,14 +50,15 @@ export default class Component extends React.Component {
      * @param {...*} [args]
      */
     emitEvent(type, ...args) {
-        let debug = this.props.debug || Titon.options.debug,
-            name = this.constructor.name,
+        let { module, name } = this.constructor,
+            debug = this.props.debug || Titon.options.debug,
             uid = this.getUID();
 
         if (debug && window.console) {
             /* eslint no-console: 0 */
 
-            console.log(name + (uid ? `#${uid}` : ''), performance.now().toFixed(3), type, ...args);
+            console.log(`${module.name}.${name}` + (uid ? `#${uid}` : ''),
+                performance.now().toFixed(3), type, ...args);
 
             if (debug === 'verbose') {
                 console.dir(this);
@@ -70,38 +76,24 @@ export default class Component extends React.Component {
     }
 
     /**
-     * Format a unique HTML class name based on the passed parameters.
-     * The primary class name passed will automatically be namespaced,
-     * while all other classes will not.
+     * Format an element level class name based on the defined argument.
      *
-     * @param {String|Array|Object} className
+     * @param {String} elementName
      * @param {...String|Array|Object} params
      * @returns {String}
      */
-    formatClass(className, ...params) {
-        if (!className) {
-            return '';
-        }
+    formatChildClass(elementName, ...params) {
+        return formatClass(this.getModuleClass(elementName), ...params);
+    }
 
-        let namespace = Titon.options.autoNamespace ? Titon.options.namespace : '',
-            builder = new ClassBuilder(className, namespace);
-
-        // Append additional classes
-        params.forEach(param => {
-            if (typeof param === 'string' || Array.isArray(param)) {
-                builder.add(param);
-
-            } else if (typeof param === 'object') {
-                if (param.block) {
-                    builder.add(param);
-
-                } else {
-                    builder.map(param);
-                }
-            }
-        });
-
-        return builder.toString();
+    /**
+     * Format a block level class name.
+     *
+     * @param {...String|Array|Object} params
+     * @returns {String}
+     */
+    formatClass(...params) {
+        return formatClass(this.getModuleClass(), ...params);
     }
 
     /**
@@ -111,10 +103,7 @@ export default class Component extends React.Component {
      * @returns {String}
      */
     formatID(...params) {
-        return ['titon', this.getUID(), ...params]
-            .join('-')
-            .trim()
-            .replace('--', '-');
+        return formatID('titon', this.getUID(), ...params);
     }
 
     /**
@@ -170,6 +159,33 @@ export default class Component extends React.Component {
     }
 
     /**
+     * Attempt to find the block or element class name within the modules classnames mapping.
+     *
+     * @param {String} element
+     * @returns {String}
+     */
+    getModuleClass(element = 'default') {
+        let { name, module } = this.constructor,
+            className = module.classNames[element];
+
+        invariant(className, 'Module class name "%s" not found for `%s.%s`.',
+            element, module.name, name);
+
+        return className;
+    }
+
+    /**
+     * Define a context that is passed to all children.
+     *
+     * @returns {Object}
+     */
+    getDefaultChildContext() {
+        return {
+            uid: this.getUID()
+        };
+    }
+
+    /**
      * Return the `ReactElement` associated with the component.
      *
      * @returns {ReactElement}
@@ -209,7 +225,7 @@ export default class Component extends React.Component {
      * @returns {Object}
      */
     inheritNativeProps(props) {
-        return omit(props, ['children', ...Object.keys(this.constructor.propTypes)]);
+        return omit(props, ['children', 'className', ...Object.keys(this.constructor.propTypes)]);
     }
 
     /**

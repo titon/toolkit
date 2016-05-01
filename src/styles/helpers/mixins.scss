@@ -67,7 +67,7 @@ $titon-internal-modules-exported: () !global;
  */
 @mixin generate-size-small($component: "") {
     @if is-feature-enabled("small-size") {
-        #{bem($component, "", map-get($titon-global, "class-small-modifier"))} {
+        #{bem($component, "", "small")} {
             @content;
         }
     }
@@ -78,7 +78,7 @@ $titon-internal-modules-exported: () !global;
  */
 @mixin generate-size-large($component: "") {
     @if is-feature-enabled("large-size") {
-        #{bem($component, "", map-get($titon-global, "class-large-modifier"))} {
+        #{bem($component, "", "large")} {
             @content;
         }
     }

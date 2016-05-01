@@ -5,21 +5,18 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import bind from '../../decorators/bind';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Item extends Component {
-    static contextTypes = CONTEXT_TYPES;
+    static module = MODULE;
 
-    static defaultProps = {
-        elementClassName: ['pagination', 'item']
-    };
+    static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {
         children: PropTypes.node,
-        elementClassName: cssClass.isRequired,
         page: PropTypes.number.isRequired
     };
 
@@ -47,16 +44,17 @@ export default class Item extends Component {
 
         return (
             <li>
-                <a href={context.url.replace('{{page}}', page)}
-                    className={this.formatClass(props.elementClassName, {
-                        'is-active': (key.match(/\d/) && context.currentPage === page),
+                <a
+                    href={context.url.replace('{{page}}', page)}
+                    className={this.formatChildClass('item', {
+                        'is-active': (key.match(/^\d$/) && context.currentPage === page),
                         'is-first': (key === 'first'),
                         'is-last': (key === 'last'),
                         'is-next': (key === 'next'),
                         'is-prev': (key === 'prev')
                     })}
-                    onClick={this.handleOnClick}>
-
+                    onClick={this.handleOnClick}
+                >
                     {props.children || page}
                 </a>
             </li>

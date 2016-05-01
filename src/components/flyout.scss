@@ -5,7 +5,7 @@
  */
 
 @include export("flyout") {
-    #{map-get($titon-flyout, "class")} {
+    #{generate-class-name($titon-flyout)} {
         @extend %placeholder-position-absolute;
         z-index: map-get($titon-settings-zindex, "flyout");
         opacity: 0;
@@ -17,7 +17,7 @@
         line-height: 1;
 
         // Nested flyouts
-        #{map-get($titon-flyout, "class")} {
+        #{generate-class-name($titon-flyout)} {
             top: 0;
             #{bidi-alignment()}: 90%;
 
@@ -57,7 +57,7 @@
             }
 
             // Display sub-menu
-            &.is-open > #{map-get($titon-flyout, "class")} {
+            &.is-open > #{generate-class-name($titon-flyout)} {
                 opacity: 1;
                 visibility: visible;
                 #{bidi-alignment()}: 100%;
@@ -70,7 +70,7 @@
         }
     }
 
-    #{map-get($titon-flyout, "class-heading")} {
+    #{generate-class-name($titon-flyout, "heading")} {
         padding: theme-setting("medium-padding");
         display: block;
     }

@@ -8,7 +8,7 @@ import React from 'react';
 import Input from './Input';
 import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
-import { optionList } from './PropTypes';
+import { optionList } from '../propTypes';
 
 export default class Select extends Input {
     static defaultProps = {
@@ -54,8 +54,8 @@ export default class Select extends Input {
                     <optgroup
                         key={option.label}
                         label={option.label}
-                        disabled={option.disabled}>
-
+                        disabled={option.disabled}
+                    >
                         {this.renderOptions(option.options)}
                     </optgroup>
                 );
@@ -66,8 +66,8 @@ export default class Select extends Input {
                     <option
                         key={option.value}
                         value={option.value}
-                        disabled={option.disabled}>
-
+                        disabled={option.disabled}
+                    >
                         {option.label}
                     </option>
                 );

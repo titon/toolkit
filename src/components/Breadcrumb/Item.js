@@ -5,20 +5,15 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
+import Component from '../Component';
+import MODULE from './module';
 
 export default class Item extends Component {
-    static defaultProps = {
-        caret: '/',
-        elementClassName: ['breadcrumb', 'item']
-    };
+    static module = MODULE;
 
     static propTypes = {
         caret: PropTypes.node,
-        children: PropTypes.node.isRequired,
-        className: cssClass,
-        elementClassName: cssClass.isRequired
+        children: PropTypes.node.isRequired
     };
 
     /**
@@ -31,10 +26,12 @@ export default class Item extends Component {
 
         return (
             <li>
-                <a className={this.formatClass(props.elementClassName, props.className)}
-                    {...this.inheritNativeProps(props)}>
+                <a
+                    className={this.formatChildClass('item')}
+                    {...this.inheritNativeProps(props)}
+                >
                     {props.children}
-                    <span className="caret">{props.caret}</span>
+                    <span className="caret">{props.caret || '/'}</span>
                 </a>
             </li>
         );

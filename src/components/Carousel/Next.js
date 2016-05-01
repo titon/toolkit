@@ -5,39 +5,35 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
-export default class Start extends Component {
+export default class Next extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
-
-    static defaultProps = {
-        elementClassName: ['carousel', 'start']
-    };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         onClick: collection.func
     };
 
     /**
-     * Handles clicking the start button.
+     * Handles clicking the next button.
      *
      * @param {SyntheticEvent} e
      */
     @bind
     handleOnClick(e) {
-        this.context.startCycle();
+        this.context.nextItem();
         this.handleEvent('click', e);
     }
 
     /**
-     * Render a button that starts the automatic cycle.
+     * Render a button that cycles to the next item.
      *
      * @returns {ReactElement}
      */
@@ -47,10 +43,10 @@ export default class Start extends Component {
         return (
             <button
                 type="button" role="button"
-                className={this.formatClass(props.elementClassName, props.className)}
+                className={this.formatChildClass('next')}
                 onClick={this.handleOnClick}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </button>
         );

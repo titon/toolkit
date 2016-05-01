@@ -6,14 +6,12 @@
 
 import { PropTypes } from 'react';
 
-const CONTEXT_TYPES = {
-    activeIndex: PropTypes.number,
-    hideSection: PropTypes.func,
-    isSectionActive: PropTypes.func,
-    isSectionCollapsible: PropTypes.func,
-    showSection: PropTypes.func,
-    toggleSection: PropTypes.func,
-    uid: PropTypes.string
-};
-
-export default CONTEXT_TYPES;
+export default Object.freeze({
+    activeIndex: PropTypes.number.isRequired,
+    hideSection: PropTypes.func.isRequired,
+    isSectionActive: PropTypes.func.isRequired,
+    isSectionCollapsible: PropTypes.func.isRequired,
+    showSection: PropTypes.func.isRequired,
+    toggleSection: PropTypes.func.isRequired,
+    uid: PropTypes.string.isRequired
+});

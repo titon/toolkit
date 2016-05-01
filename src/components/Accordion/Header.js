@@ -5,24 +5,21 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
-import cssClass from '../../prop-types/cssClass';
 import tabIndex from '../../utility/tabIndex';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Header extends Component {
-    static contextTypes = CONTEXT_TYPES;
+    static module = MODULE;
 
-    static defaultProps = {
-        elementClassName: ['accordion', 'header']
-    };
+    static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {
         active: PropTypes.bool.isRequired,
         children: PropTypes.node,
-        elementClassName: cssClass.isRequired,
         index: PropTypes.number.isRequired,
         onClick: collection.func
     };
@@ -53,15 +50,15 @@ export default class Header extends Component {
             <header
                 role="tab"
                 id={this.formatID('accordion-header', index)}
-                className={this.formatClass(props.elementClassName, {
+                className={this.formatChildClass('header', {
                     'is-active': active
                 })}
                 aria-controls={this.formatID('accordion-section', index)}
                 aria-selected={active}
                 aria-expanded={active}
                 tabIndex={tabIndex(this)}
-                onClick={this.handleOnClick}>
-
+                onClick={this.handleOnClick}
+            >
                 {props.children}
             </header>
         );

@@ -4,23 +4,15 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import React from 'react';
+import Component from '../Component';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class MainContent extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
-
-    static defaultProps = {
-        elementClassName: ['off-canvas', 'content']
-    };
-
-    static propTypes = {
-        children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired
-    };
 
     /**
      * Render the off canvas main content.
@@ -33,9 +25,9 @@ export default class MainContent extends Component {
         return (
             <main
                 role="main"
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)}>
-
+                className={this.formatChildClass('content')}
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </main>
         );

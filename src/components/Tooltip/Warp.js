@@ -6,12 +6,15 @@
 
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Component from '../../Component';
+import Component from '../Component';
 import Tooltip from './Tooltip';
 import bind from '../../decorators/bind';
 import invariant from '../../utility/invariant';
+import MODULE from './module';
 
 export default class Warp extends Component {
+    static module = MODULE;
+
     static contextTypes = {
         warpIn: PropTypes.func.isRequired,
         warpOut: PropTypes.func.isRequired

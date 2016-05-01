@@ -5,19 +5,20 @@
  */
 
 import React, { Children, PropTypes } from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
+import Component from '../Component';
+import MODULE from './module';
 
 export default class ButtonGroup extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        elementClassName: 'button-group',
-        label: 'Button Group'
+        justified: false,
+        label: 'Button Group',
+        vertical: false
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         justified: PropTypes.bool,
         label: PropTypes.string,
         vertical: PropTypes.bool
@@ -35,14 +36,14 @@ export default class ButtonGroup extends Component {
             <ul
                 role="toolbar"
                 id={this.formatID('button-group')}
-                className={this.formatClass(props.elementClassName, props.className, {
-                    ['@justified']: Boolean(props.justified),
-                    ['@vertical']: Boolean(props.vertical)
+                className={this.formatClass({
+                    ['@justified']: props.justified,
+                    ['@vertical']: props.vertical
                 })}
                 aria-label={props.label}
                 aria-orientation={props.vertical ? 'vertical' : 'horizontal'}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {Children.map(props.children, child => (
                     <li>{child}</li>
                 ))}

@@ -8,12 +8,10 @@ import Mask from './Mask';
 import Overlay from './Overlay';
 import Target from './Target';
 import Toggle from './Toggle';
-import CONTEXT_TYPES from './ContextTypes';
 
-Mask.CONTEXT_TYPES = CONTEXT_TYPES;
 Mask.Overlay = Overlay;
 Mask.Target = Target;
 Mask.Toggle = Toggle;
 
-export { Overlay, Target, Toggle, CONTEXT_TYPES };
+export { Overlay, Target, Toggle };
 export default Mask;

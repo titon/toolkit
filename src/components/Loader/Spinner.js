@@ -5,23 +5,20 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Message from './Message';
 import children from '../../prop-types/children';
-import cssClass from '../../prop-types/cssClass';
+import MODULE from './module';
 
 export default class Spinner extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        elementClassName: 'loader',
-        spinnerClassName: ['loader', 'spinner'],
         type: 'bubble'
     };
 
     static propTypes = {
         children: children(Message),
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
-        spinnerClassName: cssClass.isRequired,
         type: PropTypes.oneOf(['bubble'])
     };
 
@@ -40,12 +37,12 @@ export default class Spinner extends Component {
 
         return (
             <div
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatClass({
                     [`@${props.type}-spinner`]: true
                 })}
-                {...this.inheritNativeProps(props)}>
-
-                <div className={this.formatClass(props.spinnerClassName)}>
+                {...this.inheritNativeProps(props)}
+            >
+                <div className={this.formatChildClass('spinner')}>
                     {spinners}
                 </div>
 

@@ -5,18 +5,19 @@
  */
 
 @include export("flex") {
-    $titon-temp-flex-modifiers: map-get($titon-flex, "modifiers");
-    $titon-temp-flex-width: map-get($titon-flex, "width");
-    $titon-temp-flex-grid-gutter: map-get($titon-flex, "grid-gutter");
-    $titon-temp-flex-sizes: (
+    $titon-flex-class-region: map-get($titon-flex, "class-region");
+    $titon-flex-class-block: map-get($titon-flex, "class-block");
+    $titon-flex-grid-gutter: map-get($titon-flex, "grid-gutter");
+    $titon-flex-width: map-get($titon-flex, "width");
+    $titon-flex-sizes: (
         "xs": (6, breakpoint-setting("xs", 1), breakpoint-setting("xs", 2)),
         "sm": (12, breakpoint-setting("sm", 1), breakpoint-setting("sm", 2)),
         "md": (12, breakpoint-setting("md", 1), breakpoint-setting("md", 2)),
         "lg": (12, breakpoint-setting("lg", 1), null), // Leave open ended
     );
 
-    #{map-get($titon-flex, "class-region")} {
-        @include flex-region($titon-temp-flex-width);
+    #{generate-class-name($titon-flex, $titon-flex-class-region)} {
+        @include flex-region($titon-flex-width);
 
         // Alignment
         &.flow-top,
@@ -33,7 +34,7 @@
         }
     }
 
-    #{map-get($titon-flex, "class-block")} {
+    #{generate-class-name($titon-flex, $titon-flex-class-block)} {
         @include flex-block;
         @include flex-block-order;
 
@@ -48,13 +49,13 @@
     }
 
     // Responsive sizes
-    @each $size, $options in $titon-temp-flex-sizes {
+    @each $size, $options in $titon-flex-sizes {
         $size-columns: nth($options, 1);
 
         @include in-range( (nth($options, 2), nth($options, 3)) ) {
             @for $i from 1 through $size-columns {
-                #{map-get($titon-flex, "class-block")}.#{$size}-#{$i} {
-                    flex-basis: flex-span($i, $size-columns, $titon-temp-flex-width, map-get($titon-flex, "gutter"));
+                #{generate-class-name($titon-flex, $titon-flex-class-block)}.#{$size}-#{$i} {
+                    flex-basis: flex-span($i, $size-columns, $titon-flex-width, map-get($titon-flex, "gutter"));
                 }
             }
         }
@@ -63,41 +64,41 @@
     //-------------------- Modifiers --------------------//
 
     // Generate a grid of blocks with equal spacing between
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-flex-modifiers, "grid")) {
-        #{map-get($titon-flex, "class-modifier-grid")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-flex-modifiers, "grid")) {
+        #{generate-class-name($titon-flex, $titon-flex-class-region, "grid")} {
             flex-flow: row wrap;
             justify-content: flex-start;
             align-content: flex-start;
             max-width: none;
 
-            @if $titon-temp-flex-grid-gutter {
-                margin-top: -$titon-temp-flex-grid-gutter;
-                margin-left: -$titon-temp-flex-grid-gutter;
+            @if $titon-flex-grid-gutter {
+                margin-top: -$titon-flex-grid-gutter;
+                margin-left: -$titon-flex-grid-gutter;
 
-                > #{map-get($titon-flex, "class-block")} {
-                    margin-top: $titon-temp-flex-grid-gutter;
-                    margin-left: $titon-temp-flex-grid-gutter;
+                > #{generate-class-name($titon-flex, $titon-flex-class-block)} {
+                    margin-top: $titon-flex-grid-gutter;
+                    margin-left: $titon-flex-grid-gutter;
                 }
             }
         }
     }
 
     // Display blocks vertically or horizontally regardless of orientation
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-flex-modifiers, "horizontal")) {
-        #{map-get($titon-flex, "class-modifier-horizontal")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-flex-modifiers, "horizontal")) {
+        #{generate-class-name($titon-flex, $titon-flex-class-region, "horizontal")} {
             @include flex-region-orientation(horizontal);
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-flex-modifiers, "vertical")) {
-        #{map-get($titon-flex, "class-modifier-vertical")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-flex-modifiers, "vertical")) {
+        #{generate-class-name($titon-flex, $titon-flex-class-region, "vertical")} {
             @include flex-region-orientation(vertical);
         }
     }
 
     // Wrap blocks onto the next line instead of trying to squish into 1 line
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-flex-modifiers, "wrap")) {
-        #{map-get($titon-flex, "class-modifier-wrap")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-flex-modifiers, "wrap")) {
+        #{generate-class-name($titon-flex, $titon-flex-class-region, "wrap")} {
             @include flex-region-wrap;
         }
     }

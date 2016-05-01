@@ -5,26 +5,26 @@
  */
 
 import React, { PropTypes } from 'react';
+import { default as BaseGate } from '../Gateway/Gate';
 import Toast from './Toast';
-import Gate from '../Gateway/Gate';
+import { positions } from '../propTypes';
+import MODULE from './module';
 
-export default class ToastGate extends Gate {
+export default class Gate extends BaseGate {
+    static module = MODULE;
+
     static defaultProps = {
-        ...Gate.defaultProps,
+        ...BaseGate.defaultProps,
         contract: Toast,
-        gateClassName: ['toast', 'gate'],
         position: 'bottom-left'
     };
 
     static propTypes = {
-        ...Gate.propTypes,
+        ...BaseGate.propTypes,
         animation: PropTypes.oneOf([
             'fade', 'slide-up', 'slide-down', 'slide-left', 'slide-right'
         ]),
-        position: PropTypes.oneOf([
-            'top-left', 'top-center', 'top-right', 'center-left',
-            'center-right', 'bottom-left', 'bottom-center', 'bottom-right'
-        ])
+        position: positions
     };
 
     /**
@@ -38,17 +38,11 @@ export default class ToastGate extends Gate {
         return (
             <aside
                 role="log"
-                className={this.formatClass(
-                    props.elementClassName,
-                    props.className,
-                    props.gateClassName,
-                    props.animation,
-                    props.position
-                )}
+                className={this.formatChildClass('gate', props.animation, props.position)}
                 aria-relevant="additions"
                 aria-hidden="false"
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {this.renderChildren(this.state.children)}
             </aside>
         );

@@ -1,0 +1,93 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("carousel") {
+    $titon-carousel-animations: map-get($titon-carousel, "animations");
+    $titon-carousel-class: generate-class-name($titon-carousel);
+    $titon-carousel-class-item: generate-class-name($titon-carousel, "item");
+    $titon-carousel-class-item-list: generate-class-name($titon-carousel, "item-list");
+
+    #{$titon-carousel-class} {
+        position: relative;
+        max-width: 100%;
+
+        &.no-next #{generate-class-name($titon-carousel, "next")},
+        &.no-prev #{generate-class-name($titon-carousel, "prev")} {
+            display: none;
+        }
+    }
+
+    #{$titon-carousel-class-item-list} {
+        overflow: hidden;
+        height: 100%;
+
+        > ol {
+            @extend %placeholder-list;
+            position: relative;
+            transition: all map-get($titon-carousel, "transition");
+            display: flex;
+            width: 100%;
+            height: 100%;
+            will-change: transform;
+        }
+    }
+
+    #{$titon-carousel-class-item} {
+        flex: 0 0 auto;
+        width: 100%;
+        height: 100%;
+    }
+
+    //-------------------- Animations --------------------//
+
+    #{$titon-carousel-class} {
+        @if (is-feature-enabled("all-animations") or index($titon-carousel-animations, "slide")) {
+            &.slide {
+                #{$titon-carousel-class-item-list} {
+                    > ol {
+                        flex-wrap: nowrap;
+                        transform: translateX(0);
+                    }
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($titon-carousel-animations, "slide-up")) {
+            &.slide-up {
+                #{$titon-carousel-class-item-list} {
+                    > ol {
+                        flex-direction: column;
+                        transform: translateY(0);
+                    }
+                }
+
+                #{$titon-carousel-class-item} {
+                    height: 100%;
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($titon-carousel-animations, "fade")) {
+            &.fade {
+                #{$titon-carousel-class-item} {
+                    @extend %placeholder-position-absolute;
+                    width: 100%;
+                    height: 100%;
+                    visibility: hidden;
+                    opacity: 0;
+                    z-index: 1;
+                    transition: opacity map-get($titon-carousel, "transition"), visibility map-get($titon-carousel, "transition");
+
+                    &.is-active {
+                        z-index: 5;
+                        visibility: visible;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}

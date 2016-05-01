@@ -9,42 +9,37 @@ import { default as InputSelect } from '../Input/Select';
 import Menu from './Menu';
 import bind from '../../decorators/bind';
 import children from '../../prop-types/children';
-import cssClass from '../../prop-types/cssClass';
 import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';
 import isOutsideElement from '../../utility/isOutsideElement';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 import { TOUCH } from '../../flags';
 
 export default class Select extends InputSelect {
+    static module = MODULE;
+
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
         ...InputSelect.defaultProps,
         arrow: <span className="caret-down" />,
-        arrowClassName: ['select', 'arrow'],
         countMessage: '{count} of {total} selected',
-        defaultLabel: 'Select An Option',
-        elementClassName: 'select',
-        labelClassName: ['select', 'label'],
+        defaultLabel: 'Select an Option',
         listLimit: 3,
         multipleFormat: 'list',
-        native: TOUCH,
-        toggleClassName: ['select', 'toggle']
+        native: TOUCH
     };
 
     static propTypes = {
         ...InputSelect.propTypes,
         arrow: PropTypes.node,
-        arrowClassName: cssClass.isRequired,
         children: children(Menu),
         countMessage: PropTypes.string,
         defaultLabel: PropTypes.string,
-        labelClassName: cssClass.isRequired,
         listLimit: PropTypes.number,
         multipleFormat: PropTypes.oneOf(['count', 'list']),
-        native: PropTypes.bool,
-        toggleClassName: cssClass.isRequired
+        native: PropTypes.bool
     };
 
     /**
@@ -353,31 +348,31 @@ export default class Select extends InputSelect {
             <div
                 ref="container"
                 id={this.formatID('select', inputProps.id)}
-                className={this.formatClass(props.elementClassName, props.className, stateClasses)}
+                className={this.formatClass(stateClasses)}
                 aria-disabled={props.disabled}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 <select
                     {...inputProps}
                     onFocus={this.handleOnFocus}
-                    onBlur={this.handleOnBlur}>
-
+                    onBlur={this.handleOnBlur}
+                >
                     {this.renderOptions(props.options)}
                 </select>
 
                 <div
                     role="button"
-                    className={this.formatClass(props.toggleClassName, stateClasses)}
+                    className={this.formatChildClass('toggle', stateClasses)}
                     onClick={this.handleOnClickLabel}
                     aria-controls={native ? null : this.formatID('select-toggle', inputProps.id)}
                     aria-haspopup={native ? null : true}
-                    aria-expanded={native ? null : expanded}>
-
-                    <span className={this.formatClass(props.labelClassName)}>
+                    aria-expanded={native ? null : expanded}
+                >
+                    <span className={this.formatChildClass('label')}>
                         {this.getSelectedLabel()}
                     </span>
 
-                    <span className={this.formatClass(props.arrowClassName)}>
+                    <span className={this.formatChildClass('arrow')}>
                         {props.arrow}
                     </span>
                 </div>

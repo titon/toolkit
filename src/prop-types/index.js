@@ -8,14 +8,12 @@ import children from './children';
 import collection from './collection';
 import cssClass from './cssClass';
 import range from './range';
-import states from './states';
 
-export { children, collection, cssClass, range, states };
+export { children, collection, cssClass, range };
 
 export default {
     children,
     collection,
     cssClass,
-    range,
-    states
+    range
 };

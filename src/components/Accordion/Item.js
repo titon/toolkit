@@ -4,31 +4,26 @@
  * @link        http://titon.io
  */
 
-/* eslints react/jsx-handler-names: 0 */
-
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Header from './Header';
 import Section from './Section';
 import collection from '../../prop-types/collection';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import { showHidePropTypes } from '../propTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Item extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {
+        ...showHidePropTypes,
         children: PropTypes.node,
-        className: PropTypes.string,
         header: PropTypes.node.isRequired,
-        headerClassName: cssClass,
         index: PropTypes.number.isRequired,
-        onClickHeader: collection.func,
-        onHidden: collection.func,
-        onHiding: collection.func,
-        onShowing: collection.func,
-        onShown: collection.func,
-        sectionClassName: cssClass
+        onClickHeader: collection.func
     };
 
     /**
@@ -92,22 +87,20 @@ export default class Item extends Component {
             expanded = this.state.expanded;
 
         return (
-            <li className={props.className}>
+            <li>
                 <Header
-                    className={props.headerClassName}
                     index={props.index}
                     active={expanded}
-                    onClick={props.onClickHeader}>
-
+                    onClick={props.onClickHeader}
+                >
                     {props.header}
                 </Header>
 
                 <Section
-                    className={props.sectionClassName}
                     index={props.index}
                     expanded={expanded}
-                    {...this.inheritNativeProps(props)}>
-
+                    {...this.inheritNativeProps(props)}
+                >
                     {props.children}
                 </Section>
             </li>

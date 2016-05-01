@@ -8,12 +8,10 @@ import Tabs from './Tabs';
 import Tab from './Tab';
 import Nav from './Nav';
 import Section from './Section';
-import CONTEXT_TYPES from './ContextTypes';
 
-Tabs.CONTEXT_TYPES = CONTEXT_TYPES;
 Tabs.Tab = Tab;
 Tabs.Nav = Nav;
 Tabs.Section = Section;
 
-export { Tab, Nav, Section, CONTEXT_TYPES };
+export { Tab, Nav, Section };
 export default Tabs;

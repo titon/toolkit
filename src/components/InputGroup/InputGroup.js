@@ -4,20 +4,12 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
+import React from 'react';
+import Component from '../Component';
+import MODULE from './module';
 
 export default class InputGroup extends Component {
-    static defaultProps = {
-        elementClassName: 'input-group'
-    };
-
-    static propTypes = {
-        children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired
-    };
+    static module = MODULE;
 
     /**
      * Render the input group wrapper.
@@ -29,9 +21,9 @@ export default class InputGroup extends Component {
 
         return (
             <span
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)}>
-
+                className={this.formatClass()}
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </span>
         );

@@ -6,12 +6,18 @@
 
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Component from '../../Component';
+import Component from '../../components/Component';
 import bind from '../../decorators/bind';
 import cssClass from '../../prop-types/cssClass';
 import debounce from '../../decorators/debounce';
 
 export default class SlideCollapse extends Component {
+    static module = {
+        classNames: {
+            default: 'slide-collapse'
+        }
+    };
+
     static defaultProps = {
         direction: 'vertical',
         elementClassName: ['slide', 'collapse'],
@@ -104,8 +110,8 @@ export default class SlideCollapse extends Component {
                     ['@' + props.direction]: true,
                     'is-expanded': props.expanded
                 })}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </div>
         );

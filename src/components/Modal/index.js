@@ -9,13 +9,11 @@ import Body from './Body';
 import Head from './Head';
 import Foot from './Foot';
 import Gate from './Gate';
-import CONTEXT_TYPES from './ContextTypes';
 
-Modal.CONTEXT_TYPES = CONTEXT_TYPES;
 Modal.Body = Body;
 Modal.Head = Head;
 Modal.Foot = Foot;
 Modal.Gate = Gate;
 
-export { Body, Head, Foot, Gate, CONTEXT_TYPES };
+export { Body, Head, Foot, Gate };
 export default Modal;

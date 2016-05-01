@@ -4,23 +4,15 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import React from 'react';
+import Component from '../Component';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Header extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
-
-    static defaultProps = {
-        elementClassName: ['drop', 'header']
-    };
-
-    static propTypes = {
-        children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired
-    };
 
     /**
      * Render the drop item header.
@@ -32,9 +24,9 @@ export default class Header extends Component {
 
         return (
             <li
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)}>
-
+                className={this.formatChildClass('header')}
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </li>
         );

@@ -4,23 +4,15 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import React from 'react';
+import Component from '../Component';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Body extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
-
-    static defaultProps = {
-        elementClassName: ['modal', 'body']
-    };
-
-    static propTypes = {
-        children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired
-    };
 
     /**
      * Render the modal inner body.
@@ -33,9 +25,9 @@ export default class Body extends Component {
         return (
             <div
                 id={this.formatID('modal-content')}
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)}>
-
+                className={this.formatChildClass('body')}
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </div>
         );

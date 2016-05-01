@@ -18,7 +18,7 @@ $titon: (
     "namespace": "", // Without "."
     "text-direction": ltr, // Either "ltr" or "rtl"
     "exclude-modules": ("flex"),
-    "element-separator": "-",
+    "element-separator": "__",
     "modifier-separator": "--",
     "base-font-size": 14px,
 ) !default;
@@ -139,23 +139,16 @@ $titon-settings-breakpoints: (
 //------------------------------ Components ------------------------------//
 
 $titon-global: (
-    "class-small-modifier": "small",
-    "class-large-modifier": "large",
-    "class-end": bem("end"),
-    "class-transition": bem("transition"),
-    "span-count": 12
+    "span-count": 12,
 ) !default;
 
 $titon-accordion: (
-    "class": bem("accordion"),
-    "class-header": bem("accordion", "header"),
-    "class-section": bem("accordion", "section"),
+    "class": "accordion",
     "transition": theme-setting("transition"),
 ) !default;
 
 $titon-breadcrumb: (
-    "class": bem("breadcrumb"),
-    "class-item": bem("breadcrumb", "item"),
+    "class": "breadcrumb",
 ) !default;
 
 $titon-blackout: (
@@ -164,60 +157,38 @@ $titon-blackout: (
 ) !default;
 
 $titon-button: (
-    "class": bem("button"),
+    "class": "button",
 ) !default;
 
 $titon-button-group: (
-    "class": bem("button-group"),
-    "class-modifier-vertical": bem("button-group", "", "vertical"),
-    "class-modifier-justified": bem("button-group", "", "justified"),
+    "class": "button-group",
     "modifiers": ("justified"), // justified, vertical
 ) !default;
 
 $titon-carousel: (
-    "class": bem("carousel"),
-    "class-item": bem("carousel", "item"),
-    "class-items": bem("carousel", "items"),
-    "class-tab": bem("carousel", "tab"),
-    "class-tabs": bem("carousel", "tabs"),
-    "class-next": bem("carousel", "next"),
-    "class-prev": bem("carousel", "prev"),
-    "class-modifier-slide": bem("carousel", "", "slide"),
-    "class-modifier-slide-up": bem("carousel", "", "slide-up"),
-    "class-modifier-fade": bem("carousel", "", "fade"),
-    "modifiers": ("slide", "slide-up", "fade"), // slide, slide-up, fade
+    "class": "carousel",
+    "animations": ("slide", "slide-up", "fade"), // slide, slide-up, fade
     "opacity": theme-setting("opacity"),
     "transition": 1s,
 ) !default;
 
 $titon-checkbox: (
-    "class": bem("checkbox"),
-    "class-toggle": bem("checkbox", "toggle"),
+    "class": "checkbox",
 ) !default;
 
 $titon-divider: (
-    "class": bem("divider"),
+    "class": "divider",
 ) !default;
 
 $titon-drop: (
-    "class": bem("drop"),
-    "class-divider": bem("drop", "divider"),
-    "class-header": bem("drop", "header"),
-    "class-modifier-down": bem("drop", "", "down"),
-    "class-modifier-up": bem("drop", "", "up"),
-    "class-modifier-left": bem("drop", "", "left"),
-    "class-modifier-right": bem("drop", "", "right"),
+    "class": "drop",
     "modifiers": ("down", "up", "left", "right"), // down, up, left, right
     "transition": theme-setting("transition"),
 ) !default;
 
 $titon-flex: (
-    "class-region": bem("region"),
-    "class-block": bem("block"),
-    "class-modifier-grid": bem("region", "", "grid"),
-    "class-modifier-wrap": bem("region", "", "wrap"),
-    "class-modifier-horizontal": bem("region", "", "horizontal"),
-    "class-modifier-vertical": bem("region", "", "vertical"),
+    "class-region": "region",
+    "class-block": "block",
     "modifiers": ("wrap", "grid"), // horizontal, vertical, wrap, grid
     "width": 100%,
     "gutter": false,
@@ -225,67 +196,47 @@ $titon-flex: (
 ) !default;
 
 $titon-flyout: (
-    "class": bem("flyout"),
-    "class-heading": bem("flyout", "heading"),
+    "class": "flyout",
     "transition": theme-setting("transition"),
 ) !default;
 
 $titon-form: (
-    "class": bem("form"),
-    "class-actions": bem("form", "actions"),
-    "class-fields": bem("fields"),
-    "class-field": bem("field"),
-    "class-field-help": bem("field", "help"),
-    "class-field-label": bem("field", "label"),
-    "class-modifier-inline": bem("form", "", "inline"),
+    "class": "form",
     "modifiers": ("inline"), // inline
 ) !default;
 
 $titon-gateway: (
-    "class": bem("gateway"),
+    "class": "gateway",
 ) !default;
 
 $titon-grid: (
-    "class-row": bem("row"),
-    "class-column": bem("col"),
+    "class-end": "end",
+    "class-row": "row",
+    "class-column": "col",
     "width": 100%,
     "gutter": false,
     "push-pull": true,
 ) !default;
 
 $titon-input: (
-    "class": bem("input"),
-    "class-static": bem("input", "static"),
-    "class-choice": bem("input", "choice"),
+    "class": "input",
 ) !default;
 
 $titon-input-group: (
-    "class": bem("input-group"),
-    "class-addon": bem("input-group", "addon"),
+    "class": "input-group",
 ) !default;
 
 $titon-label: (
-    "class": bem("label"),
-    "class-modifier-badge": bem("label", "", "badge"),
-    "class-modifier-ribbon-left": bem("label", "", "ribbon-left"),
-    "class-modifier-ribbon-right": bem("label", "", "ribbon-right"),
-    "class-modifier-arrow-left": bem("label", "", "arrow-left"),
-    "class-modifier-arrow-right": bem("label", "", "arrow-right"),
+    "class": "label",
     "modifiers": ("badge"), // badge, ribbon-left, ribbon-right, arrow-left, arrow-right
 ) !default;
 
 $titon-lazy-load: (
-    "class-bg": bem("lazy-load", "bg"),
-    "class-image": bem("lazy-load", "image")
+    "class": "lazy-load",
 ) !default;
 
 $titon-loader: (
-    "class": bem("loader"),
-    "class-message": bem("loader", "message"),
-    "class-spinner": bem("loader", "spinner"),
-    "class-modifier-bar-wave": bem("loader", "", "bar-wave"),
-    "class-modifier-bubble-wave": bem("loader", "", "bubble-wave"),
-    "class-modifier-bubble-spinner": bem("loader", "", "bubble-spinner"),
+    "class": "loader",
     "modifiers": ("bar-wave"), // bar-wave, bubble-wave, bubble-spinner
     "wave-count": 5,
     "bar-width": 0.3rem,
@@ -295,134 +246,92 @@ $titon-loader: (
 ) !default;
 
 $titon-mask: (
-    "class": bem("mask"),
-    "class-target": bem("mask", "target"),
-    "class-overlay": bem("mask", "overlay"),
+    "class": "mask",
     "opacity": .9,
     "transition": theme-setting("transition"),
 ) !default;
 
 $titon-matrix: (
-    "class": bem("matrix"),
+    "class": "matrix",
     "transition": theme-setting("transition"),
 ) !default;
 
 $titon-modal: (
-    "class": bem("modal"),
-    "class-close": bem("modal", "close"),
-    "class-outer": bem("modal", "outer"),
-    "class-inner": bem("modal", "inner"),
-    "class-head": bem("modal", "head"),
-    "class-body": bem("modal", "body"),
-    "class-foot": bem("modal", "foot"),
+    "class": "modal",
     "animations": ("fade", "from-above", "from-below"), // fade, from-above, from-below, slide-in-top, slide-in-right, slide-in-bottom, slide-in-left
     "transition": theme-setting("transition"),
 ) !default;
 
 $titon-notice: (
-    "class": bem("notice"),
-    "class-head": bem("notice", "head"),
-    "class-body": bem("notice", "body"),
-    "class-close": bem("notice", "close"),
+    "class": "notice",
 ) !default;
 
 $titon-off-canvas: (
-    "class": bem("off-canvas"),
-    "class-content": bem("off-canvas", "content"),
-    "class-sidebar": bem("off-canvas", "sidebar"),
-    "class-sidebar-modifier-left": bem("off-canvas", "sidebar", "left"),
-    "class-sidebar-modifier-right": bem("off-canvas", "sidebar", "right"),
+    "class": "off-canvas",
     "animations": ("push", "on-top", "squish"), // push, push-reveal, push-down, reverse-push, reveal, on-top, squish
     "width": 25rem,
     "transition": .5s,
 ) !default;
 
 $titon-pagination: (
-    "class": bem("pagination"),
-    "class-item": bem("pagination", "item"),
-    "class-spacer": bem("pagination", "spacer"),
-    "class-modifier-grouped": bem("pagination", "", "grouped"),
+    "class": "pagination",
     "modifiers": ("grouped"),
 ) !default;
 
 $titon-pin: (
-    "class": bem("pin"),
+    "class": "pin",
     "transition": .2s,
 ) !default;
 
 $titon-popover: (
-    "class": bem("popover"),
-    "class-arrow": bem("popover", "arrow"),
+    "class": "popover",
     "animations": ("fade"), // fade, from-above, from-below, flip-rotate
     "arrow-width": 8,
     "transition": .15s,
 ) !default;
 
 $titon-progress: (
-    "class": bem("progress"),
-    "class-bar": bem("progress", "bar"),
+    "class": "progress",
     "transition": .5s
 ) !default;
 
 $titon-radio: (
-    "class": bem("radio"),
-    "class-toggle": bem("radio", "toggle"),
+    "class": "radio",
 ) !default;
 
 $titon-select: (
-    "class": bem("select"),
-    "class-toggle": bem("select", "toggle"),
-    "class-label": bem("select", "label"),
-    "class-arrow": bem("select", "arrow"),
-    "class-menu": bem("select", "menu"),
-    "class-group": bem("select", "group"),
-    "class-option": bem("select", "option"),
-    "class-option-label": bem("select", "option-label"),
-    "class-option-desc": bem("select", "option-desc"),
+    "class": "select",
     "transition": theme-setting("transition"),
     "dropdown-menu": true
 ) !default;
 
 $titon-steps: (
-    "class": bem("steps"),
-    "class-item": bem("steps", "item"),
+    "class": "steps",
 ) !default;
 
 $titon-switch: (
-    "class": bem("switch"),
-    "class-bar": bem("switch", "bar"),
-    "class-toggle": bem("switch", "toggle"),
-    "class-modifier-stacked": bem("switch", "", "stacked"),
+    "class": "switch",
     "modifiers": ("stacked"), // stacked
     "transition": theme-setting("transition"),
 ) !default;
 
 $titon-tabs: (
-    "class": bem("tabs"),
-    "class-tab": bem("tabs", "tab"),
-    "class-nav": bem("tabs", "nav"),
-    "class-section": bem("tabs", "section")
+    "class": "tabs",
 ) !default;
 
 $titon-table: (
-    "class": bem("table"),
-    "class-divider": bem("table", "divider"),
-    "class-responsive": bem("table", "responsive"),
+    "class": "table",
 ) !default;
 
 $titon-toast: (
-    "class": bem("toast"),
-    "class-gate": bem("toast", "gate"),
+    "class": "toast",
     "animations": ("fade", "slide-up", "slide-down", "slide-left", "slide-right"), // fade, slide-up, slide-down, slide-left, slide-right
-    "positions": ("bottom-left", "bottom-right"), // top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right
+    "positions": ("bottom-left", "bottom-right"), // top-left, top, top-right, left, right, bottom-left, bottom, bottom-right
     "transition": theme-setting("transition"),
 ) !default;
 
 $titon-tooltip: (
-    "class": bem("tooltip"),
-    "class-inner": bem("tooltip", "inner"),
-    "class-arrow": bem("tooltip", "arrow"),
-    "class-trigger": bem("tooltip", "trigger"),
+    "class": "tooltip",
     "animations": ("fade"), // fade, from-above, from-below, flip-rotate
     "arrow-width": 6,
     "transition": .15s,
@@ -430,11 +339,7 @@ $titon-tooltip: (
 ) !default;
 
 $titon-type-ahead: (
-    "class": bem("type-ahead"),
-    "class-heading": bem("type-ahead", "heading"),
-    "class-highlight": bem("type-ahead", "highlight"),
-    "class-description": bem("type-ahead", "desc"),
-    "class-shadow": bem("type-ahead", "shadow"),
+    "class": "type-ahead",
     "transition": theme-setting("transition"),
 ) !default;
 
@@ -450,9 +355,7 @@ $titon-typography: (
 //------------------------------ Transitions ------------------------------//
 
 $titon-slide-collapse: (
-    "class": bem("slide-collapse"),
-    "class-modifier-vertical": bem("slide-collapse", "", "vertical"),
-    "class-modifier-horizontal": bem("slide-collapse", "", "horizontal"),
+    "class": "slide-collapse",
     "modifiers": ("vertical", "horizontal"),
     "transition": theme-setting("transition"),
 ) !default;

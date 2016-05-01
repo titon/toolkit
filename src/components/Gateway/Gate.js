@@ -5,30 +5,26 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
-import cssClass from '../../prop-types/cssClass';
 import invariant from '../../utility/invariant';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 import '../../polyfills/Array.includes';
 
 export default class Gate extends Component {
-    static contextTypes = {
-        registerGate: CONTEXT_TYPES.registerGate
-    };
+    static module = MODULE;
+
+    static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        animation: 'fade',
-        elementClassName: ['gateway', 'gate']
+        animation: 'fade'
     };
 
     static propTypes = {
         animation: PropTypes.string,
-        className: cssClass,
         contract: PropTypes.func.isRequired,
-        elementClassName: cssClass.isRequired,
-        gateClassName: cssClass.isRequired,
         name: PropTypes.string.isRequired,
         onEntered: collection.func,
         onEntering: collection.func,
@@ -158,14 +154,9 @@ export default class Gate extends Component {
 
         return (
             <div
-                className={this.formatClass(
-                    props.elementClassName,
-                    props.className,
-                    props.gateClassName,
-                    props.animation
-                )}
-                {...this.inheritNativeProps(props)}>
-
+                className={this.formatChildClass('gate', props.animation)}
+                {...this.inheritNativeProps(props)}
+            >
                 {this.renderChildren(this.state.children)}
             </div>
         );

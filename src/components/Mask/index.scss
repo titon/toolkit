@@ -5,7 +5,7 @@
  */
 
 @include export("mask") {
-    #{map-get($titon-mask, "class-target")} {
+    #{generate-class-name($titon-mask, "target")} {
         overflow: hidden;
         position: relative;
 
@@ -14,7 +14,7 @@
         -webkit-backface-visibility: hidden;
     }
 
-    #{map-get($titon-mask, "class-overlay")} {
+    #{generate-class-name($titon-mask, "overlay")} {
         @extend %placeholder-full-screen;
         position: absolute;
         z-index: map-get($titon-settings-zindex, "mask");

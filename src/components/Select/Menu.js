@@ -5,38 +5,26 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import bind from '../../decorators/bind';
-import collection from '../../prop-types/collection';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import { showHidePropTypes } from '../propTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 import '../../polyfills/Array.includes';
 import '../../polyfills/Object.values';
 
 export default class Menu extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        descClassName: ['select', 'option-desc'],
-        elementClassName: ['select', 'menu'],
-        groupClassName: ['select', 'group'],
-        hideSelected: false,
-        labelClassName: ['select', 'option-label'],
-        optionClassName: ['select', 'option']
+        hideSelected: false
     };
 
     static propTypes = {
-        className: cssClass,
-        descClassName: cssClass.isRequired,
-        elementClassName: cssClass.isRequired,
-        groupClassName: cssClass.isRequired,
-        hideSelected: PropTypes.bool,
-        labelClassName: cssClass.isRequired,
-        onHidden: collection.func,
-        onHiding: collection.func,
-        onShowing: collection.func,
-        onShown: collection.func,
-        optionClassName: cssClass.isRequired
+        ...showHidePropTypes,
+        hideSelected: PropTypes.bool
     };
 
     /**
@@ -114,29 +102,28 @@ export default class Menu extends Component {
      * @returns {ReactElement}
      */
     createOption(option) {
-        let props = this.props,
-            disabled = option.disabled,
+        let disabled = option.disabled,
             selected = this.state.values.has(option.value);
 
         return (
             <li key={option.value}>
                 <a
                     role="option"
-                    className={this.formatClass(props.optionClassName, {
+                    className={this.formatChildClass('option', {
                         'is-disabled': disabled,
                         'is-highlighted': (this.state.highlighted === option.value),
                         'is-selected': selected
                     })}
                     aria-disabled={disabled}
                     aria-selected={selected}
-                    onClick={disabled ? null : this.selectValue.bind(this, option.value)}>
-
-                    <span className={this.formatClass(props.labelClassName)}>
+                    onClick={disabled ? null : this.selectValue.bind(this, option.value)}
+                >
+                    <span className={this.formatChildClass('option-label')}>
                         {option.label}
                     </span>
 
                     {option.description && (
-                        <span className={this.formatClass(props.descClassName)}>
+                        <span className={this.formatChildClass('option-desc')}>
                             {option.description}
                         </span>
                     )}
@@ -155,11 +142,11 @@ export default class Menu extends Component {
         return (
             <li key={group.label}>
                 <span
-                    className={this.formatClass(this.props.groupClassName, {
+                    className={this.formatChildClass('group', {
                         'is-disabled': group.disabled
                     })}
-                    aria-disabled={group.disabled}>
-
+                    aria-disabled={group.disabled}
+                >
                     {group.label}
                 </span>
             </li>
@@ -297,7 +284,7 @@ export default class Menu extends Component {
             <div
                 role="listbox"
                 id={this.formatID('select-menu', context.inputID)}
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatChildClass('menu', {
                     'hide-selected': (props.hideSelected && !context.multiple),
                     'is-expanded': expanded,
                     'is-multiple': context.multiple
@@ -306,8 +293,8 @@ export default class Menu extends Component {
                 aria-multiselectable={context.multiple}
                 aria-hidden={!expanded}
                 aria-expanded={expanded}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 <ol>
                     {this.renderOptions()}
                 </ol>

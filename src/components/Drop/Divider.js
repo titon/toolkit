@@ -5,21 +5,14 @@
  */
 
 import React from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import Component from '../Component';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Divider extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
-
-    static defaultProps = {
-        elementClassName: ['drop', 'divider']
-    };
-
-    static propTypes = {
-        className: cssClass,
-        elementClassName: cssClass.isRequired
-    };
 
     /**
      * Render the drop item divider.
@@ -27,13 +20,12 @@ export default class Divider extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let props = this.props;
-
         return (
             <li
                 role="separator"
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)} />
+                className={this.formatChildClass('divider')}
+                {...this.inheritNativeProps(this.props)}
+            />
         );
     }
 

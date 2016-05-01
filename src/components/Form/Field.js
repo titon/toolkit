@@ -5,22 +5,21 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Help from './Help';
 import Label from './Label';
-import cssClass from '../../prop-types/cssClass';
+import MODULE from './module';
 
 export default class Field extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        elementClassName: 'field',
         invalid: false,
         required: false
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         help: PropTypes.node,
         inputID: PropTypes.string,
         invalid: PropTypes.bool,
@@ -37,25 +36,23 @@ export default class Field extends Component {
         let props = this.props;
 
         return (
-            <li>
-                <div
-                    className={this.formatClass(props.elementClassName, props.className, {
-                        'is-invalid': props.invalid,
-                        'is-required': props.required
-                    })}
-                    {...this.inheritNativeProps(props)}>
+            <div
+                className={this.formatChildClass('field', {
+                    'is-invalid': props.invalid,
+                    'is-required': props.required
+                })}
+                {...this.inheritNativeProps(props)}
+            >
+                {props.label && (
+                    <Label inputID={props.inputID}>{props.label}</Label>
+                )}
 
-                    {props.label && (
-                        <Label inputID={props.inputID}>{props.label}</Label>
-                    )}
+                {props.children}
 
-                    {props.children}
-
-                    {props.help && (
-                        <Help inputID={props.inputID}>{props.help}</Help>
-                    )}
-                </div>
-            </li>
+                {props.help && (
+                    <Help inputID={props.inputID}>{props.help}</Help>
+                )}
+            </div>
         );
     }
 }

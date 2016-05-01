@@ -9,6 +9,7 @@ import Button, { Link, Submit } from '../components/Button';
 import ButtonGroup from '../components/ButtonGroup';
 import Carousel from '../components/carousel';
 import Checkbox from '../components/Checkbox';
+import Divider from '../components/Divider';
 import Drop from '../components/Drop';
 import { Region, Block } from '../components/Flex';
 import Form from '../components/Form';
@@ -39,6 +40,8 @@ Titon.options.debug = true;
 const log = function(e, ...args) {
     console.log(e.constructor.name, e.type, e.detail, e, args);
 };
+
+console.log(Gateway.Gate, Modal.Gate, Tooltip.Gate, Toast.Gate);
 
 const selectOptions = [
     {
@@ -93,7 +96,7 @@ function GateButton({ children, onClick }, context) {
     );
 }
 
-GateButton.contextTypes = Gateway.CONTEXT_TYPES;
+GateButton.contextTypes = Gateway.childContextTypes;
 
 const accordionMarkup = (
     <Accordion
@@ -220,6 +223,13 @@ const checkboxMarkup = (
         <Checkbox name="baz" multiple={true} defaultValue="1" />
         <Checkbox name="baz" multiple={true} defaultValue="2" defaultChecked={true} />
         <Checkbox name="baz" multiple={true} defaultValue="3" />
+    </div>
+);
+
+const dividerMarkup = (
+    <div>
+        <Divider />
+        <Divider>or</Divider>
     </div>
 );
 
@@ -560,13 +570,11 @@ const maskMarkup = (
         </p>
 
         <Mask.Target>
-            <div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. Nullam gravida eget nunc vel volutpat. Ut interdum dapibus lacus sed volutpat. Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh, ut interdum sapien mi vitae velit. Nam vestibulum elit luctus ante tempor, ut bibendum mauris molestie. Vestibulum at pellentesque nulla. Pellentesque ex neque, ullamcorper sit amet lacus vel, tincidunt posuere est. Pellentesque mollis quis diam ut iaculis. Etiam scelerisque lacus vitae mi placerat fringilla. Sed eget augue eu sem pellentesque consectetur. Integer in justo risus. Nullam pellentesque magna sit amet metus aliquam volutpat non vitae lectus. Duis dignissim velit et justo pellentesque placerat. Ut vel sodales sapien. Nam sit amet luctus tellus.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. Nullam gravida eget nunc vel volutpat. Ut interdum dapibus lacus sed volutpat. Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh, ut interdum sapien mi vitae velit. Nam vestibulum elit luctus ante tempor, ut bibendum mauris molestie. Vestibulum at pellentesque nulla. Pellentesque ex neque, ullamcorper sit amet lacus vel, tincidunt posuere est. Pellentesque mollis quis diam ut iaculis. Etiam scelerisque lacus vitae mi placerat fringilla. Sed eget augue eu sem pellentesque consectetur. Integer in justo risus. Nullam pellentesque magna sit amet metus aliquam volutpat non vitae lectus. Duis dignissim velit et justo pellentesque placerat. Ut vel sodales sapien. Nam sit amet luctus tellus.</p>
 
-                <Mask.Overlay collapsible={true}>
-                    Loading...
-                </Mask.Overlay>
-            </div>
+            <Mask.Overlay collapsible={true}>
+                Loading...
+            </Mask.Overlay>
         </Mask.Target>
     </Mask>
 );

@@ -4,10 +4,4 @@
  * @link        http://titon.io
  */
 
-import Pagination from './Pagination';
-import CONTEXT_TYPES from './ContextTypes';
-
-Pagination.CONTEXT_TYPES = CONTEXT_TYPES;
-
-export { CONTEXT_TYPES } ;
-export default Pagination;
+export default from './Pagination';

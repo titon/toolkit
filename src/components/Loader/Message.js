@@ -4,20 +4,12 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
+import React from 'react';
+import Component from '../Component';
+import MODULE from './module';
 
 export default class Message extends Component {
-    static defaultProps = {
-        elementClassName: ['loader', 'message']
-    };
-
-    static propTypes = {
-        children: PropTypes.node.isRequired,
-        className: cssClass,
-        elementClassName: cssClass.isRequired
-    };
+    static module = MODULE;
 
     /**
      * Render the message within a loader.
@@ -29,9 +21,9 @@ export default class Message extends Component {
 
         return (
             <div
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)}>
-
+                className={this.formatChildClass('message')}
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </div>
         );

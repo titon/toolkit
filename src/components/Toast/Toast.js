@@ -5,27 +5,27 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import bind from '../../decorators/bind';
-import cssClass from '../../prop-types/cssClass';
 import invariant from '../../utility/invariant';
+import MODULE from './module';
 
 export default class Toast extends Component {
+    static module = MODULE;
+
     static contextTypes = {
         warpOut: PropTypes.func
     };
 
     static defaultProps = {
-        duration: 5000,
-        elementClassName: 'toast'
+        dismissable: false,
+        duration: 5000
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
         dismissable: PropTypes.bool,
         duration: PropTypes.number,
-        elementClassName: cssClass.isRequired,
         gateName: PropTypes.string.isRequired
     };
 
@@ -72,11 +72,11 @@ export default class Toast extends Component {
         return (
             <div
                 role="note"
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatClass({
                     'is-dismissable': props.dismissable
                 })}
-                onClick={props.dismissable ? this.hideToast : null}>
-
+                onClick={props.dismissable ? this.hideToast : null}
+            >
                 {props.children}
             </div>
         );

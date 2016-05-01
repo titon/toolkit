@@ -5,18 +5,15 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
-import { states } from '../PropTypes';
+import Component from '../Component';
+import { states } from '../propTypes';
+import MODULE from './module';
 
 export default class Bar extends Component {
-    static defaultProps = {
-        elementClassName: ['progress', 'bar']
-    };
+    static module = MODULE;
 
     static propTypes = {
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
+        children: PropTypes.node,
         percent: PropTypes.number.isRequired,
         state: states
     };
@@ -31,13 +28,13 @@ export default class Bar extends Component {
 
         return (
             <div
-                className={this.formatClass(props.elementClassName, props.className, {
-                    ['is-' + props.state]: Boolean(props.state)
+                className={this.formatChildClass('bar', {
+                    ['is-' + props.state]: props.state
                 })}
                 style={{ width: props.percent + '%' }}
-                {...this.inheritNativeProps(props)}>
-
-                {props.percent}%
+                {...this.inheritNativeProps(props)}
+            >
+                {props.children || `${props.percent}%`}
             </div>
         );
     }

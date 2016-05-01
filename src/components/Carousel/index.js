@@ -12,9 +12,7 @@ import Start from './Start';
 import Stop from './Stop';
 import Next from './Next';
 import Prev from './Prev';
-import CONTEXT_TYPES from './ContextTypes';
 
-Carousel.CONTEXT_TYPES = CONTEXT_TYPES;
 Carousel.Item = Item;
 Carousel.ItemList = ItemList;
 Carousel.TabList = TabList;
@@ -23,5 +21,5 @@ Carousel.Stop = Stop;
 Carousel.Next = Next;
 Carousel.Prev = Prev;
 
-export { Item, ItemList, TabList, Start, Stop, Next, Prev, CONTEXT_TYPES };
+export { Item, ItemList, TabList, Start, Stop, Next, Prev };
 export default Carousel;

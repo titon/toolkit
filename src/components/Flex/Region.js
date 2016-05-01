@@ -4,48 +4,41 @@
  * @link        http://titon.io
  */
 
+/* eslint require-jsdoc: 0 */
+
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
 import Block from './Block';
 import children from '../../prop-types/children';
-import cssClass from '../../prop-types/cssClass';
+import formatClass from '../../utility/formatClass';
+import MODULE from './module';
 
-export default class Region extends Component {
-    static defaultProps = {
-        elementClassName: 'region'
-    };
-
-    static propTypes = {
-        children: children(Block),
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
-        flow: PropTypes.oneOf(['top', 'left', 'bottom', 'right', 'center', 'between', 'around']),
-        grid: PropTypes.bool,
-        orientation: PropTypes.oneOf(['horizontal', 'vertical']),
-        wrap: PropTypes.bool
-    };
-
-    /**
-     * Render the flex region.
-     *
-     * @returns {ReactElement}
-     */
-    render() {
-        let props = this.props;
-
-        return (
-            <div
-                className={this.formatClass(props.elementClassName, props.className, {
-                    '@grid': props.grid,
-                    '@wrap': props.wrap,
-                    ['@' + props.orientation]: Boolean(props.orientation),
-                    ['flow-' + props.flow]: Boolean(props.flow)
-                })}
-                aria-orientation={props.orientation}
-                {...this.inheritNativeProps(props)}>
-
-                {props.children}
-            </div>
-        );
-    }
+export default function Region(props) {
+    return (
+        <div
+            className={formatClass(MODULE.classNames.region, {
+                '@grid': props.grid,
+                '@wrap': props.wrap,
+                ['@' + props.orientation]: props.orientation,
+                ['flow-' + props.flow]: props.flow
+            })}
+            aria-orientation={props.orientation}
+        >
+            {props.children}
+        </div>
+    );
 }
+
+Region.module = MODULE;
+
+Region.defaultProps = {
+    grid: false,
+    wrap: false
+};
+
+Region.propTypes = {
+    children: children(Block),
+    flow: PropTypes.oneOf(['top', 'left', 'bottom', 'right', 'center', 'between', 'around']),
+    grid: PropTypes.bool,
+    orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+    wrap: PropTypes.bool
+};

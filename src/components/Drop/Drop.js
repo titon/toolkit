@@ -5,24 +5,24 @@
  */
 
 import React from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Menu from './Menu';
 import Toggle from './Toggle';
 import bind from '../../decorators/bind';
 import children from '../../prop-types/children';
-import collection from '../../prop-types/collection';
 import isOutsideElement from '../../utility/isOutsideElement';
-import CONTEXT_TYPES from './ContextTypes';
+import { showHidePropTypes } from '../propTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Drop extends Component {
+    static module = MODULE;
+
     static childContextTypes = CONTEXT_TYPES;
 
     static propTypes = {
-        children: children(Menu, Toggle),
-        onHidden: collection.func,
-        onHiding: collection.func,
-        onShowing: collection.func,
-        onShown: collection.func
+        ...showHidePropTypes,
+        children: children(Menu, Toggle)
     };
 
     state = {

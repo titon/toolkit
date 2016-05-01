@@ -6,10 +6,8 @@
 
 import { PropTypes } from 'react';
 
-const CONTEXT_TYPES = {
-    registerGate: PropTypes.func,
-    warpIn: PropTypes.func,
-    warpOut: PropTypes.func
-};
-
-export default CONTEXT_TYPES;
+export default Object.freeze({
+    registerGate: PropTypes.func.isRequired,
+    warpIn: PropTypes.func.isRequired,
+    warpOut: PropTypes.func.isRequired
+});

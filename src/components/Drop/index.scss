@@ -5,9 +5,10 @@
  */
 
 @include export("drop") {
-    $titon-temp-drop-modifiers: map-get($titon-drop, "modifiers");
+    $titon-drop-class: generate-class-name($titon-drop);
+    $titon-drop-modifiers: map-get($titon-drop, "modifiers");
 
-    #{map-get($titon-drop, "class")} {
+    #{$titon-drop-class} {
         position: absolute;
         top: 100%;
         left: 0;
@@ -26,7 +27,7 @@
         }
 
         // Nested
-        #{map-get($titon-drop, "class")} {
+        #{$titon-drop-class} {
             display: block;
             top: 0;
             #{bidi-alignment()}: 90%;
@@ -62,7 +63,7 @@
 
             // Show nested dropdown
             &:hover {
-                #{map-get($titon-drop, "class")} {
+                #{$titon-drop-class} {
                     visibility: visible;
                     opacity: 1;
                     #{bidi-alignment()}: 100%;
@@ -71,51 +72,51 @@
         }
     }
 
-    #{map-get($titon-drop, "class-divider")} {
+    #{generate-class-name($titon-drop, "divider")} {
         margin: (theme-setting("margin") / 2) 0;
         border-top: 1px solid theme-setting("bg-light");
     }
 
-    #{map-get($titon-drop, "class-header")} {
+    #{generate-class-name($titon-drop, "header")} {
         padding: theme-setting("medium-padding");
     }
 
     //-------------------- Modifiers --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-drop-modifiers, "up")) {
-        #{map-get($titon-drop, "class-modifier-up")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-drop-modifiers, "up")) {
+        #{generate-class-name($titon-drop, "", "up")} {
             top: auto;
             bottom: 100%;
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-drop-modifiers, "right")) {
-        #{map-get($titon-drop, "class-modifier-right")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-drop-modifiers, "right")) {
+        #{generate-class-name($titon-drop, "", "right")} {
             top: auto;
             left: 100%;
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-drop-modifiers, "left")) {
-        #{map-get($titon-drop, "class-modifier-left")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-drop-modifiers, "left")) {
+        #{generate-class-name($titon-drop, "", "left")} {
             top: auto;
             left: auto;
             right: 100%;
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or (index($titon-temp-drop-modifiers, "right") or index($titon-temp-drop-modifiers, "left"))) {
-        #{map-get($titon-drop, "class-modifier-right")},
-        #{map-get($titon-drop, "class-modifier-left")} {
+    @if (is-feature-enabled("all-modifiers") or (index($titon-drop-modifiers, "right") or index($titon-drop-modifiers, "left"))) {
+        #{generate-class-name($titon-drop, "", "right")},
+        #{generate-class-name($titon-drop, "", "left")} {
             &.reverse-align {
                 bottom: 0;
             }
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or (index($titon-temp-drop-modifiers, "down") or index($titon-temp-drop-modifiers, "up"))) {
-        #{map-get($titon-drop, "class-modifier-down")},
-        #{map-get($titon-drop, "class-modifier-up")} {
+    @if (is-feature-enabled("all-modifiers") or (index($titon-drop-modifiers, "down") or index($titon-drop-modifiers, "up"))) {
+        #{generate-class-name($titon-drop, "", "down")},
+        #{generate-class-name($titon-drop, "", "up")} {
             &.reverse-align {
                 left: auto;
                 right: 0;

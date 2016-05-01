@@ -6,12 +6,10 @@
 
 import { PropTypes } from 'react';
 
-const CONTEXT_TYPES = {
-    expanded: PropTypes.bool,
-    hideMenu: PropTypes.func,
-    showMenu: PropTypes.func,
-    toggleMenu: PropTypes.func,
-    uid: PropTypes.string
-};
-
-export default CONTEXT_TYPES;
+export default Object.freeze({
+    expanded: PropTypes.bool.isRequired,
+    hideMenu: PropTypes.func.isRequired,
+    showMenu: PropTypes.func.isRequired,
+    toggleMenu: PropTypes.func.isRequired,
+    uid: PropTypes.string.isRequired
+});

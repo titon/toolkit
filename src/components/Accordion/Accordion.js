@@ -5,30 +5,29 @@
  */
 
 import React, { Children, PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Item from './Item';
 import bind from '../../decorators/bind';
 import children from '../../prop-types/children';
 import collection from '../../prop-types/collection';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Accordion extends Component {
+    static module = MODULE;
+
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
         collapsible: false,
         defaultIndex: 0,
-        elementClassName: 'accordion',
         multiple: false
     };
 
     static propTypes = {
         children: children(Item),
-        className: cssClass,
         collapsible: PropTypes.bool,
         defaultIndex: collection.number,
-        elementClassName: cssClass.isRequired,
         multiple: PropTypes.bool
     };
 
@@ -168,14 +167,14 @@ export default class Accordion extends Component {
         return (
             <ul role="tablist"
                 id={this.formatID('accordion')}
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatClass({
                     'is-collapsible': props.collapsible,
                     'is-multiple': props.multiple
                 })}
                 aria-live="off"
                 aria-multiselectable={props.multiple}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </ul>
         );

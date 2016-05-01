@@ -6,10 +6,8 @@
 
 import Accordion from './Accordion';
 import Item from './Item';
-import CONTEXT_TYPES from './ContextTypes';
 
-Accordion.CONTEXT_TYPES = CONTEXT_TYPES;
 Accordion.Item = Item;
 
-export { Item, CONTEXT_TYPES };
+export { Item };
 export default Accordion;
