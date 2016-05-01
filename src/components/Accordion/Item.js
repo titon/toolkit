@@ -11,7 +11,7 @@ import Section from './Section';
 import collectionOf from '../../prop-types/collectionOf';
 import { showHidePropTypes } from '../propTypes';
 import CONTEXT_TYPES from './contextTypes';
-import MODULE from './Module2';
+import MODULE from './module';
 
 export default class Item extends Component {
     static module = MODULE;

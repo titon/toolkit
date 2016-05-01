@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../Component';
 import SlideCollapse from '../../transitions/SlideCollapse';
 import CONTEXT_TYPES from './contextTypes';
-import MODULE from './Module2';
+import MODULE from './module';
 
 export default class Section extends Component {
     static module = MODULE;
