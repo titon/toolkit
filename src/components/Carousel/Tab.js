@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../Component';
 import bind from '../../decorators/bind';
 import collectionOf from '../../prop-types/collectionOf';
-import tabIndex from '../../utility/tabIndex';
+import generateTabIndex from '../../utility/generateTabIndex';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -53,7 +53,7 @@ export default class Tab extends Component {
                     aria-controls={this.formatID('carousel-item', index)}
                     aria-selected={active}
                     aria-expanded={active}
-                    tabIndex={tabIndex(this)}
+                    tabIndex={generateTabIndex(this)}
                     onClick={this.handleOnClick}
                 >
                     <span />

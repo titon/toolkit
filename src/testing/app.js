@@ -41,8 +41,6 @@ const log = function(e, ...args) {
     console.log(e.constructor.name, e.type, e.detail, e, args);
 };
 
-console.log(Gateway.Gate, Modal.Gate, Tooltip.Gate, Toast.Gate);
-
 const selectOptions = [
     {
         label: 'One Piece',

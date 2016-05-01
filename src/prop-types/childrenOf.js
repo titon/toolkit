@@ -6,6 +6,7 @@
 
 import { Children } from 'react';
 import invariant from '../utility/invariant';
+import 'core-js/modules/es6.weak-set';
 
 /**
  * A function that will validate that all children of a component are of a specific type.

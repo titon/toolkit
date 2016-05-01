@@ -22,19 +22,3 @@ export {
     bind, debounce, delegate, deprecate, getter, memoize, once,
     profile, remover, setter, suppressConsole, suppressErrors, throttle
 };
-
-export default {
-    bind,
-    debounce,
-    delegate,
-    deprecate,
-    getter,
-    memoize,
-    once,
-    profile,
-    remover,
-    setter,
-    suppressConsole,
-    suppressErrors,
-    throttle
-};

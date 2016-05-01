@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+import 'core-js/modules/es6.weak-map';
+
 // Start at a higher number to leave room for manual app-level indices
 let index = 10,
     cache = new WeakMap();
@@ -15,7 +17,7 @@ let index = 10,
  * @param {Object} obj
  * @returns {Number}
  */
-export default function tabIndex(obj) {
+export default function generateTabIndex(obj) {
     if (!cache.has(obj)) {
         cache.set(obj, index++);
     }

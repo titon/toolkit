@@ -5,18 +5,22 @@
  */
 
 import ClassBuilder from './ClassBuilder';
+import defineModule from './defineModule';
 import formatBEM from './formatBEM';
+import formatClass from './formatClass';
+import formatID from './formatID';
+import formatInputName from './formatInputName';
+import generateClassNames from './generateClassNames';
+import generateTabIndex from './generateTabIndex';
 import generateUID from './generateUID';
 import invariant from './invariant';
-import tabIndex from './tabIndex';
+import isOutsideElement from './isOutsideElement';
+import positionRelativeTo from './positionRelativeTo';
 import wrapFunctions from './wrapFunctions';
 
-export { ClassBuilder, formatBEM, generateUID, invariant, tabIndex, wrapFunctions };
-export default {
-    ClassBuilder,
-    formatBEM,
-    generateUID,
-    invariant,
-    tabIndex,
-    wrapFunctions
+export {
+    ClassBuilder, defineModule,
+    formatBEM, formatClass, formatID, formatInputName,
+    generateClassNames, generateTabIndex, generateUID,
+    invariant, isOutsideElement, positionRelativeTo, wrapFunctions
 };

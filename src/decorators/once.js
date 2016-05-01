@@ -9,6 +9,7 @@
 import checkIsEvent from './helpers/checkIsEvent';
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
+import 'core-js/modules/es6.weak-map';
 
 let onceCache = new WeakMap();
 

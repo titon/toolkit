@@ -14,12 +14,6 @@ const Titon = Object.freeze({
     /** Runtime flags. */
     flags,
 
-    /** Localization messages. */
-    messages: {
-        error: 'An error has occurred!',
-        loading: 'Loading...'
-    },
-
     /** Configurable options. */
     options: {
         // Prefix prepended to every cookie
