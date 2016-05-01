@@ -5,7 +5,7 @@
  */
 
 import React, { Children } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Menu from './Menu';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';

@@ -5,7 +5,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import bind from '../../decorators/bind';
 import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';

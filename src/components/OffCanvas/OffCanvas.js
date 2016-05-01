@@ -5,7 +5,7 @@
  */
 
 import React, { Children, PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import DocumentState from '../../machines/DocumentState';
 import MainContent from './MainContent';
 import Sidebar from './Sidebar';

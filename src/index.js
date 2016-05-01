@@ -5,7 +5,7 @@
  */
 
 import Titon from './Titon';
-import Component from './Component';
+import Component from './components/Component';
 
 // TODO - Export all other folders: components, decorators, etc
 

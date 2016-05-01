@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Menu from './Menu';
 import Toggle from './Toggle';
 import bind from '../../decorators/bind';

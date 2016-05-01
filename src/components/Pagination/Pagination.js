@@ -5,7 +5,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Item from './Item';
 import Spacer from './Spacer';
 import bind from '../../decorators/bind';

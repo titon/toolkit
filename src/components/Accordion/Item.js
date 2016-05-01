@@ -5,7 +5,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Header from './Header';
 import Section from './Section';
 import collection from '../../prop-types/collection';

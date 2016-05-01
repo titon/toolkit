@@ -6,7 +6,7 @@
 
 import { PropTypes } from 'react';
 import Titon from '../Titon';
-import collection from '../../prop-types/collection';
+import collection from '../prop-types/collection';
 
 /**
  * A prop type for a list of positions on the x and y axis.

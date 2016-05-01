@@ -954,7 +954,7 @@ const tooltipMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {carouselMarkup}
+            {inputMarkup}
 
             <Modal.Gate name="modals" />
             <Toast.Gate name="toasts" />

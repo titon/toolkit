@@ -5,7 +5,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import Help from './Help';
 import Label from './Label';
 import MODULE from './module';

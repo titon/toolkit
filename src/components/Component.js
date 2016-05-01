@@ -7,15 +7,15 @@
 /* eslint react/prop-types: 0 */
 
 import React, { Children, PropTypes } from 'react';
-import Titon from './Titon';
+import Titon from '../Titon';
 import assign from 'lodash/assign';
-import formatClass from './utility/formatClass';
-import formatID from './utility/formatID';
-import generateUID from './utility/generateUID';
-import invariant from './utility/invariant';
+import formatClass from '../utility/formatClass';
+import formatID from '../utility/formatID';
+import generateUID from '../utility/generateUID';
+import invariant from '../utility/invariant';
 import omit from 'lodash/omit';
-import wrapFunctions from './utility/wrapFunctions';
-import './polyfills/Performance.now.js';
+import wrapFunctions from '../utility/wrapFunctions';
+import '../polyfills/Performance.now.js';
 
 export default class Component extends React.Component {
     static module = {

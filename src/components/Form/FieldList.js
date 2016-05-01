@@ -5,7 +5,7 @@
  */
 
 import React, { Children } from 'react';
-import Component from '../../Component';
+import Component from '../Component';
 import MODULE from './module';
 
 export default class FieldList extends Component {
