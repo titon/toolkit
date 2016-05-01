@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../Component';
 import bind from '../../decorators/bind';
-import { states } from '../PropTypes2';
+import { states } from '../propTypes';
 import MODULE from './module';
 import 'core-js/modules/es7.array.includes';
 

@@ -9,7 +9,7 @@ import Component from '../Component';
 import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
 import tabIndex from '../../utility/tabIndex';
-import CONTEXT_TYPES from './ContextTypes2';
+import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Tab extends Component {

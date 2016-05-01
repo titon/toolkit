@@ -9,7 +9,7 @@ import Component from '../Component';
 import bind from '../../decorators/bind';
 import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';
-import { defaultInputProps, defaultSizeProps, inputPropTypes, sizePropTypes } from '../PropTypes2';
+import { defaultInputProps, defaultSizeProps, inputPropTypes, sizePropTypes } from '../propTypes';
 import MODULE from './module';
 import 'core-js/modules/es7.array.includes';
 

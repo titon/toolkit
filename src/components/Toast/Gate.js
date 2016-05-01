@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import { default as BaseGate } from '../Gateway/Gate';
 import Toast from './Toast';
-import { positions } from '../PropTypes2';
+import { positions } from '../propTypes';
 import MODULE from './module';
 
 export default class Gate extends BaseGate {

@@ -10,7 +10,7 @@ import Component from '../Component';
 import bind from '../../decorators/bind';
 import debounce from '../../decorators/debounce';
 import positionRelativeTo from '../../utility/positionRelativeTo';
-import { positions } from '../PropTypes2';
+import { positions } from '../propTypes';
 import MODULE from './module';
 
 export default class Tooltip extends Component {

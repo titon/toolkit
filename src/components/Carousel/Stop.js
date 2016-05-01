@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../Component';
 import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
-import CONTEXT_TYPES from './ContextTypes2';
+import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Stop extends Component {

@@ -8,7 +8,7 @@ import React from 'react';
 import Component from '../Component';
 import bind from '../../decorators/bind';
 import invariant from '../../utility/invariant';
-import CONTEXT_TYPES from './ContextTypes2';
+import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 let instantiated = false;

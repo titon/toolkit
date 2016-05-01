@@ -11,8 +11,8 @@ import Toggle from './Toggle';
 import bind from '../../decorators/bind';
 import children from '../../prop-types/children';
 import isOutsideElement from '../../utility/isOutsideElement';
-import { showHidePropTypes } from '../PropTypes2';
-import CONTEXT_TYPES from './ContextTypes2';
+import { showHidePropTypes } from '../propTypes';
+import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Drop extends Component {

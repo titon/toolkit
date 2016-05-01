@@ -6,7 +6,7 @@
 
 import React from 'react';
 import Component from '../Component';
-import CONTEXT_TYPES from './ContextTypes2';
+import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Head extends Component {

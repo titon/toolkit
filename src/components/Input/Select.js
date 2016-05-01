@@ -8,7 +8,7 @@ import React from 'react';
 import Input from './Input';
 import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
-import { optionList } from '../PropTypes2';
+import { optionList } from '../propTypes';
 
 export default class Select extends Input {
     static defaultProps = {

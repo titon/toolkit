@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Input from '../Input/Input';
-import { defaultInputProps, inputPropTypes } from '../PropTypes2';
+import { defaultInputProps, inputPropTypes } from '../propTypes';
 import MODULE from './module';
 
 export default class Switch extends Input {

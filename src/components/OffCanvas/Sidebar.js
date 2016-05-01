@@ -6,8 +6,8 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../Component';
-import { showHidePropTypes } from '../PropTypes2';
-import CONTEXT_TYPES from './ContextTypes2';
+import { showHidePropTypes } from '../propTypes';
+import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Sidebar extends Component {
