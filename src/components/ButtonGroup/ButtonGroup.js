@@ -41,7 +41,6 @@ export default class ButtonGroup extends Component {
                     ['@vertical']: props.vertical
                 })}
                 aria-label={props.label}
-                aria-orientation={props.vertical ? 'vertical' : 'horizontal'}
                 {...this.inheritNativeProps(props)}
             >
                 {Children.map(props.children, child => (

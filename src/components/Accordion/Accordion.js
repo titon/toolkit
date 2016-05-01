@@ -172,7 +172,6 @@ export default class Accordion extends Component {
                     'is-multiple': props.multiple
                 })}
                 aria-live="off"
-                aria-multiselectable={props.multiple}
                 {...this.inheritNativeProps(props)}
             >
                 {props.children}

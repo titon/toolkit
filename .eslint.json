@@ -2,7 +2,7 @@
     "root": true,
     "parser": "babel-eslint",
     "extends": "eslint:recommended",
-    "plugins": ["react", "sorting", "jsx-a11y"],
+    "plugins": ["react", /* "sorting", */ "jsx-a11y"],
     "parserOptions": {
         "ecmaVersion": 7,
         "ecmaFeatures": {
@@ -255,17 +255,24 @@
         "react/wrap-multilines": 2,
 
         // Accessibility
-        "jsx-a11y/img-uses-alt": 2,
-        "jsx-a11y/onclick-uses-role": 2,
-        "jsx-a11y/mouse-events-map-to-key-events": 2,
-        "jsx-a11y/use-onblur-not-onchange": 0,
+        "jsx-a11y/img-has-alt": 2,
+        "jsx-a11y/img-redundant-alt": 2,
+        "jsx-a11y/onclick-has-role": 2,
+        "jsx-a11y/onclick-has-focus": 0,
+        "jsx-a11y/mouse-events-have-key-events": 2,
+        "jsx-a11y/no-onchange": 0,
         "jsx-a11y/no-access-key": 2,
-        "jsx-a11y/label-uses-for": 2,
-        "jsx-a11y/redundant-alt": 2,
-        "jsx-a11y/no-hash-href": 2,
-        "jsx-a11y/valid-aria-role": 2,
+        "jsx-a11y/label-has-for": 2,
+        "jsx-a11y/href-no-hash": 2,
+        "jsx-a11y/aria-role": 2,
+        "jsx-a11y/aria-props": 1,
+        "jsx-a11y/aria-proptypes": 1,
+        "jsx-a11y/aria-unsupported-elements": 1,
+        "jsx-a11y/role-has-required-aria-props": 1,
+        "jsx-a11y/role-supports-aria-props": 1,
+        "jsx-a11y/tabindex-no-positive": 1
 
         // Plugins
-        "sorting/sort-object-props": [1, { "ignoreCase": false, "ignoreMethods": false }]
+        // "sorting/sort-object-props": [1, { "ignoreCase": false, "ignoreMethods": false }]
     }
 }

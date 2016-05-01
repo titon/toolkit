@@ -89,6 +89,7 @@ export default class Item extends Component {
         return (
             <li>
                 <Header
+                    role="tab"
                     index={props.index}
                     active={expanded}
                     onClick={props.onClickHeader}

@@ -100,7 +100,6 @@ export default class Overlay extends Component {
                 })}
                 onClick={this.handleOnClick}
                 aria-hidden={!expanded}
-                aria-expanded={expanded}
                 {...this.inheritNativeProps(props)}
             >
                 {props.children}
