@@ -10,7 +10,7 @@ import bind from '../../decorators/bind';
 import collectionOf from '../../prop-types/collectionOf';
 import generateTabIndex from '../../utility/generateTabIndex';
 import CONTEXT_TYPES from './contextTypes';
-import MODULE from './module';
+import MODULE from './Module2';
 
 export default class Header extends Component {
     static module = MODULE;

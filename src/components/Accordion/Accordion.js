@@ -11,7 +11,7 @@ import bind from '../../decorators/bind';
 import childrenOf from '../../prop-types/childrenOf';
 import collectionOf from '../../prop-types/collectionOf';
 import CONTEXT_TYPES from './contextTypes';
-import MODULE from './module';
+import MODULE from './Module2';
 
 export default class Accordion extends Component {
     static module = MODULE;
