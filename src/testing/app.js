@@ -589,13 +589,13 @@ const modalInstance = (
 const modalMarkup = (
     <div>
         <GateButton onClick={context => {
-            context.warpIn('modals', modalInstance);
+            context.gateway.warpIn('modals', modalInstance);
         }}>
             Open Modal
         </GateButton>
 
         <GateButton onClick={context => {
-            context.warpOut('modals', modalInstance);
+            context.gateway.warpOut('modals', modalInstance);
         }}>
             Close Modal
         </GateButton>
@@ -860,7 +860,7 @@ const createToast = () => (
 const toastMarkup = (
     <div>
         <GateButton onClick={context => {
-            context.warpIn('toasts', createToast());
+            context.gateway.warpIn('toasts', createToast());
         }}>
             Add Toast
         </GateButton>
@@ -952,7 +952,7 @@ const tooltipMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {selectMarkup}
+            {tooltipMarkup}
 
             <Modal.Gate name="modals" />
             <Toast.Gate name="toasts" />

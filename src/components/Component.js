@@ -158,6 +158,28 @@ export default class Component extends React.Component {
     }
 
     /**
+     * Attempt to find the module specific context by key within the context layer.
+     *
+     * @param {Object} [rawContext]
+     * @param {String} [forceKey]
+     * @returns {Object}
+     */
+    getContext(rawContext, forceKey) {
+        let { name, module } = this.constructor,
+            { name: moduleName, contextKey } = module,
+            context = rawContext || this.context,
+            key = forceKey || contextKey;
+
+        invariant(!this.getChildContext,
+            'Parent component must not access the context.');
+
+        invariant(key && context[key],
+            'Context "%s" not found for `%s.%s`.', key, moduleName, name);
+
+        return context[key];
+    }
+
+    /**
      * Attempt to find the block or element class name within the modules classnames mapping.
      *
      * @param {String} element
@@ -165,12 +187,12 @@ export default class Component extends React.Component {
      */
     getModuleClass(element = 'default') {
         let { name, module } = this.constructor,
-            className = module.classNames[element];
+            { name: moduleName, classNames } = module;
 
-        invariant(className, 'Module class name "%s" not found for `%s.%s`.',
-            element, module.name, name);
+        invariant(classNames[element], 'Module class name "%s" not found for `%s.%s`.',
+            element, moduleName, name);
 
-        return className;
+        return classNames[element];
     }
 
     /**
@@ -202,7 +224,16 @@ export default class Component extends React.Component {
      * @returns {String}
      */
     getUID() {
-        return String(this.context.uid || this.uid || '');
+        let uid = '';
+
+        // Can throw invariants
+        try {
+            uid = this.getContext().uid;
+        } catch (e) {
+            uid = this.uid;
+        }
+
+        return String(uid || '');
     }
 
     /**

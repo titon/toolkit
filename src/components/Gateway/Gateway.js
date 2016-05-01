@@ -37,9 +37,11 @@ export default class Gateway extends Component {
      */
     getChildContext() {
         return {
-            registerGate: this.registerGate,
-            warpIn: this.warpIn,
-            warpOut: this.warpOut
+            [MODULE.contextKey]: {
+                registerGate: this.registerGate,
+                warpIn: this.warpIn,
+                warpOut: this.warpOut
+            }
         };
     }
 

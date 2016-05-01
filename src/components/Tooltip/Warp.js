@@ -11,14 +11,13 @@ import Tooltip from './Tooltip';
 import bind from '../../decorators/bind';
 import invariant from '../../utility/invariant';
 import MODULE from './module';
+import GATEWAY_CONTEXT_TYPES from '../Gateway/contextTypes';
+import { contextKey } from '../Gateway/module';
 
 export default class Warp extends Component {
     static module = MODULE;
 
-    static contextTypes = {
-        warpIn: PropTypes.func.isRequired,
-        warpOut: PropTypes.func.isRequired
-    };
+    static contextTypes = GATEWAY_CONTEXT_TYPES;
 
     static defaultProps = {
         mode: 'hover'
@@ -45,7 +44,7 @@ export default class Warp extends Component {
     constructor(props, context) {
         super();
 
-        invariant(typeof context.warpOut !== 'undefined',
+        invariant(typeof context[contextKey] !== 'undefined',
             'A `Tooltip.Warp` must be instantiated within a `Gateway`.');
     }
 
@@ -54,7 +53,7 @@ export default class Warp extends Component {
      */
     @bind
     hideTooltip() {
-        this.context.warpOut(this.props.gateName, this.state.element);
+        this.getContext(null, contextKey).warpOut(this.props.gateName, this.state.element);
 
         this.setState({
             element: null,
@@ -87,7 +86,7 @@ export default class Warp extends Component {
             );
         }
 
-        this.context.warpIn(this.props.gateName, element);
+        this.getContext(null, contextKey).warpIn(this.props.gateName, element);
 
         this.setState({
             element,

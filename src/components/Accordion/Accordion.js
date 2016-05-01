@@ -42,13 +42,15 @@ export default class Accordion extends Component {
      */
     getChildContext() {
         return {
-            activeIndices: Array.from(this.state.indices),
-            hideItem: this.hideItem,
-            isItemActive: this.isItemActive,
-            isItemCollapsible: this.isItemCollapsible,
-            showItem: this.showItem,
-            toggleItem: this.toggleItem,
-            uid: this.getUID()
+            [MODULE.contextKey]: {
+                activeIndices: Array.from(this.state.indices),
+                hideItem: this.hideItem,
+                isItemActive: this.isItemActive,
+                isItemCollapsible: this.isItemCollapsible,
+                showItem: this.showItem,
+                toggleItem: this.toggleItem,
+                uid: this.getUID()
+            }
         };
     }
 

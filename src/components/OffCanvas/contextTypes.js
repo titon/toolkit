@@ -5,8 +5,9 @@
  */
 
 import { PropTypes } from 'react';
+import MODULE from './module';
 
-export default Object.freeze({
+export const shape = Object.freeze({
     activeSides: PropTypes.arrayOf(PropTypes.oneOf(['left', 'right'])).isRequired,
     hideSidebar: PropTypes.func.isRequired,
     isSidebarActive: PropTypes.func.isRequired,
@@ -14,3 +15,7 @@ export default Object.freeze({
     toggleSidebar: PropTypes.func.isRequired,
     uid: PropTypes.string.isRequired
 });
+
+export default {
+    [MODULE.contextKey]: PropTypes.shape(shape).isRequired
+};

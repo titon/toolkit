@@ -70,13 +70,15 @@ export default class Pagination extends Component {
      */
     getChildContext() {
         return {
-            currentPage: this.state.page,
-            goToPage: this.goToPage,
-            nextPage: this.nextPage,
-            prevPage: this.prevPage,
-            totalPages: this.props.totalPages,
-            uid: this.getUID(),
-            url: this.props.url
+            [MODULE.contextKey]: {
+                currentPage: this.state.page,
+                goToPage: this.goToPage,
+                nextPage: this.nextPage,
+                prevPage: this.prevPage,
+                totalPages: this.props.totalPages,
+                uid: this.getUID(),
+                url: this.props.url
+            }
         };
     }
 

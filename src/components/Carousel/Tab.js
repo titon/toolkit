@@ -29,7 +29,7 @@ export default class Tab extends Component {
      */
     @bind
     handleOnClick(e) {
-        this.context.showItem(this.props.index);
+        this.getContext().showItem(this.props.index);
         this.handleEvent('click', e);
     }
 
@@ -40,7 +40,7 @@ export default class Tab extends Component {
      */
     render() {
         let index = this.props.index,
-            active = this.context.isItemActive(index);
+            active = this.getContext().isItemActive(index);
 
         return (
             <li>

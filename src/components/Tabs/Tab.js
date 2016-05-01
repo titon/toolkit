@@ -34,7 +34,7 @@ export default class Tab extends Component {
         super();
 
         this.state = {
-            active: context.isSectionActive(props.index)
+            active: this.getContext(context).isSectionActive(props.index)
         };
     }
 
@@ -46,7 +46,7 @@ export default class Tab extends Component {
      */
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            active: nextContext.isSectionActive(nextProps.index)
+            active: this.getContext(nextContext).isSectionActive(nextProps.index)
         });
     }
 
@@ -68,8 +68,7 @@ export default class Tab extends Component {
      */
     @bind
     handleOnClick(e) {
-        this.context.toggleSection(this.props.index);
-
+        this.getContext().toggleSection(this.props.index);
         this.handleEvent('click', e);
     }
 

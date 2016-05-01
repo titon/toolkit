@@ -25,7 +25,7 @@ export default class Toggle extends Component {
      */
     @bind
     handleOnClick() {
-        this.context.toggleSidebar(this.props.side);
+        this.getContext().toggleSidebar(this.props.side);
     }
 
     /**
@@ -35,7 +35,7 @@ export default class Toggle extends Component {
      */
     render() {
         return this.transferToChild(this.props.children, {
-            className: this.context.isSidebarActive(this.props.side) ? 'is-active' : '',
+            className: this.getContext().isSidebarActive(this.props.side) ? 'is-active' : '',
             onClick: this.handleOnClick
         });
     }

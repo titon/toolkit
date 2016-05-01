@@ -6,8 +6,9 @@
 
 import { PropTypes } from 'react';
 import { optionShape, optionList } from '../propTypes';
+import MODULE from './module';
 
-export default Object.freeze({
+export const shape = Object.freeze({
     expanded: PropTypes.bool.isRequired,
     hideMenu: PropTypes.func.isRequired,
     inputID: PropTypes.string.isRequired,
@@ -21,3 +22,7 @@ export default Object.freeze({
     toggleMenu: PropTypes.func.isRequired,
     uid: PropTypes.string.isRequired
 });
+
+export default {
+    [MODULE.contextKey]: PropTypes.shape(shape).isRequired
+};

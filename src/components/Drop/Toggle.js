@@ -20,7 +20,7 @@ export default class Toggle extends Component {
      */
     @bind
     handleOnClick() {
-        this.context.toggleMenu();
+        this.getContext().toggleMenu();
     }
 
     /**
@@ -29,7 +29,7 @@ export default class Toggle extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let { expanded } = this.context;
+        let { expanded } = this.getContext();
 
         return this.transferToChild(this.props.children, {
             'aria-controls': this.formatID('drop-menu'),

@@ -47,7 +47,10 @@ export default class Gate extends Component {
     constructor(props, context) {
         super();
 
-        context.registerGate(props.name, this.handleOnWarpIn, this.handleOnWarpOut);
+        // The `contextKey` can be overwritten by child components
+        // So force it to the gateways context key
+        context[MODULE.contextKey]
+            .registerGate(props.name, this.handleOnWarpIn, this.handleOnWarpOut);
     }
 
     /**

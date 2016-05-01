@@ -31,7 +31,7 @@ export default class Sidebar extends Component {
         super();
 
         this.state = {
-            expanded: context.isSidebarActive(props.side)
+            expanded: this.getContext(context).isSidebarActive(props.side)
         };
     }
 
@@ -43,7 +43,7 @@ export default class Sidebar extends Component {
      */
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            expanded: nextContext.isSidebarActive(nextProps.side)
+            expanded: this.getContext(nextContext).isSidebarActive(nextProps.side)
         });
     }
 

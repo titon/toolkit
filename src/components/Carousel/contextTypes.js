@@ -5,8 +5,9 @@
  */
 
 import { PropTypes } from 'react';
+import MODULE from './module';
 
-export default Object.freeze({
+export const shape = Object.freeze({
     activeIndices: PropTypes.arrayOf(PropTypes.number).isRequired,
     afterAnimation: PropTypes.func.isRequired,
     animation: PropTypes.string.isRequired,
@@ -25,3 +26,7 @@ export default Object.freeze({
     uid: PropTypes.string.isRequired,
     visibleCount: PropTypes.number.isRequired
 });
+
+export default {
+    [MODULE.contextKey]: PropTypes.shape(shape).isRequired
+};

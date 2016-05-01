@@ -31,7 +31,7 @@ export default class Section extends Component {
         super();
 
         this.state = {
-            expanded: context.isSectionActive(props.index)
+            expanded: this.getContext(context).isSectionActive(props.index)
         };
     }
 
@@ -43,7 +43,7 @@ export default class Section extends Component {
      */
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            expanded: nextContext.isSectionActive(nextProps.index)
+            expanded: this.getContext(nextContext).isSectionActive(nextProps.index)
         });
     }
 

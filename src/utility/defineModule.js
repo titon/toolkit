@@ -21,6 +21,11 @@ export default function defineModule(name, version, options = {}) {
     Object.defineProperty(module, 'name', { value: name });
     Object.defineProperty(module, 'version', { value: version });
 
+    // The name of the key in the context
+    if (options.contextKey) {
+        Object.defineProperty(module, 'contextKey', { value: options.contextKey });
+    }
+
     // Generate BEM styled class names
     if (options.blockClass || options.elementClasses) {
         Object.defineProperty(module, 'classNames', {

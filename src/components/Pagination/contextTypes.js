@@ -5,8 +5,9 @@
  */
 
 import { PropTypes } from 'react';
+import MODULE from './module';
 
-export default Object.freeze({
+export const shape = Object.freeze({
     currentPage: PropTypes.number.isRequired,
     goToPage: PropTypes.func.isRequired,
     nextPage: PropTypes.func.isRequired,
@@ -15,3 +16,7 @@ export default Object.freeze({
     uid: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired
 });
+
+export default {
+    [MODULE.contextKey]: PropTypes.shape(shape).isRequired
+};

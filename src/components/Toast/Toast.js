@@ -9,13 +9,13 @@ import Component from '../Component';
 import bind from '../../decorators/bind';
 import invariant from '../../utility/invariant';
 import MODULE from './module';
+import GATEWAY_CONTEXT_TYPES from '../Gateway/contextTypes';
+import { contextKey } from '../Gateway/module';
 
 export default class Toast extends Component {
     static module = MODULE;
 
-    static contextTypes = {
-        warpOut: PropTypes.func
-    };
+    static contextTypes = GATEWAY_CONTEXT_TYPES;
 
     static defaultProps = {
         dismissable: false,
@@ -38,7 +38,7 @@ export default class Toast extends Component {
     constructor(props, context) {
         super();
 
-        invariant(typeof context.warpOut !== 'undefined',
+        invariant(typeof context[contextKey] !== 'undefined',
             'A `Toast` must be instantiated within a `Gateway`.');
     }
 
@@ -58,7 +58,7 @@ export default class Toast extends Component {
      */
     @bind
     hideToast() {
-        this.context.warpOut(this.props.gateName, this.getInternalElement());
+        this.getContext(null, contextKey).warpOut(this.props.gateName, this.getInternalElement());
     }
 
     /**

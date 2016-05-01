@@ -26,11 +26,13 @@ export default class Mask extends Component {
      */
     getChildContext() {
         return {
-            expanded: this.state.expanded,
-            hideOverlay: this.hideOverlay,
-            showOverlay: this.showOverlay,
-            toggleOverlay: this.toggleOverlay,
-            uid: this.getUID()
+            [MODULE.contextKey]: {
+                expanded: this.state.expanded,
+                hideOverlay: this.hideOverlay,
+                showOverlay: this.showOverlay,
+                toggleOverlay: this.toggleOverlay,
+                uid: this.getUID()
+            }
         };
     }
 

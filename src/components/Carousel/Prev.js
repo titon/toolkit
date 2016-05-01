@@ -28,7 +28,7 @@ export default class Prev extends Component {
      */
     @bind
     handleOnClick(e) {
-        this.context.prevItem();
+        this.getContext().prevItem();
         this.handleEvent('click', e);
     }
 

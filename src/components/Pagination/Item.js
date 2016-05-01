@@ -29,7 +29,7 @@ export default class Item extends Component {
     handleOnClick(e) {
         e.preventDefault();
 
-        this.context.goToPage(this.props.page);
+        this.getContext().goToPage(this.props.page);
     }
 
     /**
@@ -39,7 +39,7 @@ export default class Item extends Component {
      */
     render() {
         let { page, ...props } = this.props,
-            context = this.context,
+            context = this.getContext(),
             key = this.getInternalElement().key;
 
         return (
