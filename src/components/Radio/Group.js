@@ -47,11 +47,13 @@ export default class Group extends Component {
         let name = this.props.name;
 
         return {
-            checkedValue: this.state.value,
-            inputID: formatInputName(name),
-            inputName: name,
-            selectValue: this.selectValue,
-            uid: this.getUID()
+            [MODULE.contextKey]: {
+                checkedValue: this.state.value,
+                inputID: formatInputName(name),
+                inputName: name,
+                selectValue: this.selectValue,
+                uid: this.getUID()
+            }
         };
     }
 

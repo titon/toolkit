@@ -36,11 +36,13 @@ export default class Menu extends Component {
     constructor(props, context) {
         super();
 
+        let newContext = this.getContext(context);
+
         this.state = {
-            expanded: context.expanded,
+            expanded: newContext.expanded,
             highlighted: '',
             index: -1,
-            values: new Set(context.selectedValues)
+            values: new Set(newContext.selectedValues)
         };
     }
 
@@ -58,9 +60,11 @@ export default class Menu extends Component {
      * @param {Object} nextContext
      */
     componentWillReceiveProps(nextProps, nextContext) {
+        let newContext = this.getContext(nextContext);
+
         this.setState({
-            expanded: nextContext.expanded,
-            values: new Set(nextContext.selectedValues)
+            expanded: newContext.expanded,
+            values: new Set(newContext.selectedValues)
         });
     }
 
@@ -160,7 +164,7 @@ export default class Menu extends Component {
      * @param {String} value
      */
     selectValue(value) {
-        let context = this.context,
+        let context = this.getContext(),
             values = new Set(this.state.values);
 
         // Toggle the value
@@ -198,7 +202,7 @@ export default class Menu extends Component {
 
         e.preventDefault();
 
-        let context = this.context,
+        let context = this.getContext(),
             options = Object.values(context.mappedOptions),
             index = this.state.index,
             step = 0;
@@ -249,7 +253,7 @@ export default class Menu extends Component {
      * @returns {ReactElement[]}
      */
     renderOptions() {
-        let options = this.context.options,
+        let options = this.getContext().options,
             elements = [];
 
         options.forEach(option => {
@@ -277,20 +281,20 @@ export default class Menu extends Component {
      */
     render() {
         let props = this.props,
-            context = this.context,
-            expanded = this.state.expanded;
+            expanded = this.state.expanded,
+            { multiple, inputID } = this.getContext();
 
         return (
             <div
                 role="listbox"
-                id={this.formatID('select-menu', context.inputID)}
+                id={this.formatID('select-menu', inputID)}
                 className={this.formatChildClass('menu', {
-                    'hide-selected': (props.hideSelected && !context.multiple),
+                    'hide-selected': (props.hideSelected && !multiple),
                     'is-expanded': expanded,
-                    'is-multiple': context.multiple
+                    'is-multiple': multiple
                 })}
                 tabIndex="-1"
-                aria-multiselectable={context.multiple}
+                aria-multiselectable={multiple}
                 aria-hidden={!expanded}
                 aria-expanded={expanded}
                 {...this.inheritNativeProps(props)}

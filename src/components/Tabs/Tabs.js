@@ -54,13 +54,15 @@ export default class Tabs extends Component {
      */
     getChildContext() {
         return {
-            activeIndex: this.state.index,
-            hideSection: this.hideSection,
-            isSectionActive: this.isSectionActive,
-            isSectionCollapsible: this.isSectionCollapsible,
-            showSection: this.showSection,
-            toggleSection: this.toggleSection,
-            uid: this.getUID()
+            [MODULE.contextKey]: {
+                activeIndex: this.state.index,
+                hideSection: this.hideSection,
+                isSectionActive: this.isSectionActive,
+                isSectionCollapsible: this.isSectionCollapsible,
+                showSection: this.showSection,
+                toggleSection: this.toggleSection,
+                uid: this.getUID()
+            }
         };
     }
 

@@ -7,6 +7,7 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('OffCanvas', '3.0.0', {
+    contextKey: 'offCanvas',
     blockClass: 'off-canvas',
     elementClasses: ['content', 'sidebar']
 });

@@ -38,7 +38,7 @@ export default class Overlay extends Component {
      */
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            expanded: nextContext.expanded
+            expanded: this.getContext(nextContext).expanded
         });
     }
 
@@ -77,7 +77,7 @@ export default class Overlay extends Component {
         e.preventDefault();
 
         if (this.props.collapsible) {
-            this.context.hideOverlay();
+            this.getContext().hideOverlay();
         }
     }
 

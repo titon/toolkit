@@ -7,6 +7,7 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Drop', '3.0.0', {
+    contextKey: 'drop',
     blockClass: 'drop',
     elementClasses: ['divider', 'header', 'item', 'link']
 });

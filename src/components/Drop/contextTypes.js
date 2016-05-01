@@ -5,11 +5,16 @@
  */
 
 import { PropTypes } from 'react';
+import MODULE from './module';
 
-export default Object.freeze({
+export const shape = Object.freeze({
     expanded: PropTypes.bool.isRequired,
     hideMenu: PropTypes.func.isRequired,
     showMenu: PropTypes.func.isRequired,
     toggleMenu: PropTypes.func.isRequired,
     uid: PropTypes.string.isRequired
 });
+
+export default {
+    [MODULE.contextKey]: PropTypes.shape(shape).isRequired
+};

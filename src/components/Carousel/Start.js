@@ -28,7 +28,7 @@ export default class Start extends Component {
      */
     @bind
     handleOnClick(e) {
-        this.context.startCycle();
+        this.getContext().startCycle();
         this.handleEvent('click', e);
     }
 

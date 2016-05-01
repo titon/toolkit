@@ -31,8 +31,7 @@ export default class Header extends Component {
      */
     @bind
     handleOnClick(e) {
-        this.context.toggleItem(this.props.index);
-
+        this.getContext().toggleItem(this.props.index);
         this.handleEvent('click', e);
     }
 

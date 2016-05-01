@@ -64,23 +64,25 @@ export default class Carousel extends Component {
         let props = this.props;
 
         return {
-            activeIndices: this.getActiveIndices(),
-            afterAnimation: this.afterAnimation,
-            animation: props.animation,
-            currentIndex: this.state.index,
-            firstIndex: this.getFirstIndex(),
-            infiniteScroll: props.infinite,
-            isItemActive: this.isItemActive,
-            itemCount: this.countItems(),
-            lastIndex: this.getLastIndex(),
-            loopedScroll: props.loop,
-            nextItem: this.nextItem,
-            prevItem: this.prevItem,
-            showItem: this.showItem,
-            startCycle: this.startCycle,
-            stopCycle: this.stopCycle,
-            uid: this.getUID(),
-            visibleCount: props.toShow
+            [MODULE.contextKey]: {
+                activeIndices: this.getActiveIndices(),
+                afterAnimation: this.afterAnimation,
+                animation: props.animation,
+                currentIndex: this.state.index,
+                firstIndex: this.getFirstIndex(),
+                infiniteScroll: props.infinite,
+                isItemActive: this.isItemActive,
+                itemCount: this.countItems(),
+                lastIndex: this.getLastIndex(),
+                loopedScroll: props.loop,
+                nextItem: this.nextItem,
+                prevItem: this.prevItem,
+                showItem: this.showItem,
+                startCycle: this.startCycle,
+                stopCycle: this.stopCycle,
+                uid: this.getUID(),
+                visibleCount: props.toShow
+            }
         };
     }
 

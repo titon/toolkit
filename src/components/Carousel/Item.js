@@ -27,7 +27,7 @@ export default class Item extends Component {
     render() {
         let props = this.props,
             index = props.index,
-            active = this.context.isItemActive(index);
+            active = this.getContext().isItemActive(index);
 
         return (
             <li role="tabpanel"

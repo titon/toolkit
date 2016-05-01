@@ -73,18 +73,20 @@ export default class Select extends InputSelect {
             state = this.state;
 
         return {
-            expanded: state.expanded,
-            hideMenu: this.hideMenu,
-            inputID: formatInputName(name),
-            inputName: name,
-            mappedOptions: state.options,
-            multiple,
-            options,
-            selectValue: this.selectValue,
-            selectedValues: this.extractValues(state.value, true),
-            showMenu: this.showMenu,
-            toggleMenu: this.toggleMenu,
-            uid: this.getUID()
+            [MODULE.contextKey]: {
+                expanded: state.expanded,
+                hideMenu: this.hideMenu,
+                inputID: formatInputName(name),
+                inputName: name,
+                mappedOptions: state.options,
+                multiple,
+                options,
+                selectValue: this.selectValue,
+                selectedValues: this.extractValues(state.value, true),
+                showMenu: this.showMenu,
+                toggleMenu: this.toggleMenu,
+                uid: this.getUID()
+            }
         };
     }
 

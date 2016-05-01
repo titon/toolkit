@@ -32,7 +32,7 @@ export default class Radio extends Input {
     constructor(props, context) {
         super(props);
 
-        if (context.checkedValue === props.defaultValue) {
+        if (this.getContext(context).checkedValue === props.defaultValue) {
             this.state.checked = true;
         }
     }
@@ -45,7 +45,7 @@ export default class Radio extends Input {
      */
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            checked: (nextContext.checkedValue === this.state.value)
+            checked: (this.getContext(nextContext).checkedValue === this.state.value)
         });
     }
 
@@ -63,7 +63,7 @@ export default class Radio extends Input {
      */
     @bind
     handleOnChange() {
-        this.context.selectValue(this.state.value);
+        this.getContext().selectValue(this.state.value);
     }
 
     /**
@@ -74,11 +74,12 @@ export default class Radio extends Input {
     render() {
         let props = this.props,
             inputProps = this.gatherProps(false),
-            stateClasses = this.gatherStateClasses();
+            stateClasses = this.gatherStateClasses(),
+            { inputName, inputID } = this.getContext();
 
         // We need to reset these values as we can't pass them through the constructor
-        inputProps.name = this.context.inputName;
-        inputProps.id = this.context.inputID + '-' + props.defaultValue;
+        inputProps.name = inputName;
+        inputProps.id = inputID + '-' + props.defaultValue;
 
         return (
             <span

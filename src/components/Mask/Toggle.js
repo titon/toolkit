@@ -20,7 +20,7 @@ export default class Toggle extends Component {
      */
     @bind
     handleOnClick() {
-        this.context.toggleOverlay();
+        this.getContext().toggleOverlay();
     }
 
     /**
@@ -30,7 +30,7 @@ export default class Toggle extends Component {
      */
     render() {
         return this.transferToChild(this.props.children, {
-            className: this.context.expanded ? 'is-active' : '',
+            className: this.getContext().expanded ? 'is-active' : '',
             onClick: this.handleOnClick
         });
     }

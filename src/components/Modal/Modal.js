@@ -13,17 +13,14 @@ import Foot from './Foot';
 import bind from '../../decorators/bind';
 import childrenOf from '../../prop-types/childrenOf';
 import invariant from '../../utility/invariant';
-import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
+import GATEWAY_CONTEXT_TYPES from '../Gateway/contextTypes';
+import { contextKey } from '../Gateway/module';
 
 export default class Modal extends Component {
     static module = MODULE;
 
-    static childContextTypes = CONTEXT_TYPES;
-
-    static contextTypes = {
-        warpOut: PropTypes.func.isRequired
-    };
+    static contextTypes = GATEWAY_CONTEXT_TYPES;
 
     static defaultProps = {
         blackOut: true,
@@ -56,20 +53,8 @@ export default class Modal extends Component {
     constructor(props, context) {
         super();
 
-        invariant(typeof context.warpOut !== 'undefined',
+        invariant(typeof context[contextKey] !== 'undefined',
             'A `Modal` must be instantiated within a `Gateway`.');
-    }
-
-    /**
-     * Define a context that is passed to all children.
-     *
-     * @returns {Object}
-     */
-    getChildContext() {
-        return {
-            hideModal: this.hideModal,
-            uid: this.getUID()
-        };
     }
 
     /**
@@ -126,7 +111,7 @@ export default class Modal extends Component {
      */
     @bind
     hideModal() {
-        this.context.warpOut(this.props.gateName, this.getInternalElement());
+        this.getContext(null, contextKey).warpOut(this.props.gateName, this.getInternalElement());
     }
 
     /**

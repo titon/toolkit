@@ -28,7 +28,7 @@ export default class Next extends Component {
      */
     @bind
     handleOnClick(e) {
-        this.context.nextItem();
+        this.getContext().nextItem();
         this.handleEvent('click', e);
     }
 

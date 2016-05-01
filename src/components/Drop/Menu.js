@@ -38,7 +38,7 @@ export default class Menu extends Component {
      */
     render() {
         let { direction, ...props } = this.props,
-            { expanded } = this.context;
+            { expanded } = this.getContext();
 
         return (
             <div

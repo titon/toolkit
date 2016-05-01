@@ -26,7 +26,7 @@ export default class Target extends Component {
      */
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            expanded: nextContext.expanded
+            expanded: this.getContext(nextContext).expanded
         });
     }
 

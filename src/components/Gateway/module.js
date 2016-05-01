@@ -6,7 +6,13 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Gateway', '3.0.0', {
+const module = defineModule('Gateway', '3.0.0', {
+    contextKey: 'gateway',
     blockClass: 'gateway',
     elementClasses: ['gate']
 });
+
+const contextKey = module.contextKey;
+
+export { contextKey };
+export default module;

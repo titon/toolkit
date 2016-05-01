@@ -28,7 +28,7 @@ export default class Stop extends Component {
      */
     @bind
     handleOnClick(e) {
-        this.context.stopCycle();
+        this.getContext().stopCycle();
         this.handleEvent('click', e);
     }
 

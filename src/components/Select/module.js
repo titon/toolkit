@@ -7,6 +7,7 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Select', '3.0.0', {
+    contextKey: 'select',
     blockClass: 'select',
     elementClasses: [
         'arrow', 'label', 'toggle', 'menu',

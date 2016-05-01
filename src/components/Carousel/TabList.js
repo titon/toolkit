@@ -29,7 +29,7 @@ export default class TabList extends Component {
         let children = [],
             props = this.props;
 
-        for (let i = 0; i < this.context.itemCount; i++) {
+        for (let i = 0; i < this.getContext().itemCount; i++) {
             children.push(
                 <Tab
                     index={i}

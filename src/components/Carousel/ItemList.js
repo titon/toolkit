@@ -119,7 +119,8 @@ export default class ItemList extends Component {
         let index = 0,
             fromIndex = this.state.fromIndex,
             toIndex = this.state.toIndex,
-            modifier = this.context.modifier;
+            context = this.getContext(),
+            modifier = context.modifier;
 
         if (modifier === 'fade') {
             return 'none';
@@ -129,13 +130,13 @@ export default class ItemList extends Component {
             index = toIndex - fromIndex;
 
         } else if (toIndex < fromIndex) {
-            index = this.context.itemCount - fromIndex + toIndex;
+            index = context.itemCount - fromIndex + toIndex;
 
         } else {
             index = toIndex;
         }
 
-        let offset = index * (100 / this.context.visibleCount),
+        let offset = index * (100 / context.visibleCount),
             x = (modifier === 'slide') ? -offset : 0,
             y = (modifier === 'slide-up') ? -offset : 0;
 
@@ -151,7 +152,7 @@ export default class ItemList extends Component {
     @bind
     handleOnTransitionEnd(e) {
         if (e.propertyName === 'transform') {
-            this.context.afterAnimation();
+            this.getContext().afterAnimation();
         }
     }
 
@@ -164,7 +165,7 @@ export default class ItemList extends Component {
         let children = Children.toArray(this.props.children),
             visibleChildren = [],
             fromIndex = this.state.fromIndex,
-            toIndex = this.state.toIndex + this.context.visibleCount;
+            toIndex = this.state.toIndex + this.getContext().visibleCount;
 
         console.log('RENDER CHILDREN', fromIndex, toIndex);
 
@@ -191,7 +192,7 @@ export default class ItemList extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let context = this.context,
+        let context = this.getContext(),
             props = this.generateNestedProps(this.props, 'swipe', [
                 'onSwipe', 'onSwipeUp', 'onSwipeRight', 'onSwipeDown', 'onSwipeLeft'
             ]);

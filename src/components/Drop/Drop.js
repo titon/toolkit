@@ -36,11 +36,13 @@ export default class Drop extends Component {
      */
     getChildContext() {
         return {
-            expanded: this.state.expanded,
-            hideMenu: this.hideMenu,
-            showMenu: this.showMenu,
-            toggleMenu: this.toggleMenu,
-            uid: this.getUID()
+            [MODULE.contextKey]: {
+                expanded: this.state.expanded,
+                hideMenu: this.hideMenu,
+                showMenu: this.showMenu,
+                toggleMenu: this.toggleMenu,
+                uid: this.getUID()
+            }
         };
     }
 

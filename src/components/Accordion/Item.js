@@ -36,7 +36,7 @@ export default class Item extends Component {
         super();
 
         this.state = {
-            expanded: context.isItemActive(props.index)
+            expanded: this.getContext(context).isItemActive(props.index)
         };
     }
 
@@ -48,7 +48,7 @@ export default class Item extends Component {
      */
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            expanded: nextContext.isItemActive(nextProps.index)
+            expanded: this.getContext(nextContext).isItemActive(nextProps.index)
         });
     }
 
