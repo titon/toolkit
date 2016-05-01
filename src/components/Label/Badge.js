@@ -6,21 +6,19 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import { states } from '../propTypes';
+import { defaultSizeProps, sizePropTypes, states } from '../propTypes';
 import MODULE from './module';
 
 export default class Badge extends Component {
     static module = MODULE;
 
     static defaultProps = {
-        large: false,
-        small: false
+        ...defaultSizeProps
     };
 
     static propTypes = {
+        ...sizePropTypes,
         children: PropTypes.string,
-        large: PropTypes.bool,
-        small: PropTypes.bool,
         state: states
     };
 

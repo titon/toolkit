@@ -19,14 +19,14 @@ export default class Menu extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        modifier: 'down',
+        direction: 'down',
         nested: false,
         reverse: false
     };
 
     static propTypes = {
         children: children(Divider, Header, Item),
-        modifier: PropTypes.oneOf(['up', 'down', 'left', 'right']),
+        direction: PropTypes.oneOf(['up', 'down', 'left', 'right']),
         nested: PropTypes.bool,
         reverse: PropTypes.bool
     };
@@ -37,7 +37,7 @@ export default class Menu extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let { modifier, ...props } = this.props,
+        let { direction, ...props } = this.props,
             { expanded } = this.context;
 
         return (
@@ -45,10 +45,10 @@ export default class Menu extends Component {
                 role="menu"
                 id={props.nested ? null : this.formatID('drop-menu')}
                 className={this.formatClass({
-                    ['@down']: (modifier === 'down'),
-                    ['@left']: (modifier === 'left'),
-                    ['@right']: (modifier === 'right'),
-                    ['@up']: (modifier === 'up'),
+                    ['@down']: (direction === 'down'),
+                    ['@left']: (direction === 'left'),
+                    ['@right']: (direction === 'right'),
+                    ['@up']: (direction === 'up'),
                     'is-branch': props.nested,
                     'is-expanded': (!props.nested && expanded),
                     'is-root': !props.nested,

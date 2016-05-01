@@ -9,7 +9,7 @@ import Component from '../../Component';
 import bind from '../../decorators/bind';
 import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';
-import { defaultProps, propTypes } from './propTypes';
+import { defaultInputProps, defaultSizeProps, inputPropTypes, sizePropTypes } from '../propTypes';
 import MODULE from './module';
 import '../../polyfills/Array.includes';
 
@@ -17,17 +17,15 @@ export default class Input extends Component {
     static module = MODULE;
 
     static defaultProps = {
-        ...defaultProps,
-        large: false,
-        small: false,
+        ...defaultInputProps,
+        ...defaultSizeProps,
         type: 'text'
     };
 
     static propTypes = {
-        ...propTypes,
+        ...inputPropTypes,
+        ...sizePropTypes,
         children: PropTypes.node,
-        large: PropTypes.bool,
-        small: PropTypes.bool,
         type: PropTypes.string
     };
 

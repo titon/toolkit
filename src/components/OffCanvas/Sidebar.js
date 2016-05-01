@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import collection from '../../prop-types/collection';
+import { showHidePropTypes } from '../propTypes';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -16,11 +16,8 @@ export default class Sidebar extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {
+        ...showHidePropTypes,
         children: PropTypes.node,
-        onHidden: collection.func,
-        onHiding: collection.func,
-        onShowing: collection.func,
-        onShown: collection.func,
         side: PropTypes.oneOf(['left', 'right']).isRequired
     };
 

@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
-import collection from '../../prop-types/collection';
+import { showHidePropTypes } from '../propTypes';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -21,12 +21,9 @@ export default class Overlay extends Component {
     };
 
     static propTypes = {
+        ...showHidePropTypes,
         children: PropTypes.node,
-        collapsible: PropTypes.bool,
-        onHidden: collection.func,
-        onHiding: collection.func,
-        onShowing: collection.func,
-        onShown: collection.func
+        collapsible: PropTypes.bool
     };
 
     state = {

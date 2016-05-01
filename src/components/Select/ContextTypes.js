@@ -5,7 +5,7 @@
  */
 
 import { PropTypes } from 'react';
-import { optionShape, optionList } from '../Input/propTypes';
+import { optionShape, optionList } from '../propTypes';
 
 export default Object.freeze({
     expanded: PropTypes.bool.isRequired,

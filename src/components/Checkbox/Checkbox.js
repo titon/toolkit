@@ -22,7 +22,7 @@ export default class Checkbox extends Input {
             stateClasses = this.gatherStateClasses();
 
         return (
-            <div
+            <span
                 id={this.formatID('checkbox', inputProps.id)}
                 className={this.formatClass(stateClasses)}
                 aria-checked={this.state.checked}
@@ -37,7 +37,7 @@ export default class Checkbox extends Input {
                 />
 
                 {props.children}
-            </div>
+            </span>
         );
     }
 }

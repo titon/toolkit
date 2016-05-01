@@ -6,7 +6,7 @@
 
 /* eslint react/prop-types: 0 */
 
-import React, { Children } from 'react';
+import React, { Children, PropTypes } from 'react';
 import Titon from './Titon';
 import assign from 'lodash/assign';
 import formatClass from './utility/formatClass';
@@ -25,7 +25,10 @@ export default class Component extends React.Component {
     };
 
     static contextTypes = {};
-    static propTypes = {};
+
+    static propTypes = {
+        children: PropTypes.node
+    };
 
     /**
      * Generate a UID for all components.

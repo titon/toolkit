@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React, { Children, PropTypes } from 'react';
+import React, { Children } from 'react';
 import Component from '../../Component';
 import Menu from './Menu';
 import CONTEXT_TYPES from './contextTypes';
@@ -14,10 +14,6 @@ export default class Item extends Component {
     static module = MODULE;
 
     static contextTypes = CONTEXT_TYPES;
-
-    static propTypes = {
-        children: PropTypes.node
-    };
 
     /**
      * Render the drop item.

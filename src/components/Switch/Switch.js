@@ -6,19 +6,19 @@
 
 import React, { PropTypes } from 'react';
 import Input from '../Input/Input';
-import { defaultProps, propTypes } from '../Input/propTypes';
+import { defaultInputProps, inputPropTypes } from '../propTypes';
 import MODULE from './module';
 
 export default class Switch extends Input {
     static module = MODULE;
 
     static defaultProps = {
-        ...defaultProps,
+        ...defaultInputProps,
         stacked: false
     };
 
     static propTypes = {
-        ...propTypes,
+        ...inputPropTypes,
         labelOff: PropTypes.string,
         labelOn: PropTypes.string,
         stacked: PropTypes.bool

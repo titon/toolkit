@@ -49,7 +49,6 @@ export default function Block({ shrink, order, grow, ...props }) {
 Block.module = MODULE;
 
 Block.defaultProps = {
-    className: 'block',
     grow: -1,
     order: -1,
     shrink: -1

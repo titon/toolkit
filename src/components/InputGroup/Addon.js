@@ -6,20 +6,19 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import { defaultSizeProps, sizePropTypes } from '../propTypes';
 import MODULE from './module';
 
 export default class Addon extends Component {
     static module = MODULE;
 
     static defaultProps = {
-        large: false,
-        small: false
+        ...defaultSizeProps
     };
 
     static propTypes = {
-        children: PropTypes.node,
-        large: PropTypes.bool,
-        small: PropTypes.bool
+        ...sizePropTypes,
+        children: PropTypes.node
     };
 
     /**

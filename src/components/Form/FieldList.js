@@ -4,16 +4,12 @@
  * @link        http://titon.io
  */
 
-import React, { Children, PropTypes } from 'react';
+import React, { Children } from 'react';
 import Component from '../../Component';
 import MODULE from './module';
 
 export default class FieldList extends Component {
     static module = MODULE;
-
-    static propTypes = {
-        children: PropTypes.node
-    };
 
     /**
      * Render the form field list wrapper.

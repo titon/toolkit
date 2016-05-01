@@ -6,23 +6,21 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import { states } from '../propTypes';
+import { defaultSizeProps, sizePropTypes, states } from '../propTypes';
 import MODULE from './module';
 
 export default class Label extends Component {
     static module = MODULE;
 
     static defaultProps = {
-        large: false,
-        small: false
+        ...defaultSizeProps
     };
 
     static propTypes = {
+        ...sizePropTypes,
         arrow: PropTypes.oneOf(['left', 'right']),
         children: PropTypes.node,
-        large: PropTypes.bool,
         ribbon: PropTypes.oneOf(['left', 'right']),
-        small: PropTypes.bool,
         state: states
     };
 

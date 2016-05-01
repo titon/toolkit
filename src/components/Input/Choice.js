@@ -6,21 +6,20 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import { defaultSizeProps, sizePropTypes } from '../propTypes';
 import MODULE from './module';
 
 export default class Choice extends Component {
     static module = MODULE;
 
     static defaultProps = {
-        large: false,
-        small: false
+        ...defaultSizeProps
     };
 
     static propTypes = {
+        ...sizePropTypes,
         children: PropTypes.node,
-        inputID: PropTypes.string.isRequired,
-        large: PropTypes.bool,
-        small: PropTypes.bool
+        inputID: PropTypes.string.isRequired
     };
 
     /**

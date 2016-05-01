@@ -4,16 +4,12 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Component from '../../Component';
 import MODULE from './module';
 
 export default class Message extends Component {
     static module = MODULE;
-
-    static propTypes = {
-        children: PropTypes.node.isRequired
-    };
 
     /**
      * Render the message within a loader.

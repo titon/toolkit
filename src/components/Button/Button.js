@@ -7,29 +7,26 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
-import { states } from '../propTypes';
+import { defaultSizeProps, sizePropTypes, states } from '../propTypes';
 import MODULE from './module';
 
 export default class Button extends Component {
     static module = MODULE;
 
     static defaultProps = {
-        disabled: false,
-        large: false,
+        ...defaultSizeProps,
         primary: false,
         secondary: false,
-        small: false,
         type: 'button'
     };
 
     static propTypes = {
+        ...sizePropTypes,
         children: PropTypes.node,
         disabled: PropTypes.bool,
         href: PropTypes.string,
-        large: PropTypes.bool,
         primary: PropTypes.bool,
         secondary: PropTypes.bool,
-        small: PropTypes.bool,
         state: states,
         type: PropTypes.oneOf(['button', 'submit'])
     };

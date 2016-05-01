@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Tooltip from '../Tooltip';
 
 export default class Popover extends Tooltip {

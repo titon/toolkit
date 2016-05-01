@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
-import collection from '../../prop-types/collection';
+import { showHidePropTypes } from '../propTypes';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 import '../../polyfills/Array.includes';
@@ -23,11 +23,8 @@ export default class Menu extends Component {
     };
 
     static propTypes = {
-        hideSelected: PropTypes.bool,
-        onHidden: collection.func,
-        onHiding: collection.func,
-        onShowing: collection.func,
-        onShown: collection.func
+        ...showHidePropTypes,
+        hideSelected: PropTypes.bool
     };
 
     /**

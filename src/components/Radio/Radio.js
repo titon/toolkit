@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Input from '../Input/Input';
 import bind from '../../decorators/bind';
-import { propTypes } from '../Input/propTypes';
+import { inputPropTypes } from '../propTypes';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -17,7 +17,7 @@ export default class Radio extends Input {
     static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {
-        ...propTypes,
+        ...inputPropTypes,
         children: PropTypes.node,
         defaultValue: PropTypes.string.isRequired,
         name: PropTypes.string
