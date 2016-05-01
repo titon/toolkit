@@ -26,8 +26,8 @@
             }
         }
 
-        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "top-center")) {
-            &.top-center {
+        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "top")) {
+            &.top {
                 top: 0;
                 left: 50%;
             }
@@ -40,15 +40,15 @@
             }
         }
 
-        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "center-left")) {
-            &.center-left {
+        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "left")) {
+            &.left {
                 top: 50%;
                 left: 0;
             }
         }
 
-        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "center-right")) {
-            &.center-right {
+        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "right")) {
+            &.right {
                 top: 50%;
                 right: 0;
             }
@@ -61,8 +61,8 @@
             }
         }
 
-        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "bottom-center")) {
-            &.bottom-center {
+        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "bottom")) {
+            &.bottom {
                 bottom: 0;
                 left: 50%;
             }
@@ -75,16 +75,16 @@
             }
         }
 
-        @if (is-feature-enabled("all-positions") or (index($titon-toast-positions, "top-center") or index($titon-toast-positions, "bottom-center"))) {
-            &.top-center,
-            &.bottom-center {
+        @if (is-feature-enabled("all-positions") or (index($titon-toast-positions, "top") or index($titon-toast-positions, "bottom"))) {
+            &.top,
+            &.bottom {
                 transform: translateX(-50%);
             }
         }
 
-        @if (is-feature-enabled("all-positions") or (index($titon-toast-positions, "center-left") or index($titon-toast-positions, "center-right"))) {
-            &.center-left,
-            &.center-right {
+        @if (is-feature-enabled("all-positions") or (index($titon-toast-positions, "left") or index($titon-toast-positions, "right"))) {
+            &.left,
+            &.right {
                 transform: translateY(-50%);
             }
         }

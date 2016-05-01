@@ -326,7 +326,7 @@ $titon-table: (
 $titon-toast: (
     "class": "toast",
     "animations": ("fade", "slide-up", "slide-down", "slide-left", "slide-right"), // fade, slide-up, slide-down, slide-left, slide-right
-    "positions": ("bottom-left", "bottom-right"), // top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right
+    "positions": ("bottom-left", "bottom-right"), // top-left, top, top-right, left, right, bottom-left, bottom, bottom-right
     "transition": theme-setting("transition"),
 ) !default;
 

@@ -7,6 +7,7 @@
 import React, { PropTypes } from 'react';
 import { default as BaseGate } from '../Gateway/Gate';
 import Toast from './Toast';
+import { positions } from '../propTypes';
 import MODULE from './module';
 
 export default class Gate extends BaseGate {
@@ -23,10 +24,7 @@ export default class Gate extends BaseGate {
         animation: PropTypes.oneOf([
             'fade', 'slide-up', 'slide-down', 'slide-left', 'slide-right'
         ]),
-        position: PropTypes.oneOf([
-            'top-left', 'top-center', 'top-right', 'center-left',
-            'center-right', 'bottom-left', 'bottom-center', 'bottom-right'
-        ])
+        position: positions
     };
 
     /**
