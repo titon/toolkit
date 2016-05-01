@@ -5,26 +5,26 @@
  */
 
 @include export("input") {
-    $titon-temp-input-class: map-get($titon-input, "class");
-    $titon-temp-input-static-class: map-get($titon-input, "class-static");
-    $titon-temp-input-choice-class: map-get($titon-input, "class-choice");
+    $titon-input-class: generate-class-name($titon-input);
+    $titon-input-static-class: generate-class-name($titon-input, "static");
+    $titon-input-choice-class: generate-class-name($titon-input, "choice");
 
-    #{$titon-temp-input-class},
-    #{$titon-temp-input-static-class},
-    #{$titon-temp-input-choice-class} {
+    #{$titon-input-class},
+    #{$titon-input-static-class},
+    #{$titon-input-choice-class} {
         @extend %placeholder-inline-block;
         border: 0;
         line-height: normal;
         @include size-medium;
     }
 
-    #{$titon-temp-input-static-class},
-    #{$titon-temp-input-choice-class} {
+    #{$titon-input-static-class},
+    #{$titon-input-choice-class} {
         padding-#{bidi-alignment()}: 0 !important;
         padding-#{bidi-opposite-alignment()}: 0 !important;
     }
 
-    #{$titon-temp-input-choice-class} {
+    #{$titon-input-choice-class} {
         input[type="checkbox"],
         input[type="radio"] {
             padding: 0;
@@ -33,7 +33,7 @@
         }
     }
 
-    select#{$titon-temp-input-class} {
+    select#{$titon-input-class} {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
@@ -47,18 +47,18 @@
         }
     }
 
-    textarea#{$titon-temp-input-class} {
+    textarea#{$titon-input-class} {
         line-height: 1.35;
         min-height: 10rem;
     }
 
     //-------------------- Sizes --------------------//
 
-    @include generate-size-small($titon-temp-input-class) { @include size-small; }
-    @include generate-size-small($titon-temp-input-static-class) { @include size-small; }
-    @include generate-size-small($titon-temp-input-choice-class) { @include size-small; }
+    @include generate-size-small($titon-input-class) { @include size-small; }
+    @include generate-size-small($titon-input-static-class) { @include size-small; }
+    @include generate-size-small($titon-input-choice-class) { @include size-small; }
 
-    @include generate-size-large($titon-temp-input-class) { @include size-large; }
-    @include generate-size-large($titon-temp-input-static-class) { @include size-large; }
-    @include generate-size-large($titon-temp-input-choice-class) { @include size-large; }
+    @include generate-size-large($titon-input-class) { @include size-large; }
+    @include generate-size-large($titon-input-static-class) { @include size-large; }
+    @include generate-size-large($titon-input-choice-class) { @include size-large; }
 }

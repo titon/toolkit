@@ -5,7 +5,7 @@
  */
 
 @include export("checkbox") {
-    #{map-get($titon-checkbox, "class")} {
+    #{generate-class-name($titon-checkbox)} {
         @extend %placeholder-inline-block;
 
         input {
@@ -13,7 +13,7 @@
         }
     }
 
-    #{map-get($titon-checkbox, "class-toggle")} {
+    #{generate-class-name($titon-checkbox, "toggle")} {
         @extend %placeholder-inline-block;
         background: theme-setting("bg-light");
         border: 1px solid theme-setting("border-accent");

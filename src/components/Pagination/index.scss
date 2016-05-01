@@ -5,7 +5,7 @@
  */
 
 @include export("pagination") {
-    #{map-get($titon-pagination, "class")} {
+    #{generate-class-name($titon-pagination)} {
         display: inline-block;
 
         ol {
@@ -14,8 +14,8 @@
         }
     }
 
-    #{map-get($titon-pagination, "class-item")},
-    #{map-get($titon-pagination, "class-spacer")} {
+    #{generate-class-name($titon-pagination, "item")},
+    #{generate-class-name($titon-pagination, "spacer")} {
         position: relative;
         display: inline-block;
         padding: theme-setting("medium-padding");
@@ -24,8 +24,8 @@
     //-------------------- Modifiers --------------------//
 
     @if (is-feature-enabled("all-modifiers") or index(map-get($titon-pagination, "modifiers"), "grouped")) {
-        #{map-get($titon-pagination, "class-modifier-grouped")} {
-            #{map-get($titon-pagination, "class-item")} {
+        #{generate-class-name($titon-pagination, "", "grouped")} {
+            #{generate-class-name($titon-pagination, "item")} {
                 flex-grow: 1;
                 z-index: 0;
 

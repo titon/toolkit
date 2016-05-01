@@ -5,13 +5,13 @@
  */
 
 @include export("lazy-load") {
-    #{map-get($titon-lazy-load, "class-bg")} {
+    #{generate-class-name($titon-lazy-load, "bg")} {
         &:not(.is-loaded) {
             background-image: none !important;
         }
     }
 
-    #{map-get($titon-lazy-load, "class-image")} {
+    #{generate-class-name($titon-lazy-load, "image")} {
         display: inline-block; // Required to calculate dimensions
     }
 }

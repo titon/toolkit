@@ -5,83 +5,83 @@
  */
 
 @include export("toast") {
-    $titon-temp-toast-positions: map-get($titon-toast, "positions");
-    $titon-temp-toast-animations: map-get($titon-toast, "animations");
+    $titon-toast-positions: map-get($titon-toast, "positions");
+    $titon-toast-animations: map-get($titon-toast, "animations");
 
-    #{map-get($titon-toast, "class-gate")} {
+    #{generate-class-name($titon-toast, "gate")} {
         position: fixed;
         margin: theme-setting("margin");
         width: 20%;
         z-index: map-get($titon-settings-zindex, "toast");
 
-        @include if-max(breakpoint-setting("small", 1)) {
+        @include if-max(breakpoint-setting("sm", 1)) {
             width: 100%;
         }
 
-        @if (is-feature-enabled("all-positions") or index($titon-temp-toast-positions, "top-left")) {
+        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "top-left")) {
             &.top-left {
                 top: 0;
                 left: 0;
             }
         }
 
-        @if (is-feature-enabled("all-positions") or index($titon-temp-toast-positions, "top-center")) {
+        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "top-center")) {
             &.top-center {
                 top: 0;
                 left: 50%;
             }
         }
 
-        @if (is-feature-enabled("all-positions") or index($titon-temp-toast-positions, "top-right")) {
+        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "top-right")) {
             &.top-right {
                 top: 0;
                 right: 0;
             }
         }
 
-        @if (is-feature-enabled("all-positions") or index($titon-temp-toast-positions, "center-left")) {
+        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "center-left")) {
             &.center-left {
                 top: 50%;
                 left: 0;
             }
         }
 
-        @if (is-feature-enabled("all-positions") or index($titon-temp-toast-positions, "center-right")) {
+        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "center-right")) {
             &.center-right {
                 top: 50%;
                 right: 0;
             }
         }
 
-        @if (is-feature-enabled("all-positions") or index($titon-temp-toast-positions, "bottom-left")) {
+        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "bottom-left")) {
             &.bottom-left {
                 bottom: 0;
                 left: 0;
             }
         }
 
-        @if (is-feature-enabled("all-positions") or index($titon-temp-toast-positions, "bottom-center")) {
+        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "bottom-center")) {
             &.bottom-center {
                 bottom: 0;
                 left: 50%;
             }
         }
 
-        @if (is-feature-enabled("all-positions") or index($titon-temp-toast-positions, "bottom-right")) {
+        @if (is-feature-enabled("all-positions") or index($titon-toast-positions, "bottom-right")) {
             &.bottom-right {
                 bottom: 0;
                 right: 0;
             }
         }
 
-        @if (is-feature-enabled("all-positions") or (index($titon-temp-toast-positions, "top-center") or index($titon-temp-toast-positions, "bottom-center"))) {
+        @if (is-feature-enabled("all-positions") or (index($titon-toast-positions, "top-center") or index($titon-toast-positions, "bottom-center"))) {
             &.top-center,
             &.bottom-center {
                 transform: translateX(-50%);
             }
         }
 
-        @if (is-feature-enabled("all-positions") or (index($titon-temp-toast-positions, "center-left") or index($titon-temp-toast-positions, "center-right"))) {
+        @if (is-feature-enabled("all-positions") or (index($titon-toast-positions, "center-left") or index($titon-toast-positions, "center-right"))) {
             &.center-left,
             &.center-right {
                 transform: translateY(-50%);
@@ -89,7 +89,7 @@
         }
     }
 
-    #{map-get($titon-toast, "class")} {
+    #{generate-class-name($titon-toast)} {
         margin-top: 1rem;
         transition: all map-get($titon-toast, "transition");
         padding: theme-setting("medium-padding");
@@ -97,8 +97,8 @@
 
     //-------------------- Animations --------------------//
 
-    #{map-get($titon-toast, "class")} {
-        @if (is-feature-enabled("all-animations") or index($titon-temp-toast-animations, "slide-up")) {
+    #{generate-class-name($titon-toast)} {
+        @if (is-feature-enabled("all-animations") or index($titon-toast-animations, "slide-up")) {
             &.slide-up {
                 transform: translateY(50%);
 
@@ -108,7 +108,7 @@
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($titon-temp-toast-animations, "slide-down")) {
+        @if (is-feature-enabled("all-animations") or index($titon-toast-animations, "slide-down")) {
             &.slide-down {
                 transform: translateY(-50%);
 
@@ -118,7 +118,7 @@
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($titon-temp-toast-animations, "slide-left")) {
+        @if (is-feature-enabled("all-animations") or index($titon-toast-animations, "slide-left")) {
             &.slide-left {
                 transform: translateX(25%);
 
@@ -128,7 +128,7 @@
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($titon-temp-toast-animations, "slide-right")) {
+        @if (is-feature-enabled("all-animations") or index($titon-toast-animations, "slide-right")) {
             &.slide-right {
                 transform: translateX(-25%);
 

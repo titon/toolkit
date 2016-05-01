@@ -5,7 +5,7 @@
  */
 
 @include export("gateway") {
-    #{map-get($titon-gateway, "class")} {
+    #{generate-class-name($titon-gateway)} {
         position: relative;
     }
 }

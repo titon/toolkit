@@ -10,8 +10,8 @@
  * @param string $pseudo
  */
 @mixin checkbox-state($pseudo) {
-    #{map-get($titon-checkbox, "class")} {
-        input:#{$pseudo} + #{map-get($titon-checkbox, "class-toggle")} {
+    #{generate-class-name($titon-checkbox)} {
+        input:#{$pseudo} + #{generate-class-name($titon-checkbox, "toggle")} {
             @content;
         }
     }
@@ -23,8 +23,8 @@
  * @param string $pseudo
  */
 @mixin radio-state($pseudo) {
-    #{map-get($titon-radio, "class")} {
-        input:#{$pseudo} + #{map-get($titon-radio, "class-toggle")} {
+    #{generate-class-name($titon-radio)} {
+        input:#{$pseudo} + #{generate-class-name($titon-radio, "toggle")} {
             @content;
         }
     }
@@ -50,8 +50,8 @@
  * @param string $pseudo
  */
 @mixin select-state($pseudo) {
-    #{map-get($titon-select, "class")} {
-        select:#{$pseudo} + #{map-get($titon-select, "class-toggle")} {
+    #{generate-class-name($titon-select)} {
+        select:#{$pseudo} + #{generate-class-name($titon-select, "toggle")} {
             @content;
         }
     }
@@ -63,8 +63,8 @@
  * @param string $pseudo
  */
 @mixin switch-state($pseudo) {
-    #{map-get($titon-switch, "class")} {
-        input:#{$pseudo} + #{map-get($titon-switch, "class-bar")} {
+    #{generate-class-name($titon-switch)} {
+        input:#{$pseudo} + #{generate-class-name($titon-switch, "bar")} {
             @content;
         }
     }

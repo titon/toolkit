@@ -5,14 +5,14 @@
  */
 
 @include export("progress") {
-    #{map-get($titon-progress, "class")} {
+    #{generate-class-name($titon-progress)} {
         overflow: hidden;
         position: relative;
         display: flex;
         background: theme-setting("bg-light");
     }
 
-    #{map-get($titon-progress, "class-bar")} {
+    #{generate-class-name($titon-progress, "bar")} {
         height: 1.5rem;
         line-height: 1.5rem;
         overflow: hidden;

@@ -5,14 +5,14 @@
  */
 
 @include export("tabs") {
-    #{map-get($titon-tabs, "class-nav")} {
+    #{generate-class-name($titon-tabs, "nav")} {
         > ol {
             @extend %placeholder-list;
             display: flex;
         }
     }
 
-    #{map-get($titon-tabs, "class-section")} {
+    #{generate-class-name($titon-tabs, "section")} {
         padding: theme-setting("medium-padding");
 
         // Add display none on sections since visibility property takes up DOM space

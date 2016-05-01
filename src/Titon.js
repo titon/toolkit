@@ -29,7 +29,7 @@ const Titon = Object.freeze({
         debug: false,
 
         // BEM element separator
-        elementSeparator: '-',
+        elementSeparator: '__',
 
         // Logger function that handles invariants
         logger() {},

@@ -5,9 +5,9 @@
  */
 
 @include export("button") {
-    $titon-temp-button-class: map-get($titon-button, "class");
+    $titon-button-class: generate-class-name($titon-button);
 
-    #{$titon-temp-button-class} {
+    #{$titon-button-class} {
         @extend %placeholder-inline-block;
         border: 0;
         margin: 0;
@@ -23,6 +23,6 @@
 
     //-------------------- Sizes --------------------//
 
-    @include generate-size-small($titon-temp-button-class) { @include size-small; }
-    @include generate-size-large($titon-temp-button-class) { @include size-large; }
+    @include generate-size-small($titon-button-class) { @include size-small; }
+    @include generate-size-large($titon-button-class) { @include size-large; }
 }

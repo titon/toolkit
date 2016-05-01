@@ -5,10 +5,10 @@
  */
 
 @include export("label") {
-    $titon-temp-label-class: map-get($titon-label, "class");
-    $titon-temp-label-modifiers: map-get($titon-label, "modifiers");
+    $titon-label-class: generate-class-name($titon-label);
+    $titon-label-modifiers: map-get($titon-label, "modifiers");
 
-    #{$titon-temp-label-class} {
+    #{$titon-label-class} {
         @extend %placeholder-inline-block;
         font-size: .7rem;
         line-height: 1;
@@ -34,14 +34,14 @@
 
     //-------------------- Modifiers --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-label-modifiers, "badge")) {
-        #{map-get($titon-label, "class-modifier-badge")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-label-modifiers, "badge")) {
+        #{generate-class-name($titon-label, "", "badge")} {
             border-radius: 50%;
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-label-modifiers, "arrow-left")) {
-        #{map-get($titon-label, "class-modifier-arrow-left")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-label-modifiers, "arrow-left")) {
+        #{generate-class-name($titon-label, "", "arrow-left")} {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
             padding-left: 2px;
@@ -56,8 +56,8 @@
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-label-modifiers, "arrow-right")) {
-        #{map-get($titon-label, "class-modifier-arrow-right")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-label-modifiers, "arrow-right")) {
+        #{generate-class-name($titon-label, "", "arrow-right")} {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
             padding-right: 2px;
@@ -72,8 +72,8 @@
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-label-modifiers, "ribbon-left")) {
-        #{map-get($titon-label, "class-modifier-ribbon-left")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-label-modifiers, "ribbon-left")) {
+        #{generate-class-name($titon-label, "", "ribbon-left")} {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
 
@@ -88,8 +88,8 @@
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-label-modifiers, "ribbon-right")) {
-        #{map-get($titon-label, "class-modifier-ribbon-right")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-label-modifiers, "ribbon-right")) {
+        #{generate-class-name($titon-label, "", "ribbon-right")} {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
 
@@ -106,17 +106,17 @@
 
     //-------------------- Sizes --------------------//
 
-    @include generate-size-small($titon-temp-label-class) {
+    @include generate-size-small($titon-label-class) {
         font-size: .6rem;
         padding: .2rem .35rem;
 
         @if (
             is-feature-enabled("all-modifiers") or
-            index($titon-temp-label-modifiers, "arrow-left") or
-            index($titon-temp-label-modifiers, "arrow-right")
+            index($titon-label-modifiers, "arrow-left") or
+            index($titon-label-modifiers, "arrow-right")
         ) {
-            &#{map-get($titon-label, "class-modifier-arrow-left")},
-            &#{map-get($titon-label, "class-modifier-arrow-right")} {
+            &#{generate-class-name($titon-label, "", "arrow-left")},
+            &#{generate-class-name($titon-label, "", "arrow-right")} {
                 &::after {
                     border-width: .5rem;
                 }
@@ -124,17 +124,17 @@
         }
     }
 
-    @include generate-size-large($titon-temp-label-class) {
+    @include generate-size-large($titon-label-class) {
         font-size: .8rem;
         padding: .35rem .5rem;
 
         @if (
             is-feature-enabled("all-modifiers") or
-            index($titon-temp-label-modifiers, "arrow-left") or
-            index($titon-temp-label-modifiers, "arrow-right")
+            index($titon-label-modifiers, "arrow-left") or
+            index($titon-label-modifiers, "arrow-right")
         ) {
-            &#{map-get($titon-label, "class-modifier-arrow-left")},
-            &#{map-get($titon-label, "class-modifier-arrow-right")} {
+            &#{generate-class-name($titon-label, "", "arrow-left")},
+            &#{generate-class-name($titon-label, "", "arrow-right")} {
                 &::after {
                     border-width: .75rem;
                 }

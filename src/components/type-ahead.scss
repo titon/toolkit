@@ -5,7 +5,7 @@
  */
 
 @include export("type-ahead") {
-    #{map-get($titon-type-ahead, "class")} {
+    #{generate-class-name($titon-type-ahead)} {
         @extend %placeholder-position-absolute;
         z-index: map-get($titon-settings-zindex, "type-ahead");
         opacity: 0;
@@ -28,22 +28,22 @@
         }
     }
 
-    #{map-get($titon-type-ahead, "class-heading")} {
+    #{generate-class-name($titon-type-ahead, "heading")} {
         padding: theme-setting("medium-padding");
         display: block;
     }
 
-    #{map-get($titon-type-ahead, "class-highlight")} {
+    #{generate-class-name($titon-type-ahead, "highlight")} {
         background: #fff;
         padding: 0;
     }
 
-    #{map-get($titon-type-ahead, "class-description")} {
+    #{generate-class-name($titon-type-ahead, "description")} {
         display: block;
         font-size: theme-setting("small-font-size");
     }
 
-    #{map-get($titon-type-ahead, "class-shadow")} {
+    #{generate-class-name($titon-type-ahead, "shadow")} {
         position: relative;
 
         .is-shadow {

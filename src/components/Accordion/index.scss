@@ -5,16 +5,16 @@
  */
 
 @include export("accordion") {
-    #{map-get($titon-accordion, "class")} {
+    #{generate-class-name($titon-accordion)} {
         @extend %placeholder-list;
     }
 
-    #{map-get($titon-accordion, "class-header")} {
+    #{generate-class-name($titon-accordion, "header")} {
         padding: theme-setting("medium-padding");
         cursor: pointer;
     }
 
-    #{map-get($titon-accordion, "class-section")} {
+    #{generate-class-name($titon-accordion, "section")} {
         padding: theme-setting("medium-padding");
     }
 }

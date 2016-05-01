@@ -8,11 +8,11 @@
 // http://tobiasahlin.com/spinkit/
 
 @include export("loader") {
-    $titon-temp-loader-modifiers: map-get($titon-loader, "modifiers");
-    $titon-temp-loader-bubble-size: map-get($titon-loader, "bubble-size");
-    $titon-temp-loader-spinner-delay: map-get($titon-loader, "spinner-delay");
+    $titon-loader-modifiers: map-get($titon-loader, "modifiers");
+    $titon-loader-bubble-size: map-get($titon-loader, "bubble-size");
+    $titon-loader-spinner-delay: map-get($titon-loader, "spinner-delay");
 
-    #{map-get($titon-loader, "class")} {
+    #{generate-class-name($titon-loader)} {
         @extend %placeholder-inline-block;
         margin: 0 auto;
         text-align: center;
@@ -24,13 +24,13 @@
         }
     }
 
-    #{map-get($titon-loader, "class-message")} {
+    #{generate-class-name($titon-loader, "message")} {
         margin-top: 1rem;
     }
 
     //-------------------- Bar Wave --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-loader-modifiers, "bar-wave")) {
+    @if (is-feature-enabled("all-modifiers") or index($titon-loader-modifiers, "bar-wave")) {
         @keyframes bar-wave {
             0%, 50%, 100% {
                 transform: scaleY(1);
@@ -40,7 +40,7 @@
             }
         }
 
-        #{map-get($titon-loader, "class-modifier-bar-wave")} {
+        #{generate-class-name($titon-loader, "", "bar-wave")} {
             > span {
                 height: map-get($titon-loader, "bar-height");
                 width: map-get($titon-loader, "bar-width");
@@ -57,7 +57,7 @@
 
     //-------------------- Bubble Wave --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-loader-modifiers, "bubble-wave")) {
+    @if (is-feature-enabled("all-modifiers") or index($titon-loader-modifiers, "bubble-wave")) {
         @keyframes bubble-wave {
             0%, 50%, 100% {
                 transform: scale(.1);
@@ -67,10 +67,10 @@
             }
         }
 
-        #{map-get($titon-loader, "class-modifier-bubble-wave")} {
+        #{generate-class-name($titon-loader, "", "bubble-wave")} {
             > span {
-                width: $titon-temp-loader-bubble-size;
-                height: $titon-temp-loader-bubble-size;
+                width: $titon-loader-bubble-size;
+                height: $titon-loader-bubble-size;
                 border-radius: 100%;
                 animation: bubble-wave 1.5s infinite ease-in-out;
                 animation-fill-mode: both;
@@ -86,9 +86,9 @@
 
     //-------------------- Bubble Spinner --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-loader-modifiers, "bubble-spinner")) {
-        $titon-temp-loader-spinner-double: $titon-temp-loader-bubble-size * 2;
-        $titon-temp-loader-spinner-half: $titon-temp-loader-bubble-size / 2;
+    @if (is-feature-enabled("all-modifiers") or index($titon-loader-modifiers, "bubble-spinner")) {
+        $titon-loader-spinner-double: $titon-loader-bubble-size * 2;
+        $titon-loader-spinner-half: $titon-loader-bubble-size / 2;
         
         @keyframes bubble-spinner {
             0%, 100% {
@@ -99,68 +99,68 @@
             }
         }
 
-        #{map-get($titon-loader, "class-modifier-bubble-spinner")} {
-            #{map-get($titon-loader, "class-spinner")} {
-                width: $titon-temp-loader-bubble-size * 5;
-                height: $titon-temp-loader-bubble-size * 5;
+        #{generate-class-name($titon-loader, "", "bubble-spinner")} {
+            #{generate-class-name($titon-loader, "spinner")} {
+                width: $titon-loader-bubble-size * 5;
+                height: $titon-loader-bubble-size * 5;
                 position: relative;
                 margin: 0 auto;
 
                 > span {
                     background: #fff;
-                    width: $titon-temp-loader-bubble-size;
-                    height: $titon-temp-loader-bubble-size;
+                    width: $titon-loader-bubble-size;
+                    height: $titon-loader-bubble-size;
                     position: absolute;
                     border-radius: 100%;
-                    animation: bubble-spinner #{$titon-temp-loader-spinner-delay * 8}s infinite ease-in-out;
+                    animation: bubble-spinner #{$titon-loader-spinner-delay * 8}s infinite ease-in-out;
                     animation-fill-mode: both;
 
                     &:nth-child(1) {
                         top: 0;
-                        left: $titon-temp-loader-spinner-double;
-                        animation-delay: -#{$titon-temp-loader-spinner-delay * 7}s;
+                        left: $titon-loader-spinner-double;
+                        animation-delay: -#{$titon-loader-spinner-delay * 7}s;
                     }
 
                     &:nth-child(2) {
-                        top: $titon-temp-loader-spinner-half;
-                        right: $titon-temp-loader-spinner-half;
-                        animation-delay: -#{$titon-temp-loader-spinner-delay * 6}s;
+                        top: $titon-loader-spinner-half;
+                        right: $titon-loader-spinner-half;
+                        animation-delay: -#{$titon-loader-spinner-delay * 6}s;
                     }
 
                     &:nth-child(3) {
-                        top: $titon-temp-loader-spinner-double;
+                        top: $titon-loader-spinner-double;
                         right: 0;
-                        animation-delay: -#{$titon-temp-loader-spinner-delay * 5}s;
+                        animation-delay: -#{$titon-loader-spinner-delay * 5}s;
                     }
 
                     &:nth-child(4) {
-                        bottom: $titon-temp-loader-spinner-half;
-                        right: $titon-temp-loader-spinner-half;
-                        animation-delay: -#{$titon-temp-loader-spinner-delay * 4}s;
+                        bottom: $titon-loader-spinner-half;
+                        right: $titon-loader-spinner-half;
+                        animation-delay: -#{$titon-loader-spinner-delay * 4}s;
                     }
 
                     &:nth-child(5) {
                         bottom: 0;
-                        left: $titon-temp-loader-spinner-double;
-                        animation-delay: -#{$titon-temp-loader-spinner-delay * 3}s;
+                        left: $titon-loader-spinner-double;
+                        animation-delay: -#{$titon-loader-spinner-delay * 3}s;
                     }
 
                     &:nth-child(6) {
-                        bottom: $titon-temp-loader-spinner-half;
-                        left: $titon-temp-loader-spinner-half;
-                        animation-delay: -#{$titon-temp-loader-spinner-delay * 2}s;
+                        bottom: $titon-loader-spinner-half;
+                        left: $titon-loader-spinner-half;
+                        animation-delay: -#{$titon-loader-spinner-delay * 2}s;
                     }
 
                     &:nth-child(7) {
-                        top: $titon-temp-loader-spinner-double;
+                        top: $titon-loader-spinner-double;
                         left: 0;
-                        animation-delay: -#{$titon-temp-loader-spinner-delay * 1}s;
+                        animation-delay: -#{$titon-loader-spinner-delay * 1}s;
                     }
 
                     &:nth-child(8) {
-                        top: $titon-temp-loader-spinner-half;
-                        left: $titon-temp-loader-spinner-half;
-                        animation-delay: -#{$titon-temp-loader-spinner-delay * 0}s;
+                        top: $titon-loader-spinner-half;
+                        left: $titon-loader-spinner-half;
+                        animation-delay: -#{$titon-loader-spinner-delay * 0}s;
                     }
                 }
             }

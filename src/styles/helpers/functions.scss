@@ -206,7 +206,8 @@
 }
 
 /**
- * Generate a class name and apply an optional prefix.
+ * Build a class name and apply an optional prefix.
+ * The leading period "." will be added if not present.
  *
  * @param string $class
  * @param string [$prefix]
@@ -244,10 +245,18 @@
     $modifier-separator: setting("modifier-separator"),
     $prefix: setting("namespace")
 ) {
-    $name: $block;
+    $name: "";
+
+    @if ($block != "") {
+        $name: $block;
+    }
 
     @if ($element != "") {
-        $name: $name + $element-separator + $element;
+        @if ($name != "") {
+            $name: $name + $element-separator;
+        }
+
+        $name: $name + $element;
     }
 
     @if ($modifier != "") {
@@ -255,6 +264,19 @@
     }
 
     @return class-name($name, $prefix);
+}
+
+/**
+ * Generate a BEM compatible class name based on the "class" property in the modules setting object.
+ *
+ * @param map $module
+ * @param string [$element]
+ * @param string [$modifier]
+ */
+@function generate-class-name($module, $element: "", $modifier: "") {
+    $block: map-get($module, "class");
+
+    @return bem(if($block == null, "", $block), $element, $modifier);
 }
 
 /**

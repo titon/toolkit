@@ -5,9 +5,9 @@
  */
 
 @include export("button-group") {
-    $titon-temp-button-group-modifiers: map-get($titon-button-group, "modifiers");
+    $titon-button-group-modifiers: map-get($titon-button-group, "modifiers");
 
-    #{map-get($titon-button-group, "class")} {
+    #{generate-class-name($titon-button-group)} {
         @extend %placeholder-list;
         white-space: nowrap;
         display: inline-flex;
@@ -21,7 +21,7 @@
             }
         }
 
-        #{map-get($titon-button, "class")} {
+        #{generate-class-name($titon-button)} {
             display: block;
             width: 100%;
         }
@@ -34,14 +34,14 @@
 
     //-------------------- Modifiers --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-button-group-modifiers, "vertical")) {
-        #{map-get($titon-button-group, "class-modifier-vertical")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-button-group-modifiers, "vertical")) {
+        #{generate-class-name($titon-button-group, "", "vertical")} {
             flex-direction: column;
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-button-group-modifiers, "justified")) {
-        #{map-get($titon-button-group, "class-modifier-justified")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-button-group-modifiers, "justified")) {
+        #{generate-class-name($titon-button-group, "", "justified")} {
             width: 100%;
             display: flex;
 

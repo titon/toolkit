@@ -5,125 +5,125 @@
  */
 
 @include export("tooltip") {
-    $titon-temp-tooltip-class: map-get($titon-tooltip, "class");
-    $titon-temp-tooltip-arrow-class: map-get($titon-tooltip, "class-arrow");
-    $titon-temp-tooltip-arrow-width: map-get($titon-tooltip, "arrow-width");
-    $titon-temp-tooltip-arrow-width-double: ($titon-temp-tooltip-arrow-width * 2);
-    $titon-temp-tooltip-animations: map-get($titon-tooltip, "animations");
-    $titon-temp-tooltip-background-color: map-get($titon-tooltip, "background-color");
+    $titon-tooltip-class: generate-class-name($titon-tooltip);
+    $titon-tooltip-arrow-class: generate-class-name($titon-tooltip, "arrow");
+    $titon-tooltip-arrow-width: map-get($titon-tooltip, "arrow-width");
+    $titon-tooltip-arrow-width-double: ($titon-tooltip-arrow-width * 2);
+    $titon-tooltip-animations: map-get($titon-tooltip, "animations");
+    $titon-tooltip-background-color: map-get($titon-tooltip, "background-color");
 
-    #{$titon-temp-tooltip-class} {
+    #{$titon-tooltip-class} {
         position: absolute;
         max-width: 18rem;
         z-index: map-get($titon-settings-zindex, "tooltip");
         transition: all map-get($titon-tooltip, "transition");
         // Use padding as its calculated in box size widths
-        padding: #{$titon-temp-tooltip-arrow-width-double}px;
+        padding: #{$titon-tooltip-arrow-width-double}px;
     }
 
-    #{$titon-temp-tooltip-arrow-class} {
+    #{$titon-tooltip-arrow-class} {
         width: 0;
         height: 0;
-        border: #{$titon-temp-tooltip-arrow-width}px solid transparent;
+        border: #{$titon-tooltip-arrow-width}px solid transparent;
         position: absolute;
 
         &::after {
             content: "";
-            border: #{($titon-temp-tooltip-arrow-width - 2)}px solid transparent;
+            border: #{($titon-tooltip-arrow-width - 2)}px solid transparent;
             position: absolute;
         }
     }
 
-    #{map-get($titon-tooltip, "class-inner")} {
+    #{generate-class-name($titon-tooltip, "inner")} {
         padding: theme-setting("small-padding");
         position: relative;
-        background: $titon-temp-tooltip-background-color;
+        background: $titon-tooltip-background-color;
     }
 
     //-------------------- Positions --------------------//
 
-    #{bem($titon-temp-tooltip-class, "", "top")} #{$titon-temp-tooltip-arrow-class},
-    #{bem($titon-temp-tooltip-class, "", "bottom")} #{$titon-temp-tooltip-arrow-class} {
+    #{bem($titon-tooltip-class, "", "top")} #{$titon-tooltip-arrow-class},
+    #{bem($titon-tooltip-class, "", "bottom")} #{$titon-tooltip-arrow-class} {
         transform: translateX(-50%);
         left: 50%;
     }
 
-    #{bem($titon-temp-tooltip-class, "", "left")} #{$titon-temp-tooltip-arrow-class},
-    #{bem($titon-temp-tooltip-class, "", "right")} #{$titon-temp-tooltip-arrow-class} {
+    #{bem($titon-tooltip-class, "", "left")} #{$titon-tooltip-arrow-class},
+    #{bem($titon-tooltip-class, "", "right")} #{$titon-tooltip-arrow-class} {
         transform: translateY(-50%);
         top: 50%;
     }
 
     //----- Top -----//
 
-    #{bem($titon-temp-tooltip-class, "", "top-left")} #{$titon-temp-tooltip-arrow-class} {
-        border-top-color: $titon-temp-tooltip-background-color;
-        border-right-color: $titon-temp-tooltip-background-color;
+    #{bem($titon-tooltip-class, "", "top-left")} #{$titon-tooltip-arrow-class} {
+        border-top-color: $titon-tooltip-background-color;
+        border-right-color: $titon-tooltip-background-color;
         right: 0;
     }
 
-    #{bem($titon-temp-tooltip-class, "", "top")} #{$titon-temp-tooltip-arrow-class} {
-        border-top-color: $titon-temp-tooltip-background-color;
+    #{bem($titon-tooltip-class, "", "top")} #{$titon-tooltip-arrow-class} {
+        border-top-color: $titon-tooltip-background-color;
     }
 
-    #{bem($titon-temp-tooltip-class, "", "top-right")} #{$titon-temp-tooltip-arrow-class} {
-        border-top-color: $titon-temp-tooltip-background-color;
-        border-left-color: $titon-temp-tooltip-background-color;
+    #{bem($titon-tooltip-class, "", "top-right")} #{$titon-tooltip-arrow-class} {
+        border-top-color: $titon-tooltip-background-color;
+        border-left-color: $titon-tooltip-background-color;
         left: 0;
     }
 
-    #{bem($titon-temp-tooltip-class, "", "top")} #{$titon-temp-tooltip-arrow-class},
-    #{bem($titon-temp-tooltip-class, "", "top-left")} #{$titon-temp-tooltip-arrow-class},
-    #{bem($titon-temp-tooltip-class, "", "top-right")} #{$titon-temp-tooltip-arrow-class} {
-        bottom: -#{$titon-temp-tooltip-arrow-width-double}px;
+    #{bem($titon-tooltip-class, "", "top")} #{$titon-tooltip-arrow-class},
+    #{bem($titon-tooltip-class, "", "top-left")} #{$titon-tooltip-arrow-class},
+    #{bem($titon-tooltip-class, "", "top-right")} #{$titon-tooltip-arrow-class} {
+        bottom: -#{$titon-tooltip-arrow-width-double}px;
     }
 
     //----- Middle -----//
 
-    #{bem($titon-temp-tooltip-class, "", "left")} #{$titon-temp-tooltip-arrow-class} {
-        border-left-color: $titon-temp-tooltip-background-color;
-        right: -#{$titon-temp-tooltip-arrow-width-double}px;
+    #{bem($titon-tooltip-class, "", "left")} #{$titon-tooltip-arrow-class} {
+        border-left-color: $titon-tooltip-background-color;
+        right: -#{$titon-tooltip-arrow-width-double}px;
     }
 
-    #{bem($titon-temp-tooltip-class, "", "right")} #{$titon-temp-tooltip-arrow-class} {
-        border-right-color: $titon-temp-tooltip-background-color;
-        left: -#{$titon-temp-tooltip-arrow-width-double}px;
+    #{bem($titon-tooltip-class, "", "right")} #{$titon-tooltip-arrow-class} {
+        border-right-color: $titon-tooltip-background-color;
+        left: -#{$titon-tooltip-arrow-width-double}px;
     }
 
     //----- Bottom -----//
 
-    #{bem($titon-temp-tooltip-class, "", "bottom-left")} #{$titon-temp-tooltip-arrow-class} {
-        border-bottom-color: $titon-temp-tooltip-background-color;
-        border-right-color: $titon-temp-tooltip-background-color;
+    #{bem($titon-tooltip-class, "", "bottom-left")} #{$titon-tooltip-arrow-class} {
+        border-bottom-color: $titon-tooltip-background-color;
+        border-right-color: $titon-tooltip-background-color;
         right: 0;
     }
 
-    #{bem($titon-temp-tooltip-class, "", "bottom")} #{$titon-temp-tooltip-arrow-class} {
-        border-bottom-color: $titon-temp-tooltip-background-color;
+    #{bem($titon-tooltip-class, "", "bottom")} #{$titon-tooltip-arrow-class} {
+        border-bottom-color: $titon-tooltip-background-color;
     }
 
-    #{bem($titon-temp-tooltip-class, "", "bottom-right")} #{$titon-temp-tooltip-arrow-class} {
-        border-bottom-color: $titon-temp-tooltip-background-color;
-        border-left-color: $titon-temp-tooltip-background-color;
+    #{bem($titon-tooltip-class, "", "bottom-right")} #{$titon-tooltip-arrow-class} {
+        border-bottom-color: $titon-tooltip-background-color;
+        border-left-color: $titon-tooltip-background-color;
         left: 0;
     }
 
-    #{bem($titon-temp-tooltip-class, "", "bottom")} #{$titon-temp-tooltip-arrow-class},
-    #{bem($titon-temp-tooltip-class, "", "bottom-left")} #{$titon-temp-tooltip-arrow-class},
-    #{bem($titon-temp-tooltip-class, "", "bottom-right")} #{$titon-temp-tooltip-arrow-class} {
-        top: -#{$titon-temp-tooltip-arrow-width-double}px;
+    #{bem($titon-tooltip-class, "", "bottom")} #{$titon-tooltip-arrow-class},
+    #{bem($titon-tooltip-class, "", "bottom-left")} #{$titon-tooltip-arrow-class},
+    #{bem($titon-tooltip-class, "", "bottom-right")} #{$titon-tooltip-arrow-class} {
+        top: -#{$titon-tooltip-arrow-width-double}px;
     }
 
     //-------------------- Animations --------------------//
 
-    #{$titon-temp-tooltip-class} {
-        @if (is-feature-enabled("all-animations") or index($titon-temp-tooltip-animations, "fade")) {
+    #{$titon-tooltip-class} {
+        @if (is-feature-enabled("all-animations") or index($titon-tooltip-animations, "fade")) {
             &.fade {
                 opacity: 0;
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($titon-temp-tooltip-animations, "from-above")) {
+        @if (is-feature-enabled("all-animations") or index($titon-tooltip-animations, "from-above")) {
             &.from-above {
                 transform: scale(1.2);
 
@@ -133,7 +133,7 @@
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($titon-temp-tooltip-animations, "from-below")) {
+        @if (is-feature-enabled("all-animations") or index($titon-tooltip-animations, "from-below")) {
             &.from-below {
                 transform: scale(0.8);
 
@@ -143,7 +143,7 @@
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($titon-temp-tooltip-animations, "flip-rotate")) {
+        @if (is-feature-enabled("all-animations") or index($titon-tooltip-animations, "flip-rotate")) {
             &.flip-rotate {
                 transform: rotate(-15deg);
 
@@ -156,47 +156,47 @@
 
     //-------------------- Trigger --------------------//
 
-    #{map-get($titon-tooltip, "class-trigger")} {
+    #{generate-class-name($titon-tooltip, "trigger")} {
         position: relative;
 
-        #{bem($titon-temp-tooltip-class, "", "top")},
-        #{bem($titon-temp-tooltip-class, "", "bottom")} {
+        #{bem($titon-tooltip-class, "", "top")},
+        #{bem($titon-tooltip-class, "", "bottom")} {
             transform: translateX(-50%);
             left: 50%;
         }
 
-        #{bem($titon-temp-tooltip-class, "", "top")},
-        #{bem($titon-temp-tooltip-class, "", "top-left")},
-        #{bem($titon-temp-tooltip-class, "", "top-right")} {
+        #{bem($titon-tooltip-class, "", "top")},
+        #{bem($titon-tooltip-class, "", "top-left")},
+        #{bem($titon-tooltip-class, "", "top-right")} {
             bottom: 100%;
         }
 
-        #{bem($titon-temp-tooltip-class, "", "left")},
-        #{bem($titon-temp-tooltip-class, "", "top-left")},
-        #{bem($titon-temp-tooltip-class, "", "bottom-left")} {
+        #{bem($titon-tooltip-class, "", "left")},
+        #{bem($titon-tooltip-class, "", "top-left")},
+        #{bem($titon-tooltip-class, "", "bottom-left")} {
             right: 100%;
         }
 
-        #{bem($titon-temp-tooltip-class, "", "right")},
-        #{bem($titon-temp-tooltip-class, "", "top-right")},
-        #{bem($titon-temp-tooltip-class, "", "bottom-right")} {
+        #{bem($titon-tooltip-class, "", "right")},
+        #{bem($titon-tooltip-class, "", "top-right")},
+        #{bem($titon-tooltip-class, "", "bottom-right")} {
             left: 100%;
         }
 
-        #{bem($titon-temp-tooltip-class, "", "left")},
-        #{bem($titon-temp-tooltip-class, "", "right")} {
+        #{bem($titon-tooltip-class, "", "left")},
+        #{bem($titon-tooltip-class, "", "right")} {
             transform: translateY(-50%);
             top: 50%;
         }
 
-        #{bem($titon-temp-tooltip-class, "", "bottom")},
-        #{bem($titon-temp-tooltip-class, "", "bottom-left")},
-        #{bem($titon-temp-tooltip-class, "", "bottom-right")} {
+        #{bem($titon-tooltip-class, "", "bottom")},
+        #{bem($titon-tooltip-class, "", "bottom-left")},
+        #{bem($titon-tooltip-class, "", "bottom-right")} {
             top: 100%;
         }
 
         &:not(:hover) {
-            #{$titon-temp-tooltip-class} {
+            #{$titon-tooltip-class} {
                 display: none;
             }
         }

@@ -5,74 +5,74 @@
  */
 
 @include export("popover") {
-    $titon-temp-popover-arrow-width: map-get($titon-popover, "arrow-width");
-    $titon-temp-popover-arrow-width-double: ($titon-temp-popover-arrow-width * 2);
-    $titon-temp-popover-arrow-width-shadow: ($titon-temp-popover-arrow-width - 2);
-    $titon-temp-popover-animations: map-get($titon-popover, "animations");
+    $titon-popover-arrow-width: map-get($titon-popover, "arrow-width");
+    $titon-popover-arrow-width-double: ($titon-popover-arrow-width * 2);
+    $titon-popover-arrow-width-shadow: ($titon-popover-arrow-width - 2);
+    $titon-popover-animations: map-get($titon-popover, "animations");
 
-    #{map-get($titon-popover, "class")} {
+    #{generate-class-name($titon-popover)} {
         z-index: map-get($titon-settings-zindex, "popover");
         max-width: 300px;
         transition: all map-get($titon-popover, "transition");
         padding: theme-setting("medium-padding");
     }
 
-    #{map-get($titon-popover, "class-arrow")} {
-        border: #{$titon-temp-popover-arrow-width}px solid transparent;
+    #{generate-class-name($titon-popover, "arrow")} {
+        border: #{$titon-popover-arrow-width}px solid transparent;
 
         &::after {
-            border: #{$titon-temp-popover-arrow-width-shadow}px solid transparent;
-            top: -#{$titon-temp-popover-arrow-width-shadow}px;
-            left: -#{$titon-temp-popover-arrow-width-shadow}px;
+            border: #{$titon-popover-arrow-width-shadow}px solid transparent;
+            top: -#{$titon-popover-arrow-width-shadow}px;
+            left: -#{$titon-popover-arrow-width-shadow}px;
         }
     }
 
     //-------------------- Positions --------------------//
 
-    #{map-get($titon-popover, "class")} {
-        &.center-left #{map-get($titon-popover, "class-arrow")},
-        &.center-right #{map-get($titon-popover, "class-arrow")} {
+    #{generate-class-name($titon-popover)} {
+        &.center-left #{generate-class-name($titon-popover, "arrow")},
+        &.center-right #{generate-class-name($titon-popover, "arrow")} {
             top: 50%;
-            margin-top: -#{$titon-temp-popover-arrow-width}px;
+            margin-top: -#{$titon-popover-arrow-width}px;
         }
 
-        &.center-left #{map-get($titon-popover, "class-arrow")} {
+        &.center-left #{generate-class-name($titon-popover, "arrow")} {
             border-left-color: #fff;
-            right: -#{$titon-temp-popover-arrow-width-double}px;
+            right: -#{$titon-popover-arrow-width-double}px;
         }
 
-        &.center-right #{map-get($titon-popover, "class-arrow")} {
+        &.center-right #{generate-class-name($titon-popover, "arrow")} {
             border-right-color: #fff;
-            left: -#{$titon-temp-popover-arrow-width-double}px;
+            left: -#{$titon-popover-arrow-width-double}px;
         }
 
-        &.top-center #{map-get($titon-popover, "class-arrow")},
-        &.bottom-center #{map-get($titon-popover, "class-arrow")} {
+        &.top-center #{generate-class-name($titon-popover, "arrow")},
+        &.bottom-center #{generate-class-name($titon-popover, "arrow")} {
             left: 50%;
-            margin-left: -#{$titon-temp-popover-arrow-width}px;
+            margin-left: -#{$titon-popover-arrow-width}px;
         }
 
-        &.top-center #{map-get($titon-popover, "class-arrow")} {
+        &.top-center #{generate-class-name($titon-popover, "arrow")} {
             border-top-color: #fff;
-            bottom: -#{$titon-temp-popover-arrow-width-double}px;
+            bottom: -#{$titon-popover-arrow-width-double}px;
         }
 
-        &.bottom-center #{map-get($titon-popover, "class-arrow")} {
+        &.bottom-center #{generate-class-name($titon-popover, "arrow")} {
             border-bottom-color: #fff;
-            top: -#{$titon-temp-popover-arrow-width-double}px;
+            top: -#{$titon-popover-arrow-width-double}px;
         }
     }
 
     //-------------------- Animations --------------------//
 
-    #{map-get($titon-popover, "class")} {
-        @if (is-feature-enabled("all-animations") or index($titon-temp-popover-animations, "fade")) {
+    #{generate-class-name($titon-popover)} {
+        @if (is-feature-enabled("all-animations") or index($titon-popover-animations, "fade")) {
             &.fade {
                 opacity: 0;
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($titon-temp-popover-animations, "from-above")) {
+        @if (is-feature-enabled("all-animations") or index($titon-popover-animations, "from-above")) {
             &.from-above {
                 transform: scale(1.2);
 
@@ -82,7 +82,7 @@
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($titon-temp-popover-animations, "from-below")) {
+        @if (is-feature-enabled("all-animations") or index($titon-popover-animations, "from-below")) {
             &.from-below {
                 transform: scale(0.8);
 
@@ -92,7 +92,7 @@
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($titon-temp-popover-animations, "flip-rotate")) {
+        @if (is-feature-enabled("all-animations") or index($titon-popover-animations, "flip-rotate")) {
             &.flip-rotate {
                 transform: rotate(-15deg);
 
