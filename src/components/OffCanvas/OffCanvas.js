@@ -13,7 +13,7 @@ import Swipe from '../../events/Swipe';
 import bind from '../../decorators/bind';
 import children from '../../prop-types/children';
 import invariant from '../../utility/invariant';
-import CONTEXT_TYPES from './contextTypes';
+import CONTEXT_TYPES from './ContextTypes2';
 import MODULE from './module';
 import { TOUCH } from '../../flags';
 

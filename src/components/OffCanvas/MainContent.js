@@ -6,7 +6,7 @@
 
 import React from 'react';
 import Component from '../Component';
-import CONTEXT_TYPES from './contextTypes';
+import CONTEXT_TYPES from './ContextTypes2';
 import MODULE from './module';
 
 export default class MainContent extends Component {

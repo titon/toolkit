@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../Component';
-import { states } from '../propTypes';
+import { states } from '../PropTypes2';
 import MODULE from './module';
 
 export default class Bar extends Component {

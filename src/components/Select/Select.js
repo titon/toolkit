@@ -12,7 +12,7 @@ import children from '../../prop-types/children';
 import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';
 import isOutsideElement from '../../utility/isOutsideElement';
-import CONTEXT_TYPES from './contextTypes';
+import CONTEXT_TYPES from './ContextTypes2';
 import MODULE from './module';
 import { TOUCH } from '../../flags';
 

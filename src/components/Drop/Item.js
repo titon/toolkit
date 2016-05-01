@@ -7,7 +7,7 @@
 import React, { Children } from 'react';
 import Component from '../Component';
 import Menu from './Menu';
-import CONTEXT_TYPES from './contextTypes';
+import CONTEXT_TYPES from './ContextTypes2';
 import MODULE from './module';
 
 export default class Item extends Component {

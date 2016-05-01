@@ -9,7 +9,7 @@ import Component from '../Component';
 import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
 import invariant from '../../utility/invariant';
-import CONTEXT_TYPES from './contextTypes';
+import CONTEXT_TYPES from './ContextTypes2';
 import MODULE from './module';
 import 'core-js/modules/es7.array.includes';
 

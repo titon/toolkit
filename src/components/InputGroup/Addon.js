@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../Component';
-import { defaultSizeProps, sizePropTypes } from '../propTypes';
+import { defaultSizeProps, sizePropTypes } from '../PropTypes2';
 import MODULE from './module';
 
 export default class Addon extends Component {
