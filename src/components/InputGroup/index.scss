@@ -5,7 +5,7 @@
  */
 
 @include export("input-group") {
-    $titon-input-group-addon-class: generate-class-name($titon-input-group, "addon");
+    $titon-input-group-class-addon: generate-class-name($titon-input-group, "addon");
 
     #{generate-class-name($titon-input-group)} {
         display: inline-flex;
@@ -23,7 +23,7 @@
         }
     }
 
-    #{$titon-input-group-addon-class} {
+    #{$titon-input-group-class-addon} {
         @extend %placeholder-inline-block;
         line-height: normal;
         @include size-medium;
@@ -31,6 +31,6 @@
 
     //-------------------- Sizes --------------------//
 
-    @include generate-size-small($titon-input-group-addon-class) { @include size-small; }
-    @include generate-size-large($titon-input-group-addon-class) { @include size-large; }
+    @include generate-size-small($titon-input-group-class-addon) { @include size-small; }
+    @include generate-size-large($titon-input-group-class-addon) { @include size-large; }
 }

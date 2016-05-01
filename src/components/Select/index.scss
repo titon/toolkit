@@ -35,12 +35,12 @@
         display: flex;
     }
 
-    #{generate-class-name($titon-select, "label")},
     #{generate-class-name($titon-select, "arrow")} {
         @include size-medium;
     }
 
     #{generate-class-name($titon-select, "label")} {
+        @include size-medium;
         flex-grow: 1;
     }
 

@@ -5,9 +5,10 @@
  */
 
 @include export("drop") {
+    $titon-drop-class: generate-class-name($titon-drop);
     $titon-drop-modifiers: map-get($titon-drop, "modifiers");
 
-    #{generate-class-name($titon-drop)} {
+    #{$titon-drop-class} {
         position: absolute;
         top: 100%;
         left: 0;
@@ -26,7 +27,7 @@
         }
 
         // Nested
-        #{generate-class-name($titon-drop)} {
+        #{$titon-drop-class} {
             display: block;
             top: 0;
             #{bidi-alignment()}: 90%;
@@ -62,7 +63,7 @@
 
             // Show nested dropdown
             &:hover {
-                #{generate-class-name($titon-drop)} {
+                #{$titon-drop-class} {
                     visibility: visible;
                     opacity: 1;
                     #{bidi-alignment()}: 100%;

@@ -6,25 +6,25 @@
 
 @include export("input") {
     $titon-input-class: generate-class-name($titon-input);
-    $titon-input-static-class: generate-class-name($titon-input, "static");
-    $titon-input-choice-class: generate-class-name($titon-input, "choice");
+    $titon-input-class-static: generate-class-name($titon-input, "static");
+    $titon-input-class-choice: generate-class-name($titon-input, "choice");
 
     #{$titon-input-class},
-    #{$titon-input-static-class},
-    #{$titon-input-choice-class} {
+    #{$titon-input-class-static},
+    #{$titon-input-class-choice} {
         @extend %placeholder-inline-block;
         border: 0;
         line-height: normal;
         @include size-medium;
     }
 
-    #{$titon-input-static-class},
-    #{$titon-input-choice-class} {
+    #{$titon-input-class-static},
+    #{$titon-input-class-choice} {
         padding-#{bidi-alignment()}: 0 !important;
         padding-#{bidi-opposite-alignment()}: 0 !important;
     }
 
-    #{$titon-input-choice-class} {
+    #{$titon-input-class-choice} {
         input[type="checkbox"],
         input[type="radio"] {
             padding: 0;
@@ -55,10 +55,10 @@
     //-------------------- Sizes --------------------//
 
     @include generate-size-small($titon-input-class) { @include size-small; }
-    @include generate-size-small($titon-input-static-class) { @include size-small; }
-    @include generate-size-small($titon-input-choice-class) { @include size-small; }
+    @include generate-size-small($titon-input-class-static) { @include size-small; }
+    @include generate-size-small($titon-input-class-choice) { @include size-small; }
 
     @include generate-size-large($titon-input-class) { @include size-large; }
-    @include generate-size-large($titon-input-static-class) { @include size-large; }
-    @include generate-size-large($titon-input-choice-class) { @include size-large; }
+    @include generate-size-large($titon-input-class-static) { @include size-large; }
+    @include generate-size-large($titon-input-class-choice) { @include size-large; }
 }

@@ -5,7 +5,9 @@
  */
 
 @include export("table") {
-    #{generate-class-name($titon-table)} {
+    $titon-table-class: generate-class-name($titon-table);
+
+    #{$titon-table-class} {
         width: 100%;
         background: theme-setting("bg-lightest");
         border-collapse: collapse;
@@ -46,7 +48,7 @@
 
     //-------------------- States --------------------//
 
-    #{generate-class-name($titon-table)} {
+    #{$titon-table-class} {
         &.is-striped tbody tr {
             &:nth-child(even) {
                 background: lighten(theme-setting("bg-lightest"), 1.5%);

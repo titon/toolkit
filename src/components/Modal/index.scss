@@ -5,6 +5,7 @@
  */
 
 @include export("modal") {
+    $titon-modal-class-outer: generate-class-name($titon-modal, "outer");
     $titon-modal-animations: map-get($titon-modal, "animations");
 
     #{generate-class-name($titon-modal)} {
@@ -27,6 +28,14 @@
         &.is-expanded {
             @extend %placeholder-show;
         }
+
+        &.is-fullscreen #{$titon-modal-class-outer} {
+            @extend %placeholder-full-screen;
+            margin: 0;
+            max-width: 100%;
+            border-radius: 0;
+            transform: translate(0, 0);
+        }
     }
 
     #{generate-class-name($titon-modal, "close")} {
@@ -44,7 +53,7 @@
         }
     }
 
-    #{generate-class-name($titon-modal, "outer")} {
+    #{$titon-modal-class-outer} {
         position: relative;
         margin: theme-setting("margin");
         transition: transform map-get($titon-modal, "transition");
@@ -60,26 +69,16 @@
         padding: theme-setting("medium-padding");
     }
 
-    //-------------------- Modifiers --------------------//
-
-    #{generate-class-name($titon-modal)}.is-fullscreen #{generate-class-name($titon-modal, "outer")} {
-        @extend %placeholder-full-screen;
-        margin: 0;
-        max-width: 100%;
-        border-radius: 0;
-        transform: translate(0, 0);
-    }
-
     //-------------------- Animations --------------------//
 
     #{generate-class-name($titon-modal)} {
         @if (is-feature-enabled("all-animations") or index($titon-modal-animations, "from-above")) {
             &.from-above {
-                #{generate-class-name($titon-modal, "outer")} {
+                #{$titon-modal-class-outer} {
                     transform: scale(1.3);
                 }
 
-                &.show #{generate-class-name($titon-modal, "outer")} {
+                &.show #{$titon-modal-class-outer} {
                     transform: scale(1);
                 }
             }
@@ -87,11 +86,11 @@
 
         @if (is-feature-enabled("all-animations") or index($titon-modal-animations, "from-below")) {
             &.from-below {
-                #{generate-class-name($titon-modal, "outer")} {
+                #{$titon-modal-class-outer} {
                     transform: scale(0.7);
                 }
 
-                &.show #{generate-class-name($titon-modal, "outer")} {
+                &.show #{$titon-modal-class-outer} {
                     transform: scale(1);
                 }
             }
@@ -99,11 +98,11 @@
 
         @if (is-feature-enabled("all-animations") or index($titon-modal-animations, "slide-in-top")) {
             &.slide-in-top {
-                #{generate-class-name($titon-modal, "outer")} {
+                #{$titon-modal-class-outer} {
                     transform: translateY(-50%);
                 }
 
-                &.show #{generate-class-name($titon-modal, "outer")} {
+                &.show #{$titon-modal-class-outer} {
                     transform: translateY(0);
                 }
             }
@@ -111,11 +110,11 @@
 
         @if (is-feature-enabled("all-animations") or index($titon-modal-animations, "slide-in-bottom")) {
             &.slide-in-bottom {
-                #{generate-class-name($titon-modal, "outer")} {
+                #{$titon-modal-class-outer} {
                     transform: translateY(50%);
                 }
 
-                &.show #{generate-class-name($titon-modal, "outer")} {
+                &.show #{$titon-modal-class-outer} {
                     transform: translateY(0);
                 }
             }
@@ -123,11 +122,11 @@
 
         @if (is-feature-enabled("all-animations") or index($titon-modal-animations, "slide-in-left")) {
             &.slide-in-left {
-                #{generate-class-name($titon-modal, "outer")} {
+                #{$titon-modal-class-outer} {
                     transform: translateX(-25%);
                 }
 
-                &.show #{generate-class-name($titon-modal, "outer")} {
+                &.show #{$titon-modal-class-outer} {
                     transform: translateX(0);
                 }
             }
@@ -135,11 +134,11 @@
 
         @if (is-feature-enabled("all-animations") or index($titon-modal-animations, "slide-in-right")) {
             &.slide-in-right {
-                #{generate-class-name($titon-modal, "outer")} {
+                #{$titon-modal-class-outer} {
                     transform: translateX(25%);
                 }
 
-                &.show #{generate-class-name($titon-modal, "outer")} {
+                &.show #{$titon-modal-class-outer} {
                     transform: translateX(0);
                 }
             }

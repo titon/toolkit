@@ -5,6 +5,7 @@
  */
 
 @include export("toast") {
+    $titon-toast-class: generate-class-name($titon-toast);
     $titon-toast-positions: map-get($titon-toast, "positions");
     $titon-toast-animations: map-get($titon-toast, "animations");
 
@@ -89,7 +90,7 @@
         }
     }
 
-    #{generate-class-name($titon-toast)} {
+    #{$titon-toast-class} {
         margin-top: 1rem;
         transition: all map-get($titon-toast, "transition");
         padding: theme-setting("medium-padding");
@@ -97,12 +98,12 @@
 
     //-------------------- Animations --------------------//
 
-    #{generate-class-name($titon-toast)} {
+    #{$titon-toast-class} {
         @if (is-feature-enabled("all-animations") or index($titon-toast-animations, "slide-up")) {
             &.slide-up {
                 transform: translateY(50%);
 
-                &.show {
+                &.is-expanded {
                     transform: translateY(0);
                 }
             }
@@ -112,7 +113,7 @@
             &.slide-down {
                 transform: translateY(-50%);
 
-                &.show {
+                &.is-expanded {
                     transform: translateY(0);
                 }
             }
@@ -122,7 +123,7 @@
             &.slide-left {
                 transform: translateX(25%);
 
-                &.show {
+                &.is-expanded {
                     transform: translateX(0);
                 }
             }
@@ -132,7 +133,7 @@
             &.slide-right {
                 transform: translateX(-25%);
 
-                &.show {
+                &.is-expanded {
                     transform: translateX(0);
                 }
             }

@@ -5,6 +5,9 @@
  */
 
 @include export("switch") {
+    $titon-switch-class-bar: generate-class-name($titon-switch, "bar");
+    $titon-switch-class-toggle: generate-class-name($titon-switch, "toggle");
+
     #{generate-class-name($titon-switch)} {
         @extend %placeholder-inline-block;
         width: 7rem;
@@ -15,7 +18,7 @@
         }
     }
 
-    #{generate-class-name($titon-switch, "bar")} {
+    #{$titon-switch-class-bar} {
         display: block;
         position: relative;
         font-size: theme-setting("medium-font-size");
@@ -45,7 +48,7 @@
         }
     }
 
-    #{generate-class-name($titon-switch, "toggle")} {
+    #{$titon-switch-class-toggle} {
         @extend %placeholder-inline-block;
         padding: theme-setting("medium-padding");
         width: 50%;
@@ -63,7 +66,7 @@
     //-------------------- States --------------------//
 
     @include switch-state(checked) {
-        #{generate-class-name($titon-switch, "toggle")} {
+        #{$titon-switch-class-toggle} {
             #{bidi-alignment()}: 50%;
         }
 
@@ -80,7 +83,7 @@
 
     @if (is-feature-enabled("all-modifiers") or index(map-get($titon-switch, "modifiers"), "stacked")) {
         #{generate-class-name($titon-switch, "", "stacked")} {
-            #{generate-class-name($titon-switch, "bar")} {
+            #{$titon-switch-class-bar} {
                 &::before,
                 &::after {
                     z-index: 3;
