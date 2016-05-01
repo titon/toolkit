@@ -8,7 +8,7 @@
 
 import React, { PropTypes } from 'react';
 import Block from './Block';
-import children from '../../prop-types/children';
+import childrenOf from '../../prop-types/childrenOf';
 import formatClass from '../../utility/formatClass';
 import MODULE from './module';
 
@@ -36,7 +36,7 @@ Region.defaultProps = {
 };
 
 Region.propTypes = {
-    children: children(Block),
+    children: childrenOf(Block),
     flow: PropTypes.oneOf(['top', 'left', 'bottom', 'right', 'center', 'between', 'around']),
     grid: PropTypes.bool,
     orientation: PropTypes.oneOf(['horizontal', 'vertical']),

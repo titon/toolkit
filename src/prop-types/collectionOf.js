@@ -12,13 +12,13 @@ import { PropTypes } from 'react';
  * @param {Function} propType
  * @returns {React.PropTypes.oneOfType}
  */
-function collection(propType) {
+function collectionOf(propType) {
     return PropTypes.oneOfType([propType, PropTypes.arrayOf(propType)]);
 }
 
 // Presets
-collection.number = collection(PropTypes.number);
-collection.string = collection(PropTypes.string);
-collection.func = collection(PropTypes.func);
+collectionOf.number = collectionOf(PropTypes.number);
+collectionOf.string = collectionOf(PropTypes.string);
+collectionOf.func = collectionOf(PropTypes.func);
 
-export default collection;
+export default collectionOf;

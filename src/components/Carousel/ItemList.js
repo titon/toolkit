@@ -10,8 +10,8 @@ import Component from '../Component';
 import Item from './Item';
 import Swipe from '../../events/Swipe';
 import bind from '../../decorators/bind';
-import children from '../../prop-types/children';
-import collection from '../../prop-types/collection';
+import childrenOf from '../../prop-types/childrenOf';
+import collectionOf from '../../prop-types/collectionOf';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 import { TOUCH } from '../../flags';
@@ -26,13 +26,13 @@ export default class ItemList extends Component {
     };
 
     static propTypes = {
-        children: children(Item),
+        children: childrenOf(Item),
         swipe: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
-        onSwipe: collection.func,
-        onSwipeUp: collection.func,
-        onSwipeRight: collection.func,
-        onSwipeDown: collection.func,
-        onSwipeLeft: collection.func
+        onSwipe: collectionOf.func,
+        onSwipeUp: collectionOf.func,
+        onSwipeRight: collectionOf.func,
+        onSwipeDown: collectionOf.func,
+        onSwipeLeft: collectionOf.func
     };
 
     state = {

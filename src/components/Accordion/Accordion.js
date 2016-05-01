@@ -8,8 +8,8 @@ import React, { Children, PropTypes } from 'react';
 import Component from '../Component';
 import Item from './Item';
 import bind from '../../decorators/bind';
-import children from '../../prop-types/children';
-import collection from '../../prop-types/collection';
+import childrenOf from '../../prop-types/childrenOf';
+import collectionOf from '../../prop-types/collectionOf';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -25,9 +25,9 @@ export default class Accordion extends Component {
     };
 
     static propTypes = {
-        children: children(Item),
+        children: childrenOf(Item),
         collapsible: PropTypes.bool,
-        defaultIndex: collection.number,
+        defaultIndex: collectionOf.number,
         multiple: PropTypes.bool
     };
 

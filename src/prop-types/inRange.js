@@ -11,7 +11,7 @@
  * @param {Number} max
  * @returns {Function}
  */
-function range(min, max) {
+function inRange(min, max) {
     return function rangePropType(props, propName, componentName) {
         let value = props[propName];
 
@@ -24,8 +24,8 @@ function range(min, max) {
 }
 
 // Presets
-range.span6 = range(1, 6);
-range.span12 = range(1, 12);
-range.span18 = range(1, 18);
+inRange.span6 = inRange(1, 6);
+inRange.span12 = inRange(1, 12);
+inRange.span18 = inRange(1, 18);
 
-export default range;
+export default inRange;

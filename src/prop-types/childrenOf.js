@@ -13,7 +13,7 @@ import invariant from '../utility/invariant';
  * @param {...*} types
  * @returns {Function}
  */
-export default function children(...types) {
+export default function childrenOf(...types) {
     let components = new WeakSet(),
         tags = new Map();
 

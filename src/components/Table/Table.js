@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../Component';
-import children from '../../prop-types/children';
+import childrenOf from '../../prop-types/childrenOf';
 import MODULE from './module';
 
 export default class Table extends Component {
@@ -19,7 +19,7 @@ export default class Table extends Component {
     };
 
     static propTypes = {
-        children: children('colgroup', 'thead', 'tbody', 'tfoot'),
+        children: childrenOf('colgroup', 'thead', 'tbody', 'tfoot'),
         hoverable: PropTypes.bool,
         sortable: PropTypes.bool,
         striped: PropTypes.bool

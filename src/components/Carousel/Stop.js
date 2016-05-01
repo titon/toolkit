@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../Component';
 import bind from '../../decorators/bind';
-import collection from '../../prop-types/collection';
+import collectionOf from '../../prop-types/collectionOf';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -18,7 +18,7 @@ export default class Stop extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        onClick: collection.func
+        onClick: collectionOf.func
     };
 
     /**

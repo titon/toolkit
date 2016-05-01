@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../Component';
 import bind from '../../decorators/bind';
-import collection from '../../prop-types/collection';
+import collectionOf from '../../prop-types/collectionOf';
 import invariant from '../../utility/invariant';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
@@ -26,10 +26,10 @@ export default class Gate extends Component {
         animation: PropTypes.string,
         contract: PropTypes.func.isRequired,
         name: PropTypes.string.isRequired,
-        onEntered: collection.func,
-        onEntering: collection.func,
-        onLeaving: collection.func,
-        onLeft: collection.func
+        onEntered: collectionOf.func,
+        onEntering: collectionOf.func,
+        onLeaving: collectionOf.func,
+        onLeft: collectionOf.func
     };
 
     state = {

@@ -9,7 +9,7 @@ import getValueFunc from './helpers/getValueFunc';
 
 /**
  * The `remover` decorator will overload a remover method to accept an array of keys
- * that removes multiple keys from an object / collection.
+ * that removes multiple keys from an object / collectionOf.
  *
  * @param {Object} target
  * @param {String} name

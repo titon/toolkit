@@ -11,7 +11,7 @@ import Body from './Body';
 import Head from './Head';
 import Foot from './Foot';
 import bind from '../../decorators/bind';
-import children from '../../prop-types/children';
+import childrenOf from '../../prop-types/childrenOf';
 import invariant from '../../utility/invariant';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
@@ -35,7 +35,7 @@ export default class Modal extends Component {
 
     static propTypes = {
         blackOut: PropTypes.bool,
-        children: children(Body, Head, Foot),
+        children: childrenOf(Body, Head, Foot),
         close: PropTypes.node,
         dismissable: PropTypes.bool,
         fullScreen: PropTypes.bool,

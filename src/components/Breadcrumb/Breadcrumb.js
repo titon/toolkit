@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../Component';
 import Item from './Item';
-import children from '../../prop-types/children';
+import childrenOf from '../../prop-types/childrenOf';
 import MODULE from './module';
 
 export default class Breadcrumb extends Component {
@@ -18,7 +18,7 @@ export default class Breadcrumb extends Component {
     };
 
     static propTypes = {
-        children: children(Item),
+        children: childrenOf(Item),
         label: PropTypes.string
     };
 

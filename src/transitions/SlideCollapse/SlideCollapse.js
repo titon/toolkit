@@ -8,7 +8,6 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Component from '../../components/Component';
 import bind from '../../decorators/bind';
-import cssClass from '../../prop-types/cssClass';
 import debounce from '../../decorators/debounce';
 
 export default class SlideCollapse extends Component {
@@ -20,15 +19,12 @@ export default class SlideCollapse extends Component {
 
     static defaultProps = {
         direction: 'vertical',
-        elementClassName: ['slide', 'collapse'],
         expanded: true
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
         direction: PropTypes.oneOf(['vertical', 'horizontal']),
-        elementClassName: cssClass.isRequired,
         expanded: PropTypes.bool.isRequired
     };
 
@@ -106,7 +102,7 @@ export default class SlideCollapse extends Component {
         return (
             <div
                 style={style}
-                className={this.formatClass(props.elementClassName, props.className, 'transition', {
+                className={this.formatClass('transition', {
                     ['@' + props.direction]: true,
                     'is-expanded': props.expanded
                 })}

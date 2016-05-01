@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../Component';
 import bind from '../../decorators/bind';
-import collection from '../../prop-types/collection';
+import collectionOf from '../../prop-types/collectionOf';
 import tabIndex from '../../utility/tabIndex';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
@@ -19,7 +19,7 @@ export default class Tab extends Component {
 
     static propTypes = {
         index: PropTypes.number.isRequired,
-        onClick: collection.func
+        onClick: collectionOf.func
     };
 
     /**

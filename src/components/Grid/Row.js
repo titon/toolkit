@@ -8,7 +8,7 @@
 
 import React from 'react';
 import Col from './Col';
-import childrenOf from '../../prop-types/children';
+import childrenOf from '../../prop-types/childrenOf';
 import MODULE from './module';
 
 export default function Row({ children }) {

@@ -9,7 +9,7 @@ import Component from '../Component';
 import CookieJar from '../../machines/CookieJar';
 import DocumentState from '../../machines/DocumentState';
 import bind from '../../decorators/bind';
-import collection from '../../prop-types/collection';
+import collectionOf from '../../prop-types/collectionOf';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 import 'core-js/modules/es6.array.find';
@@ -33,7 +33,7 @@ export default class Tabs extends Component {
         children: PropTypes.node,
         collapsible: PropTypes.bool,
         cookieDuration: PropTypes.number,
-        defaultIndex: collection.number,
+        defaultIndex: collectionOf.number,
         fragments: PropTypes.arrayOf(PropTypes.shape({
             hash: PropTypes.string,
             index: PropTypes.number

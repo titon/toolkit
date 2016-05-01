@@ -9,7 +9,7 @@ import Component from '../Component';
 import Divider from './Divider';
 import Header from './Header';
 import Item from './Item';
-import children from '../../prop-types/children';
+import childrenOf from '../../prop-types/childrenOf';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -25,7 +25,7 @@ export default class Menu extends Component {
     };
 
     static propTypes = {
-        children: children(Divider, Header, Item),
+        children: childrenOf(Divider, Header, Item),
         direction: PropTypes.oneOf(['up', 'down', 'left', 'right']),
         nested: PropTypes.bool,
         reverse: PropTypes.bool

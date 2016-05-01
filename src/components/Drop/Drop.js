@@ -9,7 +9,7 @@ import Component from '../Component';
 import Menu from './Menu';
 import Toggle from './Toggle';
 import bind from '../../decorators/bind';
-import children from '../../prop-types/children';
+import childrenOf from '../../prop-types/childrenOf';
 import isOutsideElement from '../../utility/isOutsideElement';
 import { showHidePropTypes } from '../propTypes';
 import CONTEXT_TYPES from './contextTypes';
@@ -22,7 +22,7 @@ export default class Drop extends Component {
 
     static propTypes = {
         ...showHidePropTypes,
-        children: children(Menu, Toggle)
+        children: childrenOf(Menu, Toggle)
     };
 
     state = {

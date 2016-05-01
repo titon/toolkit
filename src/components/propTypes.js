@@ -6,7 +6,7 @@
 
 import { PropTypes } from 'react';
 import Titon from '../Titon';
-import collection from '../prop-types/collection';
+import collectionOf from '../prop-types/collectionOf';
 
 /**
  * A prop type for a list of positions on the x and y axis.
@@ -51,8 +51,8 @@ export const inputPropTypes = {
     id: PropTypes.string,
     multiple: PropTypes.bool,
     name: PropTypes.string.isRequired,
-    onChanged: collection.func,
-    onChanging: collection.func,
+    onChanged: collectionOf.func,
+    onChanging: collectionOf.func,
     readOnly: PropTypes.bool,
     required: PropTypes.bool
 };
@@ -105,10 +105,10 @@ export const positions = PropTypes.oneOf([
  * @type {Object}
  */
 export const showHidePropTypes = {
-    onHidden: collection.func,
-    onHiding: collection.func,
-    onShowing: collection.func,
-    onShown: collection.func
+    onHidden: collectionOf.func,
+    onHiding: collectionOf.func,
+    onShowing: collectionOf.func,
+    onShown: collectionOf.func
 };
 
 export const sizePropTypes = {

@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../Component';
 import Bar from './Bar';
-import children from '../../prop-types/children';
+import childrenOf from '../../prop-types/childrenOf';
 import MODULE from './module';
 
 export default class Progress extends Component {
@@ -20,7 +20,7 @@ export default class Progress extends Component {
     };
 
     static propTypes = {
-        children: children(Bar),
+        children: childrenOf(Bar),
         max: PropTypes.number.isRequired,
         min: PropTypes.number.isRequired,
         now: PropTypes.number.isRequired

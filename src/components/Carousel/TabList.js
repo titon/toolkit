@@ -7,7 +7,7 @@
 import React from 'react';
 import Component from '../Component';
 import Tab from './Tab';
-import collection from '../../prop-types/collection';
+import collectionOf from '../../prop-types/collectionOf';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -17,7 +17,7 @@ export default class TabList extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {
-        onClick: collection.func
+        onClick: collectionOf.func
     };
 
     /**

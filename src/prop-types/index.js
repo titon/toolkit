@@ -4,16 +4,9 @@
  * @link        http://titon.io
  */
 
-import children from './children';
-import collection from './collection';
-import cssClass from './cssClass';
-import range from './range';
+import childrenOf from './childrenOf';
+import collectionOf from './collectionOf';
+import inRange from './inRange';
 
-export { children, collection, cssClass, range };
-
-export default {
-    children,
-    collection,
-    cssClass,
-    range
-};
+export { childrenOf, collectionOf, inRange };
+export default { childrenOf, collectionOf, inRange };

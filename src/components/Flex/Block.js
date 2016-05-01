@@ -8,7 +8,7 @@
 
 import React, { PropTypes } from 'react';
 import formatClass from '../../utility/formatClass';
-import range from '../../prop-types/range';
+import inRange from '../../prop-types/inRange';
 import MODULE from './module';
 
 const SPAN_CLASSES = {
@@ -57,13 +57,13 @@ Block.defaultProps = {
 Block.propTypes = {
     children: PropTypes.node,
     grow: PropTypes.number,
-    large: range.span12,
-    medium: range.span12,
+    large: inRange.span12,
+    medium: inRange.span12,
     order: PropTypes.number,
     self: PropTypes.oneOf(['top', 'left', 'bottom', 'right', 'center', 'baseline', 'stretch']),
     shrink: PropTypes.number,
-    small: range.span12,
-    span: range.span12,
-    xlarge: range.span18,
-    xsmall: range.span6
+    small: inRange.span12,
+    span: inRange.span12,
+    xlarge: inRange.span18,
+    xsmall: inRange.span6
 };

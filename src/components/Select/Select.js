@@ -8,7 +8,7 @@ import React, { Children, PropTypes } from 'react';
 import { default as InputSelect } from '../Input/Select';
 import Menu from './Menu';
 import bind from '../../decorators/bind';
-import children from '../../prop-types/children';
+import childrenOf from '../../prop-types/childrenOf';
 import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';
 import isOutsideElement from '../../utility/isOutsideElement';
@@ -34,7 +34,7 @@ export default class Select extends InputSelect {
     static propTypes = {
         ...InputSelect.propTypes,
         arrow: PropTypes.node,
-        children: children(Menu),
+        children: childrenOf(Menu),
         countMessage: PropTypes.string,
         defaultLabel: PropTypes.string,
         listLimit: PropTypes.number,

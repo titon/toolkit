@@ -11,7 +11,7 @@ import MainContent from './MainContent';
 import Sidebar from './Sidebar';
 import Swipe from '../../events/Swipe';
 import bind from '../../decorators/bind';
-import children from '../../prop-types/children';
+import childrenOf from '../../prop-types/childrenOf';
 import invariant from '../../utility/invariant';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
@@ -35,7 +35,7 @@ export default class OffCanvas extends Component {
             'push', 'push-reveal', 'push-down', 'reverse-push',
             'reveal', 'on-top', 'squish'
         ]),
-        children: children(MainContent, Sidebar),
+        children: childrenOf(MainContent, Sidebar),
         multiple: PropTypes.bool,
         showOnLoad: PropTypes.bool,
         stopScroll: PropTypes.bool,

@@ -7,7 +7,7 @@
 import React from 'react';
 import Input from './Input';
 import bind from '../../decorators/bind';
-import collection from '../../prop-types/collection';
+import collectionOf from '../../prop-types/collectionOf';
 import { optionList } from '../propTypes';
 
 export default class Select extends Input {
@@ -18,7 +18,7 @@ export default class Select extends Input {
 
     static propTypes = {
         ...Input.propTypes,
-        defaultValue: collection.string,
+        defaultValue: collectionOf.string,
         options: optionList.isRequired
     };
 

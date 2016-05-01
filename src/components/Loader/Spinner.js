@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../Component';
 import Message from './Message';
-import children from '../../prop-types/children';
+import childrenOf from '../../prop-types/childrenOf';
 import MODULE from './module';
 
 export default class Spinner extends Component {
@@ -18,7 +18,7 @@ export default class Spinner extends Component {
     };
 
     static propTypes = {
-        children: children(Message),
+        children: childrenOf(Message),
         type: PropTypes.oneOf(['bubble'])
     };
 

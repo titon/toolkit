@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../Component';
 import Header from './Header';
 import Section from './Section';
-import collection from '../../prop-types/collection';
+import collectionOf from '../../prop-types/collectionOf';
 import { showHidePropTypes } from '../propTypes';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
@@ -23,7 +23,7 @@ export default class Item extends Component {
         children: PropTypes.node,
         header: PropTypes.node.isRequired,
         index: PropTypes.number.isRequired,
-        onClickHeader: collection.func
+        onClickHeader: collectionOf.func
     };
 
     /**

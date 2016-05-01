@@ -9,7 +9,7 @@ import Component from '../Component';
 import Item from './Item';
 import Spacer from './Spacer';
 import bind from '../../decorators/bind';
-import collection from '../../prop-types/collection';
+import collectionOf from '../../prop-types/collectionOf';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -41,8 +41,8 @@ export default class Pagination extends Component {
         label: PropTypes.string,
         last: PropTypes.node,
         next: PropTypes.node,
-        onPaged: collection.func,
-        onPaging: collection.func,
+        onPaged: collectionOf.func,
+        onPaging: collectionOf.func,
         prev: PropTypes.node,
         showControls: PropTypes.bool,
         spacer: PropTypes.string,

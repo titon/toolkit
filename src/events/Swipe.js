@@ -7,8 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../components/Component';
 import bind from '../decorators/bind';
-import collection from '../prop-types/collection';
-import cssClass from '../prop-types/cssClass';
+import collectionOf from '../prop-types/collectionOf';
 import { TOUCH } from '../flags';
 
 const abs = Math.abs;
@@ -16,7 +15,9 @@ const abs = Math.abs;
 @bind
 export default class Swipe extends Component {
     static module = {
-        classNames: { default: 'event-swipe' }
+        classNames: {
+            default: 'event-swipe'
+        }
     };
 
     static defaultProps = {
@@ -24,7 +25,6 @@ export default class Swipe extends Component {
         distance: 50,
         // Maximum time in milliseconds to travel
         duration: 1000,
-        elementClassName: ['event', 'swipe'],
         enabled: true,
         // Maximum distance to travel in the opposite direction
         restraint: 75
@@ -32,16 +32,14 @@ export default class Swipe extends Component {
 
     static propTypes = {
         children: PropTypes.node.isRequired,
-        className: cssClass,
         distance: PropTypes.number,
         duration: PropTypes.number,
-        elementClassName: cssClass.isRequired,
         enabled: PropTypes.bool.isRequired,
-        onSwipe: collection.func,
-        onSwipeDown: collection.func,
-        onSwipeLeft: collection.func,
-        onSwipeRight: collection.func,
-        onSwipeUp: collection.func,
+        onSwipe: collectionOf.func,
+        onSwipeDown: collectionOf.func,
+        onSwipeLeft: collectionOf.func,
+        onSwipeRight: collectionOf.func,
+        onSwipeUp: collectionOf.func,
         restraint: PropTypes.number
     };
 
@@ -242,7 +240,7 @@ export default class Swipe extends Component {
     render() {
         let props = this.props,
             swipeProps = {
-                className: this.formatClass(props.elementClassName, props.className, {
+                className: this.formatClass({
                     'is-swiping': this.state.swiping
                 })
             };

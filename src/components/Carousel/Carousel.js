@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom';
 import Component from '../Component';
 import ItemList from './ItemList';
 import bind from '../../decorators/bind';
-import collection from '../../prop-types/collection';
+import collectionOf from '../../prop-types/collectionOf';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -39,10 +39,10 @@ export default class Carousel extends Component {
         duration: PropTypes.number,
         infinite: PropTypes.bool,
         loop: PropTypes.bool,
-        onCycled: collection.func,
-        onCycling: collection.func,
-        onStart: collection.func,
-        onStop: collection.func,
+        onCycled: collectionOf.func,
+        onCycling: collectionOf.func,
+        onStart: collectionOf.func,
+        onStop: collectionOf.func,
         pauseOnHover: PropTypes.bool,
         reverse: PropTypes.bool,
         toCycle: PropTypes.number,

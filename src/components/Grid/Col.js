@@ -8,7 +8,7 @@
 
 import React, { PropTypes } from 'react';
 import formatClass from '../../utility/formatClass';
-import range from '../../prop-types/range';
+import inRange from '../../prop-types/inRange';
 import MODULE from './module';
 
 const SPAN_CLASSES = {
@@ -65,23 +65,23 @@ Col.propTypes = {
     children: PropTypes.node,
 
     // This is ugly, a better way?
-    span: range.span12,
-    push: range.span12,
-    pull: range.span12,
-    xsmall: range.span6,
-    xsmallPush: range.span6,
-    xsmallPull: range.span6,
-    small: range.span12,
-    smallPush: range.span12,
-    smallPull: range.span12,
-    medium: range.span12,
-    mediumPush: range.span12,
-    mediumPull: range.span12,
-    large: range.span12,
-    largePush: range.span12,
-    largePull: range.span12,
-    xlarge: range.span18,
-    xlargePush: range.span18,
-    xlargePull: range.span18,
+    span: inRange.span12,
+    push: inRange.span12,
+    pull: inRange.span12,
+    xsmall: inRange.span6,
+    xsmallPush: inRange.span6,
+    xsmallPull: inRange.span6,
+    small: inRange.span12,
+    smallPush: inRange.span12,
+    smallPull: inRange.span12,
+    medium: inRange.span12,
+    mediumPush: inRange.span12,
+    mediumPull: inRange.span12,
+    large: inRange.span12,
+    largePush: inRange.span12,
+    largePull: inRange.span12,
+    xlarge: inRange.span18,
+    xlargePush: inRange.span18,
+    xlargePull: inRange.span18,
     end: PropTypes.bool
 };
