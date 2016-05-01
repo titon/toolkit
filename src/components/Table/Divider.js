@@ -6,18 +6,14 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import cssClass from '../../prop-types/cssClass';
+import MODULE from './module';
 
 export default class Divider extends Component {
-    static defaultProps = {
-        elementClassName: ['table', 'divider']
-    };
+    static module = MODULE;
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
-        colSpan: PropTypes.number,
-        elementClassName: cssClass.isRequired
+        colSpan: PropTypes.number
     };
 
     /**
@@ -30,9 +26,9 @@ export default class Divider extends Component {
 
         return (
             <tr
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)}>
-
+                className={this.formatChildClass('divider')}
+                {...this.inheritNativeProps(props)}
+            >
                 <td colSpan={props.colSpan}>
                     {props.children}
                 </td>

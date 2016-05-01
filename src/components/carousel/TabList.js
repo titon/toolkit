@@ -8,21 +8,16 @@ import React from 'react';
 import Component from '../../Component';
 import Tab from './Tab';
 import collection from '../../prop-types/collection';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class TabList extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
 
-    static defaultProps = {
-        elementClassName: ['carousel', 'tabs']
-    };
-
     static propTypes = {
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
-        onClick: collection.func,
-        tabClassName: cssClass
+        onClick: collection.func
     };
 
     /**
@@ -39,16 +34,16 @@ export default class TabList extends Component {
                 <Tab
                     index={i}
                     key={'tab-' + i}
-                    className={props.tabClassName}
-                    onClick={props.onClick} />
+                    onClick={props.onClick}
+                />
             );
         }
 
         return (
             <nav
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)}>
-
+                className={this.formatChildClass('tab-list')}
+                {...this.inheritNativeProps(props)}
+            >
                 <ol>
                     {children}
                 </ol>

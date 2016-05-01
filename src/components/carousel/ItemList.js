@@ -12,22 +12,21 @@ import Swipe from '../../events/Swipe';
 import bind from '../../decorators/bind';
 import children from '../../prop-types/children';
 import collection from '../../prop-types/collection';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 import { TOUCH } from '../../flags';
 
 export default class ItemList extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        elementClassName: ['carousel', 'items'],
         swipe: TOUCH
     };
 
     static propTypes = {
         children: children(Item),
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         swipe: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
         onSwipe: collection.func,
         onSwipeUp: collection.func,
@@ -204,11 +203,12 @@ export default class ItemList extends Component {
         props.onSwipeRight.unshift(context.prevItem);
 
         return (
-            <div className={this.formatClass(this.props.elementClassName, this.props.className)}>
+            <div className={this.formatChildClass('item-list')}>
                 <Swipe {...props}>
                     <ol style={{ transform: this.state.translate }}
                         className={this.state.reset ? 'no-transition' : ''}
-                        onTransitionEnd={this.handleOnTransitionEnd}>
+                        onTransitionEnd={this.handleOnTransitionEnd}
+                    >
                         {this.renderChildren()}
                     </ol>
                 </Swipe>

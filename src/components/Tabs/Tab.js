@@ -8,21 +8,17 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
-import cssClass from '../../prop-types/cssClass';
 import tabIndex from '../../utility/tabIndex';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Tab extends Component {
-    static contextTypes = CONTEXT_TYPES;
+    static module = MODULE;
 
-    static defaultProps = {
-        elementClassName: ['tabs', 'tab']
-    };
+    static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         fragment: PropTypes.string,
         index: PropTypes.number.isRequired,
         onClick: collection.func
@@ -92,15 +88,15 @@ export default class Tab extends Component {
                 <button
                     type="button" role="tab"
                     id={this.formatID('tabs-tab', index)}
-                    className={this.formatClass(props.elementClassName, props.className, {
+                    className={this.formatChildClass('tab', {
                         'is-active': active
                     })}
                     aria-controls={this.formatID('tabs-section', index)}
                     aria-selected={active}
                     aria-expanded={active}
                     tabIndex={tabIndex(this)}
-                    onClick={this.handleOnClick}>
-
+                    onClick={this.handleOnClick}
+                >
                     {props.children}
                 </button>
             </li>

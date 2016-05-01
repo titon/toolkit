@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import { states } from '../PropTypes';
+import { states } from '../propTypes';
 import MODULE from './module';
 
 export default class Label extends Component {

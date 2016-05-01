@@ -110,8 +110,8 @@ export default class SlideCollapse extends Component {
                     ['@' + props.direction]: true,
                     'is-expanded': props.expanded
                 })}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </div>
         );

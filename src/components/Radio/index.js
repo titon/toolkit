@@ -6,10 +6,8 @@
 
 import Radio from './Radio';
 import Group from './Group';
-import CONTEXT_TYPES from './ContextTypes';
 
-Radio.CONTEXT_TYPES = CONTEXT_TYPES;
 Radio.Group = Group;
 
-export { Group, CONTEXT_TYPES };
+export { Group };
 export default Radio;

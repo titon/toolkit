@@ -7,19 +7,17 @@
 import { PropTypes } from 'react';
 import { optionShape, optionList } from '../Input/propTypes';
 
-const CONTEXT_TYPES = {
-    expanded: PropTypes.bool,
-    hideMenu: PropTypes.func,
-    inputID: PropTypes.string,
-    inputName: PropTypes.string,
-    mappedOptions: PropTypes.objectOf(optionShape),
-    multiple: PropTypes.bool,
-    options: optionList,
-    selectValue: PropTypes.func,
-    selectedValues: PropTypes.arrayOf(PropTypes.string),
-    showMenu: PropTypes.func,
-    toggleMenu: PropTypes.func,
-    uid: PropTypes.string
-};
-
-export default CONTEXT_TYPES;
+export default Object.freeze({
+    expanded: PropTypes.bool.isRequired,
+    hideMenu: PropTypes.func.isRequired,
+    inputID: PropTypes.string.isRequired,
+    inputName: PropTypes.string.isRequired,
+    mappedOptions: PropTypes.objectOf(optionShape).isRequired,
+    multiple: PropTypes.bool.isRequired,
+    options: optionList.isRequired,
+    selectValue: PropTypes.func.isRequired,
+    selectedValues: PropTypes.arrayOf(PropTypes.string).isRequired,
+    showMenu: PropTypes.func.isRequired,
+    toggleMenu: PropTypes.func.isRequired,
+    uid: PropTypes.string.isRequired
+});

@@ -9,11 +9,6 @@ import Tooltip from '../Tooltip';
 
 export default class Popover extends Tooltip {
     static defaultProps = {
-        arrowClassName: ['popover', 'arrow'],
-        bodyClassName: ['popover', 'body'],
-        elementClassName: 'popover',
-        headClassName: ['popover', 'head'],
-        innerClassName: ['popover', 'inner'],
         position: 'top',
         type: 'popover',
         xOffset: 0,

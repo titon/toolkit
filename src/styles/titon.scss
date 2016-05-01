@@ -177,9 +177,9 @@ $titon-button-group: (
 $titon-carousel: (
     "class": bem("carousel"),
     "class-item": bem("carousel", "item"),
-    "class-items": bem("carousel", "items"),
+    "class-items": bem("carousel", "item-list"),
     "class-tab": bem("carousel", "tab"),
-    "class-tabs": bem("carousel", "tabs"),
+    "class-tabs": bem("carousel", "tab-list"),
     "class-next": bem("carousel", "next"),
     "class-prev": bem("carousel", "prev"),
     "class-modifier-slide": bem("carousel", "", "slide"),

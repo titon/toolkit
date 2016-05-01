@@ -6,14 +6,12 @@
 
 import { PropTypes } from 'react';
 
-const CONTEXT_TYPES = {
-    currentPage: PropTypes.number,
-    goToPage: PropTypes.func,
-    nextPage: PropTypes.func,
-    prevPage: PropTypes.func,
-    totalPages: PropTypes.number,
-    uid: PropTypes.string,
-    url: PropTypes.string
-};
-
-export default CONTEXT_TYPES;
+export default Object.freeze({
+    currentPage: PropTypes.number.isRequired,
+    goToPage: PropTypes.func.isRequired,
+    nextPage: PropTypes.func.isRequired,
+    prevPage: PropTypes.func.isRequired,
+    totalPages: PropTypes.number.isRequired,
+    uid: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired
+});

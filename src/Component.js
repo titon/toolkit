@@ -165,7 +165,8 @@ export default class Component extends React.Component {
         let { name, module } = this.constructor,
             className = module.classNames[element];
 
-        invariant(className, 'Module class name "%s" not found for `%s`.', element, name);
+        invariant(className, 'Module class name "%s" not found for `%s.%s`.',
+            element, module.name, name);
 
         return className;
     }

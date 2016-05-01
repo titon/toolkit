@@ -5,18 +5,20 @@
  */
 
 import React, { PropTypes } from 'react';
+import { default as BaseGate } from '../Gateway/Gate';
 import Tooltip from './Tooltip';
-import Gate from '../Gateway/Gate';
+import MODULE from './module';
 
-export default class TooltipGate extends Gate {
+export default class Gate extends BaseGate {
+    static module = MODULE;
+
     static defaultProps = {
-        ...Gate.defaultProps,
-        contract: Tooltip,
-        gateClassName: ['tooltip', 'gate']
+        ...BaseGate.defaultProps,
+        contract: Tooltip
     };
 
     static propTypes = {
-        ...Gate.propTypes,
+        ...BaseGate.propTypes,
         animation: PropTypes.oneOf(['fade', 'from-above', 'from-below', 'flip-rotate'])
     };
 }

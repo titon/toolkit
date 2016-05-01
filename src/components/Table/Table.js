@@ -7,20 +7,20 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import children from '../../prop-types/children';
-import cssClass from '../../prop-types/cssClass';
+import MODULE from './module';
 
 export default class Table extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        elementClassName: 'table',
-        responsiveClassName: ['table', 'responsive']
+        hoverable: false,
+        sortable: false,
+        striped: false
     };
 
     static propTypes = {
         children: children('colgroup', 'thead', 'tbody', 'tfoot'),
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         hoverable: PropTypes.bool,
-        responsiveClassName: cssClass.isRequired,
         sortable: PropTypes.bool,
         striped: PropTypes.bool
     };
@@ -34,15 +34,15 @@ export default class Table extends Component {
         let props = this.props;
 
         return (
-            <div className={this.formatClass(props.responsiveClassName)}>
+            <div className={this.formatChildClass('responsive')}>
                 <table
-                    className={this.formatClass(props.elementClassName, props.className, {
+                    className={this.formatClass({
                         'has-hover': props.hoverable,
                         'is-sortable': props.sortable,
                         'is-striped': props.striped
                     })}
-                    {...this.inheritNativeProps(props)}>
-
+                    {...this.inheritNativeProps(props)}
+                >
                     {props.children}
                 </table>
             </div>

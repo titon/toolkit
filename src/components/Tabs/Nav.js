@@ -8,20 +8,16 @@ import React from 'react';
 import Component from '../../Component';
 import Tab from './Tab';
 import children from '../../prop-types/children';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Nav extends Component {
+    static module = MODULE;
+
     static contextTypes = CONTEXT_TYPES;
 
-    static defaultProps = {
-        elementClassName: ['tabs', 'nav']
-    };
-
     static propTypes = {
-        children: children(Tab),
-        className: cssClass,
-        elementClassName: cssClass.isRequired
+        children: children(Tab)
     };
 
     /**
@@ -35,9 +31,9 @@ export default class Nav extends Component {
         return (
             <nav
                 id={this.formatID('tabs-nav')}
-                className={this.formatClass(props.elementClassName, props.className)}
-                {...this.inheritNativeProps(props)}>
-
+                className={this.formatChildClass('nav')}
+                {...this.inheritNativeProps(props)}
+            >
                 <ol>
                     {props.children}
                 </ol>

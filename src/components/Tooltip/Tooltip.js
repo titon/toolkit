@@ -8,18 +8,15 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
-import cssClass from '../../prop-types/cssClass';
 import debounce from '../../decorators/debounce';
 import positionRelativeTo from '../../utility/positionRelativeTo';
-import { positions } from '../PropTypes';
+import { positions } from '../propTypes';
+import MODULE from './module';
 
 export default class Tooltip extends Component {
+    static module = MODULE;
+
     static defaultProps = {
-        arrowClassName: ['tooltip', 'arrow'],
-        bodyClassName: ['tooltip', 'body'],
-        elementClassName: 'tooltip',
-        headClassName: ['tooltip', 'head'],
-        innerClassName: ['tooltip', 'inner'],
         position: 'top',
         type: 'tooltip',
         xOffset: 0,
@@ -27,13 +24,7 @@ export default class Tooltip extends Component {
     };
 
     static propTypes = {
-        arrowClassName: cssClass.isRequired,
-        bodyClassName: cssClass.isRequired,
         children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
-        headClassName: cssClass.isRequired,
-        innerClassName: cssClass.isRequired,
         position: positions,
         // Is an HTML element, but element/node prop types don't work
         targetElement: PropTypes.object,
@@ -116,30 +107,32 @@ export default class Tooltip extends Component {
             <div
                 role="tooltip"
                 id={this.formatID(type)}
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatClass({
                     ['@' + props.position]: true
                 })}
                 style={this.calculatePosition()}
                 aria-labelledby={props.title ? this.formatID(type + '-title') : null}
                 aria-describedby={this.formatID(type + '-content')}
-                {...this.inheritNativeProps(props)}>
-
-                <div className={this.formatClass(props.innerClassName)}>
+                {...this.inheritNativeProps(props)}
+            >
+                <div className={this.formatChildClass('inner')}>
                     {props.title && (
                         <div
                             id={this.formatID(type + '-title')}
-                            className={this.formatClass(props.headClassName)}>
+                            className={this.formatChildClass('head')}
+                        >
                             {props.title}
                         </div>
                     )}
 
                     <div
                         id={this.formatID(type + '-content')}
-                        className={this.formatClass(props.bodyClassName)}>
+                        className={this.formatChildClass('body')}
+                    >
                         {props.children}
                     </div>
 
-                    <div className={this.formatClass(props.arrowClassName)} />
+                    <div className={this.formatChildClass('arrow')} />
                 </div>
             </div>
         );

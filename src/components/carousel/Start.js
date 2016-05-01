@@ -8,20 +8,16 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Start extends Component {
-    static contextTypes = CONTEXT_TYPES;
+    static module = MODULE;
 
-    static defaultProps = {
-        elementClassName: ['carousel', 'start']
-    };
+    static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         onClick: collection.func
     };
 
@@ -47,10 +43,10 @@ export default class Start extends Component {
         return (
             <button
                 type="button" role="button"
-                className={this.formatClass(props.elementClassName, props.className)}
+                className={this.formatChildClass('start')}
                 onClick={this.handleOnClick}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </button>
         );

@@ -6,24 +6,22 @@
 
 import { PropTypes } from 'react';
 
-const CONTEXT_TYPES = {
-    activeIndices: PropTypes.arrayOf(PropTypes.number),
-    afterAnimation: PropTypes.func,
-    currentIndex: PropTypes.number,
-    firstIndex: PropTypes.number,
-    infiniteScroll: PropTypes.bool,
-    isItemActive: PropTypes.func,
-    itemCount: PropTypes.number,
-    lastIndex: PropTypes.number,
-    loopedScroll: PropTypes.bool,
-    modifier: PropTypes.string,
-    nextItem: PropTypes.func,
-    prevItem: PropTypes.func,
-    showItem: PropTypes.func,
-    startCycle: PropTypes.func,
-    stopCycle: PropTypes.func,
-    uid: PropTypes.string,
-    visibleCount: PropTypes.number
-};
-
-export default CONTEXT_TYPES;
+export default Object.freeze({
+    activeIndices: PropTypes.arrayOf(PropTypes.number).isRequired,
+    afterAnimation: PropTypes.func.isRequired,
+    animation: PropTypes.string.isRequired,
+    currentIndex: PropTypes.number.isRequired,
+    firstIndex: PropTypes.number.isRequired,
+    infiniteScroll: PropTypes.bool.isRequired,
+    isItemActive: PropTypes.func.isRequired,
+    itemCount: PropTypes.number.isRequired,
+    lastIndex: PropTypes.number.isRequired,
+    loopedScroll: PropTypes.bool.isRequired,
+    nextItem: PropTypes.func.isRequired,
+    prevItem: PropTypes.func.isRequired,
+    showItem: PropTypes.func.isRequired,
+    startCycle: PropTypes.func.isRequired,
+    stopCycle: PropTypes.func.isRequired,
+    uid: PropTypes.string.isRequired,
+    visibleCount: PropTypes.number.isRequired
+});

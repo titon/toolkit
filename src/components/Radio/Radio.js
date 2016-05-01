@@ -7,27 +7,20 @@
 import React, { PropTypes } from 'react';
 import Input from '../Input/Input';
 import bind from '../../decorators/bind';
-import cssClass from '../../prop-types/cssClass';
-import { defaultProps, propTypes } from '../Input/propTypes';
-import CONTEXT_TYPES from './ContextTypes';
+import { propTypes } from '../Input/propTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Radio extends Input {
-    static contextTypes = CONTEXT_TYPES;
+    static module = MODULE;
 
-    static defaultProps = {
-        ...defaultProps,
-        elementClassName: 'radio',
-        toggleClassName: ['radio', 'toggle']
-    };
+    static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {
         ...propTypes,
         children: PropTypes.node,
-        className: cssClass,
         defaultValue: PropTypes.string.isRequired,
-        elementClassName: cssClass.isRequired,
-        name: PropTypes.string,
-        toggleClassName: cssClass.isRequired
+        name: PropTypes.string
     };
 
     /**
@@ -88,21 +81,22 @@ export default class Radio extends Input {
         inputProps.id = this.context.inputID + '-' + props.defaultValue;
 
         return (
-            <div
+            <span
                 id={this.formatID('radio', inputProps.id)}
-                className={this.formatClass(props.elementClassName, props.className, stateClasses)}
+                className={this.formatClass(stateClasses)}
                 aria-checked={this.state.checked}
                 aria-disabled={props.disabled}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 <input {...inputProps} />
 
                 <label
                     htmlFor={inputProps.id}
-                    className={this.formatClass(props.toggleClassName, stateClasses)} />
+                    className={this.formatChildClass('toggle', stateClasses)}
+                />
 
                 {props.children}
-            </div>
+            </span>
         );
     }
 }

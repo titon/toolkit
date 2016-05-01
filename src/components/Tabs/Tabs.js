@@ -10,18 +10,19 @@ import CookieJar from '../../machines/CookieJar';
 import DocumentState from '../../machines/DocumentState';
 import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 import '../../polyfills/Array.find';
 
 export default class Tabs extends Component {
+    static module = MODULE;
+
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
         collapsible: false,
         cookieDuration: 30,
         defaultIndex: 0,
-        elementClassName: 'tabs',
         fragments: [],
         persistState: false,
         useCookie: true,
@@ -30,11 +31,9 @@ export default class Tabs extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass,
         collapsible: PropTypes.bool,
         cookieDuration: PropTypes.number,
         defaultIndex: collection.number,
-        elementClassName: cssClass.isRequired,
         fragments: PropTypes.arrayOf(PropTypes.shape({
             hash: PropTypes.string,
             index: PropTypes.number
@@ -207,12 +206,12 @@ export default class Tabs extends Component {
         return (
             <div role="tablist"
                 id={this.formatID('tabs')}
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatClass({
                     'is-collapsible': props.collapsible
                 })}
                 aria-live="off"
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </div>
         );

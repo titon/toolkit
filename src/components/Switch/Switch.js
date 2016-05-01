@@ -6,27 +6,22 @@
 
 import React, { PropTypes } from 'react';
 import Input from '../Input/Input';
-import cssClass from '../../prop-types/cssClass';
 import { defaultProps, propTypes } from '../Input/propTypes';
+import MODULE from './module';
 
 export default class Switch extends Input {
+    static module = MODULE;
+
     static defaultProps = {
         ...defaultProps,
-        barClassName: ['switch', 'bar'],
-        elementClassName: 'switch',
-        stacked: false,
-        toggleClassName: ['switch', 'toggle']
+        stacked: false
     };
 
     static propTypes = {
         ...propTypes,
-        barClassName: cssClass.isRequired,
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         labelOff: PropTypes.string,
         labelOn: PropTypes.string,
-        stacked: PropTypes.bool,
-        toggleClassName: cssClass.isRequired
+        stacked: PropTypes.bool
     };
 
     /**
@@ -45,20 +40,20 @@ export default class Switch extends Input {
         return (
             <span
                 id={this.formatID('switch', inputProps.id)}
-                className={this.formatClass(props.elementClassName, props.className, stateClasses)}
+                className={this.formatClass(stateClasses)}
                 aria-checked={this.state.checked}
                 aria-disabled={props.disabled}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 <input {...inputProps} />
 
                 <label
                     htmlFor={inputProps.id}
-                    className={this.formatClass(props.barClassName, stateClasses)}
+                    className={this.formatChildClass('bar', stateClasses)}
                     data-switch-on={props.labelOn}
-                    data-switch-off={props.labelOff}>
-
-                    <span className={this.formatClass(props.toggleClassName)} />
+                    data-switch-off={props.labelOff}
+                >
+                    <span className={this.formatChildClass('toggle')} />
                 </label>
             </span>
         );

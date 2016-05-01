@@ -5,7 +5,7 @@
  */
 
 import Titon from '../Titon';
-import { DEV, PROD } from '../flags';
+import { DEV, PROD } from '../constants';
 
 /**
  * Asserts that a condition is true or throws an error otherwise.

@@ -7,19 +7,16 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import collection from '../../prop-types/collection';
-import cssClass from '../../prop-types/cssClass';
-import CONTEXT_TYPES from './ContextTypes';
+import CONTEXT_TYPES from './contextTypes';
+import MODULE from './module';
 
 export default class Section extends Component {
-    static contextTypes = CONTEXT_TYPES;
+    static module = MODULE;
 
-    static defaultProps = {
-        elementClassName: ['tabs', 'section']
-    };
+    static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {
         children: PropTypes.node,
-        elementClassName: cssClass.isRequired,
         index: PropTypes.number.isRequired,
         onHidden: collection.func,
         onHiding: collection.func,
@@ -92,14 +89,14 @@ export default class Section extends Component {
             <section
                 role="tabpanel"
                 id={this.formatID('tabs-section', index)}
-                className={this.formatClass(props.elementClassName, {
+                className={this.formatChildClass('section', {
                     'is-expanded': expanded
                 })}
                 aria-labelledby={this.formatID('tabs-tab', index)}
                 aria-hidden={!expanded}
                 aria-expanded={expanded}
-                {...this.inheritNativeProps(props)}>
-
+                {...this.inheritNativeProps(props)}
+            >
                 {props.children}
             </section>
         );
