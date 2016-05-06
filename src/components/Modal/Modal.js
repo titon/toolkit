@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import DocumentState from '../../machines/DocumentState';
-import Component from '../Component';
+import Component from '../../Component';
 import Body from './Body';
 import Head from './Head';
 import Foot from './Foot';

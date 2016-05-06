@@ -6,7 +6,7 @@
 
 import React, { Children, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Component from '../Component';
+import Component from '../../Component';
 import ItemList from './ItemList';
 import bind from '../../decorators/bind';
 import collectionOf from '../../prop-types/collectionOf';

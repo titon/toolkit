@@ -5,7 +5,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../components/Component';
+import Component from '../Component';
 import bind from '../decorators/bind';
 import collectionOf from '../prop-types/collectionOf';
 import { TOUCH } from '../flags';

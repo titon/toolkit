@@ -5,7 +5,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../Component';
+import Component from '../../Component';
 import childrenOf from '../../prop-types/childrenOf';
 import MODULE from './module';
 

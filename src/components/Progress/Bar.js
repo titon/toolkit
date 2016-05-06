@@ -5,8 +5,8 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../Component';
-import { states } from '../propTypes';
+import Component from '../../Component';
+import { states } from '../../propTypes';
 import MODULE from './module';
 
 export default class Bar extends Component {

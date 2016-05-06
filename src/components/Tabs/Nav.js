@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import Component from '../Component';
+import Component from '../../Component';
 import Tab from './Tab';
 import childrenOf from '../../prop-types/childrenOf';
 import CONTEXT_TYPES from './contextTypes';

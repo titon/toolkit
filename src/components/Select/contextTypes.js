@@ -5,7 +5,7 @@
  */
 
 import { PropTypes } from 'react';
-import { optionShape, optionList } from '../propTypes';
+import { optionShape, optionList } from '../../propTypes';
 import MODULE from './module';
 
 export const shape = Object.freeze({

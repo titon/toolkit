@@ -5,9 +5,9 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../Component';
+import Component from '../../Component';
 import bind from '../../decorators/bind';
-import { defaultSizeProps, sizePropTypes, states } from '../propTypes';
+import { defaultSizeProps, sizePropTypes, states } from '../../propTypes';
 import MODULE from './module';
 
 export default class Button extends Component {

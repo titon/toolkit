@@ -6,11 +6,11 @@
 
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Component from '../Component';
+import Component from '../../Component';
 import bind from '../../decorators/bind';
 import debounce from '../../decorators/debounce';
 import positionRelativeTo from '../../utility/positionRelativeTo';
-import { positions } from '../propTypes';
+import { positions } from '../../propTypes';
 import MODULE from './module';
 
 export default class Tooltip extends Component {

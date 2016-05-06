@@ -5,8 +5,8 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../Component';
-import { defaultSizeProps, sizePropTypes, states } from '../propTypes';
+import Component from '../../Component';
+import { defaultSizeProps, sizePropTypes, states } from '../../propTypes';
 import MODULE from './module';
 
 export default class Label extends Component {

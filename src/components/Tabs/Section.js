@@ -5,8 +5,8 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../Component';
-import { showHidePropTypes } from '../propTypes';
+import Component from '../../Component';
+import { showHidePropTypes } from '../../propTypes';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 

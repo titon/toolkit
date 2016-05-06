@@ -5,7 +5,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../Component';
+import Component from '../../Component';
 import CookieJar from '../../machines/CookieJar';
 import DocumentState from '../../machines/DocumentState';
 import bind from '../../decorators/bind';

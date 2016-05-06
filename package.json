@@ -48,14 +48,15 @@
     "publish": "babel --presets es2015,react,stage-1 --out-dir ./dist ./src"
   },
   "dependencies": {
+    "lodash": "^4.11",
     "react": "^15.0",
     "react-dom": "^15.0",
-    "lodash": "^4.11"
+    "react-motion": "^0.4.3"
   },
   "devDependencies": {
     "autoprefixer": "^6.3",
-    "babel-cli": "^6.7",
-    "babel-core": "^6.7",
+    "babel-cli": "^6.8",
+    "babel-core": "^6.8",
     "babel-eslint": "^6.0",
     "babel-plugin-transform-decorators-legacy": "*",
     "babel-preset-es2015": "*",
@@ -77,9 +78,9 @@
     "karma-chrome-launcher": "*",
     "karma-firefox-launcher": "*",
     "karma-ie-launcher": "*",
-    "karma-jasmine": "^0.3",
+    "karma-jasmine": "^1.0",
     "karma-safari-launcher": "*",
-    "node-sass": "^3.6",
+    "node-sass": "^3.7",
     "postcss-cli": "^2.5",
     "react-addons-test-utils": "^15.0",
     "sass-lint": "^1.7",

@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Component from '../Component';
+import Component from '../../Component';
 import Tooltip from './Tooltip';
 import bind from '../../decorators/bind';
 import invariant from '../../utility/invariant';

@@ -5,11 +5,11 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../Component';
+import Component from '../../Component';
 import Header from './Header';
 import Section from './Section';
 import collectionOf from '../../prop-types/collectionOf';
-import { showHidePropTypes } from '../propTypes';
+import { showHidePropTypes } from '../../propTypes';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 

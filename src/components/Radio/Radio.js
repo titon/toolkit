@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Input from '../Input/Input';
 import bind from '../../decorators/bind';
-import { inputPropTypes } from '../propTypes';
+import { inputPropTypes } from '../../propTypes';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 

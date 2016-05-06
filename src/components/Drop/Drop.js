@@ -5,13 +5,13 @@
  */
 
 import React from 'react';
-import Component from '../Component';
+import Component from '../../Component';
 import Menu from './Menu';
 import Toggle from './Toggle';
 import bind from '../../decorators/bind';
 import childrenOf from '../../prop-types/childrenOf';
 import isOutsideElement from '../../utility/isOutsideElement';
-import { showHidePropTypes } from '../propTypes';
+import { showHidePropTypes } from '../../propTypes';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
