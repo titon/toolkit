@@ -7,14 +7,15 @@
 /* eslint react/prop-types: 0 */
 
 import React, { Children, PropTypes } from 'react';
-import Titon from 'Titon';
-import assign from '../node_modules/lodash/assign';
-import formatClass from 'utility/formatClass';
-import formatID from 'utility/formatID';
-import generateUID from 'utility/generateUID';
-import invariant from 'utility/invariant';
-import omit from '../node_modules/lodash/omit';
-import wrapFunctions from 'utility/wrapFunctions';
+import Titon from './Titon';
+import assign from 'lodash/assign';
+import bind from './decorators/bind';
+import formatClass from './utility/formatClass';
+import formatID from './utility/formatID';
+import generateUID from './utility/generateUID';
+import invariant from './utility/invariant';
+import omit from 'lodash/omit';
+import wrapFunctions from './utility/wrapFunctions';
 
 export default class Component extends React.Component {
     static module = {
@@ -36,6 +37,7 @@ export default class Component extends React.Component {
         super();
 
         this.state = {};
+        this.element = null;
         this.generateUID();
     }
 
@@ -245,6 +247,16 @@ export default class Component extends React.Component {
      */
     handleEvent(type, event) {
         this.notifyEventListeners(type, [event]);
+    }
+
+    /**
+     * Handle the loading of a ref by setting it to `element` on the current instance.
+     *
+     * @param {HTMLElement} ref
+     */
+    @bind
+    handleRef(ref) {
+        this.element = ref;
     }
 
     /**

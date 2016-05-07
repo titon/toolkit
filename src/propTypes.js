@@ -5,8 +5,8 @@
  */
 
 import { PropTypes } from 'react';
-import Titon from 'Titon';
-import collectionOf from 'prop-types/collectionOf';
+import Titon from './Titon';
+import collectionOf from './prop-types/collectionOf';
 
 /**
  * A prop type for a list of positions on the x and y axis.
@@ -56,6 +56,17 @@ export const inputPropTypes = {
     readOnly: PropTypes.bool,
     required: PropTypes.bool
 };
+
+/**
+ * A prop type shape for react-motion spring configuration.
+ *
+ * @returns {React.PropTypes.shape}
+ */
+export const motionSpring = PropTypes.shape({
+    stiffness: PropTypes.number,
+    damping: PropTypes.number,
+    precision: PropTypes.number
+});
 
 /**
  * A prop type shape for an option within a select input list.
@@ -111,6 +122,11 @@ export const showHidePropTypes = {
     onShown: collectionOf.func
 };
 
+/**
+ * Common prop types for small and large sizes.
+ *
+ * @type {Object}
+ */
 export const sizePropTypes = {
     large: PropTypes.bool,
     small: PropTypes.bool

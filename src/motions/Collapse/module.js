@@ -4,4 +4,8 @@
  * @link        http://titon.io
  */
 
-export default from './SlideCollapse';
+import defineModule from '../../utility/defineModule';
+
+export default defineModule('Collapse', '3.0.0', {
+    blockClass: 'motion-collapse'
+});

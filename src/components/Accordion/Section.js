@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import SlideCollapse from '../../transitions/SlideCollapse';
+import Collapse from '../../motions/Collapse';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -32,7 +32,7 @@ export default class Section extends Component {
             expanded = props.expanded;
 
         return (
-            <SlideCollapse expanded={expanded}>
+            <Collapse expanded={expanded}>
                 <section
                     role="tabpanel"
                     id={this.formatID('accordion-section', index)}
@@ -45,7 +45,7 @@ export default class Section extends Component {
                 >
                     {props.children}
                 </section>
-            </SlideCollapse>
+            </Collapse>
         );
     }
 }
