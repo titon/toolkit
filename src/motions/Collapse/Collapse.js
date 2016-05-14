@@ -51,11 +51,8 @@ export default class Collapse extends Component {
      * Calculate the initial width or height on first render.
      */
     componentDidMount() {
-        /* eslint-disable react/no-did-mount-set-state */
-        this.setState({
-            size: this.calculateSize(),
-            calculate: false
-        });
+        console.log('componentDidMount');
+        this.calculateSize(); // eslint-disable-line react/no-did-mount-set-state
     }
 
     /**
@@ -64,6 +61,7 @@ export default class Collapse extends Component {
      * @param {Boolean} expanded
      */
     componentWillReceiveProps({ expanded }) {
+        console.log('componentWillReceiveProps', expanded);
         this.setState({
             changed: (expanded !== this.props.expanded)
         });
@@ -77,7 +75,23 @@ export default class Collapse extends Component {
      * @returns {Boolean}
      */
     shouldComponentUpdate(nextProps, nextState) {
-        return (nextProps.expanded !== this.props.expanded || nextState.size !== this.state.size);
+        let foo = (
+            nextState.calculate ||
+            nextState.size !== this.state.size ||
+            nextProps.expanded !== this.props.expanded
+        );
+
+        console.log('shouldComponentUpdate', foo);
+
+        return foo;
+    }
+
+    /**
+     * Re-calculate the size if the `calculate` state is true.
+     */
+    componentDidUpdate() {
+        console.log('componentDidUpdate');
+        this.calculateSize();
     }
 
     /**
@@ -93,7 +107,16 @@ export default class Collapse extends Component {
      * @returns {Number}
      */
     calculateSize() {
-        return this.element.getBoundingClientRect()[this.props.direction];
+        if (this.state.calculate) {
+            console.log('calculateSize', this.state.calculate,
+                this.element.getBoundingClientRect()[this.props.direction],
+                this.element, this.element.parentNode);
+
+            this.setState({
+                size: this.element.getBoundingClientRect()[this.props.direction],
+                calculate: false
+            });
+        }
     }
 
     /**
@@ -102,25 +125,33 @@ export default class Collapse extends Component {
     @bind
     @debounce(100)
     handleOnResize() {
-        // TODO
+        console.log('resize');
         this.setState({
-            size: this.calculateSize()
+            calculate: true
         });
+    }
+
+    getDefaultSize() {
+        let state = this.state,
+            props = this.props,
+            size = props.fixedAt || state.size;
+
+        return props.expanded ? 0 : size;
     }
 
     /**
      * Determine the size to animate too, and whether to trigger animations for it.
      *
-     * @returns {Number}
+     * @returns {Object}
      */
     getMotionSize() {
         let state = this.state,
             props = this.props,
-            expandedSize = props.expanded ? (props.fixedAt || state.size) : 0;
+            size = props.fixedAt || state.size,
+            expandedSize = props.expanded ? size : 0;
 
-        // Don't animation if we need to calculate
         // Or if the component has not been expanded before
-        if (state.calculate || !state.changed) {
+        if (!state.changed) {
             return expandedSize;
         }
 
@@ -134,26 +165,27 @@ export default class Collapse extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let { calculate, size } = this.state,
-            { children, direction, expanded, fixedAt, style, ...props } = this.props,
-            content = (
-                <div
-                    ref={this.handleRef}
-                    className={this.formatClass({
-                        ['@' + direction]: true,
-                        'is-expanded': expanded
-                    })}
-                    {...this.inheritNativeProps(props)}
-                >
-                    {children}
-                </div>
-            );
+        let { calculate } = this.state,
+            { children, direction, expanded, style, ...props } = this.props;
 
-        // We need to calculate the height or width (mainly on the initial render)
-        // So don't wrap in a motion yet
-        if (calculate && !fixedAt) {
+        const content = (
+            <div
+                ref={this.handleRef}
+                className={this.formatClass({
+                    ['@' + direction]: true,
+                    'is-expanded': expanded
+                })}
+                {...this.inheritNativeProps(props)}
+            >
+                {children}
+            </div>
+        );
+
+        console.log('render', calculate, this.getDefaultSize(), this.getMotionSize());
+
+        if (calculate) {
             return (
-                <div style={{ overflow: 'hidden', visibility: 'hidden', [direction]: 'auto' }}>
+                <div style={{ [direction]: 'auto' }}>
                     {content}
                 </div>
             );
@@ -161,16 +193,19 @@ export default class Collapse extends Component {
 
         return (
             <Motion
-                defaultStyle={{ [direction]: expanded ? 0 : size }}
+                defaultStyle={{ [direction]: this.getDefaultSize() }}
                 style={{ [direction]: this.getMotionSize() }}
             >
-                {motionStyle => React.cloneElement(content, {
-                    style: {
-                        ...style,
-                        ...motionStyle,
-                        overflow: 'hidden'
-                    }
-                })}
+                {motionStyle => {
+                    console.log('render motion', motionStyle);
+                    return React.cloneElement(content, {
+                        style: {
+                            ...style,
+                            ...motionStyle,
+                            overflow: 'hidden'
+                        }
+                    });
+                }}
             </Motion>
         );
     }
