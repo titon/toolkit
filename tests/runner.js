@@ -14,6 +14,10 @@ define(function(require) {
     require('mocha');
     //require('sinon');
 
+    if (window.initMochaPhantomJS) {
+        window.initMochaPhantomJS();
+    }
+
     // Hacky way to setup the mocha object
     // But the mocha object was not returned from the require() call as we are using the browser version
     window.mocha.setup('bdd');

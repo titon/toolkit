@@ -12,7 +12,7 @@ module.exports = function(options) {
 
     // Run Mocha + PhantomJS
     var phantom = spawn('./node_modules/.bin/mocha-phantomjs', [
-        '--reporter=' + options.reporter,
+        // '--reporter=' + options.reporter,
         './tests/runner.html'
     ]);
 
