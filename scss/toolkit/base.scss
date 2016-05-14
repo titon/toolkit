@@ -18,10 +18,14 @@ bdo[dir="rtl"] { direction: rtl; unicode-bidi: bidi-override; }
 .align-center { text-align: center; }
 .align-right { text-align: right; }
 .align-justify { text-align: justify; }
+.align-start { text-align: $align-direction; }
+.align-end { text-align: $align-opposite-direction; }
 
 .float-left { float: left; }
 .float-right { float: right; }
 .float-none { float: none; }
+.float-start { text-align: $align-direction; }
+.float-end { text-align: $align-opposite-direction; }
 
 // Animations
 .show { opacity: 1 !important; visibility: visible !important; }
