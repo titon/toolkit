@@ -17,18 +17,14 @@ define([
  * @param {String|Object} key
  * @param {*} value
  */
-function doAria(element, key, value) {
-    if ($.type(value) === 'undefined') {
-        return element.getAttribute('aria-' + key);
-    }
-
+function setAriaValue(value) {
     if (value === true) {
         value = 'true';
     } else if (value === false) {
         value = 'false';
     }
 
-    element.setAttribute('aria-' + key, value);
+    return value;
 }
 
 $.fn.aria = function(key, value) {
@@ -38,10 +34,26 @@ $.fn.aria = function(key, value) {
 
     if (key === 'toggled') {
         key = { expanded: value, selected: value };
-        value = null;
+        value = undefined;
     }
 
-    return $.access(this, doAria, key, value, arguments.length > 1);
+    // Multi-setter
+    if ($.type(key) === 'object') {
+        Object.keys(key).forEach(function(k) {
+            this.attr('aria-' + k, setAriaValue(key[k]));
+        }.bind(this));
+
+        return this;
+
+    // Setter
+    } else if ($.type(value) !== 'undefined') {
+        this.attr('aria-' + key, setAriaValue(value));
+
+        return this;
+    }
+
+    // Getter
+    return this.attr('aria-' + key);
 };
 
 });
