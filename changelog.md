@@ -2,6 +2,11 @@
 
 Older versions can be found in the documentation changelogs.
 
+## 2.1.9 ##
+* Updated NPM dependencies and fixed build process
+* Replaced `$.access()` as it was removed from jQuery's public API
+* Added new float and alignment CSS classes that respect RTL mode
+
 ## 2.1.8 ##
 * Fixed an issue with libsass ~3.4 failing to transpile.
 

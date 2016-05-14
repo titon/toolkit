@@ -16,6 +16,13 @@ For floating an element on a use case basis, the `.float-left`, `.float-right`, 
 <time class="float-right">Feb 26th</time>
 ```
 
+By default, alignment does not respect RTL mode. To rectify this, there are start and end classes that orient themselves automatically.
+
+```html
+<div class="align-start">This is aligned to the start direction of RTL mode.</div>
+<div class="float-end">This is aligned in the opposite direction.</div>
+```
+
 ## Animation ##
 
 To trigger CSS transitions or animations, the `.show` and `.hide` classes can be toggled. These classes are automatically handled through `conceal()` and `reveal()` within the JavaScript layer.

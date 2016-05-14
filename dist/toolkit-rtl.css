@@ -1,4 +1,4 @@
-/*! Titon Toolkit v2.1.8 | BSD-3-Clause | titon.io */
+/*! Titon Toolkit v2.1.9 | BSD-3-Clause | titon.io */
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -428,6 +428,14 @@ bdo[dir="rtl"] {
   text-align: justify;
 }
 
+.align-start {
+  text-align: right;
+}
+
+.align-end {
+  text-align: left;
+}
+
 .float-left {
   float: left;
 }
@@ -438,6 +446,14 @@ bdo[dir="rtl"] {
 
 .float-none {
   float: none;
+}
+
+.float-start {
+  text-align: right;
+}
+
+.float-end {
+  text-align: left;
 }
 
 .show {
@@ -2972,6 +2988,7 @@ kbd {
   margin: 1.25rem;
   transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
 }
 
 @media only screen and (min-width: 640px) {
@@ -3125,8 +3142,9 @@ kbd {
   z-index: 1;
   opacity: 0;
   visibility: hidden;
-  transition: -webkit-transform 0.5s, opacity 0.5s, visibility 0.5s;
+  transition: opacity 0.5s, visibility 0.5s, -webkit-transform 0.5s;
   transition: transform 0.5s, opacity 0.5s, visibility 0.5s;
+  transition: transform 0.5s, opacity 0.5s, visibility 0.5s, -webkit-transform 0.5s;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -3135,8 +3153,9 @@ kbd {
   width: 100%;
   max-width: 100%;
   z-index: 2;
-  transition: -webkit-transform 0.5s, padding 0.5s;
+  transition: padding 0.5s, -webkit-transform 0.5s;
   transition: transform 0.5s, padding 0.5s;
+  transition: transform 0.5s, padding 0.5s, -webkit-transform 0.5s;
   -webkit-transform: translate(0, 0);
       -ms-transform: translate(0, 0);
           transform: translate(0, 0);
@@ -3408,6 +3427,7 @@ kbd {
 .popover.flip-rotate {
   transition: opacity 0.15s, visibility 0.15s, -webkit-transform 0.15s;
   transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+  transition: opacity 0.15s, visibility 0.15s, transform 0.15s, -webkit-transform 0.15s;
 }
 
 .tooltip.fade,
@@ -4070,6 +4090,7 @@ kbd {
   margin-top: 1rem;
   transition: opacity 0.3s, visibility 0.3s, -webkit-transform 0.3s;
   transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s, -webkit-transform 0.3s;
   opacity: 0;
   visibility: hidden;
 }
