@@ -124,7 +124,7 @@ export default class Collapse extends Component {
     /**
      * Determine the size to animate too, and whether to trigger animations for it.
      *
-     * @returns {Object}
+     * @returns {Object|Number}
      */
     getMotionSize() {
         let { size, changed } = this.state,
@@ -135,7 +135,7 @@ export default class Collapse extends Component {
     }
 
     /**
-     * Render the wrapper that triggers slide collapse transitions.
+     * Render a wrapper that triggers collapsible content animations.
      * Requires a literal size of the element to work correctly.
      *
      * @returns {ReactElement}

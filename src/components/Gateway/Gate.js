@@ -13,6 +13,8 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 import 'core-js/modules/es7.array.includes';
 
+import Fade from '../../motions/Fade';
+
 export default class Gate extends Component {
     static module = MODULE;
 
@@ -144,7 +146,11 @@ export default class Gate extends Component {
      * @returns {ReactElement[]}
      */
     renderChildren(children) {
-        return children;
+        return (
+            <Fade.Group>
+                {children}
+            </Fade.Group>
+        );
     }
 
     /**

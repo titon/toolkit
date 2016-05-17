@@ -853,7 +853,7 @@ const tabsMarkup = (
 
 const createToast = () => (
     <Toast key={Date.now().toString(16)} gateName="toasts">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. Nullam gravida eget nunc vel volutpat.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. Nullam gravida eget nunc vel volutpat. {Date.now().toString(16)}
     </Toast>
 );
 
@@ -952,7 +952,7 @@ const tooltipMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {accordionMarkup}
+            {toastMarkup}
 
             <Modal.Gate name="modals" />
             <Toast.Gate name="toasts" />
