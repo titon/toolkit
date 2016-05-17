@@ -7,8 +7,7 @@
 import React, { PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
 import Component from '../../Component';
-import bind from '../../decorators/bind';
-import debounce from '../../decorators/debounce';
+import debounce from 'lodash/debounce';
 import { motionSpring } from '../../propTypes';
 import MODULE from './module';
 
@@ -31,14 +30,21 @@ export default class Collapse extends Component {
         expanded: PropTypes.bool.isRequired,
         fixedAt: PropTypes.number,
         motion: motionSpring,
+        onRest: PropTypes.func,
         style: PropTypes.object
     };
 
-    state = {
-        size: 0,
-        calculate: true,
-        changed: false
-    };
+    constructor() {
+        super();
+
+        this.state = {
+            size: 0,
+            calculate: true,
+            changed: false
+        };
+
+        this.handleOnResize = debounce(this.handleOnResize.bind(this), 100);
+    }
 
     /**
      * Bind events.
@@ -51,8 +57,7 @@ export default class Collapse extends Component {
      * Calculate the initial width or height on first render.
      */
     componentDidMount() {
-        console.log('componentDidMount');
-        this.calculateSize(); // eslint-disable-line react/no-did-mount-set-state
+        this.calculateSize();
     }
 
     /**
@@ -61,36 +66,30 @@ export default class Collapse extends Component {
      * @param {Boolean} expanded
      */
     componentWillReceiveProps({ expanded }) {
-        console.log('componentWillReceiveProps', expanded);
         this.setState({
             changed: (expanded !== this.props.expanded)
         });
     }
 
     /**
-     * Only update when the size or expanded prop changes.
+     * Only update when the we need to calculate or expand.
      *
      * @param {Object} nextProps
      * @param {Object} nextState
      * @returns {Boolean}
      */
     shouldComponentUpdate(nextProps, nextState) {
-        let foo = (
-            nextState.calculate ||
+        return (
+            nextState.calculate !== this.state.calculate ||
             nextState.size !== this.state.size ||
             nextProps.expanded !== this.props.expanded
         );
-
-        console.log('shouldComponentUpdate', foo);
-
-        return foo;
     }
 
     /**
      * Re-calculate the size if the `calculate` state is true.
      */
     componentDidUpdate() {
-        console.log('componentDidUpdate');
         this.calculateSize();
     }
 
@@ -103,15 +102,9 @@ export default class Collapse extends Component {
 
     /**
      * Calculate the width or height of the element using the bounding box.
-     *
-     * @returns {Number}
      */
     calculateSize() {
         if (this.state.calculate) {
-            console.log('calculateSize', this.state.calculate,
-                this.element.getBoundingClientRect()[this.props.direction],
-                this.element, this.element.parentNode);
-
             this.setState({
                 size: this.element.getBoundingClientRect()[this.props.direction],
                 calculate: false
@@ -122,21 +115,10 @@ export default class Collapse extends Component {
     /**
      * When the browser is resized, re-calculate the element width or height.
      */
-    @bind
-    @debounce(100)
     handleOnResize() {
-        console.log('resize');
         this.setState({
             calculate: true
         });
-    }
-
-    getDefaultSize() {
-        let state = this.state,
-            props = this.props,
-            size = props.fixedAt || state.size;
-
-        return props.expanded ? 0 : size;
     }
 
     /**
@@ -145,17 +127,11 @@ export default class Collapse extends Component {
      * @returns {Object}
      */
     getMotionSize() {
-        let state = this.state,
-            props = this.props,
-            size = props.fixedAt || state.size,
-            expandedSize = props.expanded ? size : 0;
+        let { size, changed } = this.state,
+            { expanded, fixedAt, motion } = this.props,
+            expandedSize = expanded ? (fixedAt || size) : 0;
 
-        // Or if the component has not been expanded before
-        if (!state.changed) {
-            return expandedSize;
-        }
-
-        return spring(expandedSize, props.motion);
+        return changed ? spring(expandedSize, motion) : expandedSize;
     }
 
     /**
@@ -166,7 +142,7 @@ export default class Collapse extends Component {
      */
     render() {
         let { calculate } = this.state,
-            { children, direction, expanded, style, ...props } = this.props;
+            { children, direction, expanded, style, onRest, ...props } = this.props;
 
         const content = (
             <div
@@ -181,8 +157,6 @@ export default class Collapse extends Component {
             </div>
         );
 
-        console.log('render', calculate, this.getDefaultSize(), this.getMotionSize());
-
         if (calculate) {
             return (
                 <div style={{ [direction]: 'auto' }}>
@@ -193,19 +167,17 @@ export default class Collapse extends Component {
 
         return (
             <Motion
-                defaultStyle={{ [direction]: this.getDefaultSize() }}
+                defaultStyle={{ [direction]: 0 }}
                 style={{ [direction]: this.getMotionSize() }}
+                onRest={onRest}
             >
-                {motionStyle => {
-                    console.log('render motion', motionStyle);
-                    return React.cloneElement(content, {
-                        style: {
-                            ...style,
-                            ...motionStyle,
-                            overflow: 'hidden'
-                        }
-                    });
-                }}
+                {motionStyle => React.cloneElement(content, {
+                    style: {
+                        ...motionStyle,
+                        ...style,
+                        overflow: 'hidden'
+                    }
+                })}
             </Motion>
         );
     }
