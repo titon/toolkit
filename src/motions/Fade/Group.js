@@ -5,12 +5,12 @@
  */
 
 import React, { Children, PropTypes } from 'react';
-import { TransitionMotion, spring } from 'react-motion';
+import { TransitionMotion, spring, presets } from 'react-motion';
 import Component from '../../Component';
 import { motionSpring } from '../../propTypes';
 import MODULE from './module';
 
-export default class FadeGroup extends Component {
+export default class Group extends Component {
     static module = MODULE;
 
     static defaultProps = {
@@ -27,7 +27,7 @@ export default class FadeGroup extends Component {
         style: PropTypes.object
     };
 
-    constructor(props) {
+    constructor() {
         super();
 
         this.state = {
@@ -39,26 +39,33 @@ export default class FadeGroup extends Component {
     }
 
     handleWillEnter() {
-        return { opacity: 0 };
+        return {
+            opacity: spring(0),
+            scale: spring(0.95)
+        };
     }
 
     handleWillLeave() {
-        return { opacity: spring(0, this.props.motion) };
+        return {
+            opacity: spring(0),
+            scale: spring(0.95)
+        };
     }
 
     mapStylesFromChildren(children) {
         let styles = [],
             defaultStyles = [];
 
-        Children.toArray(children).map(child => {
+        // Inherit the original `key` as `Children.toArray()` changes it
+        Children.toArray(children).map((child, i) => {
             styles.push({
-                key: child.key,
-                style: { opacity: spring(1, this.props.motion) }
+                key: children[i].key,
+                style: { opacity: spring(1), scale: spring(1) }
             });
 
             defaultStyles.push({
-                key: child.key,
-                style: { opacity: 0 }
+                key: children[i].key,
+                style: { opacity: spring(0), scale: spring(0.95) }
             });
         });
 
@@ -69,30 +76,33 @@ export default class FadeGroup extends Component {
     }
 
     render() {
-        let { children, style } = this.props,
-            items = Children.toArray(children);
+        let { children, style } = this.props;
+        let { styles, defaultStyles } = this.mapStylesFromChildren(children);
 
-        if (!items.length) {
-            return null;
-        }
-
-        let { styles, defaultStyles } = this.mapStylesFromChildren(items);
+        console.log(styles, defaultStyles);
 
         return (
             <TransitionMotion
                 willEnter={this.handleWillEnter}
                 willLeave={this.handleWillLeave}
-                defaultStyles={defaultStyles}
+                // defaultStyles={defaultStyles}
                 styles={styles}
             >
                 {motionStyles => {
                     return (
                         <div className={this.formatChildClass('group')}>
                             {motionStyles.map((motionStyle, i) => {
-                                return React.cloneElement(items[i], {
+                                console.log('base', motionStyle.style.opacity);
+
+                                if (!children[i]) {
+                                    return null;
+                                }
+
+                                return React.cloneElement(children[i], {
+                                    key: motionStyle.key,
                                     style: {
-                                        ...motionStyle.style,
-                                        ...style
+                                        ...style,
+                                        ...motionStyle.style
                                     }
                                 });
                             })}

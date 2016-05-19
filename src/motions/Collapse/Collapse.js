@@ -173,8 +173,8 @@ export default class Collapse extends Component {
             >
                 {motionStyle => React.cloneElement(content, {
                     style: {
-                        ...motionStyle,
                         ...style,
+                        ...motionStyle,
                         overflow: 'hidden'
                     }
                 })}
