@@ -11,7 +11,7 @@ import collectionOf from '../../prop-types/collectionOf';
 import invariant from '../../utility/invariant';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
-import 'core-js/modules/es7.array.includes';
+import 'core-js/modules/es6.array.find';
 
 import Fade from '../../motions/Fade';
 
@@ -21,12 +21,12 @@ export default class Gate extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        animation: 'fade'
+        motion: 'fade'
     };
 
     static propTypes = {
-        animation: PropTypes.string,
         contract: PropTypes.func.isRequired,
+        motion: PropTypes.string,
         name: PropTypes.string.isRequired,
         onEntered: collectionOf.func,
         onEntering: collectionOf.func,
@@ -95,9 +95,9 @@ export default class Gate extends Component {
     handleOnWarpIn(element) {
         let { children } = this.state;
 
-        if (this.isValidElement(element) && !children.includes(element)) {
+        if (this.isValidElement(element) && !this.hasElement(element)) {
             this.setState({
-                children: children.concat([element]),
+                children: children.concat([{ key: element.key, element }]),
                 enteringElement: element,
                 leavingElement: null
             });
@@ -113,13 +113,23 @@ export default class Gate extends Component {
     handleOnWarpOut(element) {
         let { children } = this.state;
 
-        if (this.isValidElement(element) && children.includes(element)) {
+        if (this.isValidElement(element) && this.hasElement(element)) {
             this.setState({
-                children: children.filter(el => el !== element),
+                children: children.filter(child => child.key !== element.key),
                 enteringElement: null,
                 leavingElement: element
             });
         }
+    }
+
+    /**
+     * Returns true if the element by key currently exists in the gate.
+     *
+     * @param {ReactElement} element
+     * @returns {Boolean}
+     */
+    hasElement(element) {
+        return !!this.state.children.find(child => child.key === element.key);
     }
 
     /**
@@ -148,7 +158,7 @@ export default class Gate extends Component {
     renderChildren(children) {
         return (
             <Fade.Group>
-                {children}
+                {children.map(child => child.element)}
             </Fade.Group>
         );
     }
@@ -163,7 +173,7 @@ export default class Gate extends Component {
 
         return (
             <div
-                className={this.formatChildClass('gate', props.animation)}
+                className={this.formatChildClass('gate')}
                 {...this.inheritNativeProps(props)}
             >
                 {this.renderChildren(this.state.children)}
