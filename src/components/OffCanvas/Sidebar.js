@@ -78,21 +78,21 @@ export default class Sidebar extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      expanded = this.state.expanded;
+    const { children, side } = this.props;
+    const { expanded } = this.state;
 
     return (
       <aside
         role="complementary"
         className={this.formatChildClass('sidebar', {
-          [`@${props.side}`]: true,
+          [`@${side}`]: true,
           'is-expanded': expanded,
         })}
         aria-hidden={!expanded}
         aria-expanded={expanded}
-        data-offcanvas-sidebar={props.side}
+        data-offcanvas-sidebar={side}
       >
-        {props.children}
+        {children}
       </aside>
     );
   }

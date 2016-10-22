@@ -39,8 +39,8 @@ export default class Tab extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let index = this.props.index,
-      active = this.getContext().isItemActive(index);
+    const { index } = this.props;
+    const active = this.getContext().isItemActive(index);
 
     return (
       <li>

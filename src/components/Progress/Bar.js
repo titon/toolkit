@@ -24,16 +24,16 @@ export default class Bar extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
+    const { children, state, percent } = this.props;
 
     return (
       <div
         className={this.formatChildClass('bar', {
-          [`is-${props.state}`]: props.state,
+          [`is-${state}`]: state,
         })}
-        style={{ width: `${props.percent}%` }}
+        style={{ width: `${percent}%` }}
       >
-        {props.children || `${props.percent}%`}
+        {children || `${percent}%`}
       </div>
     );
   }

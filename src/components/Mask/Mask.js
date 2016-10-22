@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
 import CONTEXT_TYPES from './contextTypes';
@@ -14,6 +14,10 @@ export default class Mask extends Component {
   static module = MODULE;
 
   static childContextTypes = CONTEXT_TYPES;
+
+  static propTypes = {
+    children: PropTypes.node,
+  };
 
   state = {
     expanded: false,
@@ -85,14 +89,12 @@ export default class Mask extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
-
     return (
       <div
         id={this.formatID('mask')}
         className={this.formatClass()}
       >
-        {props.children}
+        {this.props.children}
       </div>
     );
   }

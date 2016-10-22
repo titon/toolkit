@@ -7,7 +7,5 @@
 import Steps from './Steps';
 import Item from './Item';
 
-Steps.Item = Item;
-
 export { Item };
 export default Steps;

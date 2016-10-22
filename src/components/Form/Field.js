@@ -33,23 +33,23 @@ export default class Field extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
+    const { children, invalid, required, label, help, inputID } = this.props;
 
     return (
       <div
         className={this.formatChildClass('field', {
-          'is-invalid': props.invalid,
-          'is-required': props.required,
+          'is-invalid': invalid,
+          'is-required': required,
         })}
       >
-        {props.label && (
-          <Label inputID={props.inputID}>{props.label}</Label>
+        {label && (
+          <Label inputID={inputID}>{label}</Label>
         )}
 
-        {props.children}
+        {children}
 
-        {props.help && (
-          <Help inputID={props.inputID}>{props.help}</Help>
+        {help && (
+          <Help inputID={inputID}>{help}</Help>
         )}
       </div>
     );

@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
 import CONTEXT_TYPES from './contextTypes';

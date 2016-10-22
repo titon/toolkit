@@ -28,16 +28,16 @@ export default class Steps extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
+    const { label, children } = this.props;
 
     return (
       <nav
         role="navigation"
         className={this.formatClass()}
-        aria-label={props.label}
+        aria-label={label}
       >
         <ol>
-          {props.children}
+          {children}
         </ol>
       </nav>
     );

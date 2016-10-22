@@ -28,8 +28,8 @@ export default class Spinner extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      spinners = [];
+    const { children, type } = this.props;
+    const spinners = [];
 
     for (let i = 0; i < 8; i += 1) {
       spinners.push(<span key={i} />);
@@ -38,14 +38,14 @@ export default class Spinner extends Component {
     return (
       <div
         className={this.formatClass({
-          [`@${props.type}-spinner`]: true,
+          [`@${type}-spinner`]: true,
         })}
       >
         <div className={this.formatChildClass('spinner')}>
           {spinners}
         </div>
 
-        {props.children}
+        {children}
       </div>
     );
   }

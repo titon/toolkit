@@ -16,7 +16,7 @@ export default function Row({ children }) {
     <div className={MODULE.classNames.row}>
       {children}
     </div>
-    );
+  );
 }
 
 Row.module = MODULE;

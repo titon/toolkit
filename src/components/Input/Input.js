@@ -39,9 +39,9 @@ export default class Input extends Component {
   constructor(props) {
     super();
 
-    let defaultValue = props.defaultValue,
-      defaultChecked = props.defaultChecked,
-      compName = this.constructor.name.toLowerCase();
+    const compName = this.constructor.name.toLowerCase();
+    let defaultValue = props.defaultValue;
+    let defaultChecked = props.defaultChecked;
 
     // Select
     if (compName === 'select') {
@@ -94,9 +94,8 @@ export default class Input extends Component {
    * @param {Object} nextState
    */
   componentWillUpdate(nextProps, nextState) {
-    const args = this.isChoiceType()
-            ? [nextState.checked, nextState.value]
-            : [nextState.value, this.state.value];
+    const { checked, value } = nextState;
+    const args = this.isChoiceType() ? [checked, value] : [value, this.state.value];
 
     this.emitEvent('changing', ...args);
   }
@@ -108,10 +107,8 @@ export default class Input extends Component {
    * @param {Object} prevState
    */
   componentDidUpdate(prevProps, prevState) {
-    let state = this.state,
-      args = this.isChoiceType()
-                ? [state.checked, state.value]
-                : [state.value, prevState.value];
+    const { checked, value } = this.state;
+    const args = this.isChoiceType() ? [checked, value] : [value, prevState.value];
 
     this.emitEvent('changed', ...args);
   }
@@ -125,17 +122,17 @@ export default class Input extends Component {
    * @returns {Object}
    */
   gatherProps(native = true) {
-    let props = this.props,
-      state = this.state,
-      inputProps = {
-        disabled: props.disabled,
-        id: props.id || formatInputName(props.name),
-        name: props.name,
-        onChange: this.handleOnChange,
-        readOnly: props.readOnly,
-        required: props.required,
-        value: state.value,
-      };
+    const props = this.props;
+    const state = this.state;
+    let inputProps = {
+      disabled: props.disabled,
+      id: props.id || formatInputName(props.name),
+      name: props.name,
+      onChange: this.handleOnChange,
+      readOnly: props.readOnly,
+      required: props.required,
+      value: state.value,
+    };
 
     // Native elements inherit more base functionality
     // Custom elements define their own classes and props
@@ -188,14 +185,14 @@ export default class Input extends Component {
    * @returns {Object}
    */
   gatherStateClasses() {
-    const props = this.props;
+    const { disabled, multiple, readOnly, required } = this.props;
 
     return {
       'is-checked': this.state.checked,
-      'is-disabled': props.disabled,
-      'is-multiple': props.multiple,
-      'is-read-only': props.readOnly,
-      'is-required': props.required,
+      'is-disabled': disabled,
+      'is-multiple': multiple,
+      'is-read-only': readOnly,
+      'is-required': required,
     };
   }
 

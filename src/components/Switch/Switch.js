@@ -30,9 +30,9 @@ export default class Switch extends Input {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      inputProps = this.gatherProps(false),
-      stateClasses = this.gatherStateClasses();
+    const { disabled, labelOn, labelOff } = this.props;
+    const inputProps = this.gatherProps(false);
+    const stateClasses = this.gatherStateClasses();
 
     // Force back to a checkbox
     inputProps.type = 'checkbox';
@@ -42,15 +42,15 @@ export default class Switch extends Input {
         id={this.formatID('switch', inputProps.id)}
         className={this.formatClass(stateClasses)}
         aria-checked={this.state.checked}
-        aria-disabled={props.disabled}
+        aria-disabled={disabled}
       >
         <input {...inputProps} />
 
         <label
           htmlFor={inputProps.id}
           className={this.formatChildClass('bar', stateClasses)}
-          data-switch-on={props.labelOn}
-          data-switch-off={props.labelOff}
+          data-switch-on={labelOn}
+          data-switch-off={labelOff}
         >
           <span className={this.formatChildClass('toggle')} />
         </label>

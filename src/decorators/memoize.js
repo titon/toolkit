@@ -4,9 +4,9 @@
  * @link        http://titon.io
  */
 
+import memoizer from 'lodash.memoize';
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
-import memoizer from 'lodash.memoize';
 
 /**
  * The `memoize` decorator will cache the result of a function/method and return that same value
@@ -21,11 +21,9 @@ export default function memoize(target, name, descriptor) {
   checkIsMethod('memoize', arguments);
 
   descriptor.value = memoizer(
-        getValueFunc('memoize', descriptor),
-        (...args) => {
-          return JSON.stringify(args);
-        }
-    );
+    getValueFunc('memoize', descriptor),
+    (...args) => JSON.stringify(args)
+  );
 
   return descriptor;
 }

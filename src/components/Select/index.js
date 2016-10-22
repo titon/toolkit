@@ -7,7 +7,5 @@
 import Select from './Select';
 import Menu from './Menu';
 
-Select.Menu = Menu;
-
 export { Menu };
 export default Select;

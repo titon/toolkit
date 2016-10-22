@@ -68,10 +68,10 @@ export default class Gateway extends Component {
   @bind
   registerGate(gate, warpIn, warpOut) {
     invariant(!this.gates[gate],
-            'A `Gate` with the name "%s" has already been created.', gate);
+      'A `Gate` with the name "%s" has already been created.', gate);
 
     invariant((typeof warpIn === 'function' && typeof warpOut === 'function'),
-            'A `Gate` requires function handlers for warping in and out elements.');
+      'A `Gate` requires function handlers for warping in and out elements.');
 
     this.gates[gate] = { warpIn, warpOut };
   }
@@ -108,11 +108,9 @@ export default class Gateway extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
-
     return (
       <div className={this.formatClass()}>
-        {props.children}
+        {this.props.children}
       </div>
     );
   }

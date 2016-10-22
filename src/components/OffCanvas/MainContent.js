@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
@@ -14,20 +14,22 @@ export default class MainContent extends Component {
 
   static contextTypes = CONTEXT_TYPES;
 
+  static propTypes = {
+    children: PropTypes.node,
+  };
+
   /**
    * Render the off canvas main content.
    *
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
-
     return (
       <main
         role="main"
         className={this.formatChildClass('content')}
       >
-        {props.children}
+        {this.props.children}
       </main>
     );
   }

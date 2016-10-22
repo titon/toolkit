@@ -52,7 +52,7 @@ export default function Col({ children, end, ...props }) {
     <div className={formatClass(MODULE.classNames.col, classes)}>
       {children}
     </div>
-    );
+  );
 }
 
 Col.module = MODULE;

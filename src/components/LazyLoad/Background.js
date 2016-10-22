@@ -4,7 +4,6 @@
  * @link        http://titon.io
  */
 
-import React from 'react';
 import LazyLoad from './LazyLoad';
 
 export default class Background extends LazyLoad {
@@ -18,7 +17,7 @@ export default class Background extends LazyLoad {
       className: this.formatChildClass('bg', {
         'is-loaded': this.state.loaded,
       }),
-      ref: 'element',
+      ref: (ref) => { this.element = ref; },
     });
   }
 }

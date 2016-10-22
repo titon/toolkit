@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import { PropTypes } from 'react';
 import { default as BaseGate } from '../Gateway/Gate';
 import Tooltip from './Tooltip';
 import MODULE from './module';

@@ -50,8 +50,7 @@ export default class Gate extends Component {
 
     // The `contextKey` can be overwritten by child components
     // So force it to the gateways context key
-    context[MODULE.contextKey]
-            .registerGate(props.name, this.handleOnWarpIn, this.handleOnWarpOut);
+    context[MODULE.contextKey].registerGate(props.name, this.handleOnWarpIn, this.handleOnWarpOut);
   }
 
   /**
@@ -74,7 +73,7 @@ export default class Gate extends Component {
    * Trigger `entered` and `left` events when an element is warped.
    */
   componentDidUpdate() {
-    let { enteringElement, leavingElement } = this.state;
+    const { enteringElement, leavingElement } = this.state;
 
     if (enteringElement) {
       this.emitEvent('entered', enteringElement);
@@ -96,7 +95,7 @@ export default class Gate extends Component {
 
     if (this.isValidElement(element) && !this.hasElement(element)) {
       this.setState({
-        children: children.concat([{ key: element.key, element }]),
+        children: [...children, { key: element.key, element }],
         enteringElement: element,
         leavingElement: null,
       });
@@ -138,11 +137,11 @@ export default class Gate extends Component {
    * @returns {Boolean}
    */
   isValidElement(element) {
-    let { contract, name } = this.props;
+    const { contract, name } = this.props;
 
     invariant(React.isValidElement(element) && element.type === contract,
-            'Value passed to "%s" `Gate` must be an instance of the `%s` component.',
-            name, contract.name);
+      'Value passed to "%s" `Gate` must be an instance of the `%s` component.',
+      name, contract.name);
 
     return true;
   }

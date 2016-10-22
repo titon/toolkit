@@ -9,9 +9,5 @@ import Overlay from './Overlay';
 import Target from './Target';
 import Toggle from './Toggle';
 
-Mask.Overlay = Overlay;
-Mask.Target = Target;
-Mask.Toggle = Toggle;
-
 export { Overlay, Target, Toggle };
 export default Mask;

@@ -22,7 +22,7 @@ export default class Help extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let { children, inputID } = this.props;
+    const { children, inputID } = this.props;
 
     return (
       <div

@@ -7,7 +7,5 @@
 import Table from './Table';
 import Divider from './Divider';
 
-Table.Divider = Divider;
-
 export { Divider };
 export default Table;

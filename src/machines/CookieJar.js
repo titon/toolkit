@@ -69,7 +69,7 @@ class CookieJar {
         let [key, value] = cookie.split('=', 2);
 
         key = this.decode(key).replace(Titon.options.cookiePrefix, '');
-        cookies[key] = this.decode(value);
+        cookies[key] = value = this.decode(value);
       });
     }
 

@@ -10,10 +10,5 @@ import Head from './Head';
 import Foot from './Foot';
 import Gate from './Gate';
 
-Modal.Body = Body;
-Modal.Head = Head;
-Modal.Foot = Foot;
-Modal.Gate = Gate;
-
 export { Body, Head, Foot, Gate };
 export default Modal;

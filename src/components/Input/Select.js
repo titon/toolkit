@@ -48,7 +48,7 @@ export default class Select extends Input {
     const elements = [];
 
     options.forEach((option) => {
-        // Optgroup
+      // Optgroup
       if (option.options) {
         elements.push(
           <optgroup
@@ -58,9 +58,9 @@ export default class Select extends Input {
           >
             {this.renderOptions(option.options)}
           </optgroup>
-            );
+        );
 
-        // Option
+      // Option
       } else {
         elements.push(
           <option
@@ -70,7 +70,7 @@ export default class Select extends Input {
           >
             {option.label}
           </option>
-            );
+        );
       }
     });
 

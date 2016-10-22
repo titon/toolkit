@@ -4,12 +4,16 @@
  * @link        http://titon.io
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import MODULE from './module';
 
 export default class ActionBar extends Component {
   static module = MODULE;
+
+  static propTypes = {
+    children: PropTypes.node,
+  };
 
   /**
    * Render the form action bar.
@@ -17,11 +21,9 @@ export default class ActionBar extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
-
     return (
       <div className={this.formatChildClass('actions')}>
-        {props.children}
+        {this.props.children}
       </div>
     );
   }

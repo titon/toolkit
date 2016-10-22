@@ -33,12 +33,12 @@ export default class Gate extends BaseGate {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
+    const { animation, position } = this.props;
 
     return (
       <aside
         role="log"
-        className={this.formatChildClass('gate', props.animation, props.position)}
+        className={this.formatChildClass('gate', animation, position)}
         aria-relevant="additions"
         aria-hidden="false"
       >

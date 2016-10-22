@@ -30,21 +30,21 @@ export default class Wave extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      waves = [];
+    const { children, type, count } = this.props;
+    const waves = [];
 
-    for (let i = 0; i < props.count; i += 1) {
+    for (let i = 0; i < count; i += 1) {
       waves.push(<span key={i} />);
     }
 
     return (
       <div
         className={this.formatClass({
-          [`@${props.type}-wave`]: true,
+          [`@${type}-wave`]: true,
         })}
       >
         {waves}
-        {props.children}
+        {children}
       </div>
     );
   }

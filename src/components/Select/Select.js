@@ -52,7 +52,7 @@ export default class Select extends InputSelect {
 
     if (props.multiple) {
       invariant(!props.native && !TOUCH,
-              'Selects using `multiple` cannot use `native` controls on non-touch devices.');
+        'Selects using `multiple` cannot use `native` controls on non-touch devices.');
     }
 
     this.state = {
@@ -69,20 +69,20 @@ export default class Select extends InputSelect {
    * @returns {Object}
    */
   getChildContext() {
-    let { name, options, multiple } = this.props,
-      state = this.state;
+    const { name, options, multiple } = this.props;
+    const { expanded, value } = this.state;
 
     return {
       [MODULE.contextKey]: {
-        expanded: state.expanded,
+        expanded,
         hideMenu: this.hideMenu,
         inputID: formatInputName(name),
         inputName: name,
-        mappedOptions: state.options,
+        mappedOptions: this.state.options,
         multiple,
         options,
         selectValue: this.selectValue,
-        selectedValues: this.extractValues(state.value, true),
+        selectedValues: this.extractValues(value, true),
         showMenu: this.showMenu,
         toggleMenu: this.toggleMenu,
         uid: this.getUID(),
@@ -149,13 +149,13 @@ export default class Select extends InputSelect {
     const map = {};
 
     options.forEach((option) => {
-        // Optgroup
+      // Optgroup
       if (option.options) {
         option.options.forEach((child) => {
           map[child.value] = child;
         });
 
-        // Option
+      // Option
       } else {
         map[option.value] = option;
       }
@@ -189,15 +189,15 @@ export default class Select extends InputSelect {
    * @returns {String}
    */
   getSelectedLabel() {
-    let { value, options } = this.state,
-      props = this.props,
-      label = [],
-      count = 0,
-      limit = props.listLimit,
-      message = '';
+    const { options } = this.state;
+    const { listLimit, defaultLabel, multipleFormat, countMessage } = this.props;
+    const label = [];
+    let count = 0;
+    let message = '';
+    let { value } = this.state;
 
     if (!value.length) {
-      return props.defaultLabel;
+      return defaultLabel;
     }
 
     if (!Array.isArray(value)) {
@@ -207,22 +207,22 @@ export default class Select extends InputSelect {
     value.forEach((val) => {
       const option = options[val];
 
-      if (typeof option !== 'undefined') {
+      if (option) {
         label.push(option.selectedLabel || option.label);
         count += 1;
       }
     });
 
-    switch (props.multipleFormat) {
+    switch (multipleFormat) {
       case 'count':
-        return props.countMessage
-                    .replace('{count}', count)
-                    .replace('{total}', Object.keys(options).length);
+        return countMessage
+          .replace('{count}', count)
+          .replace('{total}', Object.keys(options).length);
 
       default:
-        message = label.slice(0, limit).join(', ');
+        message = label.slice(0, listLimit).join(', ');
 
-        if (limit < count) {
+        if (listLimit < count) {
           message += ' ...';
         }
 
@@ -301,7 +301,9 @@ export default class Select extends InputSelect {
    * Handler that toggles the display of the menu.
    */
   @bind
-  handleOnClickLabel() {
+  handleOnClickLabel(e) {
+    e.preventDefault();
+
     this.toggleMenu();
   }
 
@@ -312,12 +314,10 @@ export default class Select extends InputSelect {
    */
   @bind
   handleOnClickOut(e) {
-        /* eslint operator-linebreak: 0 */
-
     if (
-            !this.props.disabled && this.state.expanded &&
-            this.hasMenu() && isOutsideElement(this.refs.container, e.target)
-        ) {
+      !this.props.disabled && this.state.expanded &&
+      this.hasMenu() && isOutsideElement(this.container, e.target)
+    ) {
       this.hideMenu();
     }
   }
@@ -338,30 +338,31 @@ export default class Select extends InputSelect {
    * @returns {ReactElement}
    */
   render() {
-    let { native, ...props } = this.props,
-      { expanded } = this.state,
-      inputProps = this.gatherProps(false),
-      stateClasses = this.gatherStateClasses();
+    const { children, native, disabled, options, arrow } = this.props;
+    const { expanded } = this.state;
+    const inputProps = this.gatherProps(false);
+    const stateClasses = this.gatherStateClasses();
 
     // Add another state class
     stateClasses['is-native'] = native;
 
     return (
       <div
-        ref="container"
+        ref={(ref) => { this.container = ref; }}
         id={this.formatID('select', inputProps.id)}
         className={this.formatClass(stateClasses)}
-        aria-disabled={props.disabled}
+        aria-disabled={disabled}
       >
         <select
           {...inputProps}
           onFocus={this.handleOnFocus}
           onBlur={this.handleOnBlur}
         >
-          {this.renderOptions(props.options)}
+          {this.renderOptions(options)}
         </select>
 
-        <div
+        <a
+          href=""
           role="button"
           className={this.formatChildClass('toggle', stateClasses)}
           onClick={this.handleOnClickLabel}
@@ -374,11 +375,11 @@ export default class Select extends InputSelect {
           </span>
 
           <span className={this.formatChildClass('arrow')}>
-            {props.arrow}
+            {arrow}
           </span>
-        </div>
+        </a>
 
-        {native ? null : props.children}
+        {native ? null : children}
       </div>
     );
   }

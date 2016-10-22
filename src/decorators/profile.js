@@ -24,14 +24,14 @@ export default function profile(target, name, descriptor) {
       const oldMethod = descriptor[method];
 
       descriptor[method] = function profileDescriptor() {
-        let start = Date.now(),
-          result = oldMethod.apply(this, arguments),
-          stop = (Date.now() - start).toFixed(4);
+        const start = Date.now();
+        const result = oldMethod.apply(this, arguments);
+        const stop = (Date.now() - start).toFixed(4);
 
         console.info(
-                    `${name}() took ${stop} milliseconds to run using the arguments:`,
-                    arguments
-            );
+          `${name}() took ${stop} milliseconds to run using the arguments:`,
+          arguments
+        );
 
         return result;
       };

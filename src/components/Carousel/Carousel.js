@@ -5,7 +5,6 @@
  */
 
 import React, { Children, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import Component from '../../Component';
 import ItemList from './ItemList';
 import bind from '../../decorators/bind';
@@ -149,8 +148,8 @@ export default class Carousel extends Component {
    * @returns {Number}
    */
   countItems() {
-    let count = 0,
-      children = Children.toArray(this.props.children);
+    const children = Children.toArray(this.props.children);
+    let count = 0;
 
     // Use a for loop so that we can break out
     for (let i = 0; i < children.length; i += 1) {
@@ -169,9 +168,9 @@ export default class Carousel extends Component {
    * @returns {Number[]}
    */
   getActiveIndices() {
-    let currentIndex = this.state.index,
-      visibleCount = this.props.toShow,
-      active = [];
+    const currentIndex = this.state.index;
+    const visibleCount = this.props.toShow;
+    const active = [];
 
     for (let i = 0; i < visibleCount; i += 1) {
       active.push(currentIndex + i);
@@ -294,7 +293,7 @@ export default class Carousel extends Component {
   isItemActive(index) {
     const currentIndex = this.state.index;
 
-    return (index >= currentIndex && index <= (currentIndex + this.props.toShow - 1));
+    return (index >= currentIndex && index <= ((currentIndex + this.props.toShow) - 1));
   }
 
   /**
@@ -328,17 +327,16 @@ export default class Carousel extends Component {
    */
   @bind
   showItem(index) {
-        /* eslint no-lonely-if: 0 */
-
+    // eslint-disable-next-line no-lonely-if
     if (this.state.animating) {
       return;
     }
 
-    let props = this.props,
-      currentIndex = this.state.index,
-      lastIndex = this.getLastIndex(),
-      firstIndex = this.getFirstIndex(),
-      itemCount = this.countItems();
+    const props = this.props;
+    const currentIndex = this.state.index;
+    const lastIndex = this.getLastIndex();
+    const firstIndex = this.getFirstIndex();
+    const itemCount = this.countItems();
 
     if (props.infinite) {
       if (index >= itemCount) {
@@ -358,7 +356,7 @@ export default class Carousel extends Component {
     if (!props.loop && index === lastIndex) {
       this.stopCycle();
 
-        // Reset the cycle timer
+    // Reset the cycle timer
     } else if (props.autoStart) {
       this.startCycle();
     }
@@ -410,24 +408,25 @@ export default class Carousel extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
+    const { children, animation, loop, autoStart } = this.props;
+    const { animating, stopped } = this.state;
 
     return (
       <div
         role="tablist"
         id={this.formatID('carousel')}
         className={this.formatClass({
-          [props.animation]: true,
-          'is-animating': this.state.animating,
-          'is-stopped': this.state.stopped,
-          'no-next': (!props.loop && this.isAtLast()),
-          'no-prev': (!props.loop && this.isAtFirst()),
+          [animation]: true,
+          'is-animating': animating,
+          'is-stopped': stopped,
+          'no-next': (!loop && this.isAtLast()),
+          'no-prev': (!loop && this.isAtFirst()),
         })}
-        aria-live={props.autoStart ? 'assertive' : 'off'}
+        aria-live={autoStart ? 'assertive' : 'off'}
         onMouseEnter={this.handleOnMouseEnter}
         onMouseLeave={this.handleOnMouseLeave}
       >
-        {props.children}
+        {children}
       </div>
     );
   }

@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import { PropTypes } from 'react';
 import Component from '../Component';
 import bind from '../decorators/bind';
 import collectionOf from '../prop-types/collectionOf';
@@ -57,16 +57,16 @@ export default class Swipe extends Component {
    * @returns {{x: Number, y: Number, z: Number}}
    */
   extractTranslateOffsets(element) {
-    let match = element.style.transform.match(/translate(Z|X|Y|3d)?\(([,a-z%\-\d\s]+)\)/),
-      mapping = ['x', 'y', 'z'],
-      offsets = {
-        x: 0,
-        xUnit: '',
-        y: 0,
-        yUnit: '',
-        z: 0,
-        zUnit: '',
-      };
+    const match = element.style.transform.match(/translate(Z|X|Y|3d)?\(([,a-z%\-\d\s]+)\)/);
+    const mapping = ['x', 'y', 'z'];
+    const offsets = {
+      x: 0,
+      xUnit: '',
+      y: 0,
+      yUnit: '',
+      z: 0,
+      zUnit: '',
+    };
 
     if (!match) {
       return offsets;
@@ -149,8 +149,8 @@ export default class Swipe extends Component {
       return;
     }
 
-    let to = this.packageCoordinates(e),
-      start = this.state.startCoords;
+    const to = this.packageCoordinates(e);
+    const start = this.state.startCoords;
 
     // Trigger `preventDefault()` if `x` is larger than `y` (scrolling horizontally).
     // If we `preventDefault()` while scrolling vertically, the window will not scroll.
@@ -191,30 +191,30 @@ export default class Swipe extends Component {
    * @param {SyntheticEvent} e
    */
   handleOnStop(e) {
-    let start = this.state.startCoords,
-      stop = this.packageCoordinates(e),
-      props = this.props,
-      x = 0,
-      y = 0,
-      direction = '';
+    const { duration, distance, restraint } = this.props;
+    const start = this.state.startCoords;
+    const stop = this.packageCoordinates(e);
 
     if (!start || !stop) {
       return;
     }
 
-    x = stop.x - start.x;
-    y = stop.y - start.y;
+    const x = stop.x - start.x;
+    const y = stop.y - start.y;
+    let direction = '';
 
-    if ((stop.time - start.time) <= props.duration) {
-      if (abs(x) >= props.distance && abs(y) <= props.restraint) {
+    if ((stop.time - start.time) <= duration) {
+      if (abs(x) >= distance && abs(y) <= restraint) {
         direction = (x < 0) ? 'Left' : 'Right';
-      } else if (abs(y) >= props.distance && abs(x) <= props.restraint) {
+
+      } else if (abs(y) >= distance && abs(x) <= restraint) {
         direction = (y < 0) ? 'Up' : 'Down';
+
       } else {
         return;
       }
 
-        // Set details for event
+      // Set details for event
       e.detail = {
         direction: direction.toLowerCase(),
         start,
@@ -236,14 +236,14 @@ export default class Swipe extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      swipeProps = {
-        className: this.formatClass({
-          'is-swiping': this.state.swiping,
-        }),
-      };
+    const { children, enabled } = this.props;
+    const swipeProps = {
+      className: this.formatClass({
+        'is-swiping': this.state.swiping,
+      }),
+    };
 
-    if (props.enabled) {
+    if (enabled) {
       if (TOUCH) {
         swipeProps.onTouchStart = this.handleOnStart;
         swipeProps.onTouchEnd = this.handleOnStop;
@@ -256,6 +256,6 @@ export default class Swipe extends Component {
       }
     }
 
-    return this.transferToChild(props.children, swipeProps);
+    return this.transferToChild(children, swipeProps);
   }
 }

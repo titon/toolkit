@@ -9,9 +9,5 @@ import Tab from './Tab';
 import Nav from './Nav';
 import Section from './Section';
 
-Tabs.Tab = Tab;
-Tabs.Nav = Nav;
-Tabs.Section = Section;
-
 export { Tab, Nav, Section };
 export default Tabs;

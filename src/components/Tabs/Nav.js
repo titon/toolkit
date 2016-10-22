@@ -26,15 +26,13 @@ export default class Nav extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
-
     return (
       <nav
         id={this.formatID('tabs-nav')}
         className={this.formatChildClass('nav')}
       >
         <ol>
-          {props.children}
+          {this.props.children}
         </ol>
       </nav>
     );

@@ -25,7 +25,7 @@ export default function getter(target, name, descriptor) {
     let value = {};
 
     if (Array.isArray(key)) {
-      key.forEach(k => value[k] = func.call(this, k));
+      key.forEach((k) => { value[k] = func.call(this, k); });
     } else {
       value = func.call(this, key);
     }

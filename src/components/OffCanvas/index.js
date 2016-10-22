@@ -9,9 +9,5 @@ import MainContent from './MainContent';
 import Sidebar from './Sidebar';
 import Toggle from './Toggle';
 
-OffCanvas.MainContent = MainContent;
-OffCanvas.Sidebar = Sidebar;
-OffCanvas.Toggle = Toggle;
-
 export { MainContent, Sidebar, Toggle };
 export default OffCanvas;

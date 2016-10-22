@@ -27,16 +27,16 @@ export default class Static extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
+    const { children, large, small } = this.props;
 
     return (
       <span
         className={this.formatChildClass('static', {
-          '@large': props.large,
-          '@small': props.small,
+          '@large': large,
+          '@small': small,
         })}
       >
-        {props.children}
+        {children}
       </span>
     );
   }

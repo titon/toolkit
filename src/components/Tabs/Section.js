@@ -78,9 +78,8 @@ export default class Section extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      index = props.index,
-      expanded = this.state.expanded;
+    const { children, index } = this.props;
+    const { expanded } = this.state;
 
     return (
       <section
@@ -93,7 +92,7 @@ export default class Section extends Component {
         aria-hidden={!expanded}
         aria-expanded={expanded}
       >
-        {props.children}
+        {children}
       </section>
     );
   }

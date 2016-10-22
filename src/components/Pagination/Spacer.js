@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
@@ -13,6 +13,10 @@ export default class Spacer extends Component {
   static module = MODULE;
 
   static contextTypes = CONTEXT_TYPES;
+
+  static propTypes = {
+    children: PropTypes.node,
+  };
 
   /**
    * Render the pagination item spacer.

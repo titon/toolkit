@@ -33,8 +33,8 @@ export default class Image extends LazyLoad {
    * @returns {String}
    */
   getSourcePath() {
-    let { src, retinaSrc, filler, cacheBust } = this.props,
-      sourcePath = filler || '';
+    const { src, retinaSrc, filler, cacheBust } = this.props;
+    let sourcePath = filler || '';
 
     if (this.state.loaded) {
       sourcePath = (RETINA ? retinaSrc : '') || src;
@@ -58,16 +58,16 @@ export default class Image extends LazyLoad {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
+    const { alt, retinaSrc } = this.props;
 
     return (
       <img
-        ref="element"
-        alt={props.alt || ''}
+        ref={(ref) => { this.element = ref; }}
+        alt={alt || ''}
         src={this.getSourcePath()}
         className={this.formatChildClass('image', {
           'is-loaded': this.state.loaded,
-          'is-retina': (RETINA && props.retinaSrc),
+          'is-retina': (RETINA && retinaSrc),
         })}
       />
     );

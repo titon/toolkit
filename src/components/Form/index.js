@@ -11,11 +11,5 @@ import Help from './Help';
 import Label from './Label';
 import ActionBar from './ActionBar';
 
-Form.Field = Field;
-Form.FieldList = FieldList;
-Form.Help = Help;
-Form.Label = Label;
-Form.ActionBar = ActionBar;
-
 export { Field, FieldList, Help, Label, ActionBar };
 export default Form;

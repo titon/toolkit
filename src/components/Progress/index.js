@@ -7,7 +7,5 @@
 import Progress from './Progress';
 import Bar from './Bar';
 
-Progress.Bar = Bar;
-
 export { Bar };
 export default Progress;

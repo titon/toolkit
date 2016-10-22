@@ -78,9 +78,8 @@ export default class Tab extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      index = props.index,
-      active = this.state.active;
+    const { children, index } = this.props;
+    const { active } = this.state;
 
     return (
       <li>
@@ -96,7 +95,7 @@ export default class Tab extends Component {
           tabIndex={generateTabIndex(this)}
           onClick={this.handleOnClick}
         >
-          {props.children}
+          {children}
         </button>
       </li>
     );

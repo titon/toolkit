@@ -87,21 +87,21 @@ export default class Overlay extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      expanded = this.state.expanded;
+    const { children, collapsible } = this.props;
+    const { expanded } = this.state;
 
     return (
       <div
         role="presentation"
         id={this.formatID('mask-overlay')}
         className={this.formatChildClass('overlay', {
-          'is-collapsible': props.collapsible,
+          'is-collapsible': collapsible,
           'is-expanded': expanded,
         })}
         onClick={this.handleOnClick}
         aria-hidden={!expanded}
       >
-        {props.children}
+        {children}
       </div>
     );
   }

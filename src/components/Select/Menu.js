@@ -104,31 +104,38 @@ export default class Menu extends Component {
    * @returns {ReactElement}
    */
   createOption(option) {
-    let disabled = option.disabled,
-      selected = this.state.values.has(option.value);
+    const { disabled, description, value, label } = option;
+    const selected = this.state.values.has(value);
 
     return (
-      <li key={option.value}>
+      <li key={value}>
         <a
+          href=""
           role="option"
           className={this.formatChildClass('option', {
             'is-disabled': disabled,
-            'is-highlighted': (this.state.highlighted === option.value),
+            'is-highlighted': (this.state.highlighted === value),
             'is-selected': selected,
           })}
           aria-disabled={disabled}
           aria-selected={selected}
-          onClick={disabled ? null : this.selectValue.bind(this, option.value)}
+          onClick={(e) => {
+            e.preventDefault();
+
+            if (!disabled) {
+              this.selectValue(value);
+            }
+          }}
         >
           <span className={this.formatChildClass('option-label')}>
-            {option.label}
+            {label}
           </span>
 
-          {option.description && (
+          {description && (
             <span className={this.formatChildClass('option-desc')}>
-              {option.description}
+              {description}
             </span>
-                    )}
+          )}
         </a>
       </li>
     );
@@ -162,8 +169,8 @@ export default class Menu extends Component {
    * @param {String} value
    */
   selectValue(value) {
-    let context = this.getContext(),
-      values = new Set(this.state.values);
+    const context = this.getContext();
+    const values = new Set(this.state.values);
 
     // Toggle the value
     if (context.multiple) {
@@ -200,10 +207,10 @@ export default class Menu extends Component {
 
     e.preventDefault();
 
-    let context = this.getContext(),
-      options = Object.values(context.mappedOptions),
-      index = this.state.index,
-      step = 0;
+    const context = this.getContext();
+    const options = Object.values(context.mappedOptions);
+    let { index } = this.state;
+    let step = 0;
 
     switch (e.key) {
       case 'Escape':
@@ -251,11 +258,11 @@ export default class Menu extends Component {
    * @returns {ReactElement[]}
    */
   renderOptions() {
-    let options = this.getContext().options,
-      elements = [];
+    const options = this.getContext().options;
+    const elements = [];
 
     options.forEach((option) => {
-        // Optgroup
+      // Optgroup
       if (option.options) {
         elements.push(this.createOptGroup(option));
 
@@ -263,7 +270,7 @@ export default class Menu extends Component {
           elements.push(this.createOption(child));
         });
 
-        // Option
+      // Option
       } else {
         elements.push(this.createOption(option));
       }
@@ -278,16 +285,16 @@ export default class Menu extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      expanded = this.state.expanded,
-      { multiple, inputID } = this.getContext();
+    const { hideSelected } = this.props;
+    const { expanded } = this.state;
+    const { multiple, inputID } = this.getContext();
 
     return (
       <div
         role="listbox"
         id={this.formatID('select-menu', inputID)}
         className={this.formatChildClass('menu', {
-          'hide-selected': (props.hideSelected && !multiple),
+          'hide-selected': (hideSelected && !multiple),
           'is-expanded': expanded,
           'is-multiple': multiple,
         })}

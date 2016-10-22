@@ -61,7 +61,7 @@ export default class Modal extends Component {
    * Before mounting, lock scrolling and display a blackout, it applicable.
    */
   componentWillMount() {
-    let { dismissable, blackOut, stopScroll } = this.props;
+    const { dismissable, blackOut, stopScroll } = this.props;
 
     if (dismissable) {
       window.addEventListener('keyup', this.handleOnKeyUp);
@@ -81,7 +81,6 @@ export default class Modal extends Component {
    * We must do this after a mount, as modal's are passed through to gateways.
    */
   componentDidMount() {
-        /* eslint react/no-did-mount-set-state: 0 */
     this.setState({
       expanded: true,
     });
@@ -91,7 +90,7 @@ export default class Modal extends Component {
    * Reverse the logic that was initialized during mounting.
    */
   componentWillUnmount() {
-    let { dismissable, blackOut, stopScroll } = this.props;
+    const { dismissable, blackOut, stopScroll } = this.props;
 
     if (dismissable) {
       window.removeEventListener('keyup', this.handleOnKeyUp);
@@ -152,37 +151,37 @@ export default class Modal extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      { expanded } = this.state;
+    const { children, dismissable, fullScreen, close } = this.props;
+    const { expanded } = this.state;
 
     return (
       <div
         role="dialog"
         id={this.formatID('modal')}
         className={this.formatClass({
-          'is-dismissable': props.dismissable,
+          'is-dismissable': dismissable,
           'is-expanded': expanded,
-          'is-fullscreen': props.fullScreen,
+          'is-fullscreen': fullScreen,
         })}
         aria-labelledby={this.formatID('modal-title')}
         aria-describedby={this.formatID('modal-content')}
         aria-hidden={!expanded}
         aria-expanded={expanded}
-        onClick={props.dismissable ? this.handleOnClickOut : null}
+        onClick={dismissable ? this.handleOnClickOut : null}
       >
         <div className={this.formatChildClass('outer')}>
           <div className={this.formatChildClass('inner')}>
-            {props.children}
+            {children}
           </div>
 
-          {props.dismissable && (
+          {dismissable && (
             <button
               type="button"
               role="button"
               className={this.formatChildClass('close')}
               onClick={this.handleOnClick}
             >
-              {props.close}
+              {close}
             </button>
           )}
         </div>

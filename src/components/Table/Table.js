@@ -31,18 +31,18 @@ export default class Table extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
+    const { children, hoverable, sortable, striped } = this.props;
 
     return (
       <div className={this.formatChildClass('responsive')}>
         <table
           className={this.formatClass({
-            'has-hover': props.hoverable,
-            'is-sortable': props.sortable,
-            'is-striped': props.striped,
+            'has-hover': hoverable,
+            'is-sortable': sortable,
+            'is-striped': striped,
           })}
         >
-          {props.children}
+          {children}
         </table>
       </div>
     );

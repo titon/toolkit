@@ -7,7 +7,5 @@
 import Toast from './Toast';
 import Gate from './Gate';
 
-Toast.Gate = Gate;
-
 export { Gate };
 export default Toast;

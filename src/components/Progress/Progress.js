@@ -32,7 +32,7 @@ export default class Progress extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let { max, min, ...props } = this.props;
+    const { children, max, min, now } = this.props;
 
     return (
       <div
@@ -40,9 +40,9 @@ export default class Progress extends Component {
         className={this.formatClass()}
         aria-valuemin={min}
         aria-valuemax={max}
-        aria-valuenow={Math.min(Math.max(props.now, min), max)}
+        aria-valuenow={Math.min(Math.max(now, min), max)}
       >
-        {props.children}
+        {children}
       </div>
     );
   }

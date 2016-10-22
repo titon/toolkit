@@ -22,12 +22,12 @@ export default class Divider extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
+    const { children, colSpan } = this.props;
 
     return (
       <tr className={this.formatChildClass('divider')}>
-        <td colSpan={props.colSpan}>
-          {props.children}
+        <td colSpan={colSpan}>
+          {children}
         </td>
       </tr>
     );

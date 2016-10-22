@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import isPlainObject from 'lodash.isPlainObject';
+import isPlainObject from 'lodash.isplainobject';
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
 

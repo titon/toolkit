@@ -27,10 +27,16 @@ export default function invariant(condition, message = '', ...params) {
 
   if (condition) {
     return true;
-  } else if (message === '') {
+
+  } else if (!message) {
     error = new Error('`invariant()` requires an error message.');
+
   } else {
-    error = new Error(message.replace(/%s/g, () => params[index += 1] || ''));
+    error = new Error(message.replace(/%s/g, () => {
+      index += 1;
+
+      return params[index] || '';
+    }));
   }
 
   error.name = 'Invariant Violation';

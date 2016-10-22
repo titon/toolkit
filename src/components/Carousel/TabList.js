@@ -26,15 +26,15 @@ export default class TabList extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let children = [],
-      props = this.props;
+    const children = [];
+    const { onClick } = this.props;
 
     for (let i = 0; i < this.getContext().itemCount; i += 1) {
       children.push(
         <Tab
           index={i}
           key={`tab-${i}`}
-          onClick={props.onClick}
+          onClick={onClick}
         />
       );
     }

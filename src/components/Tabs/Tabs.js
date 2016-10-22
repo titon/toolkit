@@ -69,19 +69,19 @@ export default class Tabs extends Component {
    * Set the default index before mounting.
    */
   componentWillMount() {
-    let props = this.props,
-      index = null;
+    const { persistState, useCookie, useFragment, fragments, defaultIndex } = this.props;
+    let index = null;
 
     // Persist the state through a cookie or fragment
-    if (props.persistState) {
-        // Load from a cookie
-      if (props.useCookie) {
+    if (persistState) {
+      // Load from a cookie
+      if (useCookie) {
         index = CookieJar.get(`tabs.${this.getUID()}`);
       }
 
-        // Load from the fragment
-      if (index === null && props.useFragment && location.hash) {
-        const fragment = props.fragments.find(frag => frag.hash === location.hash.substr(1));
+      // Load from the fragment
+      if (index === null && useFragment && location.hash) {
+        const fragment = fragments.find(frag => frag.hash === location.hash.substr(1));
 
         if (fragment) {
           index = fragment.index;
@@ -91,7 +91,7 @@ export default class Tabs extends Component {
 
     // Fallback to the default index
     if (index === null) {
-      index = props.defaultIndex;
+      index = defaultIndex;
     }
 
     // Cast to number since cookies return strings
@@ -113,18 +113,18 @@ export default class Tabs extends Component {
    * Persist the state through a cookie.
    */
   componentDidUpdate() {
-    let props = this.props,
-      index = this.state.index;
+    const { persistState, useCookie, cookieDuration, useFragment, fragments } = this.props;
+    const { index } = this.state;
 
-    if (props.persistState) {
-      if (props.useCookie) {
+    if (persistState) {
+      if (useCookie) {
         CookieJar.set(`tabs.${this.getUID()}`, index, {
-          expires: props.cookieDuration,
+          expires: cookieDuration,
         });
       }
 
-      if (props.useFragment) {
-        const fragment = props.fragments.find(frag => frag.index === index);
+      if (useFragment) {
+        const fragment = fragments.find(frag => frag.index === index);
 
         if (fragment) {
           DocumentState.updateFragment(fragment.hash);
@@ -201,18 +201,18 @@ export default class Tabs extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
+    const { children, collapsible } = this.props;
 
     return (
       <div
         role="tablist"
         id={this.formatID('tabs')}
         className={this.formatClass({
-          'is-collapsible': props.collapsible,
+          'is-collapsible': collapsible,
         })}
         aria-live="off"
       >
-        {props.children}
+        {children}
       </div>
     );
   }

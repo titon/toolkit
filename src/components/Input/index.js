@@ -10,10 +10,5 @@ import Select from './Select';
 import Static from './Static';
 import Textarea from './Textarea';
 
-Input.Choice = Choice;
-Input.Select = Select;
-Input.Static = Static;
-Input.Textarea = Textarea;
-
 export { Choice, Select, Static, Textarea };
 export default Input;

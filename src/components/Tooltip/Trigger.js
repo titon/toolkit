@@ -28,19 +28,20 @@ export default class Trigger extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let { tooltip, ...props } = this.props,
-      Tag = props.inline ? 'span' : 'div';
+    const { children, inline } = this.props;
+    const Tag = inline ? 'span' : 'div';
+    let { tooltip } = this.props;
 
     // Convert to an element if not already one
     if (!React.isValidElement(tooltip)) {
       tooltip = (
         <Tooltip>{tooltip}</Tooltip>
-        );
+      );
     }
 
     return (
       <Tag className={this.formatChildClass('trigger')}>
-        {props.children}
+        {children}
         {tooltip}
       </Tag>
     );

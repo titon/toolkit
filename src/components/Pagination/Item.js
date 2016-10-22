@@ -38,9 +38,9 @@ export default class Item extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let { page, ...props } = this.props,
-      context = this.getContext(),
-      key = this.getInternalElement().key;
+    const { children, page } = this.props;
+    const context = this.getContext();
+    const key = this.getInternalElement().key;
 
     return (
       <li>
@@ -55,7 +55,7 @@ export default class Item extends Component {
           })}
           onClick={this.handleOnClick}
         >
-          {props.children || page}
+          {children || page}
         </a>
       </li>
     );

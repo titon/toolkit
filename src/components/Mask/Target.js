@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
@@ -13,6 +13,10 @@ export default class Target extends Component {
   static module = MODULE;
 
   static contextTypes = CONTEXT_TYPES;
+
+  static propTypes = {
+    children: PropTypes.node,
+  };
 
   state = {
     expanded: false,
@@ -47,8 +51,7 @@ export default class Target extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      expanded = this.state.expanded;
+    const { expanded } = this.state;
 
     return (
       <div
@@ -59,7 +62,7 @@ export default class Target extends Component {
         aria-controls={this.formatID('mask-overlay')}
         aria-expanded={expanded}
       >
-        {props.children}
+        {this.props.children}
       </div>
     );
   }

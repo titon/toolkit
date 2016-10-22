@@ -72,21 +72,21 @@ export default class Radio extends Input {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      inputProps = this.gatherProps(false),
-      stateClasses = this.gatherStateClasses(),
-      { inputName, inputID } = this.getContext();
+    const { children, disabled, defaultValue } = this.props;
+    const { inputName, inputID } = this.getContext();
+    const inputProps = this.gatherProps(false);
+    const stateClasses = this.gatherStateClasses();
 
     // We need to reset these values as we can't pass them through the constructor
     inputProps.name = inputName;
-    inputProps.id = `${inputID}-${props.defaultValue}`;
+    inputProps.id = `${inputID}-${defaultValue}`;
 
     return (
       <span
         id={this.formatID('radio', inputProps.id)}
         className={this.formatClass(stateClasses)}
         aria-checked={this.state.checked}
-        aria-disabled={props.disabled}
+        aria-disabled={disabled}
       >
         <input {...inputProps} />
 
@@ -95,7 +95,7 @@ export default class Radio extends Input {
           className={this.formatChildClass('toggle', stateClasses)}
         />
 
-        {props.children}
+        {children}
       </span>
     );
   }

@@ -21,6 +21,7 @@ export default class Group extends Component {
   };
 
   static propTypes = {
+    children: PropTypes.node,
     defaultChecked: PropTypes.string,
     name: PropTypes.string.isRequired,
   };
@@ -44,7 +45,7 @@ export default class Group extends Component {
    * @returns {Object}
    */
   getChildContext() {
-    const name = this.props.name;
+    const { name } = this.props;
 
     return {
       [MODULE.contextKey]: {
@@ -86,14 +87,12 @@ export default class Group extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
-
     return (
       <div
         id={this.formatID('radio-group')}
         className={this.formatChildClass('group')}
       >
-        {props.children}
+        {this.props.children}
       </div>
     );
   }

@@ -55,11 +55,11 @@ export default class OffCanvas extends Component {
     super();
 
     // Only a select few animations can support showing all sidebars on page load
-    let { showOnLoad, multiple, animation } = props;
+    const { showOnLoad, multiple, animation } = props;
 
     invariant(!(showOnLoad && multiple && animation !== 'on-top' && animation !== 'squish'),
-            'Only `on-top` and `squish` animations are supported ' +
-            'for `showOnLoad` when `multiple` sidebars are enabled.');
+      'Only `on-top` and `squish` animations are supported ' +
+      'for `showOnLoad` when `multiple` sidebars are enabled.');
   }
 
   /**
@@ -140,8 +140,8 @@ export default class OffCanvas extends Component {
    */
   @bind
   showSidebar(side) {
-    let sides = new Set(this.state.sides),
-      single = (this.props.multiple === false);
+    const sides = new Set(this.state.sides);
+    const single = (this.props.multiple === false);
 
     // If the left side is open, and we swipe right, go back to the content
     if (single && sides.has('left') && side === 'right') {
@@ -165,20 +165,19 @@ export default class OffCanvas extends Component {
    * Show all sidebar(s) on page load.
    */
   showOnLoad() {
-    const props = this.props;
+    const { children, multiple, showOnLoad } = this.props;
 
-    if (props.showOnLoad) {
-      let childlings = Children.toArray(props.children),
-        multiple = props.multiple,
-        count = 0;
+    if (showOnLoad) {
+      const childlings = Children.toArray(children);
+      let count = 0;
 
       for (const child of childlings) {
-            // Only show the first sidebar if multiple is false
+        // Only show the first sidebar if multiple is false
         if (!multiple && count) {
           break;
         }
 
-            // Safe to mutate state directly here
+        // Safe to mutate state directly here
         if (child.type === Sidebar && child.props.side) {
           this.state.sides.add(child.props.side);
           count += 1;
@@ -218,8 +217,8 @@ export default class OffCanvas extends Component {
    */
   @bind
   handleOnSwipe(e) {
-    let side = e.target.getAttribute('data-offcanvas-sidebar'),
-      direction = e.detail.direction;
+    const side = e.target.getAttribute('data-offcanvas-sidebar');
+    const direction = e.detail.direction;
 
     // Hide the sidebar if we swipe in the same direction as itself
     if (side && side === direction) {
@@ -237,10 +236,10 @@ export default class OffCanvas extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      swipeProps = this.generateNestedProps(props, 'swipe', [
-        'onSwipe', 'onSwipeUp', 'onSwipeRight', 'onSwipeDown', 'onSwipeLeft',
-      ]);
+    const props = this.props;
+    const swipeProps = this.generateNestedProps(props, 'swipe', [
+      'onSwipe', 'onSwipeUp', 'onSwipeRight', 'onSwipeDown', 'onSwipeLeft',
+    ]);
 
     swipeProps.onSwipeLeft.unshift(this.handleOnSwipe);
     swipeProps.onSwipeRight.unshift(this.handleOnSwipe);

@@ -39,7 +39,7 @@ export default class Toast extends Component {
     super();
 
     invariant(typeof context[contextKey] !== 'undefined',
-            'A `Toast` must be instantiated within a `Gateway`.');
+      'A `Toast` must be instantiated within a `Gateway`.');
   }
 
   /**
@@ -50,6 +50,20 @@ export default class Toast extends Component {
 
     if (duration > 0) {
       setTimeout(this.hideToast, duration);
+    }
+  }
+
+  /**
+   * Handle the clicking of the toast.
+   *
+   * @param {Event} e
+   */
+  @bind
+  handleOnClick(e) {
+    e.preventDefault();
+
+    if (this.props.dismissable) {
+      this.hideToast();
     }
   }
 
@@ -67,18 +81,19 @@ export default class Toast extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
+    const { children, dismissable } = this.props;
 
     return (
-      <div
+      <a
+        href=""
         role="note"
         className={this.formatClass({
-          'is-dismissable': props.dismissable,
+          'is-dismissable': dismissable,
         })}
-        onClick={props.dismissable ? this.hideToast : null}
+        onClick={this.handleOnClick}
       >
-        {props.children}
-      </div>
+        {children}
+      </a>
     );
   }
 }

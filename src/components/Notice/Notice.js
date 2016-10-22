@@ -46,9 +46,9 @@ export default class Notice extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      role = ['warn', 'warning', 'error', 'danger', 'failure', 'critical']
-                .includes(props.state) ? 'alert' : 'notice';
+    const { children, state, dismissable, title, close } = this.props;
+    const role = ['warn', 'warning', 'error', 'danger', 'failure', 'critical']
+      .includes(state) ? 'alert' : 'notice';
 
     // Remove the element entirely when dismissing
     if (this.state.dismissed) {
@@ -59,29 +59,29 @@ export default class Notice extends Component {
       <div
         role={role}
         className={this.formatClass({
-          [`@${props.state}`]: props.state,
-          'is-dismissable': props.dismissable,
+          [`@${state}`]: state,
+          'is-dismissable': dismissable,
         })}
       >
-        {props.dismissable && (
+        {dismissable && (
           <button
             type="button"
             role="button"
             className={this.formatChildClass('close')}
             onClick={this.handleOnClick}
           >
-            {props.close}
+            {close}
           </button>
         )}
 
-        {props.title && (
+        {title && (
           <div className={this.formatChildClass('head')}>
-            {props.title}
+            {title}
           </div>
         )}
 
         <div className={this.formatChildClass('body')}>
-          {props.children}
+          {children}
         </div>
       </div>
     );

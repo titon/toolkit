@@ -27,7 +27,7 @@ export default class Tooltip extends Component {
     children: PropTypes.node,
     position: positions,
     // Is an HTML element, but element/node prop types don't work
-    targetElement: PropTypes.object,
+    targetElement: PropTypes.element,
     title: PropTypes.node,
     type: PropTypes.oneOf(['tooltip', 'popover']),
     xOffset: PropTypes.number,
@@ -51,7 +51,6 @@ export default class Tooltip extends Component {
    * but other solutions aren't as viable.
    */
   componentDidMount() {
-        /* eslint react/no-did-mount-set-state: 0 */
     if (this.props.targetElement) {
       this.setState({
         sourceElement: ReactDOM.findDOMNode(this),
@@ -73,8 +72,8 @@ export default class Tooltip extends Component {
    * @returns {Object}
    */
   calculatePosition() {
-    let { sourceElement } = this.state,
-      { targetElement, position, xOffset, yOffset } = this.props;
+    const { sourceElement } = this.state;
+    const { targetElement, position, xOffset, yOffset } = this.props;
 
     if (sourceElement && targetElement) {
       return positionRelativeTo(position, sourceElement, targetElement, {
@@ -101,24 +100,24 @@ export default class Tooltip extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let { type, ...props } = this.props;
+    const { type, position, title, children } = this.props;
 
     return (
       <div
         role="tooltip"
         id={this.formatID(type)}
-        className={this.formatClass(props.position)}
+        className={this.formatClass(position)}
         style={this.calculatePosition()}
-        aria-labelledby={props.title ? this.formatID(`${type}-title`) : null}
+        aria-labelledby={title ? this.formatID(`${type}-title`) : null}
         aria-describedby={this.formatID(`${type}-content`)}
       >
         <div className={this.formatChildClass('inner')}>
-          {props.title && (
+          {title && (
             <div
               id={this.formatID(`${type}-title`)}
               className={this.formatChildClass('head')}
             >
-              {props.title}
+              {title}
             </div>
           )}
 
@@ -126,7 +125,7 @@ export default class Tooltip extends Component {
             id={this.formatID(`${type}-content`)}
             className={this.formatChildClass('body')}
           >
-            {props.children}
+            {children}
           </div>
 
           <div className={this.formatChildClass('arrow')} />

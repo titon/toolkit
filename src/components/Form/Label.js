@@ -22,7 +22,7 @@ export default class Label extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let { children, inputID } = this.props;
+    const { children, inputID } = this.props;
 
     return (
       <label

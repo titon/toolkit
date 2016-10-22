@@ -8,8 +8,5 @@ import LazyLoad from './LazyLoad';
 import Image from './Image';
 import Background from './Background';
 
-LazyLoad.Image = Image;
-LazyLoad.Background = Background;
-
 export { Image, Background };
 export default LazyLoad;

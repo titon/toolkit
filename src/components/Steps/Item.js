@@ -26,7 +26,7 @@ export default class Item extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
+    const { children, complete } = this.props;
 
     return (
       <li>
@@ -34,10 +34,10 @@ export default class Item extends Component {
           type="button"
           role="button"
           className={this.formatChildClass('item', {
-            'is-complete': props.complete,
+            'is-complete': complete,
           })}
         >
-          {props.children}
+          {children}
         </button>
       </li>
     );

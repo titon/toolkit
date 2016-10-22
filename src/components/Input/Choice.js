@@ -28,17 +28,17 @@ export default class Choice extends Component {
    * @returns {ReactElement}
    */
   render() {
-    const props = this.props;
+    const { children, large, small, inputID } = this.props;
 
     return (
       <label
-        htmlFor={props.inputID}
+        htmlFor={inputID}
         className={this.formatChildClass('choice', {
-          '@large': props.large,
-          '@small': props.small,
+          '@large': large,
+          '@small': small,
         })}
       >
-        {props.children}
+        {children}
       </label>
     );
   }

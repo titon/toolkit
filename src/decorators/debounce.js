@@ -4,8 +4,8 @@
  * @link        http://titon.io
  */
 
-import checkIsMethod from './helpers/checkIsMethod';
 import debouncer from 'lodash.debounce';
+import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
 
 /**

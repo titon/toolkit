@@ -45,7 +45,7 @@ export default class Warp extends Component {
     super();
 
     invariant(typeof context[contextKey] !== 'undefined',
-            'A `Tooltip.Warp` must be instantiated within a `Gateway`.');
+      'A `Tooltip.Warp` must be instantiated within a `Gateway`.');
   }
 
   /**
@@ -69,9 +69,9 @@ export default class Warp extends Component {
    */
   @bind
   showTooltip() {
-    let tooltip = this.props.tooltip,
-      element = null,
-      targetElement = ReactDOM.findDOMNode(this);
+    const { tooltip } = this.props;
+    const targetElement = ReactDOM.findDOMNode(this);
+    let element = null;
 
     // Already an element
     if (React.isValidElement(tooltip)) {
@@ -83,7 +83,7 @@ export default class Warp extends Component {
         <Tooltip key={this.getUID()} targetElement={targetElement}>
           {tooltip}
         </Tooltip>
-        );
+      );
     }
 
     this.getContext(null, contextKey).warpIn(this.props.gateName, element);
@@ -112,10 +112,10 @@ export default class Warp extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let { children, mode } = this.props,
-      props = {
-        className: this.state.visible ? 'is-active' : '',
-      };
+    const { children, mode } = this.props;
+    const props = {
+      className: this.state.visible ? 'is-active' : '',
+    };
 
     if (mode === 'hover') {
       props.onMouseOver = this.showTooltip;

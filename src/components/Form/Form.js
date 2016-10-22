@@ -11,7 +11,7 @@ import MODULE from './module';
 export default class Form extends Component {
   static module = MODULE;
 
-  static defaultProps = {
+  static default= {
     inline: false,
     method: 'get',
     multipart: false,
@@ -31,19 +31,19 @@ export default class Form extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let props = this.props,
-      encType = props.multipart ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
+    const { children, action, method, inline, multipart } = this.props;
+    const encType = multipart ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
 
     return (
       <form
-        action={props.action}
-        method={props.method}
+        action={action}
+        method={method}
         encType={encType}
         className={this.formatClass({
-          '@inline': props.inline,
+          '@inline': inline,
         })}
       >
-        {props.children}
+        {children}
       </form>
     );
   }

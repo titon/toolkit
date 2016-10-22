@@ -13,13 +13,5 @@ import Stop from './Stop';
 import Next from './Next';
 import Prev from './Prev';
 
-Carousel.Item = Item;
-Carousel.ItemList = ItemList;
-Carousel.TabList = TabList;
-Carousel.Start = Start;
-Carousel.Stop = Stop;
-Carousel.Next = Next;
-Carousel.Prev = Prev;
-
 export { Item, ItemList, TabList, Start, Stop, Next, Prev };
 export default Carousel;

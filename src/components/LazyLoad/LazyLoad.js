@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
 import debounce from '../../decorators/debounce';
@@ -58,7 +58,7 @@ export default class LazyLoad extends Component {
    * and start the delay timer.
    */
   componentDidMount() {
-    const delay = this.props.delay;
+    const { delay } = this.props;
 
     if (delay > 0) {
       this.timer = setTimeout(this.handleDelay, delay);
@@ -116,7 +116,7 @@ export default class LazyLoad extends Component {
    * Calculate and cache the elements dimensions and offsets.
    */
   calculateElement() {
-    const element = this.refs.element;
+    const element = this.element;
 
     invariant(typeof element !== 'undefined', 'An `element` ref must be defined.');
 
@@ -161,24 +161,22 @@ export default class LazyLoad extends Component {
    * @returns {Boolean}
    */
   inViewport() {
-        /* eslint operator-linebreak: 0 */
-
-    let { scrollX, scrollY, ...state } = this.state,
-      top = state.elementTop,
-      left = state.elementLeft,
-      width = state.viewportWidth,
-      height = state.viewportHeight,
-      threshold = this.props.threshold;
+    const { scrollX, scrollY, ...state } = this.state;
+    const { threshold } = this.props;
+    const top = state.elementTop;
+    const left = state.elementLeft;
+    const width = state.viewportWidth;
+    const height = state.viewportHeight;
 
     return (
-        // Below the top
-            (top >= (scrollY - threshold)) &&
-        // Above the bottom
-            (top <= (scrollY + height + threshold)) &&
-        // Right of the left
-            (left >= (scrollX - threshold)) &&
-        // Left of the right
-            (left <= (scrollX + width + threshold))
+      // Below the top
+      (top >= (scrollY - threshold)) &&
+      // Above the bottom
+      (top <= (scrollY + height + threshold)) &&
+      // Right of the left
+      (left >= (scrollX - threshold)) &&
+      // Left of the right
+      (left <= (scrollX + width + threshold))
     );
   }
 

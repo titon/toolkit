@@ -25,8 +25,8 @@ const onceCache = new WeakMap();
 export default function once(target, name, descriptor) {
   checkIsMethod('once', arguments);
 
-  let func = getValueFunc('once', descriptor),
-    response = null;
+  const func = getValueFunc('once', descriptor);
+  let response = null;
 
   /**
    * @param {Event} event

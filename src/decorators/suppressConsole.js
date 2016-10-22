@@ -4,27 +4,13 @@
  * @link        http://titon.io
  */
 
-/* eslint no-console: 0, no-native-reassign: 0, no-undef: 0 */
+/* eslint no-console: 0, no-native-reassign: 0, no-undef: 0, no-global-assign: 0 */
 
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
 
 const suppressedLogs = [];
 const originalConsole = console;
-const shimConsole = (() => {
-  const shim = {};
-
-  // Use a fixed list of names as `console` is different between node and the browser
-  [
-    'log', 'info', 'warn', 'error', 'exception', 'debug', 'table', 'trace', 'dir', 'dirxml',
-    'group', 'groupCollapsed', 'groupEnd', 'time', 'timeEnd', 'timeStamp', 'profile',
-    'profileEnd', 'assert', 'count', 'clear', 'markTimeline', 'timeline', 'timelineEnd',
-  ].forEach((name) => {
-    shim[name] = preserveLog(name);
-  });
-
-  return shim;
-})();
 
 /**
  * Curries a function that preserves the original console message.
@@ -40,6 +26,21 @@ function preserveLog(name) {
     });
   };
 }
+
+const shimConsole = (() => {
+  const shim = {};
+
+  // Use a fixed list of names as `console` is different between node and the browser
+  [
+    'log', 'info', 'warn', 'error', 'exception', 'debug', 'table', 'trace', 'dir', 'dirxml',
+    'group', 'groupCollapsed', 'groupEnd', 'time', 'timeEnd', 'timeStamp', 'profile',
+    'profileEnd', 'assert', 'count', 'clear', 'markTimeline', 'timeline', 'timelineEnd',
+  ].forEach((name) => {
+    shim[name] = preserveLog(name);
+  });
+
+  return shim;
+})();
 
 /**
  * The `suppressConsole` decorator will temporarily disable all console messages

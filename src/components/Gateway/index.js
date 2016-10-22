@@ -7,7 +7,5 @@
 import Gateway from './Gateway';
 import Gate from './Gate';
 
-Gateway.Gate = Gate;
-
 export { Gate };
 export default Gateway;

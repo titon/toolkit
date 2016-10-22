@@ -121,9 +121,8 @@ export default class Pagination extends Component {
    * @returns {Number}
    */
   clampPage(page, total) {
-        /* eslint no-nested-ternary: 0 */
-
-    return (page < 1) ? 1 : (page > total) ? total : page;
+    // eslint-disable-next-line no-nested-ternary
+    return (page < 1) ? 1 : ((page > total) ? total : page);
   }
 
   /**
@@ -184,17 +183,17 @@ export default class Pagination extends Component {
    * @returns {Spacer[]|Item[]}
    */
   renderItems() {
-    let { totalPages, edges, format } = this.props,
-      page = this.state.page,
-      items = [],
-      start = 1,
-      stop = totalPages,
-      half = 0,
-      i = 0;
+    const { totalPages, edges, format } = this.props;
+    const { page } = this.state;
+    const items = [];
+    let start = 1;
+    let stop = totalPages;
+    let half = 0;
+    let i = 0;
 
     switch (format) {
 
-        // There should be `edge` items on each side of the current page
+      // There should be `edge` items on each side of the current page
       case 'around':
       default:
         if (totalPages < (edges * 2)) {
@@ -204,7 +203,7 @@ export default class Pagination extends Component {
         start = page - edges;
         stop = page + edges;
 
-            // Fix the differences
+        // Fix the differences
         while (start < 1) {
           start += 1;
           stop += 1;
@@ -217,7 +216,7 @@ export default class Pagination extends Component {
 
         break;
 
-        // There should be `edge` items in the middle, with ellipsis spacers on each side
+      // There should be `edge` items in the middle, with ellipsis spacers on each side
       case 'spaced':
         half = Math.floor(edges / 2);
 
@@ -225,7 +224,7 @@ export default class Pagination extends Component {
           break;
         }
 
-            // Items on the left side, a single spacer on the right
+        // Items on the left side, a single spacer on the right
         if (page < (edges + half)) {
           for (i = 1; i <= (edges + half); i += 1) {
             items.push(this.createItem(i));
@@ -233,23 +232,23 @@ export default class Pagination extends Component {
 
           items.push(this.createSpacer('right'));
 
-          for (i = (totalPages - half + 1); i <= totalPages; i += 1) {
+          for (i = ((totalPages - half) + 1); i <= totalPages; i += 1) {
             items.push(this.createItem(i));
           }
 
-            // Items on the right side, a single spacer on the left
-        } else if (page > (totalPages - half - edges)) {
+        // Items on the right side, a single spacer on the left
+        } else if (page > ((totalPages - half) - edges)) {
           for (i = 1; i <= half; i += 1) {
             items.push(this.createItem(i));
           }
 
           items.push(this.createSpacer('left'));
 
-          for (i = (totalPages - half - edges + 1); i <= totalPages; i += 1) {
+          for (i = ((totalPages - half - edges) + 1); i <= totalPages; i += 1) {
             items.push(this.createItem(i));
           }
 
-            // Items in the middle, spacers on each side
+        // Items in the middle, spacers on each side
         } else {
           for (i = 1; i <= half; i += 1) {
             items.push(this.createItem(i));
@@ -263,7 +262,7 @@ export default class Pagination extends Component {
 
           items.push(this.createSpacer('right'));
 
-          for (i = (totalPages - half + 1); i <= totalPages; i += 1) {
+          for (i = ((totalPages - half) + 1); i <= totalPages; i += 1) {
             items.push(this.createItem(i));
           }
         }
@@ -284,25 +283,30 @@ export default class Pagination extends Component {
    * @returns {ReactElement}
    */
   render() {
-    let {
-                first, last, next, prev,
-                totalPages, showControls,
-                ...props
-            } = this.props,
-      page = this.state.page,
-      items = [];
+    const {
+      first,
+      last,
+      next,
+      prev,
+      grouped,
+      label,
+      totalPages,
+      showControls,
+    } = this.props;
+    const { page } = this.state;
+    let items = [];
 
     // Prepend first and previous
     if (first && (page > 1 || showControls)) {
       items.push(
         <Item key="first" page={1}>{first}</Item>
-        );
+      );
     }
 
     if (prev && (page > 1 || showControls)) {
       items.push(
         <Item key="prev" page={page - 1}>{prev}</Item>
-        );
+      );
     }
 
     // Generate the list of items
@@ -312,13 +316,13 @@ export default class Pagination extends Component {
     if (next && (page < totalPages || showControls)) {
       items.push(
         <Item key="next" page={page + 1}>{next}</Item>
-        );
+      );
     }
 
     if (last && (page < totalPages || showControls)) {
       items.push(
         <Item key="last" page={totalPages}>{last}</Item>
-        );
+      );
     }
 
     return (
@@ -326,9 +330,9 @@ export default class Pagination extends Component {
         role="navigation"
         id={this.formatID('pagination')}
         className={this.formatClass({
-          '@grouped': props.grouped,
+          '@grouped': grouped,
         })}
-        aria-label={props.label}
+        aria-label={label}
       >
         <ol>
           {items}
