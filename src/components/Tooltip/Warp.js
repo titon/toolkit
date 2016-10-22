@@ -80,7 +80,7 @@ export default class Warp extends Component {
     // Create an element
     } else {
       element = (
-        <Tooltip key={this.getUID()} targetElement={targetElement}>
+        <Tooltip key={this.uid} targetElement={targetElement}>
           {tooltip}
         </Tooltip>
       );

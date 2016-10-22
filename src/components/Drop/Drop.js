@@ -11,6 +11,8 @@ import Toggle from './Toggle';
 import bind from '../../decorators/bind';
 import childrenOf from '../../prop-types/childrenOf';
 import isOutsideElement from '../../utility/isOutsideElement';
+import generateUID from '../../utility/generateUID';
+import emitEvent from '../../utility/emitEvent';
 import { showHidePropTypes } from '../../propTypes';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
@@ -29,6 +31,8 @@ export default class Drop extends Component {
     expanded: false,
   };
 
+  uid = generateUID();
+
   /**
    * Define a context that is passed to all children.
    *
@@ -41,7 +45,7 @@ export default class Drop extends Component {
         hideMenu: this.hideMenu,
         showMenu: this.showMenu,
         toggleMenu: this.toggleMenu,
-        uid: this.getUID(),
+        uid: this.uid,
       },
     };
   }
@@ -68,14 +72,14 @@ export default class Drop extends Component {
    * Emit `showing` or `hiding` events before rendering.
    */
   componentWillUpdate() {
-    this.emitEvent(this.state.expanded ? 'hiding' : 'showing');
+    emitEvent(this, this.state.expanded ? 'onHiding' : 'onShowing');
   }
 
   /**
    * Emit `shown` or `hidden` events after rendering.
    */
   componentDidUpdate() {
-    this.emitEvent(this.state.expanded ? 'shown' : 'hidden');
+    emitEvent(this, this.state.expanded ? 'onShown' : 'onHidden');
   }
 
   /**

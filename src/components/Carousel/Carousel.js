@@ -9,6 +9,8 @@ import Component from '../../Component';
 import ItemList from './ItemList';
 import bind from '../../decorators/bind';
 import collectionOf from '../../prop-types/collectionOf';
+import generateUID from '../../utility/generateUID';
+import emitEvent from '../../utility/emitEvent';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -54,6 +56,8 @@ export default class Carousel extends Component {
     stopped: true,
   };
 
+  uid = generateUID();
+
   /**
    * Define a context that is passed to all children.
    *
@@ -79,7 +83,7 @@ export default class Carousel extends Component {
         showItem: this.showItem,
         startCycle: this.startCycle,
         stopCycle: this.stopCycle,
-        uid: this.getUID(),
+        uid: this.uid,
         visibleCount: props.toShow,
       },
     };
@@ -129,7 +133,7 @@ export default class Carousel extends Component {
       animating: false,
     });
 
-    this.emitEvent('cycled', this.state.index);
+    emitEvent(this, 'onCycled', this.state.index);
   }
 
   /**
@@ -139,7 +143,7 @@ export default class Carousel extends Component {
    * and because `componentWillUpdate()` does not allow state changes.
    */
   beforeAnimation() {
-    this.emitEvent('cycling', this.state.index);
+    emitEvent(this, 'onCycling', this.state.index);
   }
 
   /**
@@ -385,7 +389,7 @@ export default class Carousel extends Component {
       stopped: false,
     });
 
-    this.emitEvent('start');
+    emitEvent(this, 'onStart');
   }
 
   /**
@@ -399,7 +403,7 @@ export default class Carousel extends Component {
       stopped: true,
     });
 
-    this.emitEvent('stop');
+    emitEvent(this, 'onStop');
   }
 
   /**

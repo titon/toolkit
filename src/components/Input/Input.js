@@ -8,6 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
 import formatInputName from '../../utility/formatInputName';
+import emitEvent from '../../utility/emitEvent';
 import invariant from '../../utility/invariant';
 import {
     defaultInputProps, defaultSizeProps,
@@ -97,7 +98,7 @@ export default class Input extends Component {
     const { checked, value } = nextState;
     const args = this.isChoiceType() ? [checked, value] : [value, this.state.value];
 
-    this.emitEvent('changing', ...args);
+    emitEvent(this, 'onChanging', ...args);
   }
 
   /**
@@ -110,7 +111,7 @@ export default class Input extends Component {
     const { checked, value } = this.state;
     const args = this.isChoiceType() ? [checked, value] : [value, prevState.value];
 
-    this.emitEvent('changed', ...args);
+    emitEvent(this, 'onChanged', ...args);
   }
 
   /**

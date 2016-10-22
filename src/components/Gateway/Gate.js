@@ -9,6 +9,8 @@ import Component from '../../Component';
 import bind from '../../decorators/bind';
 import collectionOf from '../../prop-types/collectionOf';
 import invariant from '../../utility/invariant';
+import generateUID from '../../utility/generateUID';
+import emitEvent from '../../utility/emitEvent';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -39,6 +41,8 @@ export default class Gate extends Component {
     leavingElement: null,
   };
 
+  uid = generateUID();
+
   /**
    * Register the gate on instantiation.
    *
@@ -61,11 +65,11 @@ export default class Gate extends Component {
    */
   componentWillUpdate(nextProps, nextState) {
     if (nextState.enteringElement) {
-      this.emitEvent('entering', nextState.enteringElement);
+      emitEvent(this, 'onEntering', nextState.enteringElement);
     }
 
     if (nextState.leavingElement) {
-      this.emitEvent('leaving', nextState.leavingElement);
+      emitEvent(this, 'onLeaving', nextState.leavingElement);
     }
   }
 
@@ -76,11 +80,11 @@ export default class Gate extends Component {
     const { enteringElement, leavingElement } = this.state;
 
     if (enteringElement) {
-      this.emitEvent('entered', enteringElement);
+      emitEvent(this, 'onEntered', enteringElement);
     }
 
     if (leavingElement) {
-      this.emitEvent('left', leavingElement);
+      emitEvent(this, 'onLeft', leavingElement);
     }
   }
 

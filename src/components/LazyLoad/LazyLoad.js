@@ -9,6 +9,7 @@ import Component from '../../Component';
 import bind from '../../decorators/bind';
 import debounce from '../../decorators/debounce';
 import invariant from '../../utility/invariant';
+import emitEvent from '../../utility/emitEvent';
 import throttle from '../../decorators/throttle';
 import MODULE from './module';
 
@@ -75,7 +76,7 @@ export default class LazyLoad extends Component {
    */
   componentWillUpdate(nextProps, nextState) {
     if (nextState.loaded && !this.state.loaded) {
-      this.emitEvent('loading');
+      emitEvent(this, 'onLoading');
     }
   }
 
@@ -87,7 +88,7 @@ export default class LazyLoad extends Component {
    */
   componentDidUpdate(prevProps, prevState) {
     if (this.state.loaded && !prevState.loaded) {
-      this.emitEvent('loaded');
+      emitEvent(this, 'onLoaded');
 
     // Attempt to load anytime the state changes
     } else {

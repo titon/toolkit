@@ -7,12 +7,8 @@
 /* eslint react/prop-types: 0 */
 
 import React, { Children } from 'react';
-import omit from 'lodash.omit';
-import Titon from './Titon';
-import bind from './decorators/bind';
 import formatClass from './utility/formatClass';
 import formatID from './utility/formatID';
-import generateUID from './utility/generateUID';
 import invariant from './utility/invariant';
 import wrapFunctions from './utility/wrapFunctions';
 
@@ -33,42 +29,6 @@ export default class Component extends React.Component {
 
     this.state = {};
     this.element = null;
-    this.generateUID();
-  }
-
-  /**
-   * Emit a custom event and notify all listeners defined on the prop of the same name.
-   * If the `debug` property is enabled, print out helpful information.
-   *
-   * This *must not* be used for native DOM events, use `handleEvent()` instead.
-   *
-   * @param {String} type
-   * @param {...*} [args]
-   */
-  emitEvent(type, ...args) {
-    const { module, name } = this.constructor;
-    const debug = this.props.debug || Titon.options.debug;
-    const uid = this.getUID();
-
-    if (debug && window.console) {
-      // eslint-disable-next-line no-console
-      console.log(`${module.name}.${name}${uid ? `#${uid}` : ''}`,
-        (Date.now() / 1000).toFixed(3), type, ...args);
-
-      if (debug === 'verbose') {
-        // eslint-disable-next-line no-console
-        console.dir(this);
-      }
-    }
-
-    args.unshift({
-      component: name,
-      timestamp: Date.now(),
-      type,
-      uid,
-    });
-
-    this.notifyEventListeners(type, args);
   }
 
   /**
@@ -99,18 +59,7 @@ export default class Component extends React.Component {
    * @returns {String}
    */
   formatID(...params) {
-    return formatID('titon', this.getUID(), ...params);
-  }
-
-  /**
-   * Generate a unique identifier for this instance.
-   * The UID is lazy-loaded using the objects prototype `toString()` method.
-   * This allows the `uid` prop to be used if needed.
-   */
-  generateUID() {
-    this.uid = {
-      toString: () => { this.uid = this.props.uid || generateUID(); },
-    };
+    return formatID('titon', this.uid, ...params);
   }
 
   /**
@@ -201,7 +150,7 @@ export default class Component extends React.Component {
    */
   getDefaultChildContext() {
     return {
-      uid: this.getUID(),
+      uid: this.uid,
     };
   }
 
@@ -215,27 +164,6 @@ export default class Component extends React.Component {
   }
 
   /**
-   * Return the UID for the current component.
-   * The UID could either be inherited from the parent, or generate per instance.
-   *
-   * Cast the UID to a string to force the lazy-load.
-   *
-   * @returns {String}
-   */
-  getUID() {
-    let uid = '';
-
-    // Can throw invariants
-    try {
-      uid = this.getContext().uid;
-    } catch (e) {
-      uid = this.uid;
-    }
-
-    return String(uid || '');
-  }
-
-  /**
    * Handle a native / synthetic DOM event and notify all listeners
    * defined on the property of the same name.
    *
@@ -244,27 +172,6 @@ export default class Component extends React.Component {
    */
   handleEvent(type, event) {
     this.notifyEventListeners(type, [event]);
-  }
-
-  /**
-   * Handle the loading of a ref by setting it to `element` on the current instance.
-   *
-   * @param {HTMLElement} ref
-   */
-  @bind
-  handleRef(ref) {
-    this.element = ref;
-  }
-
-  /**
-   * Inherit all native props that should be passed through to the DOM element,
-   * by omitting all props whose key exists in the prop types.
-   *
-   * @param {Object} props
-   * @returns {Object}
-   */
-  inheritNativeProps(props) {
-    return omit(props, ['children', 'className', ...Object.keys(this.constructor.propTypes)]);
   }
 
   /**

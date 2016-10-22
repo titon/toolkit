@@ -12,6 +12,7 @@ import childrenOf from '../../prop-types/childrenOf';
 import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';
 import isOutsideElement from '../../utility/isOutsideElement';
+import generateUID from '../../utility/generateUID';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 import { TOUCH } from '../../flags';
@@ -41,6 +42,8 @@ export default class Select extends InputSelect {
     multipleFormat: PropTypes.oneOf(['count', 'list']),
     native: PropTypes.bool,
   };
+
+  uid = generateUID();
 
   /**
    * Map options, values, and setup state.
@@ -85,7 +88,7 @@ export default class Select extends InputSelect {
         selectedValues: this.extractValues(value, true),
         showMenu: this.showMenu,
         toggleMenu: this.toggleMenu,
-        uid: this.getUID(),
+        uid: this.uid,
       },
     };
   }

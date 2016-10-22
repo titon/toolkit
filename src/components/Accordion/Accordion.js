@@ -10,6 +10,7 @@ import Item from './Item';
 import bind from '../../decorators/bind';
 import childrenOf from '../../prop-types/childrenOf';
 import collectionOf from '../../prop-types/collectionOf';
+import generateUID from '../../utility/generateUID';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -35,6 +36,8 @@ export default class Accordion extends Component {
     indices: new Set(),
   };
 
+  uid = generateUID();
+
   /**
    * Define a context that is passed to all children.
    *
@@ -49,7 +52,7 @@ export default class Accordion extends Component {
         isItemCollapsible: this.isItemCollapsible,
         showItem: this.showItem,
         toggleItem: this.toggleItem,
-        uid: this.getUID(),
+        uid: this.uid,
       },
     };
   }

@@ -8,6 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
 import formatInputName from '../../utility/formatInputName';
+import generateUID from '../../utility/generateUID';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -25,6 +26,8 @@ export default class Group extends Component {
     defaultChecked: PropTypes.string,
     name: PropTypes.string.isRequired,
   };
+
+  uid = generateUID();
 
   /**
    * Setup state.
@@ -53,7 +56,7 @@ export default class Group extends Component {
         inputID: formatInputName(name),
         inputName: name,
         selectValue: this.selectValue,
-        uid: this.getUID(),
+        uid: this.uid,
       },
     };
   }

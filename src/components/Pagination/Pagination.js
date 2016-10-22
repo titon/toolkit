@@ -10,6 +10,8 @@ import Item from './Item';
 import Spacer from './Spacer';
 import bind from '../../decorators/bind';
 import collectionOf from '../../prop-types/collectionOf';
+import generateUID from '../../utility/generateUID';
+import emitEvent from '../../utility/emitEvent';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -50,6 +52,8 @@ export default class Pagination extends Component {
     url: PropTypes.string.isRequired,
   };
 
+  uid = generateUID();
+
   /**
    * Setup state.
    *
@@ -76,7 +80,7 @@ export default class Pagination extends Component {
         nextPage: this.nextPage,
         prevPage: this.prevPage,
         totalPages: this.props.totalPages,
-        uid: this.getUID(),
+        uid: this.uid,
         url: this.props.url,
       },
     };
@@ -100,7 +104,7 @@ export default class Pagination extends Component {
    * @param {Object} nextState
    */
   componentWillUpdate(nextProps, nextState) {
-    this.emitEvent('paging', nextState.page, this.state.page);
+    emitEvent(this, 'onPaging', nextState.page, this.state.page);
   }
 
   /**
@@ -110,7 +114,7 @@ export default class Pagination extends Component {
    * @param {Object} prevState
    */
   componentDidUpdate(prevProps, prevState) {
-    this.emitEvent('paged', this.state.page, prevState.page);
+    emitEvent(this, 'onPaged', this.state.page, prevState.page);
   }
 
   /**

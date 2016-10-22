@@ -7,6 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
+import emitEvent from '../../utility/emitEvent';
 import { showHidePropTypes } from '../../propTypes';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
@@ -74,7 +75,7 @@ export default class Menu extends Component {
    */
   componentWillUpdate(nextProps, nextState) {
     if (nextState.expanded !== this.state.expanded) {
-      this.emitEvent(this.state.expanded ? 'hiding' : 'showing');
+      emitEvent(this, this.state.expanded ? 'onHiding' : 'onShowing');
     }
   }
 
@@ -86,7 +87,7 @@ export default class Menu extends Component {
    */
   componentDidUpdate(prevProps, prevState) {
     if (prevState.expanded !== this.state.expanded) {
-      this.emitEvent(this.state.expanded ? 'shown' : 'hidden');
+      emitEvent(this, this.state.expanded ? 'onShown' : 'onHidden');
     }
   }
 

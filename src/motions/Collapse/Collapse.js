@@ -146,12 +146,11 @@ export default class Collapse extends Component {
 
     const content = (
       <div
-        ref={this.handleRef}
+        ref={(ref) => { this.element = ref; }}
         className={this.formatClass({
           [`@${direction}`]: true,
           'is-expanded': expanded,
         })}
-        {...this.inheritNativeProps(props)}
       >
         {children}
       </div>

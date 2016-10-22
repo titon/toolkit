@@ -7,6 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
+import emitEvent from '../../utility/emitEvent';
 import { showHidePropTypes } from '../../propTypes';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
@@ -57,14 +58,14 @@ export default class Overlay extends Component {
    * Emit `showing` or `hiding` events before rendering.
    */
   componentWillUpdate() {
-    this.emitEvent(this.state.expanded ? 'hiding' : 'showing');
+    emitEvent(this, this.state.expanded ? 'onHiding' : 'onShowing');
   }
 
   /**
    * Emit `shown` or `hidden` events after rendering.
    */
   componentDidUpdate() {
-    this.emitEvent(this.state.expanded ? 'shown' : 'hidden');
+    emitEvent(this, this.state.expanded ? 'onShown' : 'onHidden');
   }
 
   /**

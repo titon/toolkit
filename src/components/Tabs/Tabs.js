@@ -10,6 +10,7 @@ import CookieJar from '../../machines/CookieJar';
 import DocumentState from '../../machines/DocumentState';
 import bind from '../../decorators/bind';
 import collectionOf from '../../prop-types/collectionOf';
+import generateUID from '../../utility/generateUID';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -46,6 +47,8 @@ export default class Tabs extends Component {
     index: -1,
   };
 
+  uid = generateUID();
+
   /**
    * Define a context that is passed to all children.
    *
@@ -60,7 +63,7 @@ export default class Tabs extends Component {
         isSectionCollapsible: this.isSectionCollapsible,
         showSection: this.showSection,
         toggleSection: this.toggleSection,
-        uid: this.getUID(),
+        uid: this.uid,
       },
     };
   }
@@ -76,7 +79,7 @@ export default class Tabs extends Component {
     if (persistState) {
       // Load from a cookie
       if (useCookie) {
-        index = CookieJar.get(`tabs.${this.getUID()}`);
+        index = CookieJar.get(`tabs.${this.uid}`);
       }
 
       // Load from the fragment
@@ -118,7 +121,7 @@ export default class Tabs extends Component {
 
     if (persistState) {
       if (useCookie) {
-        CookieJar.set(`tabs.${this.getUID()}`, index, {
+        CookieJar.set(`tabs.${this.uid}`, index, {
           expires: cookieDuration,
         });
       }

@@ -7,6 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
+import generateUID from '../../utility/generateUID';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
@@ -23,6 +24,8 @@ export default class Mask extends Component {
     expanded: false,
   };
 
+  uid = generateUID();
+
   /**
    * Define a context that is passed to all children.
    *
@@ -35,7 +38,7 @@ export default class Mask extends Component {
         hideOverlay: this.hideOverlay,
         showOverlay: this.showOverlay,
         toggleOverlay: this.toggleOverlay,
-        uid: this.getUID(),
+        uid: this.uid,
       },
     };
   }

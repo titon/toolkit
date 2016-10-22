@@ -13,6 +13,7 @@ import Swipe from '../../events/Swipe';
 import bind from '../../decorators/bind';
 import childrenOf from '../../prop-types/childrenOf';
 import invariant from '../../utility/invariant';
+import generateUID from '../../utility/generateUID';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 import { TOUCH } from '../../flags';
@@ -46,6 +47,8 @@ export default class OffCanvas extends Component {
     sides: new Set(),
   };
 
+  uid = generateUID();
+
   /**
    * Validate props.
    *
@@ -75,7 +78,7 @@ export default class OffCanvas extends Component {
         isSidebarActive: this.isSidebarActive,
         showSidebar: this.showSidebar,
         toggleSidebar: this.toggleSidebar,
-        uid: this.getUID(),
+        uid: this.uid,
       },
     };
   }
