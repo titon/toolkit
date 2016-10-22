@@ -22,10 +22,10 @@ export default class Select extends Input {
     options: optionList.isRequired,
   };
 
-    /**
-     * Handler that updates the selected state.
-     */
-    @bind
+  /**
+   * Handler that updates the selected state.
+   */
+  @bind
   handleOnChange({ target }) {
     const newState = {};
 
@@ -38,17 +38,17 @@ export default class Select extends Input {
     this.setState(newState);
   }
 
-    /**
-     * Render the list of options as `<option>` and `<optgroup>` elements.
-     *
-     * @param {Object[]} options
-     * @returns {ReactElement[]}
-     */
+  /**
+   * Render the list of options as `<option>` and `<optgroup>` elements.
+   *
+   * @param {Object[]} options
+   * @returns {ReactElement[]}
+   */
   renderOptions(options) {
     const elements = [];
 
     options.forEach((option) => {
-            // Optgroup
+        // Optgroup
       if (option.options) {
         elements.push(
           <optgroup
@@ -58,9 +58,9 @@ export default class Select extends Input {
           >
             {this.renderOptions(option.options)}
           </optgroup>
-                );
+            );
 
-            // Option
+        // Option
       } else {
         elements.push(
           <option
@@ -70,23 +70,23 @@ export default class Select extends Input {
           >
             {option.label}
           </option>
-                );
+            );
       }
     });
 
     return elements;
   }
 
-    /**
-     * Render the select drop down and generate a list of options.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the select drop down and generate a list of options.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     return (
       <select {...this.gatherProps()}>
         {this.renderOptions(this.props.options)}
       </select>
-        );
+    );
   }
 }

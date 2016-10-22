@@ -22,20 +22,20 @@ export default class Trigger extends Component {
     tooltip: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,
   };
 
-    /**
-     * Render the tooltip trigger element.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the tooltip trigger element.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let { tooltip, ...props } = this.props,
       Tag = props.inline ? 'span' : 'div';
 
-        // Convert to an element if not already one
+    // Convert to an element if not already one
     if (!React.isValidElement(tooltip)) {
       tooltip = (
         <Tooltip>{tooltip}</Tooltip>
-            );
+        );
     }
 
     return (
@@ -43,6 +43,6 @@ export default class Trigger extends Component {
         {props.children}
         {tooltip}
       </Tag>
-        );
+    );
   }
 }

@@ -14,11 +14,11 @@ export default class Spacer extends Component {
 
   static contextTypes = CONTEXT_TYPES;
 
-    /**
-     * Render the pagination item spacer.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the pagination item spacer.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     return (
       <li>
@@ -26,6 +26,6 @@ export default class Spacer extends Component {
           {this.props.children}
         </span>
       </li>
-        );
+    );
   }
 }

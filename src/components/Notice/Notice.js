@@ -9,7 +9,6 @@ import Component from '../../Component';
 import bind from '../../decorators/bind';
 import { states } from '../../propTypes';
 import MODULE from './module';
-import 'core-js/modules/es7.array.includes';
 
 export default class Notice extends Component {
   static module = MODULE;
@@ -31,27 +30,27 @@ export default class Notice extends Component {
     dismissed: false,
   };
 
-    /**
-     * Handler that dismisses the notice when the close button is clicked.
-     */
-    @bind
+  /**
+   * Handler that dismisses the notice when the close button is clicked.
+   */
+  @bind
   handleOnClick() {
     this.setState({
       dismissed: true,
     });
   }
 
-    /**
-     * Render the notice and or alert.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the notice and or alert.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let props = this.props,
       role = ['warn', 'warning', 'error', 'danger', 'failure', 'critical']
                 .includes(props.state) ? 'alert' : 'notice';
 
-        // Remove the element entirely when dismissing
+    // Remove the element entirely when dismissing
     if (this.state.dismissed) {
       return null;
     }
@@ -63,28 +62,28 @@ export default class Notice extends Component {
           [`@${props.state}`]: props.state,
           'is-dismissable': props.dismissable,
         })}
-        {...this.inheritNativeProps(props)}
       >
         {props.dismissable && (
-        <button
-          type="button" role="button"
-          className={this.formatChildClass('close')}
-          onClick={this.handleOnClick}
-        >
-          {props.close}
-        </button>
-                )}
+          <button
+            type="button"
+            role="button"
+            className={this.formatChildClass('close')}
+            onClick={this.handleOnClick}
+          >
+            {props.close}
+          </button>
+        )}
 
         {props.title && (
-        <div className={this.formatChildClass('head')}>
-          {props.title}
-        </div>
-                )}
+          <div className={this.formatChildClass('head')}>
+            {props.title}
+          </div>
+        )}
 
         <div className={this.formatChildClass('body')}>
           {props.children}
         </div>
       </div>
-        );
+    );
   }
 }

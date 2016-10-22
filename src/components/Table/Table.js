@@ -25,11 +25,11 @@ export default class Table extends Component {
     striped: PropTypes.bool,
   };
 
-    /**
-     * Render the outer table element.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the outer table element.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -41,11 +41,10 @@ export default class Table extends Component {
             'is-sortable': props.sortable,
             'is-striped': props.striped,
           })}
-          {...this.inheritNativeProps(props)}
         >
           {props.children}
         </table>
       </div>
-        );
+    );
   }
 }

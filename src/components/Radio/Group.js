@@ -25,11 +25,11 @@ export default class Group extends Component {
     name: PropTypes.string.isRequired,
   };
 
-    /**
-     * Setup state.
-     *
-     * @param {Object} props
-     */
+  /**
+   * Setup state.
+   *
+   * @param {Object} props
+   */
   constructor(props) {
     super();
 
@@ -38,11 +38,11 @@ export default class Group extends Component {
     };
   }
 
-    /**
-     * Define a context that is passed to all children.
-     *
-     * @returns {Object}
-     */
+  /**
+   * Define a context that is passed to all children.
+   *
+   * @returns {Object}
+   */
   getChildContext() {
     const name = this.props.name;
 
@@ -57,34 +57,34 @@ export default class Group extends Component {
     };
   }
 
-    /**
-     * Only update if the selected value changes.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
+  /**
+   * Only update if the selected value changes.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   * @returns {Boolean}
+   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.value !== this.state.value);
   }
 
-    /**
-     * Select a value to mark a radio as checked.
-     *
-     * @param {String} value
-     */
-    @bind
+  /**
+   * Select a value to mark a radio as checked.
+   *
+   * @param {String} value
+   */
+  @bind
   selectValue(value) {
     this.setState({
       value,
     });
   }
 
-    /**
-     * Render a simple radio group container.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render a simple radio group container.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -92,10 +92,9 @@ export default class Group extends Component {
       <div
         id={this.formatID('radio-group')}
         className={this.formatChildClass('group')}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </div>
-        );
+    );
   }
 }

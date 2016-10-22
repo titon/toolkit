@@ -23,12 +23,12 @@ export default class Radio extends Input {
     name: PropTypes.string,
   };
 
-    /**
-     * Verify checked state using the context.
-     *
-     * @param {Object} props
-     * @param {Object} context
-     */
+  /**
+   * Verify checked state using the context.
+   *
+   * @param {Object} props
+   * @param {Object} context
+   */
   constructor(props, context) {
     super(props);
 
@@ -37,47 +37,47 @@ export default class Radio extends Input {
     }
   }
 
-    /**
-     * Update the state based on the context of when a radio in the group has changed.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextContext
-     */
+  /**
+   * Update the state based on the context of when a radio in the group has changed.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextContext
+   */
   componentWillReceiveProps(nextProps, nextContext) {
     this.setState({
       checked: (this.getContext(nextContext).checkedValue === this.state.value),
     });
   }
 
-    /**
-     * We need to always update as were part of a group.
-     *
-     * @returns {Boolean}
-     */
+  /**
+   * We need to always update as were part of a group.
+   *
+   * @returns {Boolean}
+   */
   shouldComponentUpdate() {
     return true;
   }
 
-    /**
-     * Handler that selects a value within the current radio group.
-     */
-    @bind
+  /**
+   * Handler that selects a value within the current radio group.
+   */
+  @bind
   handleOnChange() {
     this.getContext().selectValue(this.state.value);
   }
 
-    /**
-     * Render the custom radio.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the custom radio.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let props = this.props,
       inputProps = this.gatherProps(false),
       stateClasses = this.gatherStateClasses(),
       { inputName, inputID } = this.getContext();
 
-        // We need to reset these values as we can't pass them through the constructor
+    // We need to reset these values as we can't pass them through the constructor
     inputProps.name = inputName;
     inputProps.id = `${inputID}-${props.defaultValue}`;
 
@@ -87,7 +87,6 @@ export default class Radio extends Input {
         className={this.formatClass(stateClasses)}
         aria-checked={this.state.checked}
         aria-disabled={props.disabled}
-        {...this.inheritNativeProps(props)}
       >
         <input {...inputProps} />
 
@@ -98,6 +97,6 @@ export default class Radio extends Input {
 
         {props.children}
       </span>
-        );
+    );
   }
 }

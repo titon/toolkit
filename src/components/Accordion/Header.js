@@ -24,26 +24,26 @@ export default class Header extends Component {
     onClick: collectionOf.func,
   };
 
-    /**
-     * Update the index on the parent component when clicked.
-     *
-     * @param {SyntheticEvent} e
-     */
-    @bind
+  /**
+   * Update the index on the parent component when clicked.
+   *
+   * @param {SyntheticEvent} e
+   */
+  @bind
   handleOnClick(e) {
+    e.preventDefault();
+
     this.getContext().toggleItem(this.props.index);
     this.handleEvent('click', e);
   }
 
-    /**
-     * Render the accordion item header tab and set the relevant active state.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the accordion item header tab and set the relevant active state.
+   *
+   * @returns {ReactElement}
+   */
   render() {
-    let props = this.props,
-      index = props.index,
-      active = props.active;
+    const { children, index, active } = this.props;
 
     return (
       <header
@@ -52,14 +52,13 @@ export default class Header extends Component {
         className={this.formatChildClass('header', {
           'is-active': active,
         })}
+        tabIndex={generateTabIndex(this)}
         aria-controls={this.formatID('accordion-section', index)}
         aria-selected={active}
         aria-expanded={active}
-        tabIndex={generateTabIndex(this)}
-        onClick={this.handleOnClick}
       >
-        {props.children}
+        <a href="" onClick={this.handleOnClick}>{children}</a>
       </header>
-        );
+    );
   }
 }

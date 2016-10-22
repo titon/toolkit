@@ -24,11 +24,11 @@ export default class Label extends Component {
     state: states,
   };
 
-    /**
-     * Render the inline label.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the inline label.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -41,10 +41,9 @@ export default class Label extends Component {
           [`@ribbon-${props.ribbon}`]: props.ribbon,
           [`@${props.state}`]: props.state,
         })}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </span>
-        );
+    );
   }
 }

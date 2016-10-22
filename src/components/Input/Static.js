@@ -21,11 +21,11 @@ export default class Static extends Component {
     ...sizePropTypes,
   };
 
-    /**
-     * Render a static text input element.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render a static text input element.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -35,10 +35,9 @@ export default class Static extends Component {
           '@large': props.large,
           '@small': props.small,
         })}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </span>
-        );
+    );
   }
 }

@@ -24,11 +24,11 @@ export default class ButtonGroup extends Component {
     vertical: PropTypes.bool,
   };
 
-    /**
-     * Render the button group as a list of buttons.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the button group as a list of buttons.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -41,12 +41,11 @@ export default class ButtonGroup extends Component {
           '@vertical': props.vertical,
         })}
         aria-label={props.label}
-        {...this.inheritNativeProps(props)}
       >
         {Children.map(props.children, child => (
           <li>{child}</li>
-                ))}
+        ))}
       </ul>
-        );
+    );
   }
 }

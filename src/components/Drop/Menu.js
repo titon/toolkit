@@ -31,35 +31,34 @@ export default class Menu extends Component {
     reverse: PropTypes.bool,
   };
 
-    /**
-     * Render the drop menu.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the drop menu.
+   *
+   * @returns {ReactElement}
+   */
   render() {
-    let { direction, ...props } = this.props,
-      { expanded } = this.getContext();
+    const { children, direction, nested, reverse } = this.props;
+    const { expanded } = this.getContext();
 
     return (
       <div
         role="menu"
-        id={props.nested ? null : this.formatID('drop-menu')}
+        id={nested ? null : this.formatID('drop-menu')}
         className={this.formatClass({
           '@down': (direction === 'down'),
           '@left': (direction === 'left'),
           '@right': (direction === 'right'),
           '@up': (direction === 'up'),
-          'is-branch': props.nested,
-          'is-expanded': (!props.nested && expanded),
-          'is-root': !props.nested,
-          'reverse-align': props.reverse,
+          'is-branch': nested,
+          'is-expanded': (!nested && expanded),
+          'is-root': !nested,
+          'reverse-align': reverse,
         })}
-        {...this.inheritNativeProps(props)}
       >
         <ul>
-          {props.children}
+          {children}
         </ul>
       </div>
-        );
+    );
   }
 }

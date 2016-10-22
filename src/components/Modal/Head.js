@@ -11,11 +11,11 @@ import MODULE from './module';
 export default class Head extends Component {
   static module = MODULE;
 
-    /**
-     * Render the modal inner head.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the modal inner head.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -23,10 +23,9 @@ export default class Head extends Component {
       <div
         id={this.formatID('modal-title')}
         className={this.formatChildClass('head')}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </div>
-        );
+    );
   }
 }

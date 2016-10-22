@@ -23,18 +23,18 @@ function bindMethod(target, name, descriptor) {
     configurable: true,
     enumerable: false,
     get() {
-            // This happens if someone accesses the property directly on the prototype
-            // Thanks to jayphelps/core-decorators.js for the snippet
+        // This happens if someone accesses the property directly on the prototype
+        // Thanks to jayphelps/core-decorators.js for the snippet
       if (this === target) {
         return func;
       }
 
-            // The `this` here is the current class prototype
-            // While `target` is the parent class prototype
+        // The `this` here is the current class prototype
+        // While `target` is the parent class prototype
       const boundFunc = func.bind(this);
 
-            // Define a function on the target so that `get()` is only called once
-            // Inherit the original methods descriptor as well
+        // Define a function on the target so that `get()` is only called once
+        // Inherit the original methods descriptor as well
       Object.defineProperty(this, name, {
         ...descriptor,
         enumerable: true,
@@ -67,7 +67,7 @@ function bindClass(target) {
               proto,
               name,
               bindMethod(proto, name, Object.getOwnPropertyDescriptor(proto, name))
-            );
+        );
     }
   });
 

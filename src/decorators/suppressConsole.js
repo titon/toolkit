@@ -14,7 +14,7 @@ const originalConsole = console;
 const shimConsole = (() => {
   const shim = {};
 
-    // Use a fixed list of names as `console` is different between node and the browser
+  // Use a fixed list of names as `console` is different between node and the browser
   [
     'log', 'info', 'warn', 'error', 'exception', 'debug', 'table', 'trace', 'dir', 'dirxml',
     'group', 'groupCollapsed', 'groupEnd', 'time', 'timeEnd', 'timeStamp', 'profile',

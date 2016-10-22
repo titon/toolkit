@@ -4,9 +4,9 @@
  * @link        http://titon.io
  */
 
+import throttler from 'lodash.throttle';
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
-import throttler from 'lodash.throttle';
 
 /**
  * The `throttle` decorator will wrap a function with Lo-dash's `throttle` function,

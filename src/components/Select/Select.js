@@ -42,11 +42,11 @@ export default class Select extends InputSelect {
     native: PropTypes.bool,
   };
 
-    /**
-     * Map options, values, and setup state.
-     *
-     * @param {Object} props
-     */
+  /**
+   * Map options, values, and setup state.
+   *
+   * @param {Object} props
+   */
   constructor(props) {
     super(props);
 
@@ -63,11 +63,11 @@ export default class Select extends InputSelect {
     };
   }
 
-    /**
-     * Define a context that is passed to all children.
-     *
-     * @returns {Object}
-     */
+  /**
+   * Define a context that is passed to all children.
+   *
+   * @returns {Object}
+   */
   getChildContext() {
     let { name, options, multiple } = this.props,
       state = this.state;
@@ -90,72 +90,72 @@ export default class Select extends InputSelect {
     };
   }
 
-    /**
-     * Bind handlers before mounting.
-     */
+  /**
+   * Bind handlers before mounting.
+   */
   componentWillMount() {
     window.addEventListener('click', this.handleOnClickOut);
   }
 
-    /**
-     * Always return true as we need to update the dropdown menu.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
+  /**
+   * Always return true as we need to update the dropdown menu.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   * @returns {Boolean}
+   */
   shouldComponentUpdate(nextProps, nextState) {
     return this.hasMenu() ? true : super.shouldComponentUpdate(nextProps, nextState);
   }
 
-    /**
-     * Only trigger `changing` events when appropriate.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     */
+  /**
+   * Only trigger `changing` events when appropriate.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   */
   componentWillUpdate(nextProps, nextState) {
     if (nextState.value !== this.state.value) {
       super.componentWillUpdate(nextProps, nextState);
     }
   }
 
-    /**
-     * Only trigger `changed` events when appropriate.
-     *
-     * @param {Object} prevProps
-     * @param {Object} prevState
-     */
+  /**
+   * Only trigger `changed` events when appropriate.
+   *
+   * @param {Object} prevProps
+   * @param {Object} prevState
+   */
   componentDidUpdate(prevProps, prevState) {
     if (prevState.value !== this.state.value) {
       super.componentDidUpdate(prevProps, prevState);
     }
   }
 
-    /**
-     * Unbind handlers when unmounting.
-     */
+  /**
+   * Unbind handlers when unmounting.
+   */
   componentWillUnmount() {
     window.removeEventListener('click', this.handleOnClickOut);
   }
 
-    /**
-     * Extract the list of options (and nested optgroups) and map them to a key and label.
-     *
-     * @param {Object[]} options
-     * @returns {Object}
-     */
+  /**
+   * Extract the list of options (and nested optgroups) and map them to a key and label.
+   *
+   * @param {Object[]} options
+   * @returns {Object}
+   */
   extractOptions(options) {
     const map = {};
 
     options.forEach((option) => {
-            // Optgroup
+        // Optgroup
       if (option.options) {
         option.options.forEach((child) => {
           map[child.value] = child;
         });
 
-            // Option
+        // Option
       } else {
         map[option.value] = option;
       }
@@ -164,13 +164,13 @@ export default class Select extends InputSelect {
     return map;
   }
 
-    /**
-     * Extract a value, or list of values, and return the default set.
-     *
-     * @param {String|String[]} value
-     * @param {Boolean} multiple
-     * @returns {String|String[]}
-     */
+  /**
+   * Extract a value, or list of values, and return the default set.
+   *
+   * @param {String|String[]} value
+   * @param {Boolean} multiple
+   * @returns {String|String[]}
+   */
   extractValues(value, multiple) {
     const values = Array.isArray(value) ? value : [value];
 
@@ -181,13 +181,13 @@ export default class Select extends InputSelect {
     return values;
   }
 
-    /**
-     * Return a label for the currently selected option(s).
-     * If `multiple` options are selected, attempt to format them based
-     * on the `multipleFormat` prop.
-     *
-     * @returns {String}
-     */
+  /**
+   * Return a label for the currently selected option(s).
+   * If `multiple` options are selected, attempt to format them based
+   * on the `multipleFormat` prop.
+   *
+   * @returns {String}
+   */
   getSelectedLabel() {
     let { value, options } = this.state,
       props = this.props,
@@ -209,7 +209,7 @@ export default class Select extends InputSelect {
 
       if (typeof option !== 'undefined') {
         label.push(option.selectedLabel || option.label);
-        count++;
+        count += 1;
       }
     });
 
@@ -230,51 +230,51 @@ export default class Select extends InputSelect {
     }
   }
 
-    /**
-     * Returns true if a custom drop down menu is being used.
-     *
-     * @returns {Boolean}
-     */
+  /**
+   * Returns true if a custom drop down menu is being used.
+   *
+   * @returns {Boolean}
+   */
   hasMenu() {
     return (Children.count(this.props.children) > 0);
   }
 
-    /**
-     * Hide the menu by setting the state to closed.
-     */
-    @bind
+  /**
+   * Hide the menu by setting the state to closed.
+   */
+  @bind
   hideMenu() {
     this.setState({
       expanded: false,
     });
   }
 
-    /**
-     * Select a value or list of values.
-     *
-     * @param {String|String[]} value
-     */
-    @bind
+  /**
+   * Select a value or list of values.
+   *
+   * @param {String|String[]} value
+   */
+  @bind
   selectValue(value) {
     this.setState({
       value: this.extractValues(value, this.props.multiple),
     });
   }
 
-    /**
-     * Show the menu by setting the state to opened.
-     */
-    @bind
+  /**
+   * Show the menu by setting the state to opened.
+   */
+  @bind
   showMenu() {
     this.setState({
       expanded: true,
     });
   }
 
-    /**
-     * Toggle the open state of the menu.
-     */
-    @bind
+  /**
+   * Toggle the open state of the menu.
+   */
+  @bind
   toggleMenu() {
     if (this.props.disabled || !this.hasMenu()) {
       return;
@@ -287,30 +287,30 @@ export default class Select extends InputSelect {
     }
   }
 
-    /**
-     * Handler that closes the menu when focus is lost.
-     */
-    @bind
+  /**
+   * Handler that closes the menu when focus is lost.
+   */
+  @bind
   handleOnBlur() {
     if (!this.props.disabled && this.state.expanded && this.hasMenu()) {
       this.hideMenu();
     }
   }
 
-    /**
-     * Handler that toggles the display of the menu.
-     */
-    @bind
+  /**
+   * Handler that toggles the display of the menu.
+   */
+  @bind
   handleOnClickLabel() {
     this.toggleMenu();
   }
 
-    /**
-     * Handler that hides the menu if clicked outside the menu element.
-     *
-     * @param {SyntheticEvent} e
-     */
-    @bind
+  /**
+   * Handler that hides the menu if clicked outside the menu element.
+   *
+   * @param {SyntheticEvent} e
+   */
+  @bind
   handleOnClickOut(e) {
         /* eslint operator-linebreak: 0 */
 
@@ -322,28 +322,28 @@ export default class Select extends InputSelect {
     }
   }
 
-    /**
-     * Handler that shows the menu when the select is focused.
-     */
-    @bind
+  /**
+   * Handler that shows the menu when the select is focused.
+   */
+  @bind
   handleOnFocus() {
     if (!this.props.disabled && !this.state.expanded && this.hasMenu()) {
       this.showMenu();
     }
   }
 
-    /**
-     * Render the custom select.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the custom select.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let { native, ...props } = this.props,
       { expanded } = this.state,
       inputProps = this.gatherProps(false),
       stateClasses = this.gatherStateClasses();
 
-        // Add another state class
+    // Add another state class
     stateClasses['is-native'] = native;
 
     return (
@@ -352,7 +352,6 @@ export default class Select extends InputSelect {
         id={this.formatID('select', inputProps.id)}
         className={this.formatClass(stateClasses)}
         aria-disabled={props.disabled}
-        {...this.inheritNativeProps(props)}
       >
         <select
           {...inputProps}
@@ -381,6 +380,6 @@ export default class Select extends InputSelect {
 
         {native ? null : props.children}
       </div>
-        );
+    );
   }
 }

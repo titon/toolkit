@@ -46,63 +46,63 @@ export default class Collapse extends Component {
     this.handleOnResize = debounce(this.handleOnResize.bind(this), 100);
   }
 
-    /**
-     * Bind events.
-     */
+  /**
+   * Bind events.
+   */
   componentWillMount() {
     window.addEventListener('resize', this.handleOnResize);
   }
 
-    /**
-     * Calculate the initial width or height on first render.
-     */
+  /**
+   * Calculate the initial width or height on first render.
+   */
   componentDidMount() {
     this.calculateSize();
   }
 
-    /**
-     * Keep track on whether this component has been expanded before.
-     *
-     * @param {Boolean} expanded
-     */
+  /**
+   * Keep track on whether this component has been expanded before.
+   *
+   * @param {Boolean} expanded
+   */
   componentWillReceiveProps({ expanded }) {
     this.setState({
       changed: (expanded !== this.props.expanded),
     });
   }
 
-    /**
-     * Only update when the we need to calculate or expand.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
+  /**
+   * Only update when the we need to calculate or expand.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   * @returns {Boolean}
+   */
   shouldComponentUpdate(nextProps, nextState) {
     return (
             nextState.calculate !== this.state.calculate ||
             nextState.size !== this.state.size ||
             nextProps.expanded !== this.props.expanded
-        );
+    );
   }
 
-    /**
-     * Re-calculate the size if the `calculate` state is true.
-     */
+  /**
+   * Re-calculate the size if the `calculate` state is true.
+   */
   componentDidUpdate() {
     this.calculateSize();
   }
 
-    /**
-     * Unbind events.
-     */
+  /**
+   * Unbind events.
+   */
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleOnResize);
   }
 
-    /**
-     * Calculate the width or height of the element using the bounding box.
-     */
+  /**
+   * Calculate the width or height of the element using the bounding box.
+   */
   calculateSize() {
     if (this.state.calculate) {
       this.setState({
@@ -112,20 +112,20 @@ export default class Collapse extends Component {
     }
   }
 
-    /**
-     * When the browser is resized, re-calculate the element width or height.
-     */
+  /**
+   * When the browser is resized, re-calculate the element width or height.
+   */
   handleOnResize() {
     this.setState({
       calculate: true,
     });
   }
 
-    /**
-     * Determine the size to animate too, and whether to trigger animations for it.
-     *
-     * @returns {Object|Number}
-     */
+  /**
+   * Determine the size to animate too, and whether to trigger animations for it.
+   *
+   * @returns {Object|Number}
+   */
   getMotionSize() {
     let { size, changed } = this.state,
       { expanded, fixedAt, motion } = this.props,
@@ -134,12 +134,12 @@ export default class Collapse extends Component {
     return changed ? spring(expandedSize, motion) : expandedSize;
   }
 
-    /**
-     * Render a wrapper that triggers collapsible content animations.
-     * Requires a literal size of the element to work correctly.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render a wrapper that triggers collapsible content animations.
+   * Requires a literal size of the element to work correctly.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let { calculate } = this.state,
       { children, direction, expanded, style, onRest, ...props } = this.props;
@@ -155,14 +155,14 @@ export default class Collapse extends Component {
       >
         {children}
       </div>
-        );
+    );
 
     if (calculate) {
       return (
         <div style={{ [direction]: 'auto' }}>
           {content}
         </div>
-            );
+        );
     }
 
     return (
@@ -179,6 +179,6 @@ export default class Collapse extends Component {
           },
         })}
       </Motion>
-        );
+    );
   }
 }

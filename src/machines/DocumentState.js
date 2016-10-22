@@ -19,9 +19,9 @@ const state = {
 
 class DocumentState {
 
-    /**
-     * Prepare the blackout element.
-     */
+  /**
+   * Prepare the blackout element.
+   */
   constructor() {
     blackout.id = 'titon-blackout';
     blackout.className = `${Titon.options.namespace}blackout`;
@@ -29,44 +29,44 @@ class DocumentState {
     body.appendChild(blackout);
   }
 
-    /**
-     * Disable document scrolling by adding a class to the body.
-     */
+  /**
+   * Disable document scrolling by adding a class to the body.
+   */
   disableScrolling() {
     if (state.lockedScrolls === 0) {
       body.classList.add('no-scroll');
     }
 
-    state.lockedScrolls++;
+    state.lockedScrolls += 1;
   }
 
-    /**
-     * Empty the blackout by removing all child elements.
-     */
+  /**
+   * Empty the blackout by removing all child elements.
+   */
   emptyBlackout() {
     blackout.innerHTML = '';
   }
 
-    /**
-     * Enable document scrolling by removing a class to the body.
-     */
+  /**
+   * Enable document scrolling by removing a class to the body.
+   */
   enableScrolling() {
     if (!state.lockedScrolls) {
       return;
     }
 
-    state.lockedScrolls--;
+    state.lockedScrolls -= 1;
 
     if (state.lockedScrolls === 0) {
       body.classList.remove('no-scroll');
     }
   }
 
-    /**
-     * Return an immutable object of the current document state.
-     *
-     * @returns {Object}
-     */
+  /**
+   * Return an immutable object of the current document state.
+   *
+   * @returns {Object}
+   */
   getState() {
     return {
       blackened: (state.openedBlackouts > 0),
@@ -74,24 +74,24 @@ class DocumentState {
     };
   }
 
-    /**
-     * Handler that resets the blackout content once the hide transitions finishes.
-     */
-    @bind
-    @once
+  /**
+   * Handler that resets the blackout content once the hide transitions finishes.
+   */
+  @bind
+  @once
   handleOnBlackoutHide() {
     this.emptyBlackout();
   }
 
-    /**
-     * Hide the blackout and remove the inner content.
-     */
+  /**
+   * Hide the blackout and remove the inner content.
+   */
   hideBlackout() {
     if (!state.openedBlackouts) {
       return;
     }
 
-    state.openedBlackouts--;
+    state.openedBlackouts -= 1;
 
     if (state.openedBlackouts === 0) {
       blackout.addEventListener('transitionend', this.handleOnBlackoutHide);
@@ -99,20 +99,20 @@ class DocumentState {
     }
   }
 
-    /**
-     * Show the blackout and inject markup within (for loading states, etc).
-     * The markup can be a string, an HTML element, or a React element.
-     *
-     * @param {String|HTMLElement|ReactElement} [content]
-     */
+  /**
+   * Show the blackout and inject markup within (for loading states, etc).
+   * The markup can be a string, an HTML element, or a React element.
+   *
+   * @param {String|HTMLElement|ReactElement} [content]
+   */
   showBlackout(content) {
-        // Convert React elements to generic markup strings
-        // As we should not support additional virtual DOMs
+    // Convert React elements to generic markup strings
+    // As we should not support additional virtual DOMs
     if (React.isValidElement(content)) {
       content = ReactDOMServer.renderToStaticMarkup(content);
     }
 
-        // Inject the markup into the blackout
+    // Inject the markup into the blackout
     if (typeof content === 'string') {
       blackout.innerHTML = content;
     } else if (content instanceof HTMLElement) {
@@ -123,15 +123,15 @@ class DocumentState {
       blackout.classList.add('is-expanded');
     }
 
-    state.openedBlackouts++;
+    state.openedBlackouts += 1;
   }
 
-    /**
-     * Show the blackout if the condition evaluates to true, else hide it.
-     *
-     * @param {Boolean} condition
-     * @param {String|HTMLElement|ReactElement} [content]
-     */
+  /**
+   * Show the blackout if the condition evaluates to true, else hide it.
+   *
+   * @param {Boolean} condition
+   * @param {String|HTMLElement|ReactElement} [content]
+   */
   toggleBlackout(condition, content = '') {
     if (condition) {
       this.showBlackout(content);
@@ -140,12 +140,12 @@ class DocumentState {
     }
   }
 
-    /**
-     * Enable document scrolling if the condition evaluates to true,
-     * else disable scrolling.
-     *
-     * @param {Boolean} condition
-     */
+  /**
+   * Enable document scrolling if the condition evaluates to true,
+   * else disable scrolling.
+   *
+   * @param {Boolean} condition
+   */
   toggleScrolling(condition) {
     if (condition) {
       this.enableScrolling();
@@ -154,11 +154,11 @@ class DocumentState {
     }
   }
 
-    /**
-     * Update the hash in the address bar without causing a page jump.
-     *
-     * @param {String} hash
-     */
+  /**
+   * Update the hash in the address bar without causing a page jump.
+   *
+   * @param {String} hash
+   */
   updateFragment(hash) {
     history.replaceState({ fragment: hash }, document.title, `#${hash}`);
   }

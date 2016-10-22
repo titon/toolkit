@@ -26,7 +26,7 @@ export default class Tooltip extends Component {
   static propTypes = {
     children: PropTypes.node,
     position: positions,
-        // Is an HTML element, but element/node prop types don't work
+    // Is an HTML element, but element/node prop types don't work
     targetElement: PropTypes.object,
     title: PropTypes.node,
     type: PropTypes.oneOf(['tooltip', 'popover']),
@@ -38,18 +38,18 @@ export default class Tooltip extends Component {
     sourceElement: null,
   };
 
-    /**
-     * Bind a handler to re-position the tooltip on resize.
-     */
+  /**
+   * Bind a handler to re-position the tooltip on resize.
+   */
   componentWillMount() {
     window.addEventListener('resize', this.handleOnResize);
   }
 
-    /**
-     * We need to mount the component before we can calculate the dimensions of the element,
-     * as well as find the element in the DOM. It kind of sucks we need to do this in did mount,
-     * but other solutions aren't as viable.
-     */
+  /**
+   * We need to mount the component before we can calculate the dimensions of the element,
+   * as well as find the element in the DOM. It kind of sucks we need to do this in did mount,
+   * but other solutions aren't as viable.
+   */
   componentDidMount() {
         /* eslint react/no-did-mount-set-state: 0 */
     if (this.props.targetElement) {
@@ -59,19 +59,19 @@ export default class Tooltip extends Component {
     }
   }
 
-    /**
-     * Unbind the resize handler.
-     */
+  /**
+   * Unbind the resize handler.
+   */
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleOnResize);
   }
 
-    /**
-     * Calculate the `top` and `left` values to position the tooltip to.
-     * This requires a source element and target element (provided by `Warp`).
-     *
-     * @returns {Object}
-     */
+  /**
+   * Calculate the `top` and `left` values to position the tooltip to.
+   * This requires a source element and target element (provided by `Warp`).
+   *
+   * @returns {Object}
+   */
   calculatePosition() {
     let { sourceElement } = this.state,
       { targetElement, position, xOffset, yOffset } = this.props;
@@ -86,20 +86,20 @@ export default class Tooltip extends Component {
     return {};
   }
 
-    /**
-     * Handler that will force an update and a render, once a resize event has finished.
-     */
-    @bind
-    @debounce(150)
+  /**
+   * Handler that will force an update and a render, once a resize event has finished.
+   */
+  @bind
+  @debounce(150)
   handleOnResize() {
     this.forceUpdate();
   }
 
-    /**
-     * Render the tooltip element.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the tooltip element.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let { type, ...props } = this.props;
 
@@ -111,7 +111,6 @@ export default class Tooltip extends Component {
         style={this.calculatePosition()}
         aria-labelledby={props.title ? this.formatID(`${type}-title`) : null}
         aria-describedby={this.formatID(`${type}-content`)}
-        {...this.inheritNativeProps(props)}
       >
         <div className={this.formatChildClass('inner')}>
           {props.title && (
@@ -121,7 +120,7 @@ export default class Tooltip extends Component {
             >
               {props.title}
             </div>
-                    )}
+          )}
 
           <div
             id={this.formatID(`${type}-content`)}
@@ -133,6 +132,6 @@ export default class Tooltip extends Component {
           <div className={this.formatChildClass('arrow')} />
         </div>
       </div>
-        );
+    );
   }
 }

@@ -27,11 +27,11 @@ export default class Gate extends BaseGate {
     position: positions,
   };
 
-    /**
-     * Render the gateway and its children.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the gateway and its children.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -41,10 +41,9 @@ export default class Gate extends BaseGate {
         className={this.formatChildClass('gate', props.animation, props.position)}
         aria-relevant="additions"
         aria-hidden="false"
-        {...this.inheritNativeProps(props)}
       >
         {this.renderChildren(this.state.children)}
       </aside>
-        );
+    );
   }
 }

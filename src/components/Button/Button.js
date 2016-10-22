@@ -35,62 +35,61 @@ export default class Button extends Component {
     pressed: false,
   };
 
-    /**
-     * Handler for setting `pressed` to true when the mouse clicks the button.
-     * Exists for proper ARIA support.
-     */
-    @bind
+  /**
+   * Handler for setting `pressed` to true when the mouse clicks the button.
+   * Exists for proper ARIA support.
+   */
+  @bind
   handleOnMouseDown() {
     this.setState({
       pressed: true,
     });
   }
 
-    /**
-     * Handler for setting `pressed` to false when the mouse releases the button.
-     * Exists for proper ARIA support.
-     */
-    @bind
+  /**
+   * Handler for setting `pressed` to false when the mouse releases the button.
+   * Exists for proper ARIA support.
+   */
+  @bind
   handleOnMouseUp() {
     this.setState({
       pressed: false,
     });
   }
 
-    /**
-     * Render the button as either an anchor link or button.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the button as either an anchor link or button.
+   *
+   * @returns {ReactElement}
+   */
   render() {
-    let { pressed } = this.state,
-      props = this.props,
-      buttonProps = {
-        className: this.formatClass({
-          '@large': props.large,
-          '@primary': props.primary,
-          '@secondary': props.secondary,
-          '@small': props.small,
-          [`@${props.state}`]: props.state,
-          'is-disabled': props.disabled,
-          'is-pressed': pressed,
-        }),
-        role: 'button',
-      },
-      nativeProps = this.inheritNativeProps(props);
+    const { pressed } = this.state;
+    const props = this.props;
+    let buttonProps = {
+      className: this.formatClass({
+        '@large': props.large,
+        '@primary': props.primary,
+        '@secondary': props.secondary,
+        '@small': props.small,
+        [`@${props.state}`]: props.state,
+        'is-disabled': props.disabled,
+        'is-pressed': pressed,
+      }),
+      role: 'button',
+    };
 
-        // If an anchor link
+    // If an anchor link
     if (props.href) {
       buttonProps.href = props.href;
 
       return (
-        <a {...buttonProps} {...nativeProps}>
+        <a {...buttonProps}>
           {props.children}
         </a>
-            );
+      );
     }
 
-        // If a button
+    // If a button
     buttonProps = {
       ...buttonProps,
       'aria-pressed': pressed,
@@ -101,9 +100,9 @@ export default class Button extends Component {
     };
 
     return (
-      <button {...buttonProps} {...nativeProps}>
+      <button {...buttonProps}>
         {props.children}
       </button>
-        );
+    );
   }
 }

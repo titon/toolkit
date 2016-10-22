@@ -26,11 +26,11 @@ export default class Progress extends Component {
     now: PropTypes.number.isRequired,
   };
 
-    /**
-     * Render the progress bar.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the progress bar.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let { max, min, ...props } = this.props;
 
@@ -41,10 +41,9 @@ export default class Progress extends Component {
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={Math.min(Math.max(props.now, min), max)}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </div>
-        );
+    );
   }
 }

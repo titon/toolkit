@@ -43,7 +43,7 @@ export default function Col({ children, end, ...props }) {
     }
   });
 
-    // End needs to be last to override any styles
+  // End needs to be last to override any styles
   if (end) {
     classes.end = true;
   }
@@ -64,7 +64,7 @@ Col.defaultProps = {
 Col.propTypes = {
   children: PropTypes.node,
 
-    // This is ugly, a better way?
+  // This is ugly, a better way?
   span: inRange.span12,
   push: inRange.span12,
   pull: inRange.span12,

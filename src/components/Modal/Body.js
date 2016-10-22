@@ -11,11 +11,11 @@ import MODULE from './module';
 export default class Body extends Component {
   static module = MODULE;
 
-    /**
-     * Render the modal inner body.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the modal inner body.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -23,10 +23,9 @@ export default class Body extends Component {
       <div
         id={this.formatID('modal-content')}
         className={this.formatChildClass('body')}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </div>
-        );
+    );
   }
 }

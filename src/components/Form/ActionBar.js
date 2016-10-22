@@ -11,21 +11,18 @@ import MODULE from './module';
 export default class ActionBar extends Component {
   static module = MODULE;
 
-    /**
-     * Render the form action bar.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the form action bar.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
     return (
-      <div
-        className={this.formatChildClass('actions')}
-        {...this.inheritNativeProps(props)}
-      >
+      <div className={this.formatChildClass('actions')}>
         {props.children}
       </div>
-        );
+    );
   }
 }

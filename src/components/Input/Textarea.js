@@ -8,14 +8,14 @@ import React from 'react';
 import Input from './Input';
 
 export default class Textarea extends Input {
-    /**
-     * Render the textarea with the props gathered from its declaration.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the textarea with the props gathered from its declaration.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     return (
       <textarea {...this.gatherProps()} />
-        );
+    );
   }
 }

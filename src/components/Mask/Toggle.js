@@ -15,19 +15,19 @@ export default class Toggle extends Component {
 
   static contextTypes = CONTEXT_TYPES;
 
-    /**
-     * Handlers for toggling the display of the mask overlay.
-     */
-    @bind
+  /**
+   * Handlers for toggling the display of the mask overlay.
+   */
+  @bind
   handleOnClick() {
     this.getContext().toggleOverlay();
   }
 
-    /**
-     * Render the child and wrap any `onClick` event handlers.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the child and wrap any `onClick` event handlers.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     return this.transferToChild(this.props.children, {
       className: this.getContext().expanded ? 'is-active' : '',

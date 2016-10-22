@@ -22,16 +22,16 @@ export default class Spinner extends Component {
     type: PropTypes.oneOf(['bubble']),
   };
 
-    /**
-     * Render the spinner loader and generate a count of spinners.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the spinner loader and generate a count of spinners.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let props = this.props,
       spinners = [];
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 8; i += 1) {
       spinners.push(<span key={i} />);
     }
 
@@ -40,7 +40,6 @@ export default class Spinner extends Component {
         className={this.formatClass({
           [`@${props.type}-spinner`]: true,
         })}
-        {...this.inheritNativeProps(props)}
       >
         <div className={this.formatChildClass('spinner')}>
           {spinners}
@@ -48,6 +47,6 @@ export default class Spinner extends Component {
 
         {props.children}
       </div>
-        );
+    );
   }
 }

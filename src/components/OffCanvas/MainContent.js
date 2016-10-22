@@ -14,11 +14,11 @@ export default class MainContent extends Component {
 
   static contextTypes = CONTEXT_TYPES;
 
-    /**
-     * Render the off canvas main content.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the off canvas main content.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -26,10 +26,9 @@ export default class MainContent extends Component {
       <main
         role="main"
         className={this.formatChildClass('content')}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </main>
-        );
+    );
   }
 }

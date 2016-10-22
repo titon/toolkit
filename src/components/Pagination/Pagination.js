@@ -50,11 +50,11 @@ export default class Pagination extends Component {
     url: PropTypes.string.isRequired,
   };
 
-    /**
-     * Setup state.
-     *
-     * @param {Object} props
-     */
+  /**
+   * Setup state.
+   *
+   * @param {Object} props
+   */
   constructor(props) {
     super();
 
@@ -63,11 +63,11 @@ export default class Pagination extends Component {
     };
   }
 
-    /**
-     * Define a context that is passed to all children.
-     *
-     * @returns {Object}
-     */
+  /**
+   * Define a context that is passed to all children.
+   *
+   * @returns {Object}
+   */
   getChildContext() {
     return {
       [MODULE.contextKey]: {
@@ -82,107 +82,107 @@ export default class Pagination extends Component {
     };
   }
 
-    /**
-     * Only update if the `page` has changed.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
+  /**
+   * Only update if the `page` has changed.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   * @returns {Boolean}
+   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.page !== this.state.page);
   }
 
-    /**
-     * Emit `paging` events before rendering.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     */
+  /**
+   * Emit `paging` events before rendering.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   */
   componentWillUpdate(nextProps, nextState) {
     this.emitEvent('paging', nextState.page, this.state.page);
   }
 
-    /**
-     * Emit `paged` events before rendering.
-     *
-     * @param {Object} prevProps
-     * @param {Object} prevState
-     */
+  /**
+   * Emit `paged` events before rendering.
+   *
+   * @param {Object} prevProps
+   * @param {Object} prevState
+   */
   componentDidUpdate(prevProps, prevState) {
     this.emitEvent('paged', this.state.page, prevState.page);
   }
 
-    /**
-     * Clamp a page between 1 and the total number of pages.
-     *
-     * @param {Number} page
-     * @param {Number} total
-     * @returns {Number}
-     */
+  /**
+   * Clamp a page between 1 and the total number of pages.
+   *
+   * @param {Number} page
+   * @param {Number} total
+   * @returns {Number}
+   */
   clampPage(page, total) {
         /* eslint no-nested-ternary: 0 */
 
     return (page < 1) ? 1 : (page > total) ? total : page;
   }
 
-    /**
-     * Create an `Item` with the defined page number.
-     *
-     * @param {Number} page
-     * @returns {ReactElement}
-     */
+  /**
+   * Create an `Item` with the defined page number.
+   *
+   * @param {Number} page
+   * @returns {ReactElement}
+   */
   createItem(page) {
     return (
       <Item key={page} page={page} />
-        );
+    );
   }
 
-    /**
-     * Create a `Spacer` with the defined spacer content.
-     *
-     * @param {String} key
-     * @returns {ReactElement}
-     */
+  /**
+   * Create a `Spacer` with the defined spacer content.
+   *
+   * @param {String} key
+   * @returns {ReactElement}
+   */
   createSpacer(key) {
     return (
       <Spacer key={key}>{this.props.spacer}</Spacer>
-        );
+    );
   }
 
-    /**
-     * Go to a specific page by updating the state.
-     *
-     * @param {Number} page
-     */
-    @bind
+  /**
+   * Go to a specific page by updating the state.
+   *
+   * @param {Number} page
+   */
+  @bind
   goToPage(page) {
     this.setState({
       page: this.clampPage(page, this.props.totalPages),
     });
   }
 
-    /**
-     * Go to the next page. If the last page is hit, stop there.
-     */
-    @bind
+  /**
+   * Go to the next page. If the last page is hit, stop there.
+   */
+  @bind
   nextPage() {
     this.goToPage(this.state.page + 1);
   }
 
-    /**
-     * Go to the previous page. If the first page is hit, stop there.
-     */
-    @bind
+  /**
+   * Go to the previous page. If the first page is hit, stop there.
+   */
+  @bind
   prevPage() {
     this.goToPage(this.state.page - 1);
   }
 
-    /**
-     * Render a list of items based on the defined format.
-     *
-     * @returns {Spacer[]|Item[]}
-     */
+  /**
+   * Render a list of items based on the defined format.
+   *
+   * @returns {Spacer[]|Item[]}
+   */
   renderItems() {
     let { totalPages, edges, format } = this.props,
       page = this.state.page,
@@ -194,7 +194,7 @@ export default class Pagination extends Component {
 
     switch (format) {
 
-            // There should be `edge` items on each side of the current page
+        // There should be `edge` items on each side of the current page
       case 'around':
       default:
         if (totalPages < (edges * 2)) {
@@ -204,20 +204,20 @@ export default class Pagination extends Component {
         start = page - edges;
         stop = page + edges;
 
-                // Fix the differences
+            // Fix the differences
         while (start < 1) {
-          start++;
-          stop++;
+          start += 1;
+          stop += 1;
         }
 
         while (stop > totalPages) {
-          start--;
-          stop--;
+          start -= 1;
+          stop -= 1;
         }
 
         break;
 
-            // There should be `edge` items in the middle, with ellipsis spacers on each side
+        // There should be `edge` items in the middle, with ellipsis spacers on each side
       case 'spaced':
         half = Math.floor(edges / 2);
 
@@ -225,45 +225,45 @@ export default class Pagination extends Component {
           break;
         }
 
-                // Items on the left side, a single spacer on the right
+            // Items on the left side, a single spacer on the right
         if (page < (edges + half)) {
-          for (i = 1; i <= (edges + half); i++) {
+          for (i = 1; i <= (edges + half); i += 1) {
             items.push(this.createItem(i));
           }
 
           items.push(this.createSpacer('right'));
 
-          for (i = (totalPages - half + 1); i <= totalPages; i++) {
+          for (i = (totalPages - half + 1); i <= totalPages; i += 1) {
             items.push(this.createItem(i));
           }
 
-                // Items on the right side, a single spacer on the left
+            // Items on the right side, a single spacer on the left
         } else if (page > (totalPages - half - edges)) {
-          for (i = 1; i <= half; i++) {
+          for (i = 1; i <= half; i += 1) {
             items.push(this.createItem(i));
           }
 
           items.push(this.createSpacer('left'));
 
-          for (i = (totalPages - half - edges + 1); i <= totalPages; i++) {
+          for (i = (totalPages - half - edges + 1); i <= totalPages; i += 1) {
             items.push(this.createItem(i));
           }
 
-                // Items in the middle, spacers on each side
+            // Items in the middle, spacers on each side
         } else {
-          for (i = 1; i <= half; i++) {
+          for (i = 1; i <= half; i += 1) {
             items.push(this.createItem(i));
           }
 
           items.push(this.createSpacer('left'));
 
-          for (i = (page - half); i <= (page + half); i++) {
+          for (i = (page - half); i <= (page + half); i += 1) {
             items.push(this.createItem(i));
           }
 
           items.push(this.createSpacer('right'));
 
-          for (i = (totalPages - half + 1); i <= totalPages; i++) {
+          for (i = (totalPages - half + 1); i <= totalPages; i += 1) {
             items.push(this.createItem(i));
           }
         }
@@ -271,18 +271,18 @@ export default class Pagination extends Component {
         return items;
     }
 
-    for (i = start; i <= stop; i++) {
+    for (i = start; i <= stop; i += 1) {
       items.push(this.createItem(i));
     }
 
     return items;
   }
 
-    /**
-     * Render the pagination list.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the pagination list.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let {
                 first, last, next, prev,
@@ -292,33 +292,33 @@ export default class Pagination extends Component {
       page = this.state.page,
       items = [];
 
-        // Prepend first and previous
+    // Prepend first and previous
     if (first && (page > 1 || showControls)) {
       items.push(
         <Item key="first" page={1}>{first}</Item>
-            );
+        );
     }
 
     if (prev && (page > 1 || showControls)) {
       items.push(
         <Item key="prev" page={page - 1}>{prev}</Item>
-            );
+        );
     }
 
-        // Generate the list of items
+    // Generate the list of items
     items = items.concat(this.renderItems());
 
-        // Append next and last
+    // Append next and last
     if (next && (page < totalPages || showControls)) {
       items.push(
         <Item key="next" page={page + 1}>{next}</Item>
-            );
+        );
     }
 
     if (last && (page < totalPages || showControls)) {
       items.push(
         <Item key="last" page={totalPages}>{last}</Item>
-            );
+        );
     }
 
     return (
@@ -329,12 +329,11 @@ export default class Pagination extends Component {
           '@grouped': props.grouped,
         })}
         aria-label={props.label}
-        {...this.inheritNativeProps(props)}
       >
         <ol>
           {items}
         </ol>
       </nav>
-        );
+    );
   }
 }

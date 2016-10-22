@@ -14,7 +14,7 @@ export default function Divider({ children }) {
     <div role="separator" className={MODULE.classNames.default}>
       <span>{children}</span>
     </div>
-    );
+  );
 }
 
 Divider.module = MODULE;

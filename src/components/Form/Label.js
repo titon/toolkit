@@ -16,23 +16,22 @@ export default class Label extends Component {
     inputID: PropTypes.string.isRequired,
   };
 
-    /**
-     * Render the form field label.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the form field label.
+   *
+   * @returns {ReactElement}
+   */
   render() {
-    let { children, inputID, ...props } = this.props;
+    let { children, inputID } = this.props;
 
     return (
       <label
         id={`${inputID}-label`}
         htmlFor={inputID}
         className={this.formatChildClass('label')}
-        {...this.inheritNativeProps(props)}
       >
         {children}
       </label>
-        );
+    );
   }
 }

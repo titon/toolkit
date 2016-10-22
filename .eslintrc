@@ -2,7 +2,17 @@
   "root": true,
   "parser": "babel-eslint",
   "extends": "airbnb",
+  "env": {
+    "browser": true
+  },
   "globals": {
-    "Toolkit": true,
+    "Toolkit": true
+  },
+  "rules": {
+    "no-param-reassign": 0,
+    "class-methods-use-this": 0,
+    "react/sort-comp": 0,
+    "react/no-unused-prop-types": 0,
+    "react/jsx-filename-extension": 0
   }
 }

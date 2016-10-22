@@ -8,37 +8,37 @@ import flags from './flags';
 
 const Titon = Object.freeze({
 
-    /** Build date hash. */
+  /** Build date hash. */
   build: '%build%',
 
-    /** Runtime flags. */
+  /** Runtime flags. */
   flags,
 
-    /** Configurable options. */
+  /** Configurable options. */
   options: {
-        // Prefix prepended to every cookie
+    // Prefix prepended to every cookie
     cookiePrefix: 'titon.',
 
-        // Global debugging
+    // Global debugging
     debug: false,
 
-        // BEM element separator
+    // BEM element separator
     elementSeparator: '__',
 
-        // Logger function that handles invariants
+    // Logger function that handles invariants
     logger() {},
 
-        // BEM modifier separator
+    // BEM modifier separator
     modifierSeparator: '--',
 
-        // CSS class namespace
+    // CSS class namespace
     namespace: '',
 
-        // Style states
+    // Style states
     states: ['info', 'debug', 'warning', 'error', 'success'],
   },
 
-    /** Current version. */
+  /** Current version. */
   version: '%version%',
 });
 

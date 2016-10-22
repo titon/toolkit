@@ -9,7 +9,6 @@
 import checkIsEvent from './helpers/checkIsEvent';
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
-import 'core-js/modules/es6.weak-map';
 
 const onceCache = new WeakMap();
 
@@ -29,21 +28,21 @@ export default function once(target, name, descriptor) {
   let func = getValueFunc('once', descriptor),
     response = null;
 
-    /**
-     * @param {Event} event
-     * @returns {*}
-     */
+  /**
+   * @param {Event} event
+   * @returns {*}
+   */
   function onceDecorator(event) {
     if (onceCache.has(this)) {
       return onceCache.get(this);
     }
 
-        // Execute the original function and store its response
+    // Execute the original function and store its response
     response = func.apply(this, arguments);
     onceCache.set(this, response);
 
-        // If we are dealing with an event
-        // Let's attempt to remove the event listener
+    // If we are dealing with an event
+    // Let's attempt to remove the event listener
     try {
       checkIsEvent('once', event);
       event.target.removeEventListener(event.type, onceDecorator);

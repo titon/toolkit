@@ -8,11 +8,11 @@ import React from 'react';
 import LazyLoad from './LazyLoad';
 
 export default class Background extends LazyLoad {
-    /**
-     * Render the lazy loaded element.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the lazy loaded element.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     return this.transferToChild(this.props.children, {
       className: this.formatChildClass('bg', {

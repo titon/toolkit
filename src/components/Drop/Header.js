@@ -14,22 +14,19 @@ export default class Header extends Component {
 
   static contextTypes = CONTEXT_TYPES;
 
-    /**
-     * Render the drop item header.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the drop item header.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
     return (
-      <li
-        className={this.formatChildClass('header')}
-        {...this.inheritNativeProps(props)}
-      >
+      <li className={this.formatChildClass('header')}>
         {props.children}
       </li>
-        );
+    );
   }
 
 }

@@ -21,34 +21,34 @@ export default class Prev extends Component {
     onClick: collectionOf.func,
   };
 
-    /**
-     * Handles clicking the previous button.
-     *
-     * @param {SyntheticEvent} e
-     */
-    @bind
+  /**
+   * Handles clicking the previous button.
+   *
+   * @param {SyntheticEvent} e
+   */
+  @bind
   handleOnClick(e) {
     this.getContext().prevItem();
     this.handleEvent('click', e);
   }
 
-    /**
-     * Render a button that cycles to the previous item.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render a button that cycles to the previous item.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
     return (
       <button
-        type="button" role="button"
+        type="button"
+        role="button"
         className={this.formatChildClass('prev')}
         onClick={this.handleOnClick}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </button>
-        );
+    );
   }
 }

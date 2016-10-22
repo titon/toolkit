@@ -30,49 +30,49 @@ export default class Overlay extends Component {
     expanded: false,
   };
 
-    /**
-     * Determine whether the mask is expanded or not.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextContext
-     */
+  /**
+   * Determine whether the mask is expanded or not.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextContext
+   */
   componentWillReceiveProps(nextProps, nextContext) {
     this.setState({
       expanded: this.getContext(nextContext).expanded,
     });
   }
 
-    /**
-     * Only update if the `expanded` state is different.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
+  /**
+   * Only update if the `expanded` state is different.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   * @returns {Boolean}
+   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.expanded !== this.state.expanded);
   }
 
-    /**
-     * Emit `showing` or `hiding` events before rendering.
-     */
+  /**
+   * Emit `showing` or `hiding` events before rendering.
+   */
   componentWillUpdate() {
     this.emitEvent(this.state.expanded ? 'hiding' : 'showing');
   }
 
-    /**
-     * Emit `shown` or `hidden` events after rendering.
-     */
+  /**
+   * Emit `shown` or `hidden` events after rendering.
+   */
   componentDidUpdate() {
     this.emitEvent(this.state.expanded ? 'shown' : 'hidden');
   }
 
-    /**
-     * Handler to hide the overlay when clicked if `collapsible` is true.
-     *
-     * @param {SyntheticEvent} e
-     */
-    @bind
+  /**
+   * Handler to hide the overlay when clicked if `collapsible` is true.
+   *
+   * @param {SyntheticEvent} e
+   */
+  @bind
   handleOnClick(e) {
     e.preventDefault();
 
@@ -81,11 +81,11 @@ export default class Overlay extends Component {
     }
   }
 
-    /**
-     * Render the mask overlay.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the mask overlay.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let props = this.props,
       expanded = this.state.expanded;
@@ -100,11 +100,10 @@ export default class Overlay extends Component {
         })}
         onClick={this.handleOnClick}
         aria-hidden={!expanded}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </div>
-        );
+    );
   }
 
 }

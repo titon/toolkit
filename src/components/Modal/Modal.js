@@ -44,12 +44,12 @@ export default class Modal extends Component {
     expanded: false,
   };
 
-    /**
-     * Validate that a modal is instantiated within a gateway.
-     *
-     * @param {Object} props
-     * @param {Object} context
-     */
+  /**
+   * Validate that a modal is instantiated within a gateway.
+   *
+   * @param {Object} props
+   * @param {Object} context
+   */
   constructor(props, context) {
     super();
 
@@ -57,9 +57,9 @@ export default class Modal extends Component {
             'A `Modal` must be instantiated within a `Gateway`.');
   }
 
-    /**
-     * Before mounting, lock scrolling and display a blackout, it applicable.
-     */
+  /**
+   * Before mounting, lock scrolling and display a blackout, it applicable.
+   */
   componentWillMount() {
     let { dismissable, blackOut, stopScroll } = this.props;
 
@@ -76,10 +76,10 @@ export default class Modal extends Component {
     }
   }
 
-    /**
-     * Set the expanded state once mounted to trigger any transitions.
-     * We must do this after a mount, as modal's are passed through to gateways.
-     */
+  /**
+   * Set the expanded state once mounted to trigger any transitions.
+   * We must do this after a mount, as modal's are passed through to gateways.
+   */
   componentDidMount() {
         /* eslint react/no-did-mount-set-state: 0 */
     this.setState({
@@ -87,9 +87,9 @@ export default class Modal extends Component {
     });
   }
 
-    /**
-     * Reverse the logic that was initialized during mounting.
-     */
+  /**
+   * Reverse the logic that was initialized during mounting.
+   */
   componentWillUnmount() {
     let { dismissable, blackOut, stopScroll } = this.props;
 
@@ -106,51 +106,51 @@ export default class Modal extends Component {
     }
   }
 
-    /**
-     * Conceal the modal by removing its element from the gateway.
-     */
-    @bind
+  /**
+   * Conceal the modal by removing its element from the gateway.
+   */
+  @bind
   hideModal() {
     this.getContext(null, contextKey).warpOut(this.props.gateName, this.getInternalElement());
   }
 
-    /**
-     * Handler for clicking the close button.
-     */
-    @bind
+  /**
+   * Handler for clicking the close button.
+   */
+  @bind
   handleOnClick() {
     this.hideModal();
   }
 
-    /**
-     * Handler for closing the modal when a click occurs outside the outer element.
-     *
-     * @param {SyntheticEvent} e
-     */
-    @bind
+  /**
+   * Handler for closing the modal when a click occurs outside the outer element.
+   *
+   * @param {SyntheticEvent} e
+   */
+  @bind
   handleOnClickOut({ target, currentTarget }) {
     if (target === currentTarget) {
       this.hideModal();
     }
   }
 
-    /**
-     * Handler for closing the modal when the `esc` key is pressed.
-     *
-     * @param {SyntheticEvent} e
-     */
-    @bind
+  /**
+   * Handler for closing the modal when the `esc` key is pressed.
+   *
+   * @param {SyntheticEvent} e
+   */
+  @bind
   handleOnKeyUp({ key }) {
     if (key === 'Escape') {
       this.hideModal();
     }
   }
 
-    /**
-     * Render the modal element.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the modal element.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let props = this.props,
       { expanded } = this.state;
@@ -169,7 +169,6 @@ export default class Modal extends Component {
         aria-hidden={!expanded}
         aria-expanded={expanded}
         onClick={props.dismissable ? this.handleOnClickOut : null}
-        {...this.inheritNativeProps(props)}
       >
         <div className={this.formatChildClass('outer')}>
           <div className={this.formatChildClass('inner')}>
@@ -178,15 +177,16 @@ export default class Modal extends Component {
 
           {props.dismissable && (
             <button
-              type="button" role="button"
+              type="button"
+              role="button"
               className={this.formatChildClass('close')}
               onClick={this.handleOnClick}
             >
               {props.close}
             </button>
-                    )}
+          )}
         </div>
       </div>
-        );
+    );
   }
 }

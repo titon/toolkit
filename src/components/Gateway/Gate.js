@@ -11,7 +11,6 @@ import collectionOf from '../../prop-types/collectionOf';
 import invariant from '../../utility/invariant';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
-import 'core-js/modules/es6.array.find';
 
 import Fade from '../../motions/Fade';
 
@@ -40,27 +39,27 @@ export default class Gate extends Component {
     leavingElement: null,
   };
 
-    /**
-     * Register the gate on instantiation.
-     *
-     * @param {Object} props
-     * @param {Object} context
-     */
+  /**
+   * Register the gate on instantiation.
+   *
+   * @param {Object} props
+   * @param {Object} context
+   */
   constructor(props, context) {
     super();
 
-        // The `contextKey` can be overwritten by child components
-        // So force it to the gateways context key
+    // The `contextKey` can be overwritten by child components
+    // So force it to the gateways context key
     context[MODULE.contextKey]
             .registerGate(props.name, this.handleOnWarpIn, this.handleOnWarpOut);
   }
 
-    /**
-     * Trigger `entering` and `leaving` events when an element is warped.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     */
+  /**
+   * Trigger `entering` and `leaving` events when an element is warped.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   */
   componentWillUpdate(nextProps, nextState) {
     if (nextState.enteringElement) {
       this.emitEvent('entering', nextState.enteringElement);
@@ -71,9 +70,9 @@ export default class Gate extends Component {
     }
   }
 
-    /**
-     * Trigger `entered` and `left` events when an element is warped.
-     */
+  /**
+   * Trigger `entered` and `left` events when an element is warped.
+   */
   componentDidUpdate() {
     let { enteringElement, leavingElement } = this.state;
 
@@ -86,12 +85,12 @@ export default class Gate extends Component {
     }
   }
 
-    /**
-     * Handles the adding of elements from the gateway.
-     *
-     * @param {ReactElement} element
-     */
-    @bind
+  /**
+   * Handles the adding of elements from the gateway.
+   *
+   * @param {ReactElement} element
+   */
+  @bind
   handleOnWarpIn(element) {
     const { children } = this.state;
 
@@ -104,12 +103,12 @@ export default class Gate extends Component {
     }
   }
 
-    /**
-     * Handles the removing of elements from the gateway.
-     *
-     * @param {ReactElement} element
-     */
-    @bind
+  /**
+   * Handles the removing of elements from the gateway.
+   *
+   * @param {ReactElement} element
+   */
+  @bind
   handleOnWarpOut(element) {
     const { children } = this.state;
 
@@ -122,22 +121,22 @@ export default class Gate extends Component {
     }
   }
 
-    /**
-     * Returns true if the element by key currently exists in the gate.
-     *
-     * @param {ReactElement} element
-     * @returns {Boolean}
-     */
+  /**
+   * Returns true if the element by key currently exists in the gate.
+   *
+   * @param {ReactElement} element
+   * @returns {Boolean}
+   */
   hasElement(element) {
     return !!this.state.children.find(child => child.key === element.key);
   }
 
-    /**
-     * Validate that a value is in fact a React element and that it matches the contract.
-     *
-     * @param {ReactElement} element
-     * @returns {Boolean}
-     */
+  /**
+   * Validate that a value is in fact a React element and that it matches the contract.
+   *
+   * @param {ReactElement} element
+   * @returns {Boolean}
+   */
   isValidElement(element) {
     let { contract, name } = this.props;
 
@@ -148,36 +147,31 @@ export default class Gate extends Component {
     return true;
   }
 
-    /**
-     * Method for rendering the children within the gate.
-     * This allows for sub-classes to implement custom functionality.
-     *
-     * @param {ReactElement[]} children
-     * @returns {ReactElement[]}
-     */
+  /**
+   * Method for rendering the children within the gate.
+   * This allows for sub-classes to implement custom functionality.
+   *
+   * @param {ReactElement[]} children
+   * @returns {ReactElement[]}
+   */
   renderChildren(children) {
     return (
       <Fade.Group>
         {children.map(child => child.element)}
       </Fade.Group>
-        );
+    );
   }
 
-    /**
-     * Render the gateway and its children.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the gateway and its children.
+   *
+   * @returns {ReactElement}
+   */
   render() {
-    const props = this.props;
-
     return (
-      <div
-        className={this.formatChildClass('gate')}
-        {...this.inheritNativeProps(props)}
-      >
+      <div className={this.formatChildClass('gate')}>
         {this.renderChildren(this.state.children)}
       </div>
-        );
+    );
   }
 }

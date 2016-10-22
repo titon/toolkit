@@ -24,28 +24,28 @@ export default function positionRelativeTo(
     relativeTo,
     baseOffset = { left: 0, top: 0 }
 ) {
-  let { top, left } = baseOffset,
-    [ edgeY, edgeX ] = position.split('-'),
-    srcSize = sourceElement.getBoundingClientRect(),
-    srcWidth = srcSize.width,
-    srcHeight = srcSize.height,
-    relSize = {},
-    relTop = 0,
-    relHeight = 0,
-    relWidth = 0;
+  const srcSize = sourceElement.getBoundingClientRect();
+  const srcWidth = srcSize.width;
+  const srcHeight = srcSize.height;
+  let { top, left } = baseOffset;
+  let [edgeY, edgeX] = position.split('-');
+  let relSize = {};
+  let relTop = 0;
+  let relHeight = 0;
+  let relWidth = 0;
 
-    // Fix the x axis
+  // Fix the x axis
   if (edgeY === 'left' || edgeY === 'right') {
     edgeX = edgeY;
     edgeY = null;
   }
 
-    // If an event is used, position it near the mouse
+  // If an event is used, position it near the mouse
   if (relativeTo.preventDefault) {
     top += relativeTo.pageY;
     left += relativeTo.pageX;
 
-    // Else position it relative to the element
+  // Else position it relative to the element
   } else {
     relSize = relativeTo.getBoundingClientRect();
     relHeight = relSize.height;
@@ -56,7 +56,7 @@ export default function positionRelativeTo(
     left += relSize.left;
   }
 
-    // Shift around based on edge positioning
+  // Shift around based on edge positioning
   if (edgeY === 'top') {
     top -= srcHeight;
   } else if (edgeY === 'bottom') {
@@ -73,7 +73,7 @@ export default function positionRelativeTo(
     left -= Math.round((srcWidth / 2) - (relWidth / 2));
   }
 
-    // Shift again to keep it within the viewport
+  // Shift again to keep it within the viewport
   if (left < 0) {
     left = 0;
   } else if ((left + srcWidth) > window.outerWidth) {

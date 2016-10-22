@@ -12,51 +12,51 @@ class CookieJar {
   loaded = false;
   raw = false;
 
-    /**
-     * Decode an encoded value, or return the raw value.
-     *
-     * @param {String} value
-     * @returns {String}
-     */
+  /**
+   * Decode an encoded value, or return the raw value.
+   *
+   * @param {String} value
+   * @returns {String}
+   */
   decode(value) {
     return this.raw ? value : decodeURIComponent(value);
   }
 
-    /**
-     * Encode a value, or return the raw value.
-     *
-     * @param {*} value
-     * @returns {String}
-     */
+  /**
+   * Encode a value, or return the raw value.
+   *
+   * @param {*} value
+   * @returns {String}
+   */
   encode(value) {
     return this.raw ? value : encodeURIComponent(value);
   }
 
-    /**
-     * Return the cookie value if it exists, else return null.
-     *
-     * @param {String} key
-     * @returns {*}
-     */
+  /**
+   * Return the cookie value if it exists, else return null.
+   *
+   * @param {String} key
+   * @returns {*}
+   */
   get(key) {
     return this.has(key) ? cookies[key] : null;
   }
 
-    /**
-     * Return true if a cookie has been set by the defined key.
-     *
-     * @param {String} key
-     * @returns {Boolean}
-     */
+  /**
+   * Return true if a cookie has been set by the defined key.
+   *
+   * @param {String} key
+   * @returns {Boolean}
+   */
   has(key) {
     this.load();
 
     return (key in cookies);
   }
 
-    /**
-     * Load all the currently defined cookies on the document into memory.
-     */
+  /**
+   * Load all the currently defined cookies on the document into memory.
+   */
   load() {
     if (this.loaded) {
       return;
@@ -76,32 +76,32 @@ class CookieJar {
     this.loaded = true;
   }
 
-    /**
-     * Remove a cookie by the defined key.
-     *
-     * @param {String} key
-     * @param {Object} [options]
-     */
+  /**
+   * Remove a cookie by the defined key.
+   *
+   * @param {String} key
+   * @param {Object} [options]
+   */
   remove(key, options = {}) {
     options.expires = -1;
 
     this.add(key, '[removed]', options);
   }
 
-    /**
-     * Set a cookie by writing to the document.
-     *
-     * @param {String} key
-     * @param {*} value
-     * @param {Object} [options]
-     */
+  /**
+   * Set a cookie by writing to the document.
+   *
+   * @param {String} key
+   * @param {*} value
+   * @param {Object} [options]
+   */
   set(key, value, options = {}) {
-        // Convert to JSON if not primitive
+    // Convert to JSON if not primitive
     if (typeof value === 'object') {
       value = JSON.stringify(value);
     }
 
-        // Add days to current timestamp if a number
+    // Add days to current timestamp if a number
     if (typeof options.expires === 'number') {
       const date = new Date();
 

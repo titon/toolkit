@@ -4,11 +4,9 @@
  * @link        http://titon.io
  */
 
-import 'core-js/modules/es6.weak-map';
-
 // Start at a higher number to leave room for manual app-level indices
-let index = 10,
-  cache = new WeakMap();
+const cache = new WeakMap();
+let index = 10;
 
 /**
  * A function that generates a tab index in sequential order by keeping a map of
@@ -19,7 +17,7 @@ let index = 10,
  */
 export default function generateTabIndex(obj) {
   if (!cache.has(obj)) {
-    cache.set(obj, index++);
+    cache.set(obj, index += 1);
   }
 
   return cache.get(obj);

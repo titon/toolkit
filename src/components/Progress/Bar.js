@@ -18,11 +18,11 @@ export default class Bar extends Component {
     state: states,
   };
 
-    /**
-     * Render the progress bar segment.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the progress bar segment.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -32,10 +32,9 @@ export default class Bar extends Component {
           [`is-${props.state}`]: props.state,
         })}
         style={{ width: `${props.percent}%` }}
-        {...this.inheritNativeProps(props)}
       >
         {props.children || `${props.percent}%`}
       </div>
-        );
+    );
   }
 }

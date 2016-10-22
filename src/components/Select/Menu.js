@@ -10,8 +10,6 @@ import bind from '../../decorators/bind';
 import { showHidePropTypes } from '../../propTypes';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
-import 'core-js/modules/es7.array.includes';
-import 'core-js/modules/es7.object.values';
 
 export default class Menu extends Component {
   static module = MODULE;
@@ -27,12 +25,12 @@ export default class Menu extends Component {
     hideSelected: PropTypes.bool,
   };
 
-    /**
-     * Setup state.
-     *
-     * @param {Object} props
-     * @param {Object} context
-     */
+  /**
+   * Setup state.
+   *
+   * @param {Object} props
+   * @param {Object} context
+   */
   constructor(props, context) {
     super();
 
@@ -46,19 +44,19 @@ export default class Menu extends Component {
     };
   }
 
-    /**
-     * Bind events before mounting.
-     */
+  /**
+   * Bind events before mounting.
+   */
   componentWillMount() {
     window.addEventListener('keydown', this.handleOnKeyDown);
   }
 
-    /**
-     * Update the list of selected values.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextContext
-     */
+  /**
+   * Update the list of selected values.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextContext
+   */
   componentWillReceiveProps(nextProps, nextContext) {
     const newContext = this.getContext(nextContext);
 
@@ -68,43 +66,43 @@ export default class Menu extends Component {
     });
   }
 
-    /**
-     * Emit `showing` or `hiding` events before rendering.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     */
+  /**
+   * Emit `showing` or `hiding` events before rendering.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   */
   componentWillUpdate(nextProps, nextState) {
     if (nextState.expanded !== this.state.expanded) {
       this.emitEvent(this.state.expanded ? 'hiding' : 'showing');
     }
   }
 
-    /**
-     * Emit `shown` or `hidden` events after rendering.
-     *
-     * @param {Object} prevProps
-     * @param {Object} prevState
-     */
+  /**
+   * Emit `shown` or `hidden` events after rendering.
+   *
+   * @param {Object} prevProps
+   * @param {Object} prevState
+   */
   componentDidUpdate(prevProps, prevState) {
     if (prevState.expanded !== this.state.expanded) {
       this.emitEvent(this.state.expanded ? 'shown' : 'hidden');
     }
   }
 
-    /**
-     * Remove events when unmounting.
-     */
+  /**
+   * Remove events when unmounting.
+   */
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleOnKeyDown);
   }
 
-    /**
-     * Create an option element with the defined settings.
-     *
-     * @param {Object} option
-     * @returns {ReactElement}
-     */
+  /**
+   * Create an option element with the defined settings.
+   *
+   * @param {Object} option
+   * @returns {ReactElement}
+   */
   createOption(option) {
     let disabled = option.disabled,
       selected = this.state.values.has(option.value);
@@ -133,15 +131,15 @@ export default class Menu extends Component {
                     )}
         </a>
       </li>
-        );
+    );
   }
 
-    /**
-     * Create an option group element with the defined settings.
-     *
-     * @param {Object} group
-     * @returns {ReactElement}
-     */
+  /**
+   * Create an option group element with the defined settings.
+   *
+   * @param {Object} group
+   * @returns {ReactElement}
+   */
   createOptGroup(group) {
     return (
       <li key={group.label}>
@@ -154,20 +152,20 @@ export default class Menu extends Component {
           {group.label}
         </span>
       </li>
-        );
+    );
   }
 
-    /**
-     * When a list item is clicked, update the list of selected options.
-     * If `multiple` is enabled, toggle the value, else clear all previous values.
-     *
-     * @param {String} value
-     */
+  /**
+   * When a list item is clicked, update the list of selected options.
+   * If `multiple` is enabled, toggle the value, else clear all previous values.
+   *
+   * @param {String} value
+   */
   selectValue(value) {
     let context = this.getContext(),
       values = new Set(this.state.values);
 
-        // Toggle the value
+    // Toggle the value
     if (context.multiple) {
       if (values.has(value)) {
         values.delete(value);
@@ -175,7 +173,7 @@ export default class Menu extends Component {
         values.add(value);
       }
 
-        // Clear previous values
+    // Clear previous values
     } else {
       values.clear();
       values.add(value);
@@ -186,15 +184,15 @@ export default class Menu extends Component {
     context.selectValue(Array.from(values));
   }
 
-    /**
-     * Handler that cycles through the menu options when a specific key is pressed.
-     * If `ArrowUp` or `ArrowDown` is pressed, it will highlight the next or previous option.
-     * If `Enter` is pressed, the value will be selected, else if `Escape` is pressed,
-     * the menu and state will be closed.
-     *
-     * @param {SyntheticEvent} e
-     */
-    @bind
+  /**
+   * Handler that cycles through the menu options when a specific key is pressed.
+   * If `ArrowUp` or `ArrowDown` is pressed, it will highlight the next or previous option.
+   * If `Enter` is pressed, the value will be selected, else if `Escape` is pressed,
+   * the menu and state will be closed.
+   *
+   * @param {SyntheticEvent} e
+   */
+  @bind
   handleOnKeyDown(e) {
     if (!this.state.expanded || !['ArrowUp', 'ArrowDown', 'Escape', 'Enter'].includes(e.key)) {
       return;
@@ -247,17 +245,17 @@ export default class Menu extends Component {
     }
   }
 
-    /**
-     * Render the list of options as `<li>` elements.
-     *
-     * @returns {ReactElement[]}
-     */
+  /**
+   * Render the list of options as `<li>` elements.
+   *
+   * @returns {ReactElement[]}
+   */
   renderOptions() {
     let options = this.getContext().options,
       elements = [];
 
     options.forEach((option) => {
-            // Optgroup
+        // Optgroup
       if (option.options) {
         elements.push(this.createOptGroup(option));
 
@@ -265,7 +263,7 @@ export default class Menu extends Component {
           elements.push(this.createOption(child));
         });
 
-            // Option
+        // Option
       } else {
         elements.push(this.createOption(option));
       }
@@ -274,11 +272,11 @@ export default class Menu extends Component {
     return elements;
   }
 
-    /**
-     * Render the custom select dropdown menu.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the custom select dropdown menu.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let props = this.props,
       expanded = this.state.expanded,
@@ -297,12 +295,11 @@ export default class Menu extends Component {
         aria-multiselectable={multiple}
         aria-hidden={!expanded}
         aria-expanded={expanded}
-        {...this.inheritNativeProps(props)}
       >
         <ol>
           {this.renderOptions()}
         </ol>
       </div>
-        );
+    );
   }
 }

@@ -16,22 +16,21 @@ export default class Help extends Component {
     inputID: PropTypes.string,
   };
 
-    /**
-     * Render the form field help block.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the form field help block.
+   *
+   * @returns {ReactElement}
+   */
   render() {
-    let { children, inputID, ...props } = this.props;
+    let { children, inputID } = this.props;
 
     return (
       <div
         id={inputID ? (`${inputID}-help`) : null}
         className={this.formatChildClass('help')}
-        {...this.inheritNativeProps(props)}
       >
         {children}
       </div>
-        );
+    );
   }
 }

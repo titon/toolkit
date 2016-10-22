@@ -23,15 +23,15 @@ export default class Image extends LazyLoad {
     src: PropTypes.string.isRequired,
   };
 
-    /**
-     * Determine the correct image source path based on the loaded state,
-     * whether the browser supports retina, and the default source and filler images.
-     *
-     * If `cacheBust` is enabled, a query string param will be appended
-     * with the current timestamp.
-     *
-     * @returns {String}
-     */
+  /**
+   * Determine the correct image source path based on the loaded state,
+   * whether the browser supports retina, and the default source and filler images.
+   *
+   * If `cacheBust` is enabled, a query string param will be appended
+   * with the current timestamp.
+   *
+   * @returns {String}
+   */
   getSourcePath() {
     let { src, retinaSrc, filler, cacheBust } = this.props,
       sourcePath = filler || '';
@@ -39,7 +39,7 @@ export default class Image extends LazyLoad {
     if (this.state.loaded) {
       sourcePath = (RETINA ? retinaSrc : '') || src;
 
-            // Append a query string to bust the cache
+        // Append a query string to bust the cache
       if (cacheBust) {
         const url = new URL(sourcePath);
 
@@ -52,11 +52,11 @@ export default class Image extends LazyLoad {
     return sourcePath;
   }
 
-    /**
-     * Render the lazy loaded image.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the lazy loaded image.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -69,8 +69,7 @@ export default class Image extends LazyLoad {
           'is-loaded': this.state.loaded,
           'is-retina': (RETINA && props.retinaSrc),
         })}
-        {...this.inheritNativeProps(props)}
       />
-        );
+    );
   }
 }

@@ -43,9 +43,9 @@ export default class ItemList extends Component {
     phase: 'initialRender',
   };
 
-    /**
-     * Calculate the initial transform translate offset before rendering.
-     */
+  /**
+   * Calculate the initial transform translate offset before rendering.
+   */
   componentWillMount() {
     console.log('componentWillMount');
 
@@ -54,16 +54,16 @@ export default class ItemList extends Component {
     });
   }
 
-    /**
-     * When receiving a new index, determine what indices to transition from and to.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextContext
-     */
+  /**
+   * When receiving a new index, determine what indices to transition from and to.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextContext
+   */
   componentWillReceiveProps(nextProps, nextContext) {
     console.log('componentWillReceiveProps'); // , nextContext);
 
-        // Phase 1) Rebuild the children before the transition starts
+    // Phase 1) Rebuild the children before the transition starts
     if (nextContext.currentIndex !== this.state.toIndex) {
       console.log('PHASE', 'beforeTransition', nextContext.currentIndex);
 
@@ -75,7 +75,7 @@ export default class ItemList extends Component {
         phase: 'beforeTransition',
       });
 
-        // Phase 3) Rebuild the children after the transition finishes
+    // Phase 3) Rebuild the children after the transition finishes
     } else if (nextContext.currentIndex === this.state.toIndex && this.state.phase === 'startTransition') {
       console.log('PHASE', 'afterTransition');
 
@@ -88,18 +88,18 @@ export default class ItemList extends Component {
     }
   }
 
-    /**
-     * Once the parent component has updated, we must re-render this component with the new children.
-     * To do this, we must disable transitions temporarily.
-     *
-     * @param {Object} prevProps
-     * @param {Object} prevState
-     * @param {Object} prevContext
-     */
+  /**
+   * Once the parent component has updated, we must re-render this component with the new children.
+   * To do this, we must disable transitions temporarily.
+   *
+   * @param {Object} prevProps
+   * @param {Object} prevState
+   * @param {Object} prevContext
+   */
   componentDidUpdate(prevProps, prevState, prevContext) {
     console.log('componentDidUpdate');
 
-        // Phase 2) Start the transition by setting a new translate offset
+    // Phase 2) Start the transition by setting a new translate offset
     if (this.state.phase === 'beforeTransition') {
       console.log('PHASE', 'startTransition', this.state.toIndex);
 
@@ -110,11 +110,11 @@ export default class ItemList extends Component {
     }
   }
 
-    /**
-     * Calculate the size to cycle with based on the sum of all items up to but not including the defined index.
-     *
-     * @returns {String}
-     */
+  /**
+   * Calculate the size to cycle with based on the sum of all items up to but not including the defined index.
+   *
+   * @returns {String}
+   */
   getTranslateOffset() {
     let index = 0,
       fromIndex = this.state.fromIndex,
@@ -141,24 +141,24 @@ export default class ItemList extends Component {
     return `translate3d(${x}%, ${y}%, 0)`;
   }
 
-    /**
-     * Callback to trigger once the containers animation finishes.
-     * Emit `cycled` event after transitioning.
-     *
-     * @param {TransitionEvent} e
-     */
-    @bind
+  /**
+   * Callback to trigger once the containers animation finishes.
+   * Emit `cycled` event after transitioning.
+   *
+   * @param {TransitionEvent} e
+   */
+  @bind
   handleOnTransitionEnd(e) {
     if (e.propertyName === 'transform') {
       this.getContext().afterAnimation();
     }
   }
 
-    /**
-     * Render a specific range of items into the carousel item list.
-     *
-     * @returns {*[]}
-     */
+  /**
+   * Render a specific range of items into the carousel item list.
+   *
+   * @returns {*[]}
+   */
   renderChildren() {
     let children = Children.toArray(this.props.children),
       visibleChildren = [],
@@ -167,16 +167,16 @@ export default class ItemList extends Component {
 
     console.log('RENDER CHILDREN', fromIndex, toIndex);
 
-        // From beginning to end: 2 - 9
+    // From beginning to end: 2 - 9
     if (toIndex > fromIndex) {
       visibleChildren.push(...children.slice(fromIndex, toIndex + 1));
 
-        // From end that loops around to the beginning: 6 - 1
+    // From end that loops around to the beginning: 6 - 1
     } else if (toIndex < fromIndex) {
       visibleChildren.push(...children.slice(fromIndex));
       visibleChildren.push(...children.slice(0, toIndex + 1));
 
-        // How did this happen?
+    // How did this happen?
     } else {
       visibleChildren = children;
     }
@@ -184,18 +184,18 @@ export default class ItemList extends Component {
     return visibleChildren;
   }
 
-    /**
-     * Render the item list and attach swipe and transition functionality to the `ol` tag.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the item list and attach swipe and transition functionality to the `ol` tag.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let context = this.getContext(),
       props = this.generateNestedProps(this.props, 'swipe', [
         'onSwipe', 'onSwipeUp', 'onSwipeRight', 'onSwipeDown', 'onSwipeLeft',
       ]);
 
-        // Trigger our listeners first
+    // Trigger our listeners first
     props.onSwipeUp.unshift(context.nextItem);
     props.onSwipeLeft.unshift(context.nextItem);
     props.onSwipeDown.unshift(context.prevItem);
@@ -212,6 +212,6 @@ export default class ItemList extends Component {
           </ol>
         </Swipe>
       </div>
-        );
+    );
   }
 }

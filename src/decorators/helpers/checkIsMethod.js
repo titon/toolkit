@@ -10,9 +10,9 @@ import invariant from '../../utility/invariant';
  * Verifies that a decorator is only applied to a class method or function.
  *
  * @param {String} name
- * @param {Arguments} args
+ * @param {*[]} args
  */
 export default function checkIsMethod(name, args) {
   invariant((args.length === 3 && typeof args[2] === 'object'),
-        'Only methods are supported by @%s.', name);
+    'Only methods are supported by @%s.', name);
 }

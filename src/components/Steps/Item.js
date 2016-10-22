@@ -20,26 +20,26 @@ export default class Item extends Component {
     complete: PropTypes.bool,
   };
 
-    /**
-     * Render the individual step item.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the individual step item.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
     return (
       <li>
         <button
-          type="button" role="button"
+          type="button"
+          role="button"
           className={this.formatChildClass('item', {
             'is-complete': props.complete,
           })}
-          {...this.inheritNativeProps(props)}
         >
           {props.children}
         </button>
       </li>
-        );
+    );
   }
 }

@@ -6,7 +6,6 @@
 
 import { Children } from 'react';
 import invariant from '../utility/invariant';
-import 'core-js/modules/es6.weak-set';
 
 /**
  * A function that will validate that all children of a component are of a specific type.
@@ -15,15 +14,15 @@ import 'core-js/modules/es6.weak-set';
  * @returns {Function}
  */
 export default function childrenOf(...types) {
-  let components = new WeakSet(),
-    tags = new Map();
+  const components = new WeakSet();
+  const tags = new Map();
 
   types.forEach((type) => {
-        // HTML tags
+    // HTML tags
     if (typeof type === 'string') {
       tags.set(type, type);
 
-        // React components
+    // React components
     } else {
       components.add(type);
     }
@@ -32,8 +31,8 @@ export default function childrenOf(...types) {
   return function childrenPropType(props, propName, componentName) {
     try {
       Children.forEach(props[propName], (child) => {
-        let passed = false,
-          type = child.type;
+        let passed = false;
+        let type = child.type;
 
         if (typeof type === 'string') {
           passed = tags.has(type);
@@ -42,8 +41,7 @@ export default function childrenOf(...types) {
           type = type.name;
         }
 
-        invariant(passed, '`%s` does not allow children of type `%s`.',
-                    componentName, type);
+        invariant(passed, '`%s` does not allow children of type `%s`.', componentName, type);
       });
     } catch (e) {
       return e;

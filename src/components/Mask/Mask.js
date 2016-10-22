@@ -19,11 +19,11 @@ export default class Mask extends Component {
     expanded: false,
   };
 
-    /**
-     * Define a context that is passed to all children.
-     *
-     * @returns {Object}
-     */
+  /**
+   * Define a context that is passed to all children.
+   *
+   * @returns {Object}
+   */
   getChildContext() {
     return {
       [MODULE.contextKey]: {
@@ -36,41 +36,41 @@ export default class Mask extends Component {
     };
   }
 
-    /**
-     * Only update if the `expanded` state changes.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
+  /**
+   * Only update if the `expanded` state changes.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   * @returns {Boolean}
+   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.expanded !== this.state.expanded);
   }
 
-    /**
-     * Conceal the overlay by marking it inactive.
-     */
-    @bind
+  /**
+   * Conceal the overlay by marking it inactive.
+   */
+  @bind
   hideOverlay() {
     this.setState({
       expanded: false,
     });
   }
 
-    /**
-     * Reveal the overlay by marking it active.
-     */
-    @bind
+  /**
+   * Reveal the overlay by marking it active.
+   */
+  @bind
   showOverlay() {
     this.setState({
       expanded: true,
     });
   }
 
-    /**
-     * Toggle the active state of the overlay.
-     */
-    @bind
+  /**
+   * Toggle the active state of the overlay.
+   */
+  @bind
   toggleOverlay() {
     if (this.state.expanded) {
       this.hideOverlay();
@@ -79,11 +79,11 @@ export default class Mask extends Component {
     }
   }
 
-    /**
-     * Render the mask container.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the mask container.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -91,11 +91,10 @@ export default class Mask extends Component {
       <div
         id={this.formatID('mask')}
         className={this.formatClass()}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </div>
-        );
+    );
   }
 
 }

@@ -25,11 +25,11 @@ export default class Form extends Component {
     multipart: PropTypes.bool,
   };
 
-    /**
-     * Render the form wrapper.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the form wrapper.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let props = this.props,
       encType = props.multipart ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
@@ -42,10 +42,9 @@ export default class Form extends Component {
         className={this.formatClass({
           '@inline': props.inline,
         })}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </form>
-        );
+    );
   }
 }

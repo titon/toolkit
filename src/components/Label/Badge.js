@@ -22,11 +22,11 @@ export default class Badge extends Component {
     state: states,
   };
 
-    /**
-     * Render the inline badge.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the inline badge.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -38,10 +38,9 @@ export default class Badge extends Component {
           '@small': props.small,
           [`@${props.state}`]: props.state,
         })}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </span>
-        );
+    );
   }
 }

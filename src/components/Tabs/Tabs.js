@@ -12,7 +12,6 @@ import bind from '../../decorators/bind';
 import collectionOf from '../../prop-types/collectionOf';
 import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
-import 'core-js/modules/es6.array.find';
 
 export default class Tabs extends Component {
   static module = MODULE;
@@ -47,11 +46,11 @@ export default class Tabs extends Component {
     index: -1,
   };
 
-    /**
-     * Define a context that is passed to all children.
-     *
-     * @returns {Object}
-     */
+  /**
+   * Define a context that is passed to all children.
+   *
+   * @returns {Object}
+   */
   getChildContext() {
     return {
       [MODULE.contextKey]: {
@@ -66,21 +65,21 @@ export default class Tabs extends Component {
     };
   }
 
-    /**
-     * Set the default index before mounting.
-     */
+  /**
+   * Set the default index before mounting.
+   */
   componentWillMount() {
     let props = this.props,
       index = null;
 
-        // Persist the state through a cookie or fragment
+    // Persist the state through a cookie or fragment
     if (props.persistState) {
-            // Load from a cookie
+        // Load from a cookie
       if (props.useCookie) {
         index = CookieJar.get(`tabs.${this.getUID()}`);
       }
 
-            // Load from the fragment
+        // Load from the fragment
       if (index === null && props.useFragment && location.hash) {
         const fragment = props.fragments.find(frag => frag.hash === location.hash.substr(1));
 
@@ -90,29 +89,29 @@ export default class Tabs extends Component {
       }
     }
 
-        // Fallback to the default index
+    // Fallback to the default index
     if (index === null) {
       index = props.defaultIndex;
     }
 
-        // Cast to number since cookies return strings
+    // Cast to number since cookies return strings
     this.showSection(Number(index));
   }
 
-    /**
-     * Only update if the index is different.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
+  /**
+   * Only update if the index is different.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   * @returns {Boolean}
+   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.index !== this.state.index);
   }
 
-    /**
-     * Persist the state through a cookie.
-     */
+  /**
+   * Persist the state through a cookie.
+   */
   componentDidUpdate() {
     let props = this.props,
       index = this.state.index;
@@ -134,12 +133,12 @@ export default class Tabs extends Component {
     }
   }
 
-    /**
-     * Conceal a section by removing its index from the active state.
-     *
-     * @param {Number} index
-     */
-    @bind
+  /**
+   * Conceal a section by removing its index from the active state.
+   *
+   * @param {Number} index
+   */
+  @bind
   hideSection(index) {
     if (this.state.index === index) {
       this.setState({
@@ -148,46 +147,46 @@ export default class Tabs extends Component {
     }
   }
 
-    /**
-     * Returns true if the section at the specified index can be collapsed.
-     *
-     * @param {Number} index
-     * @returns {Boolean}
-     */
-    @bind
+  /**
+   * Returns true if the section at the specified index can be collapsed.
+   *
+   * @param {Number} index
+   * @returns {Boolean}
+   */
+  @bind
   isSectionCollapsible(index) {
     return (this.props.collapsible && this.isSectionActive(index));
   }
 
-    /**
-     * Returns true if the section at the specified index is active.
-     *
-     * @param {Number} index
-     * @returns {Boolean}
-     */
-    @bind
+  /**
+   * Returns true if the section at the specified index is active.
+   *
+   * @param {Number} index
+   * @returns {Boolean}
+   */
+  @bind
   isSectionActive(index) {
     return (this.state.index === index);
   }
 
-    /**
-     * Reveal the section at the defined index, and collapse all other sections.
-     *
-     * @param {Number} index
-     */
-    @bind
+  /**
+   * Reveal the section at the defined index, and collapse all other sections.
+   *
+   * @param {Number} index
+   */
+  @bind
   showSection(index) {
     this.setState({
       index,
     });
   }
 
-    /**
-     * Toggle the display state of a specific index.
-     *
-     * @param {Number} index
-     */
-    @bind
+  /**
+   * Toggle the display state of a specific index.
+   *
+   * @param {Number} index
+   */
+  @bind
   toggleSection(index) {
     if (this.isSectionCollapsible(index)) {
       this.hideSection(index);
@@ -196,25 +195,25 @@ export default class Tabs extends Component {
     }
   }
 
-    /**
-     * Render the wrapping tabs element.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the wrapping tabs element.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
     return (
-      <div role="tablist"
+      <div
+        role="tablist"
         id={this.formatID('tabs')}
         className={this.formatClass({
           'is-collapsible': props.collapsible,
         })}
         aria-live="off"
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </div>
-        );
+    );
   }
 }

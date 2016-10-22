@@ -21,15 +21,13 @@ export default class Section extends Component {
     index: PropTypes.number.isRequired,
   };
 
-    /**
-     * Render the accordion item section content and wrap with a collapsible slide transition.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the accordion item section content and wrap with a collapsible slide transition.
+   *
+   * @returns {ReactElement}
+   */
   render() {
-    let props = this.props,
-      index = props.index,
-      expanded = props.expanded;
+    const { children, index, expanded } = this.props;
 
     return (
       <Collapse expanded={expanded}>
@@ -43,9 +41,9 @@ export default class Section extends Component {
           aria-hidden={!expanded}
           aria-expanded={expanded}
         >
-          {props.children}
+          {children}
         </section>
       </Collapse>
-        );
+    );
   }
 }

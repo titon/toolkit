@@ -12,12 +12,5 @@ import Link from './Link';
 import Menu from './Menu';
 import Toggle from './Toggle';
 
-Drop.Divider = Divider;
-Drop.Header = Header;
-Drop.Item = Item;
-Drop.Link = Link;
-Drop.Menu = Menu;
-Drop.Toggle = Toggle;
-
 export { Divider, Header, Item, Link, Menu, Toggle };
 export default Drop;

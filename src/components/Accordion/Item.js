@@ -26,12 +26,12 @@ export default class Item extends Component {
     onClickHeader: collectionOf.func,
   };
 
-    /**
-     * Setup the state.
-     *
-     * @param {Object} props
-     * @param {Object} context
-     */
+  /**
+   * Setup the state.
+   *
+   * @param {Object} props
+   * @param {Object} context
+   */
   constructor(props, context) {
     super();
 
@@ -40,71 +40,70 @@ export default class Item extends Component {
     };
   }
 
-    /**
-     * Determine whether the section is expanded or not.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextContext
-     */
+  /**
+   * Determine whether the section is expanded or not.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextContext
+   */
   componentWillReceiveProps(nextProps, nextContext) {
     this.setState({
       expanded: this.getContext(nextContext).isItemActive(nextProps.index),
     });
   }
 
-    /**
-     * Only update if the expanded state is different.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
+  /**
+   * Only update if the expanded state is different.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   * @returns {Boolean}
+   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.expanded !== this.state.expanded);
   }
 
-    /**
-     * Emit `showing` or `hiding` events before rendering.
-     */
+  /**
+   * Emit `showing` or `hiding` events before rendering.
+   */
   componentWillUpdate() {
     this.emitEvent(this.state.expanded ? 'hiding' : 'showing');
   }
 
-    /**
-     * Emit `shown` or `hidden` events after rendering.
-     */
+  /**
+   * Emit `shown` or `hidden` events after rendering.
+   */
   componentDidUpdate() {
     this.emitEvent(this.state.expanded ? 'shown' : 'hidden');
   }
 
-    /**
-     * Render the accordion item and pass all relevant props to the sub-children.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the accordion item and pass all relevant props to the sub-children.
+   *
+   * @returns {ReactElement}
+   */
   render() {
-    let props = this.props,
-      expanded = this.state.expanded;
+    const { children, index, header, onClickHeader } = this.props;
+    const { expanded } = this.state;
 
     return (
       <li>
         <Header
           role="tab"
-          index={props.index}
+          index={index}
           active={expanded}
-          onClick={props.onClickHeader}
+          onClick={onClickHeader}
         >
-          {props.header}
+          {header}
         </Header>
 
         <Section
-          index={props.index}
+          index={index}
           expanded={expanded}
-          {...this.inheritNativeProps(props)}
         >
-          {props.children}
+          {children}
         </Section>
       </li>
-        );
+    );
   }
 }

@@ -24,16 +24,16 @@ export default class Wave extends Component {
     type: PropTypes.oneOf(['bar', 'bubble']),
   };
 
-    /**
-     * Render the wave loader and generate a count of waves.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the wave loader and generate a count of waves.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let props = this.props,
       waves = [];
 
-    for (let i = 0; i < props.count; i++) {
+    for (let i = 0; i < props.count; i += 1) {
       waves.push(<span key={i} />);
     }
 
@@ -42,11 +42,10 @@ export default class Wave extends Component {
         className={this.formatClass({
           [`@${props.type}-wave`]: true,
         })}
-        {...this.inheritNativeProps(props)}
       >
         {waves}
         {props.children}
       </div>
-        );
+    );
   }
 }

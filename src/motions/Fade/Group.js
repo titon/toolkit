@@ -56,7 +56,7 @@ export default class Group extends Component {
     let styles = [],
       defaultStyles = [];
 
-        // Inherit the original `key` as `Children.toArray()` changes it
+    // Inherit the original `key` as `Children.toArray()` changes it
     Children.toArray(children).map((child, i) => {
       styles.push({
         key: children[i].key,
@@ -85,7 +85,7 @@ export default class Group extends Component {
       <TransitionMotion
         willEnter={this.handleWillEnter}
         willLeave={this.handleWillLeave}
-                // defaultStyles={defaultStyles}
+            // defaultStyles={defaultStyles}
         styles={styles}
       >
         {(motionStyles) => {
@@ -107,9 +107,9 @@ export default class Group extends Component {
                 });
               })}
             </div>
-                    );
+                );
         }}
       </TransitionMotion>
-        );
+    );
   }
 }

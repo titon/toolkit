@@ -24,17 +24,17 @@ export default class Switch extends Input {
     stacked: PropTypes.bool,
   };
 
-    /**
-     * Render the custom switch using a checkbox.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the custom switch using a checkbox.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let props = this.props,
       inputProps = this.gatherProps(false),
       stateClasses = this.gatherStateClasses();
 
-        // Force back to a checkbox
+    // Force back to a checkbox
     inputProps.type = 'checkbox';
 
     return (
@@ -43,7 +43,6 @@ export default class Switch extends Input {
         className={this.formatClass(stateClasses)}
         aria-checked={this.state.checked}
         aria-disabled={props.disabled}
-        {...this.inheritNativeProps(props)}
       >
         <input {...inputProps} />
 
@@ -56,6 +55,6 @@ export default class Switch extends Input {
           <span className={this.formatChildClass('toggle')} />
         </label>
       </span>
-        );
+    );
   }
 }

@@ -21,12 +21,12 @@ export default class Sidebar extends Component {
     side: PropTypes.oneOf(['left', 'right']).isRequired,
   };
 
-    /**
-     * Verify the `expanded` state.
-     *
-     * @param {Object} props
-     * @param {Object} context
-     */
+  /**
+   * Verify the `expanded` state.
+   *
+   * @param {Object} props
+   * @param {Object} context
+   */
   constructor(props, context) {
     super();
 
@@ -35,48 +35,48 @@ export default class Sidebar extends Component {
     };
   }
 
-    /**
-     * Determine whether the sidebar is expanded or not.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextContext
-     */
+  /**
+   * Determine whether the sidebar is expanded or not.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextContext
+   */
   componentWillReceiveProps(nextProps, nextContext) {
     this.setState({
       expanded: this.getContext(nextContext).isSidebarActive(nextProps.side),
     });
   }
 
-    /**
-     * Only update if the expanded state is different.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
+  /**
+   * Only update if the expanded state is different.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   * @returns {Boolean}
+   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.expanded !== this.state.expanded);
   }
 
-    /**
-     * Emit `showing` or `hiding` events before rendering.
-     */
+  /**
+   * Emit `showing` or `hiding` events before rendering.
+   */
   componentWillUpdate() {
     this.emitEvent(this.state.expanded ? 'hiding' : 'showing');
   }
 
-    /**
-     * Emit `shown` or `hidden` events after rendering.
-     */
+  /**
+   * Emit `shown` or `hidden` events after rendering.
+   */
   componentDidUpdate() {
     this.emitEvent(this.state.expanded ? 'shown' : 'hidden');
   }
 
-    /**
-     * Render the off canvas sidebar.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the off canvas sidebar.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let props = this.props,
       expanded = this.state.expanded;
@@ -91,10 +91,9 @@ export default class Sidebar extends Component {
         aria-hidden={!expanded}
         aria-expanded={expanded}
         data-offcanvas-sidebar={props.side}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </aside>
-        );
+    );
   }
 }

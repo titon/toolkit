@@ -11,23 +11,20 @@ import MODULE from './module';
 export default class FieldList extends Component {
   static module = MODULE;
 
-    /**
-     * Render the form field list wrapper.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the form field list wrapper.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
     return (
-      <ol
-        className={this.formatChildClass('field-list')}
-        {...this.inheritNativeProps(props)}
-      >
+      <ol className={this.formatChildClass('field-list')}>
         {Children.map(props.children, child => (
           <li>{child}</li>
-                ))}
+        ))}
       </ol>
-        );
+    );
   }
 }

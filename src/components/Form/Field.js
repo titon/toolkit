@@ -27,11 +27,11 @@ export default class Field extends Component {
     required: PropTypes.bool,
   };
 
-    /**
-     * Render the form field list item.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the form field list item.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -41,18 +41,17 @@ export default class Field extends Component {
           'is-invalid': props.invalid,
           'is-required': props.required,
         })}
-        {...this.inheritNativeProps(props)}
       >
         {props.label && (
-        <Label inputID={props.inputID}>{props.label}</Label>
-                )}
+          <Label inputID={props.inputID}>{props.label}</Label>
+        )}
 
         {props.children}
 
         {props.help && (
-        <Help inputID={props.inputID}>{props.help}</Help>
-                )}
+          <Help inputID={props.inputID}>{props.help}</Help>
+        )}
       </div>
-        );
+    );
   }
 }

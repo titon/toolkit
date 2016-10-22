@@ -46,15 +46,15 @@ export default class OffCanvas extends Component {
     sides: new Set(),
   };
 
-    /**
-     * Validate props.
-     *
-     * @param {Object} props
-     */
+  /**
+   * Validate props.
+   *
+   * @param {Object} props
+   */
   constructor(props) {
     super();
 
-        // Only a select few animations can support showing all sidebars on page load
+    // Only a select few animations can support showing all sidebars on page load
     let { showOnLoad, multiple, animation } = props;
 
     invariant(!(showOnLoad && multiple && animation !== 'on-top' && animation !== 'squish'),
@@ -62,11 +62,11 @@ export default class OffCanvas extends Component {
             'for `showOnLoad` when `multiple` sidebars are enabled.');
   }
 
-    /**
-     * Define a context that is passed to all children.
-     *
-     * @returns {Object}
-     */
+  /**
+   * Define a context that is passed to all children.
+   *
+   * @returns {Object}
+   */
   getChildContext() {
     return {
       [MODULE.contextKey]: {
@@ -80,38 +80,38 @@ export default class OffCanvas extends Component {
     };
   }
 
-    /**
-     * Manage sidebars and scrollbars before mounting.
-     */
+  /**
+   * Manage sidebars and scrollbars before mounting.
+   */
   componentWillMount() {
     this.showOnLoad();
     this.toggleScrolling();
   }
 
-    /**
-     * Only update if the active sides change.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
+  /**
+   * Only update if the active sides change.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   * @returns {Boolean}
+   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.sides !== this.state.sides);
   }
 
-    /**
-     * Manage sidebars and scrollbars after updating.
-     */
+  /**
+   * Manage sidebars and scrollbars after updating.
+   */
   componentDidUpdate() {
     this.toggleScrolling();
   }
 
-    /**
-     * Conceal a sidebar by removing its side from the active list.
-     *
-     * @param {String} side
-     */
-    @bind
+  /**
+   * Conceal a sidebar by removing its side from the active list.
+   *
+   * @param {String} side
+   */
+  @bind
   hideSidebar(side) {
     const sides = new Set(this.state.sides);
 
@@ -122,36 +122,36 @@ export default class OffCanvas extends Component {
     });
   }
 
-    /**
-     * Returns true if the defined side is currently active.
-     *
-     * @param {String} side
-     * @returns {Boolean}
-     */
-    @bind
+  /**
+   * Returns true if the defined side is currently active.
+   *
+   * @param {String} side
+   * @returns {Boolean}
+   */
+  @bind
   isSidebarActive(side) {
     return this.state.sides.has(side);
   }
 
-    /**
-     * Reveal a sidebar by adding the side to the active list.
-     *
-     * @param {String} side
-     */
-    @bind
+  /**
+   * Reveal a sidebar by adding the side to the active list.
+   *
+   * @param {String} side
+   */
+  @bind
   showSidebar(side) {
     let sides = new Set(this.state.sides),
       single = (this.props.multiple === false);
 
-        // If the left side is open, and we swipe right, go back to the content
+    // If the left side is open, and we swipe right, go back to the content
     if (single && sides.has('left') && side === 'right') {
       sides.delete('left');
 
-        // If the right side is open, and we swipe left, go back to the content
+    // If the right side is open, and we swipe left, go back to the content
     } else if (single && sides.has('right') && side === 'left') {
       sides.delete('right');
 
-        // No sidebars are open, so show one
+    // No sidebars are open, so show one
     } else {
       sides.add(side);
     }
@@ -161,9 +161,9 @@ export default class OffCanvas extends Component {
     });
   }
 
-    /**
-     * Show all sidebar(s) on page load.
-     */
+  /**
+   * Show all sidebar(s) on page load.
+   */
   showOnLoad() {
     const props = this.props;
 
@@ -173,35 +173,35 @@ export default class OffCanvas extends Component {
         count = 0;
 
       for (const child of childlings) {
-                // Only show the first sidebar if multiple is false
+            // Only show the first sidebar if multiple is false
         if (!multiple && count) {
           break;
         }
 
-                // Safe to mutate state directly here
+            // Safe to mutate state directly here
         if (child.type === Sidebar && child.props.side) {
           this.state.sides.add(child.props.side);
-          count++;
+          count += 1;
         }
       }
     }
   }
 
-    /**
-     * Toggle document scrollbars on and off.
-     */
+  /**
+   * Toggle document scrollbars on and off.
+   */
   toggleScrolling() {
     if (this.props.stopScroll) {
       DocumentState.toggleScrolling(this.state.sides.size === 0);
     }
   }
 
-    /**
-     * Toggle the active state of the defined sidebar.
-     *
-     * @param {String} side
-     */
-    @bind
+  /**
+   * Toggle the active state of the defined sidebar.
+   *
+   * @param {String} side
+   */
+  @bind
   toggleSidebar(side) {
     if (this.isSidebarActive(side)) {
       this.hideSidebar(side);
@@ -210,32 +210,32 @@ export default class OffCanvas extends Component {
     }
   }
 
-    /**
-     * Handles all `swipe` events by toggling the display of sidebars
-     * based on the direction of the swipe.
-     *
-     * @param {Event} e
-     */
-    @bind
+  /**
+   * Handles all `swipe` events by toggling the display of sidebars
+   * based on the direction of the swipe.
+   *
+   * @param {Event} e
+   */
+  @bind
   handleOnSwipe(e) {
     let side = e.target.getAttribute('data-offcanvas-sidebar'),
       direction = e.detail.direction;
 
-        // Hide the sidebar if we swipe in the same direction as itself
+    // Hide the sidebar if we swipe in the same direction as itself
     if (side && side === direction) {
       this.hideSidebar(side);
 
-        // Else show the opposite sidebar if swiping on the content
+    // Else show the opposite sidebar if swiping on the content
     } else {
       this.showSidebar(direction === 'right' ? 'left' : 'right');
     }
   }
 
-    /**
-     * Render the off canvas container.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the off canvas container.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let props = this.props,
       swipeProps = this.generateNestedProps(props, 'swipe', [
@@ -254,11 +254,10 @@ export default class OffCanvas extends Component {
             'move-left': this.isSidebarActive('right'),
             'move-right': this.isSidebarActive('left'),
           })}
-          {...this.inheritNativeProps(props)}
         >
           {props.children}
         </div>
       </Swipe>
-        );
+    );
   }
 }

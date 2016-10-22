@@ -21,12 +21,12 @@ export default class Swipe extends Component {
   };
 
   static defaultProps = {
-        // Minimum distance required to travel
+    // Minimum distance required to travel
     distance: 50,
-        // Maximum time in milliseconds to travel
+    // Maximum time in milliseconds to travel
     duration: 1000,
     enabled: true,
-        // Maximum distance to travel in the opposite direction
+    // Maximum distance to travel in the opposite direction
     restraint: 75,
   };
 
@@ -48,14 +48,14 @@ export default class Swipe extends Component {
     swiping: false,
   };
 
-    /**
-     * Extract the X, Y, and Z vaues from the elements `transform: translate` properties.
-     *
-     * TODO: Add support for non-px and percentages, maybe?
-     *
-     * @param {Element} element
-     * @returns {{x: Number, y: Number, z: Number}}
-     */
+  /**
+   * Extract the X, Y, and Z vaues from the elements `transform: translate` properties.
+   *
+   * TODO: Add support for non-px and percentages, maybe?
+   *
+   * @param {Element} element
+   * @returns {{x: Number, y: Number, z: Number}}
+   */
   extractTranslateOffsets(element) {
     let match = element.style.transform.match(/translate(Z|X|Y|3d)?\(([,a-z%\-\d\s]+)\)/),
       mapping = ['x', 'y', 'z'],
@@ -95,12 +95,12 @@ export default class Swipe extends Component {
     return offsets;
   }
 
-    /**
-     * Return the page coordinates from the current event.
-     *
-     * @param {SyntheticEvent|SyntheticTouchEvent} e
-     * @returns {{time: Number, x: Number, y: Number}}
-     */
+  /**
+   * Return the page coordinates from the current event.
+   *
+   * @param {SyntheticEvent|SyntheticTouchEvent} e
+   * @returns {{time: Number, x: Number, y: Number}}
+   */
   packageCoordinates(e) {
     const data = e.changedTouches ? e.changedTouches[0] : e;
 
@@ -111,9 +111,9 @@ export default class Swipe extends Component {
     };
   }
 
-    /**
-     * Reset the swipe state.
-     */
+  /**
+   * Reset the swipe state.
+   */
   resetState() {
     this.setState({
       startCoords: null,
@@ -121,29 +121,29 @@ export default class Swipe extends Component {
     });
   }
 
-    /**
-     * Reset the state when `touchcancel` is triggered.
-     */
+  /**
+   * Reset the state when `touchcancel` is triggered.
+   */
   handleOnCancel() {
     this.resetState();
   }
 
-    /**
-     * There's a major bug in Android devices where `touchend` events do not fire
-     * without calling `preventDefault()` in `touchstart` or `touchmove`.
-     * Because of this, we have to hack-ily implement functionality into `touchmove`.
-     * We also can't use `touchcancel` as that fires prematurely and unbinds our move event.
-     * More information on these bugs can be found here:
-     *
-     * https://code.google.com/p/android/issues/detail?id=19827
-     * https://code.google.com/p/chromium/issues/detail?id=260732
-     *
-     * Using `touchcancel` is also rather unpredictable, as described here:
-     *
-     * http://alxgbsn.co.uk/2011/12/23/different-ways-to-trigger-touchcancel-in-mobile-browsers/
-     *
-     * @param {SyntheticEvent} e
-     */
+  /**
+   * There's a major bug in Android devices where `touchend` events do not fire
+   * without calling `preventDefault()` in `touchstart` or `touchmove`.
+   * Because of this, we have to hack-ily implement functionality into `touchmove`.
+   * We also can't use `touchcancel` as that fires prematurely and unbinds our move event.
+   * More information on these bugs can be found here:
+   *
+   * https://code.google.com/p/android/issues/detail?id=19827
+   * https://code.google.com/p/chromium/issues/detail?id=260732
+   *
+   * Using `touchcancel` is also rather unpredictable, as described here:
+   *
+   * http://alxgbsn.co.uk/2011/12/23/different-ways-to-trigger-touchcancel-in-mobile-browsers/
+   *
+   * @param {SyntheticEvent} e
+   */
   handleOnMove(e) {
     if (!this.state.swiping) {
       return;
@@ -152,26 +152,26 @@ export default class Swipe extends Component {
     let to = this.packageCoordinates(e),
       start = this.state.startCoords;
 
-        // Trigger `preventDefault()` if `x` is larger than `y` (scrolling horizontally).
-        // If we `preventDefault()` while scrolling vertically, the window will not scroll.
+    // Trigger `preventDefault()` if `x` is larger than `y` (scrolling horizontally).
+    // If we `preventDefault()` while scrolling vertically, the window will not scroll.
     if (abs(start.x - to.x) > abs(start.y - to.y)) {
       e.preventDefault();
     }
   }
 
-    /**
-     * Start the swipe process by logging the original target and coordinates.
-     *
-     * @param {SyntheticEvent} e
-     */
+  /**
+   * Start the swipe process by logging the original target and coordinates.
+   *
+   * @param {SyntheticEvent} e
+   */
   handleOnStart(e) {
-        // Calling `preventDefault()` will disable clicking of elements (links, inputs, etc).
-        // So only do it on an `img` element so it cannot be dragged.
+    // Calling `preventDefault()` will disable clicking of elements (links, inputs, etc).
+    // So only do it on an `img` element so it cannot be dragged.
     if (!TOUCH && e.target.tagName.toLowerCase() === 'img') {
       e.preventDefault();
     }
 
-        // Exit early if another swipe is occurring
+    // Exit early if another swipe is occurring
     if (this.state.swiping) {
       return;
     }
@@ -182,14 +182,14 @@ export default class Swipe extends Component {
     });
   }
 
-    /**
-     * Once the touch or mouse event stops, validate the final coordinates against the
-     * starting coordinates, and determine the direction the swipe occurred.
-     *
-     * If everything went smoothly, dispatch the `swipe` and direction specific swipe events.
-     *
-     * @param {SyntheticEvent} e
-     */
+  /**
+   * Once the touch or mouse event stops, validate the final coordinates against the
+   * starting coordinates, and determine the direction the swipe occurred.
+   *
+   * If everything went smoothly, dispatch the `swipe` and direction specific swipe events.
+   *
+   * @param {SyntheticEvent} e
+   */
   handleOnStop(e) {
     let start = this.state.startCoords,
       stop = this.packageCoordinates(e),
@@ -214,7 +214,7 @@ export default class Swipe extends Component {
         return;
       }
 
-            // Set details for event
+        // Set details for event
       e.detail = {
         direction: direction.toLowerCase(),
         start,
@@ -229,12 +229,12 @@ export default class Swipe extends Component {
     this.resetState();
   }
 
-    /**
-     * Rendering requires a single child, that will be cloned and modified
-     * by passing custom touch and swipe events.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Rendering requires a single child, that will be cloned and modified
+   * by passing custom touch and swipe events.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let props = this.props,
       swipeProps = {

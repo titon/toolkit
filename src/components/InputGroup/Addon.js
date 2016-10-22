@@ -21,11 +21,11 @@ export default class Addon extends Component {
     children: PropTypes.node,
   };
 
-    /**
-     * Render the inline input group add-on.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the inline input group add-on.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -35,10 +35,9 @@ export default class Addon extends Component {
           '@large': props.large,
           '@small': props.small,
         })}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </span>
-        );
+    );
   }
 }

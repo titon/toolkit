@@ -22,11 +22,11 @@ export default class Breadcrumb extends Component {
     label: PropTypes.string,
   };
 
-    /**
-     * Render the breadcrumb list.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the breadcrumb list.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -36,12 +36,11 @@ export default class Breadcrumb extends Component {
         id={this.formatID('breadcrumb')}
         className={this.formatClass()}
         aria-label={props.label}
-        {...this.inheritNativeProps(props)}
       >
         <ol>
           {props.children}
         </ol>
       </nav>
-        );
+    );
   }
 }

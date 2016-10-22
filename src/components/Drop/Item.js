@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React, { Children } from 'react';
+import React, { Children, PropTypes } from 'react';
 import Component from '../../Component';
 import Menu from './Menu';
 import CONTEXT_TYPES from './contextTypes';
@@ -15,15 +15,18 @@ export default class Item extends Component {
 
   static contextTypes = CONTEXT_TYPES;
 
-    /**
-     * Render the drop item.
-     *
-     * @returns {ReactElement}
-     */
+  static propTypes = {
+    children: PropTypes.node,
+  };
+
+  /**
+   * Render the drop item.
+   *
+   * @returns {ReactElement}
+   */
   render() {
-    let props = this.props,
-      nested = Children.toArray(props.children)
-                .some(node => node.type && node.type === Menu);
+    const { children } = this.props;
+    const nested = Children.toArray(children).some(node => node.type && node.type === Menu);
 
     return (
       <li
@@ -31,11 +34,10 @@ export default class Item extends Component {
           'has-children': nested,
         })}
         aria-haspopup={nested}
-        {...this.inheritNativeProps(props)}
       >
-        {props.children}
+        {children}
       </li>
-        );
+    );
   }
 
 }

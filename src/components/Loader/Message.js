@@ -11,21 +11,18 @@ import MODULE from './module';
 export default class Message extends Component {
   static module = MODULE;
 
-    /**
-     * Render the message within a loader.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the message within a loader.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
     return (
-      <div
-        className={this.formatChildClass('message')}
-        {...this.inheritNativeProps(props)}
-      >
+      <div className={this.formatChildClass('message')}>
         {props.children}
       </div>
-        );
+    );
   }
 }

@@ -20,11 +20,11 @@ export default class Nav extends Component {
     children: childrenOf(Tab),
   };
 
-    /**
-     * Render the tabs navigation list.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the tabs navigation list.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -32,12 +32,11 @@ export default class Nav extends Component {
       <nav
         id={this.formatID('tabs-nav')}
         className={this.formatChildClass('nav')}
-        {...this.inheritNativeProps(props)}
       >
         <ol>
           {props.children}
         </ol>
       </nav>
-        );
+    );
   }
 }

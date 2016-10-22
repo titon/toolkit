@@ -7,7 +7,5 @@
 import Accordion from './Accordion';
 import Item from './Item';
 
-Accordion.Item = Item;
-
 export { Item };
 export default Accordion;

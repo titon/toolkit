@@ -16,24 +16,21 @@ export default class Item extends Component {
     children: PropTypes.node.isRequired,
   };
 
-    /**
-     * Render the breadcrumb item link.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the breadcrumb item link.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
     return (
       <li>
-        <a
-          className={this.formatChildClass('item')}
-          {...this.inheritNativeProps(props)}
-        >
+        <a className={this.formatChildClass('item')}>
           {props.children}
           <span className="caret">{props.caret || '/'}</span>
         </a>
       </li>
-        );
+    );
   }
 }

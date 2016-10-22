@@ -22,11 +22,11 @@ export default class Steps extends Component {
     label: PropTypes.string,
   };
 
-    /**
-     * Render the steps wrapper.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the steps wrapper.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -35,12 +35,11 @@ export default class Steps extends Component {
         role="navigation"
         className={this.formatClass()}
         aria-label={props.label}
-        {...this.inheritNativeProps(props)}
       >
         <ol>
           {props.children}
         </ol>
       </nav>
-        );
+    );
   }
 }

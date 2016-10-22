@@ -21,34 +21,34 @@ export default class Start extends Component {
     onClick: collectionOf.func,
   };
 
-    /**
-     * Handles clicking the start button.
-     *
-     * @param {SyntheticEvent} e
-     */
-    @bind
+  /**
+   * Handles clicking the start button.
+   *
+   * @param {SyntheticEvent} e
+   */
+  @bind
   handleOnClick(e) {
     this.getContext().startCycle();
     this.handleEvent('click', e);
   }
 
-    /**
-     * Render a button that starts the automatic cycle.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render a button that starts the automatic cycle.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
     return (
       <button
-        type="button" role="button"
+        type="button"
+        role="button"
         className={this.formatChildClass('start')}
         onClick={this.handleOnClick}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </button>
-        );
+    );
   }
 }

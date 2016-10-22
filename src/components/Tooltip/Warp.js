@@ -35,12 +35,12 @@ export default class Warp extends Component {
     visible: false,
   };
 
-    /**
-     * Validate that a tooltip is instantiated within a gateway.
-     *
-     * @param {Object} props
-     * @param {Object} context
-     */
+  /**
+   * Validate that a tooltip is instantiated within a gateway.
+   *
+   * @param {Object} props
+   * @param {Object} context
+   */
   constructor(props, context) {
     super();
 
@@ -48,10 +48,10 @@ export default class Warp extends Component {
             'A `Tooltip.Warp` must be instantiated within a `Gateway`.');
   }
 
-    /**
-     * Hide the tooltip by removing its element from the gateway.
-     */
-    @bind
+  /**
+   * Hide the tooltip by removing its element from the gateway.
+   */
+  @bind
   hideTooltip() {
     this.getContext(null, contextKey).warpOut(this.props.gateName, this.state.element);
 
@@ -61,29 +61,29 @@ export default class Warp extends Component {
     });
   }
 
-    /**
-     * Show the tooltip by adding its element to the gateway.
-     *
-     * We need to clone the provided tooltip element and pass along the
-     * warp target to position relative to.
-     */
-    @bind
+  /**
+   * Show the tooltip by adding its element to the gateway.
+   *
+   * We need to clone the provided tooltip element and pass along the
+   * warp target to position relative to.
+   */
+  @bind
   showTooltip() {
     let tooltip = this.props.tooltip,
       element = null,
       targetElement = ReactDOM.findDOMNode(this);
 
-        // Already an element
+    // Already an element
     if (React.isValidElement(tooltip)) {
       element = React.cloneElement(tooltip, { targetElement });
 
-        // Create an element
+    // Create an element
     } else {
       element = (
         <Tooltip key={this.getUID()} targetElement={targetElement}>
           {tooltip}
         </Tooltip>
-            );
+        );
     }
 
     this.getContext(null, contextKey).warpIn(this.props.gateName, element);
@@ -94,10 +94,10 @@ export default class Warp extends Component {
     });
   }
 
-    /**
-     * Toggles the display of the tooltip.
-     */
-    @bind
+  /**
+   * Toggles the display of the tooltip.
+   */
+  @bind
   toggleTooltip() {
     if (this.state.visible) {
       this.hideTooltip();
@@ -106,11 +106,11 @@ export default class Warp extends Component {
     }
   }
 
-    /**
-     * Render the child and wrap event handlers.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the child and wrap event handlers.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     let { children, mode } = this.props,
       props = {

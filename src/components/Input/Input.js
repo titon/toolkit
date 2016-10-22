@@ -14,7 +14,6 @@ import {
     inputPropTypes, sizePropTypes,
 } from '../../propTypes';
 import MODULE from './module';
-import 'core-js/modules/es7.array.includes';
 
 export default class Input extends Component {
   static module = MODULE;
@@ -32,11 +31,11 @@ export default class Input extends Component {
     type: PropTypes.string,
   };
 
-    /**
-     * Setup state.
-     *
-     * @param {Object} props
-     */
+  /**
+   * Setup state.
+   *
+   * @param {Object} props
+   */
   constructor(props) {
     super();
 
@@ -44,7 +43,7 @@ export default class Input extends Component {
       defaultChecked = props.defaultChecked,
       compName = this.constructor.name.toLowerCase();
 
-        // Select
+    // Select
     if (compName === 'select') {
       if (props.multiple) {
         defaultValue = Array.isArray(defaultValue) ? defaultValue : [defaultValue];
@@ -52,7 +51,7 @@ export default class Input extends Component {
         defaultValue = String(defaultValue);
       }
 
-        // Checkbox, Switch
+    // Checkbox, Switch
     } else if (compName === 'switch' || compName === 'checkbox' || props.type === 'checkbox') {
       if (props.multiple) {
         invariant(defaultValue,
@@ -61,7 +60,7 @@ export default class Input extends Component {
         defaultValue = defaultValue || '1';
       }
 
-        // Radio
+    // Radio
     } else if (compName === 'radio' || props.type === 'radio') {
       invariant(defaultValue, 'A default value is required when using radios.');
 
@@ -77,23 +76,23 @@ export default class Input extends Component {
     };
   }
 
-    /**
-     * Only update if the value of the state changes.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
+  /**
+   * Only update if the value of the state changes.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   * @returns {Boolean}
+   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.value !== this.state.value || nextState.checked !== this.state.checked);
   }
 
-    /**
-     * Emit `changing` events before rendering.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     */
+  /**
+   * Emit `changing` events before rendering.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   */
   componentWillUpdate(nextProps, nextState) {
     const args = this.isChoiceType()
             ? [nextState.checked, nextState.value]
@@ -102,12 +101,12 @@ export default class Input extends Component {
     this.emitEvent('changing', ...args);
   }
 
-    /**
-     * Emit `changed` events after rendering.
-     *
-     * @param {Object} prevProps
-     * @param {Object} prevState
-     */
+  /**
+   * Emit `changed` events after rendering.
+   *
+   * @param {Object} prevProps
+   * @param {Object} prevState
+   */
   componentDidUpdate(prevProps, prevState) {
     let state = this.state,
       args = this.isChoiceType()
@@ -117,14 +116,14 @@ export default class Input extends Component {
     this.emitEvent('changed', ...args);
   }
 
-    /**
-     * Gather all the props that will be passed to the input element.
-     * We only need to define a few hard requirements for props,
-     * as all other props can be passed through natively.
-     *
-     * @param {Boolean} native
-     * @returns {Object}
-     */
+  /**
+   * Gather all the props that will be passed to the input element.
+   * We only need to define a few hard requirements for props,
+   * as all other props can be passed through natively.
+   *
+   * @param {Boolean} native
+   * @returns {Object}
+   */
   gatherProps(native = true) {
     let props = this.props,
       state = this.state,
@@ -138,8 +137,8 @@ export default class Input extends Component {
         value: state.value,
       };
 
-        // Native elements inherit more base functionality
-        // Custom elements define their own classes and props
+    // Native elements inherit more base functionality
+    // Custom elements define their own classes and props
     if (native) {
       inputProps = {
         ...inputProps,
@@ -149,12 +148,11 @@ export default class Input extends Component {
           [`@${state.type}`]: true,
           ...this.gatherStateClasses(),
         }),
-        ...this.inheritNativeProps(props),
       };
     }
 
     switch (state.type) {
-            // Add specific props and append a value to the ID
+      // Add specific props and append a value to the ID
       case 'checkbox':
       case 'radio':
       case 'switch':
@@ -167,7 +165,7 @@ export default class Input extends Component {
         }
         break;
 
-            // These aren't native HTML inputs but we need to catch them
+      // These aren't native HTML inputs but we need to catch them
       case 'select':
         inputProps.multiple = props.multiple;
         break;
@@ -175,7 +173,7 @@ export default class Input extends Component {
       case 'textarea':
         break;
 
-            // Only include the type on true input elements
+      // Only include the type on true input elements
       default:
         inputProps.type = props.type;
         break;
@@ -184,11 +182,11 @@ export default class Input extends Component {
     return inputProps;
   }
 
-    /**
-     * Gather a list of possible CSS class names based on the standard input HTML attributes.
-     *
-     * @returns {Object}
-     */
+  /**
+   * Gather a list of possible CSS class names based on the standard input HTML attributes.
+   *
+   * @returns {Object}
+   */
   gatherStateClasses() {
     const props = this.props;
 
@@ -201,19 +199,19 @@ export default class Input extends Component {
     };
   }
 
-    /**
-     * Return true if the input element is a radio or checkbox.
-     *
-     * @returns {Boolean}
-     */
+  /**
+   * Return true if the input element is a radio or checkbox.
+   *
+   * @returns {Boolean}
+   */
   isChoiceType() {
     return ['checkbox', 'radio', 'switch'].includes(this.state.type);
   }
 
-    /**
-     * Handler that updates the input value or checked state.
-     */
-    @bind
+  /**
+   * Handler that updates the input value or checked state.
+   */
+  @bind
   handleOnChange(e) {
     const newState = {};
 
@@ -226,14 +224,14 @@ export default class Input extends Component {
     this.setState(newState);
   }
 
-    /**
-     * Render the input with the props gathered from its declaration.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the input with the props gathered from its declaration.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     return (
       <input {...this.gatherProps()} />
-        );
+    );
   }
 }

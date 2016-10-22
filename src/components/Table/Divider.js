@@ -16,23 +16,20 @@ export default class Divider extends Component {
     colSpan: PropTypes.number,
   };
 
-    /**
-     * Render the dividing table row.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the dividing table row.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
     return (
-      <tr
-        className={this.formatChildClass('divider')}
-        {...this.inheritNativeProps(props)}
-      >
+      <tr className={this.formatChildClass('divider')}>
         <td colSpan={props.colSpan}>
           {props.children}
         </td>
       </tr>
-        );
+    );
   }
 }

@@ -30,11 +30,11 @@ export default class Fade extends Component {
     visible: PropTypes.bool.isRequired,
   };
 
-    /**
-     * Render a wrapper that triggers fade animations.
-     *
-     * @returns {JSX}
-     */
+  /**
+   * Render a wrapper that triggers fade animations.
+   *
+   * @returns {JSX}
+   */
   render() {
     let { children, motion, onRest, style, visible } = this.props;
 
@@ -51,6 +51,6 @@ export default class Fade extends Component {
           },
         })}
       </Motion>
-        );
+    );
   }
 }

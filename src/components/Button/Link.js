@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import { PropTypes } from 'react';
 import Button from './Button';
 
 export default class Link extends Button {

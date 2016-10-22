@@ -55,11 +55,11 @@ export default class Carousel extends Component {
     stopped: true,
   };
 
-    /**
-     * Define a context that is passed to all children.
-     *
-     * @returns {Object}
-     */
+  /**
+   * Define a context that is passed to all children.
+   *
+   * @returns {Object}
+   */
   getChildContext() {
     const props = this.props;
 
@@ -86,45 +86,45 @@ export default class Carousel extends Component {
     };
   }
 
-    /**
-     * Set the default index and bind events before mounting.
-     */
+  /**
+   * Set the default index and bind events before mounting.
+   */
   componentWillMount() {
     this.showItem(this.props.defaultIndex);
 
     window.addEventListener('keydown', this.handleOnKeyDown);
   }
 
-    /**
-     * Start the transition animation after rendering,
-     * but before children have updated.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     */
+  /**
+   * Start the transition animation after rendering,
+   * but before children have updated.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   */
   componentWillUpdate(nextProps, nextState) {
     if (nextState.index !== this.state.index) {
       this.beforeAnimation();
     }
   }
 
-    /**
-     * Remove events and timers when unmounting.
-     */
+  /**
+   * Remove events and timers when unmounting.
+   */
   componentWillUnmount() {
     clearTimeout(this.timer);
 
     window.removeEventListener('keydown', this.handleOnKeyDown);
   }
 
-    /**
-     * Functionality to trigger after the cycle animation occurs.
-     * We must set the `animating` state to false or we get locked in
-     * an unusable state.
-     *
-     * This *should* be handled by a child component, like `ItemList`.
-     */
-    @bind
+  /**
+   * Functionality to trigger after the cycle animation occurs.
+   * We must set the `animating` state to false or we get locked in
+   * an unusable state.
+   *
+   * This *should* be handled by a child component, like `ItemList`.
+   */
+  @bind
   afterAnimation() {
     this.setState({
       animating: false,
@@ -133,27 +133,27 @@ export default class Carousel extends Component {
     this.emitEvent('cycled', this.state.index);
   }
 
-    /**
-     * Functionality to trigger before the cycle animation occurs.
-     *
-     * Do not set the `animation` state here as it causes 2 renders
-     * and because `componentWillUpdate()` does not allow state changes.
-     */
+  /**
+   * Functionality to trigger before the cycle animation occurs.
+   *
+   * Do not set the `animation` state here as it causes 2 renders
+   * and because `componentWillUpdate()` does not allow state changes.
+   */
   beforeAnimation() {
     this.emitEvent('cycling', this.state.index);
   }
 
-    /**
-     * Counts the number of children found within the `ItemList` child component.
-     *
-     * @returns {Number}
-     */
+  /**
+   * Counts the number of children found within the `ItemList` child component.
+   *
+   * @returns {Number}
+   */
   countItems() {
     let count = 0,
       children = Children.toArray(this.props.children);
 
-        // Use a for loop so that we can break out
-    for (let i = 0; i < children.length; i++) {
+    // Use a for loop so that we can break out
+    for (let i = 0; i < children.length; i += 1) {
       if (children[i].type === ItemList) {
         count = Children.count(children[i].props.children);
         break;
@@ -163,45 +163,45 @@ export default class Carousel extends Component {
     return count;
   }
 
-    /**
-     * Return an array of all item indices that are currently active and visible.
-     *
-     * @returns {Number[]}
-     */
+  /**
+   * Return an array of all item indices that are currently active and visible.
+   *
+   * @returns {Number[]}
+   */
   getActiveIndices() {
     let currentIndex = this.state.index,
       visibleCount = this.props.toShow,
       active = [];
 
-    for (let i = 0; i < visibleCount; i++) {
+    for (let i = 0; i < visibleCount; i += 1) {
       active.push(currentIndex + i);
     }
 
     return active;
   }
 
-    /**
-     * Returns the first index that can be cycled to.
-     *
-     * @returns {Number}
-     */
+  /**
+   * Returns the first index that can be cycled to.
+   *
+   * @returns {Number}
+   */
   getFirstIndex() {
     return 0;
   }
 
-    /**
-     * Returns the last index that can be cycled to.
-     *
-     * @returns {Number}
-     */
+  /**
+   * Returns the last index that can be cycled to.
+   *
+   * @returns {Number}
+   */
   getLastIndex() {
     return (this.countItems() - this.props.toShow);
   }
 
-    /**
-     * Handles the automatic cycle timer.
-     */
-    @bind
+  /**
+   * Handles the automatic cycle timer.
+   */
+  @bind
   handleOnCycle() {
     if (this.state.stopped) {
       return;
@@ -214,12 +214,12 @@ export default class Carousel extends Component {
     }
   }
 
-    /**
-     * Cycle between items based on the arrow key pressed.
-     *
-     * @param {SyntheticKeyboardEvent} e
-     */
-    @bind
+  /**
+   * Cycle between items based on the arrow key pressed.
+   *
+   * @param {SyntheticKeyboardEvent} e
+   */
+  @bind
   handleOnKeyDown(e) {
     switch (e.key) {
       case 'ArrowLeft':
@@ -245,88 +245,88 @@ export default class Carousel extends Component {
     e.preventDefault();
   }
 
-    /**
-     * Stop the cycle when entering the carousel.
-     */
-    @bind
+  /**
+   * Stop the cycle when entering the carousel.
+   */
+  @bind
   handleOnMouseEnter() {
     if (this.props.pauseOnHover) {
       this.stopCycle();
     }
   }
 
-    /**
-     * Start the cycle when exiting the carousel.
-     */
-    @bind
+  /**
+   * Start the cycle when exiting the carousel.
+   */
+  @bind
   handleOnMouseLeave() {
     if (this.props.pauseOnHover) {
       this.startCycle();
     }
   }
 
-    /**
-     * Returns true if the current item is the first index.
-     *
-     * @returns {Boolean}
-     */
+  /**
+   * Returns true if the current item is the first index.
+   *
+   * @returns {Boolean}
+   */
   isAtFirst() {
     return (this.state.index === this.getFirstIndex());
   }
 
-    /**
-     * Returns true if the current item is the last index.
-     *
-     * @returns {Boolean}
-     */
+  /**
+   * Returns true if the current item is the last index.
+   *
+   * @returns {Boolean}
+   */
   isAtLast() {
     return (this.state.index === this.getLastIndex());
   }
 
-    /**
-     * Returns true if the item at the specified index is active based
-     * on the state index and how many visible items to display.
-     *
-     * @param {Number} index
-     * @returns {Boolean}
-     */
-    @bind
+  /**
+   * Returns true if the item at the specified index is active based
+   * on the state index and how many visible items to display.
+   *
+   * @param {Number} index
+   * @returns {Boolean}
+   */
+  @bind
   isItemActive(index) {
     const currentIndex = this.state.index;
 
     return (index >= currentIndex && index <= (currentIndex + this.props.toShow - 1));
   }
 
-    /**
-     * Cycle to the next item.
-     */
-    @bind
+  /**
+   * Cycle to the next item.
+   */
+  @bind
   nextItem() {
     this.showItem(this.state.index + this.props.toCycle);
   }
 
-    /**
-     * Cycle to the previous item.
-     */
-    @bind
+  /**
+   * Cycle to the previous item.
+   */
+  @bind
   prevItem() {
     this.showItem(this.state.index - this.props.toCycle);
   }
 
-    /**
-     * Reset the automatic cycle timer.
-     */
+  /**
+   * Reset the automatic cycle timer.
+   */
   resetCycle() {
     this.stopCycle();
     this.startCycle();
   }
 
-    /**
-     * Cycle to the item at the specified index.
-     *
-     * @param {Number} index
-     */
-    @bind
+  /**
+   * Cycle to the item at the specified index.
+   *
+   * @param {Number} index
+   */
+  @bind
   showItem(index) {
         /* eslint no-lonely-if: 0 */
 
@@ -354,16 +354,16 @@ export default class Carousel extends Component {
       }
     }
 
-        // Stop the cycle if on the last item
+    // Stop the cycle if on the last item
     if (!props.loop && index === lastIndex) {
       this.stopCycle();
 
-            // Reset the cycle timer
+        // Reset the cycle timer
     } else if (props.autoStart) {
       this.startCycle();
     }
 
-        // Break out early if the same index
+    // Break out early if the same index
     if (currentIndex === index) {
       return;
     }
@@ -374,10 +374,10 @@ export default class Carousel extends Component {
     });
   }
 
-    /**
-     * Start the automatic cycle timer.
-     */
-    @bind
+  /**
+   * Start the automatic cycle timer.
+   */
+  @bind
   startCycle() {
     clearTimeout(this.timer);
 
@@ -390,10 +390,10 @@ export default class Carousel extends Component {
     this.emitEvent('start');
   }
 
-    /**
-     * Stop the automatic cycle timer.
-     */
-    @bind
+  /**
+   * Stop the automatic cycle timer.
+   */
+  @bind
   stopCycle() {
     clearTimeout(this.timer);
 
@@ -404,11 +404,11 @@ export default class Carousel extends Component {
     this.emitEvent('stop');
   }
 
-    /**
-     * Render the wrapping carousel element.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the wrapping carousel element.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -426,10 +426,9 @@ export default class Carousel extends Component {
         aria-live={props.autoStart ? 'assertive' : 'off'}
         onMouseEnter={this.handleOnMouseEnter}
         onMouseLeave={this.handleOnMouseLeave}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </div>
-        );
+    );
   }
 }

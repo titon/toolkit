@@ -4,8 +4,8 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
-import { TransitionMotion, spring } from 'react-motion';
+import React from 'react';
+import { TransitionMotion } from 'react-motion';
 import Component from '../../Component';
 import { axisPositions } from '../../propTypes';
 
@@ -23,6 +23,6 @@ export default class SlideIn extends Component {
       <TransitionMotion
         willLeave={this.handleOnLeave}
       />
-        );
+    );
   }
 }

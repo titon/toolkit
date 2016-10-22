@@ -29,11 +29,11 @@ export default class Drop extends Component {
     expanded: false,
   };
 
-    /**
-     * Define a context that is passed to all children.
-     *
-     * @returns {Object}
-     */
+  /**
+   * Define a context that is passed to all children.
+   *
+   * @returns {Object}
+   */
   getChildContext() {
     return {
       [MODULE.contextKey]: {
@@ -46,82 +46,82 @@ export default class Drop extends Component {
     };
   }
 
-    /**
-     * Bind handlers before mounting.
-     */
+  /**
+   * Bind handlers before mounting.
+   */
   componentWillMount() {
     window.addEventListener('click', this.handleOnClickOut);
   }
 
-    /**
-     * Only update if the `expanded` state is different.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
+  /**
+   * Only update if the `expanded` state is different.
+   *
+   * @param {Object} nextProps
+   * @param {Object} nextState
+   * @returns {Boolean}
+   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.expanded !== this.state.expanded);
   }
 
-    /**
-     * Emit `showing` or `hiding` events before rendering.
-     */
+  /**
+   * Emit `showing` or `hiding` events before rendering.
+   */
   componentWillUpdate() {
     this.emitEvent(this.state.expanded ? 'hiding' : 'showing');
   }
 
-    /**
-     * Emit `shown` or `hidden` events after rendering.
-     */
+  /**
+   * Emit `shown` or `hidden` events after rendering.
+   */
   componentDidUpdate() {
     this.emitEvent(this.state.expanded ? 'shown' : 'hidden');
   }
 
-    /**
-     * Unbind handlers when unmounting.
-     */
+  /**
+   * Unbind handlers when unmounting.
+   */
   componentWillUnmount() {
     window.removeEventListener('click', this.handleOnClickOut);
   }
 
-    /**
-     * When a click occurs outside the drop container, and the menu is open,
-     * automatically hide the menu.
-     *
-     * @param {Event} e
-     */
-    @bind
+  /**
+   * When a click occurs outside the drop container, and the menu is open,
+   * automatically hide the menu.
+   *
+   * @param {Event} e
+   */
+  @bind
   handleOnClickOut(e) {
-    if (this.state.expanded && isOutsideElement(this.refs.container, e.target)) {
+    if (this.state.expanded && isOutsideElement(this.container, e.target)) {
       this.hideMenu();
     }
   }
 
-    /**
-     * Hide the menu by setting the state to closed.
-     */
-    @bind
+  /**
+   * Hide the menu by setting the state to closed.
+   */
+  @bind
   hideMenu() {
     this.setState({
       expanded: false,
     });
   }
 
-    /**
-     * Show the menu by setting the state to opened.
-     */
-    @bind
+  /**
+   * Show the menu by setting the state to opened.
+   */
+  @bind
   showMenu() {
     this.setState({
       expanded: true,
     });
   }
 
-    /**
-     * Toggle the open state of the menu.
-     */
-    @bind
+  /**
+   * Toggle the open state of the menu.
+   */
+  @bind
   toggleMenu() {
     if (this.state.expanded) {
       this.hideMenu();
@@ -130,16 +130,16 @@ export default class Drop extends Component {
     }
   }
 
-    /**
-     * Render the drop container.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the drop container.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     return (
-      <div id={this.formatID('drop')} ref="container">
+      <div id={this.formatID('drop')} ref={(ref) => { this.container = ref; }}>
         {this.props.children}
       </div>
-        );
+    );
   }
 }

@@ -22,11 +22,11 @@ export default class Choice extends Component {
     inputID: PropTypes.string.isRequired,
   };
 
-    /**
-     * Render either a checkbox or radio input wrapping label.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render either a checkbox or radio input wrapping label.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     const props = this.props;
 
@@ -37,10 +37,9 @@ export default class Choice extends Component {
           '@large': props.large,
           '@small': props.small,
         })}
-        {...this.inheritNativeProps(props)}
       >
         {props.children}
       </label>
-        );
+    );
   }
 }

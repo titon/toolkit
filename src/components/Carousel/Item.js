@@ -19,27 +19,26 @@ export default class Item extends Component {
     index: PropTypes.number.isRequired,
   };
 
-    /**
-     * Render the individual list item.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the individual list item.
+   *
+   * @returns {ReactElement}
+   */
   render() {
-    let props = this.props,
-      index = props.index,
-      active = this.getContext().isItemActive(index);
+    const { children, index } = this.props;
+    const active = this.getContext().isItemActive(index);
 
     return (
-      <li role="tabpanel"
+      <li
+        role="tabpanel"
         id={this.formatID('carousel-item', index)}
         className={this.formatChildClass('item', {
           'is-active': active,
         })}
         aria-hidden={!active}
-        {...this.inheritNativeProps(props)}
       >
-        {props.children}
+        {children}
       </li>
-        );
+    );
   }
 }

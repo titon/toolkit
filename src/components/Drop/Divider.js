@@ -14,19 +14,18 @@ export default class Divider extends Component {
 
   static contextTypes = CONTEXT_TYPES;
 
-    /**
-     * Render the drop item divider.
-     *
-     * @returns {ReactElement}
-     */
+  /**
+   * Render the drop item divider.
+   *
+   * @returns {ReactElement}
+   */
   render() {
     return (
       <li
         role="separator"
         className={this.formatChildClass('divider')}
-        {...this.inheritNativeProps(this.props)}
       />
-        );
+    );
   }
 
 }
