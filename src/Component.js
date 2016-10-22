@@ -17,28 +17,28 @@ import invariant from './utility/invariant';
 import wrapFunctions from './utility/wrapFunctions';
 
 export default class Component extends React.Component {
-    static module = {
-        classNames: {},
-        name: 'Component',
-        version: '3.0.0'
-    };
+  static module = {
+    classNames: {},
+    name: 'Component',
+    version: '3.0.0',
+  };
 
-    static contextTypes = {};
+  static contextTypes = {};
 
-    static propTypes = {
-        children: PropTypes.node
-    };
+  static propTypes = {
+    children: PropTypes.node,
+  };
 
     /**
      * Generate a UID for all components.
      */
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.state = {};
-        this.element = null;
-        this.generateUID();
-    }
+    this.state = {};
+    this.element = null;
+    this.generateUID();
+  }
 
     /**
      * Emit a custom event and notify all listeners defined on the prop of the same name.
@@ -49,31 +49,31 @@ export default class Component extends React.Component {
      * @param {String} type
      * @param {...*} [args]
      */
-    emitEvent(type, ...args) {
-        let { module, name } = this.constructor,
-            debug = this.props.debug || Titon.options.debug,
-            uid = this.getUID();
+  emitEvent(type, ...args) {
+    let { module, name } = this.constructor,
+      debug = this.props.debug || Titon.options.debug,
+      uid = this.getUID();
 
-        if (debug && window.console) {
+    if (debug && window.console) {
             /* eslint no-console: 0 */
 
-            console.log(`${module.name}.${name}` + (uid ? `#${uid}` : ''),
+      console.log(`${module.name}.${name}${uid ? `#${uid}` : ''}`,
                 (Date.now() / 1000).toFixed(3), type, ...args);
 
-            if (debug === 'verbose') {
-                console.dir(this);
-            }
-        }
-
-        args.unshift({
-            component: name,
-            timestamp: Date.now(),
-            type,
-            uid
-        });
-
-        this.notifyEventListeners(type, args);
+      if (debug === 'verbose') {
+        console.dir(this);
+      }
     }
+
+    args.unshift({
+      component: name,
+      timestamp: Date.now(),
+      type,
+      uid,
+    });
+
+    this.notifyEventListeners(type, args);
+  }
 
     /**
      * Format an element level class name based on the defined argument.
@@ -82,9 +82,9 @@ export default class Component extends React.Component {
      * @param {...String|Array|Object} params
      * @returns {String}
      */
-    formatChildClass(elementName, ...params) {
-        return formatClass(this.getModuleClass(elementName), ...params);
-    }
+  formatChildClass(elementName, ...params) {
+    return formatClass(this.getModuleClass(elementName), ...params);
+  }
 
     /**
      * Format a block level class name.
@@ -92,9 +92,9 @@ export default class Component extends React.Component {
      * @param {...String|Array|Object} params
      * @returns {String}
      */
-    formatClass(...params) {
-        return formatClass(this.getModuleClass(), ...params);
-    }
+  formatClass(...params) {
+    return formatClass(this.getModuleClass(), ...params);
+  }
 
     /**
      * Format a unique HTML ID based on the passed parameters.
@@ -102,20 +102,20 @@ export default class Component extends React.Component {
      * @param {...String} params
      * @returns {String}
      */
-    formatID(...params) {
-        return formatID('titon', this.getUID(), ...params);
-    }
+  formatID(...params) {
+    return formatID('titon', this.getUID(), ...params);
+  }
 
     /**
      * Generate a unique identifier for this instance.
      * The UID is lazy-loaded using the objects prototype `toString()` method.
      * This allows the `uid` prop to be used if needed.
      */
-    generateUID() {
-        this.uid = {
-            toString: () => this.uid = this.props.uid || generateUID()
-        };
-    }
+  generateUID() {
+    this.uid = {
+      toString: () => this.uid = this.props.uid || generateUID(),
+    };
+  }
 
     /**
      * Generate a new set of properties based on a specific property from the initial property set.
@@ -126,39 +126,38 @@ export default class Component extends React.Component {
      * @param {String[]} [listeners]
      * @returns {Object}
      */
-    generateNestedProps(props, propName, listeners = []) {
-        let obj = {};
+  generateNestedProps(props, propName, listeners = []) {
+    let obj = {};
 
         // Merge nested object
-        if (typeof props[propName] === 'object') {
-            obj = {
-              ...props[propName],
-              enabled: true,
-            };
-        } else {
-            obj.enabled = Boolean(props[propName]);
-        }
+    if (typeof props[propName] === 'object') {
+      obj = {
+        ...props[propName],
+        enabled: true,
+      };
+    } else {
+      obj.enabled = Boolean(props[propName]);
+    }
 
-        if (!obj.enabled) {
-            return obj;
-        }
+    if (!obj.enabled) {
+      return obj;
+    }
 
         // Inherit event listeners
-        listeners.forEach(key => {
-            if (!obj[key]) {
-                obj[key] = [];
-            }
+    listeners.forEach((key) => {
+      if (!obj[key]) {
+        obj[key] = [];
+      }
 
-            if (Array.isArray(props[key])) {
-                obj[key] = obj[key].concat(props[key]);
+      if (Array.isArray(props[key])) {
+        obj[key] = obj[key].concat(props[key]);
+      } else if (props[key]) {
+        obj[key].push(props[key]);
+      }
+    });
 
-            } else if (props[key]) {
-                obj[key].push(props[key]);
-            }
-        });
-
-        return obj;
-    }
+    return obj;
+  }
 
     /**
      * Attempt to find the module specific context by key within the context layer.
@@ -167,20 +166,20 @@ export default class Component extends React.Component {
      * @param {String} [forceKey]
      * @returns {Object}
      */
-    getContext(rawContext, forceKey) {
-        let { name, module } = this.constructor,
-            { name: moduleName, contextKey } = module,
-            context = rawContext || this.context,
-            key = forceKey || contextKey;
+  getContext(rawContext, forceKey) {
+    let { name, module } = this.constructor,
+      { name: moduleName, contextKey } = module,
+      context = rawContext || this.context,
+      key = forceKey || contextKey;
 
-        invariant(!this.getChildContext,
+    invariant(!this.getChildContext,
             'Parent component must not access the context.');
 
-        invariant(key && context[key],
+    invariant(key && context[key],
             'Context "%s" not found for `%s.%s`.', key, moduleName, name);
 
-        return context[key];
-    }
+    return context[key];
+  }
 
     /**
      * Attempt to find the block or element class name within the modules classnames mapping.
@@ -188,35 +187,35 @@ export default class Component extends React.Component {
      * @param {String} element
      * @returns {String}
      */
-    getModuleClass(element = 'default') {
-        let { name, module } = this.constructor,
-            { name: moduleName, classNames } = module;
+  getModuleClass(element = 'default') {
+    let { name, module } = this.constructor,
+      { name: moduleName, classNames } = module;
 
-        invariant(classNames[element], 'Module class name "%s" not found for `%s.%s`.',
+    invariant(classNames[element], 'Module class name "%s" not found for `%s.%s`.',
             element, moduleName, name);
 
-        return classNames[element];
-    }
+    return classNames[element];
+  }
 
     /**
      * Define a context that is passed to all children.
      *
      * @returns {Object}
      */
-    getDefaultChildContext() {
-        return {
-            uid: this.getUID()
-        };
-    }
+  getDefaultChildContext() {
+    return {
+      uid: this.getUID(),
+    };
+  }
 
     /**
      * Return the `ReactElement` associated with the component.
      *
      * @returns {ReactElement}
      */
-    getInternalElement() {
-        return this._reactInternalInstance._currentElement;
-    }
+  getInternalElement() {
+    return this._reactInternalInstance._currentElement;
+  }
 
     /**
      * Return the UID for the current component.
@@ -226,18 +225,18 @@ export default class Component extends React.Component {
      *
      * @returns {String}
      */
-    getUID() {
-        let uid = '';
+  getUID() {
+    let uid = '';
 
         // Can throw invariants
-        try {
-            uid = this.getContext().uid;
-        } catch (e) {
-            uid = this.uid;
-        }
-
-        return String(uid || '');
+    try {
+      uid = this.getContext().uid;
+    } catch (e) {
+      uid = this.uid;
     }
+
+    return String(uid || '');
+  }
 
     /**
      * Handle a native / synthetic DOM event and notify all listeners
@@ -246,9 +245,9 @@ export default class Component extends React.Component {
      * @param {String} type
      * @param {SyntheticEvent} event
      */
-    handleEvent(type, event) {
-        this.notifyEventListeners(type, [event]);
-    }
+  handleEvent(type, event) {
+    this.notifyEventListeners(type, [event]);
+  }
 
     /**
      * Handle the loading of a ref by setting it to `element` on the current instance.
@@ -256,9 +255,9 @@ export default class Component extends React.Component {
      * @param {HTMLElement} ref
      */
     @bind
-    handleRef(ref) {
-        this.element = ref;
-    }
+  handleRef(ref) {
+    this.element = ref;
+  }
 
     /**
      * Inherit all native props that should be passed through to the DOM element,
@@ -267,9 +266,9 @@ export default class Component extends React.Component {
      * @param {Object} props
      * @returns {Object}
      */
-    inheritNativeProps(props) {
-        return omit(props, ['children', 'className', ...Object.keys(this.constructor.propTypes)]);
-    }
+  inheritNativeProps(props) {
+    return omit(props, ['children', 'className', ...Object.keys(this.constructor.propTypes)]);
+  }
 
     /**
      * Execute a function, or an array of functions, with the defined arguments,
@@ -278,21 +277,21 @@ export default class Component extends React.Component {
      * @param {String} propName
      * @param {*[]} args
      */
-    notifyEventListeners(propName, args = []) {
-        if (propName.substr(0, 2) !== 'on') {
-            propName = 'on' + propName.charAt(0).toUpperCase() + propName.substr(1);
-        }
-
-        let listeners = this.props[propName];
-
-        if (!listeners) {
-            return;
-        } else if (!Array.isArray(listeners)) {
-            listeners = [listeners];
-        }
-
-        listeners.forEach(func => func(...args));
+  notifyEventListeners(propName, args = []) {
+    if (propName.substr(0, 2) !== 'on') {
+      propName = `on${propName.charAt(0).toUpperCase()}${propName.substr(1)}`;
     }
+
+    let listeners = this.props[propName];
+
+    if (!listeners) {
+      return;
+    } else if (!Array.isArray(listeners)) {
+      listeners = [listeners];
+    }
+
+    listeners.forEach(func => func(...args));
+  }
 
     /**
      * Transfer all custom props to the first and only child of the current component.
@@ -302,39 +301,37 @@ export default class Component extends React.Component {
      * @param {Object} [props]
      * @returns {ReactElement}
      */
-    transferToChild(children, props = {}) {
-        let child = Children.only(children),
-            mergedProps = {};
+  transferToChild(children, props = {}) {
+    let child = Children.only(children),
+      mergedProps = {};
 
-        Object.keys(props).forEach(key => {
-            let newValue = props[key],
-                newType = typeof newValue,
-                oldValue = child.props[key],
-                oldType = typeof oldValue,
-                mergedValue = null;
+    Object.keys(props).forEach((key) => {
+      let newValue = props[key],
+        newType = typeof newValue,
+        oldValue = child.props[key],
+        oldType = typeof oldValue,
+        mergedValue = null;
 
             // If a value exists on both ends, handle accordingly
             // We need to do `typeof` checks so that we don't type juggle incorrectly
-            if (oldType !== 'undefined' && newType !== 'undefined') {
-
+      if (oldType !== 'undefined' && newType !== 'undefined') {
                 // Event handlers should be wrapped
-                if (key.match(/^on[A-Z]/)) {
-                    mergedValue = wrapFunctions(newValue, oldValue);
+        if (key.match(/^on[A-Z]/)) {
+          mergedValue = wrapFunctions(newValue, oldValue);
 
                 // Append the new class name
-                } else if (key === 'className' || key.match(/^[a-zA-Z]ClassName$/)) {
-                    mergedValue = oldValue + ' ' + newValue;
-                }
+        } else if (key === 'className' || key.match(/^[a-zA-Z]ClassName$/)) {
+          mergedValue = `${oldValue} ${newValue}`;
+        }
+      } else if (oldType === 'undefined' && newType !== 'undefined') {
+        mergedValue = newValue;
+      }
 
-            } else if (oldType === 'undefined' && newType !== 'undefined') {
-                mergedValue = newValue;
-            }
+      if (mergedValue !== null) {
+        mergedProps[key] = mergedValue;
+      }
+    });
 
-            if (mergedValue !== null) {
-                mergedProps[key] = mergedValue;
-            }
-        });
-
-        return React.cloneElement(child, mergedProps);
-    }
+    return React.cloneElement(child, mergedProps);
+  }
 }

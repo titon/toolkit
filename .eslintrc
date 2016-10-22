@@ -1,0 +1,8 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "globals": {
+    "Toolkit": true,
+  }
+}

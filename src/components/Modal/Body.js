@@ -9,24 +9,24 @@ import Component from '../../Component';
 import MODULE from './module';
 
 export default class Body extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
     /**
      * Render the modal inner body.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <div
-                id={this.formatID('modal-content')}
-                className={this.formatChildClass('body')}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </div>
+    return (
+      <div
+        id={this.formatID('modal-content')}
+        className={this.formatChildClass('body')}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </div>
         );
-    }
+  }
 }

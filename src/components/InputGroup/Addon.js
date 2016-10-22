@@ -10,35 +10,35 @@ import { defaultSizeProps, sizePropTypes } from '../../propTypes';
 import MODULE from './module';
 
 export default class Addon extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        ...defaultSizeProps
-    };
+  static defaultProps = {
+    ...defaultSizeProps,
+  };
 
-    static propTypes = {
-        ...sizePropTypes,
-        children: PropTypes.node
-    };
+  static propTypes = {
+    ...sizePropTypes,
+    children: PropTypes.node,
+  };
 
     /**
      * Render the inline input group add-on.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <span
-                className={this.formatChildClass('addon', {
-                    ['@large']: props.large,
-                    ['@small']: props.small
-                })}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </span>
+    return (
+      <span
+        className={this.formatChildClass('addon', {
+          '@large': props.large,
+          '@small': props.small,
+        })}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </span>
         );
-    }
+  }
 }

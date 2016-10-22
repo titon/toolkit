@@ -12,18 +12,18 @@ import getValueFunc from './helpers/getValueFunc';
 const suppressedLogs = [];
 const originalConsole = console;
 const shimConsole = (() => {
-    let shim = {};
+  const shim = {};
 
     // Use a fixed list of names as `console` is different between node and the browser
-    [
-        'log', 'info', 'warn', 'error', 'exception', 'debug', 'table', 'trace', 'dir', 'dirxml',
-        'group', 'groupCollapsed', 'groupEnd', 'time', 'timeEnd', 'timeStamp', 'profile',
-        'profileEnd', 'assert', 'count', 'clear', 'markTimeline', 'timeline', 'timelineEnd'
-    ].forEach(name => {
-        shim[name] = preserveLog(name);
-    });
+  [
+    'log', 'info', 'warn', 'error', 'exception', 'debug', 'table', 'trace', 'dir', 'dirxml',
+    'group', 'groupCollapsed', 'groupEnd', 'time', 'timeEnd', 'timeStamp', 'profile',
+    'profileEnd', 'assert', 'count', 'clear', 'markTimeline', 'timeline', 'timelineEnd',
+  ].forEach((name) => {
+    shim[name] = preserveLog(name);
+  });
 
-    return shim;
+  return shim;
 })();
 
 /**
@@ -33,12 +33,12 @@ const shimConsole = (() => {
  * @returns {Function}
  */
 function preserveLog(name) {
-    return function preserveLogHandler(...args) {
-        suppressedLogs.push({
-            args,
-            type: name
-        });
-    };
+  return function preserveLogHandler(...args) {
+    suppressedLogs.push({
+      args,
+      type: name,
+    });
+  };
 }
 
 /**
@@ -51,21 +51,21 @@ function preserveLog(name) {
  * @returns {Object}
  */
 function suppressConsole(target, name, descriptor) {
-    checkIsMethod('suppressConsole', arguments);
+  checkIsMethod('suppressConsole', arguments);
 
-    let func = getValueFunc('suppressConsole', descriptor);
+  const func = getValueFunc('suppressConsole', descriptor);
 
-    descriptor.value = function suppressConsoleValue() {
-        console = shimConsole;
+  descriptor.value = function suppressConsoleValue() {
+    console = shimConsole;
 
-        let response = func.call(this, arguments);
+    const response = func.call(this, arguments);
 
-        console = originalConsole;
+    console = originalConsole;
 
-        return response;
-    };
+    return response;
+  };
 
-    return descriptor;
+  return descriptor;
 }
 
 suppressConsole.logs = suppressedLogs;

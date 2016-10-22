@@ -7,6 +7,6 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Toast', '3.0.0', {
-    blockClass: 'toast',
-    elementClasses: ['gate']
+  blockClass: 'toast',
+  elementClasses: ['gate'],
 });

@@ -16,5 +16,5 @@ import ClassBuilder from './ClassBuilder';
  * @returns {String}
  */
 export default function formatClass(className, ...params) {
-    return new ClassBuilder(className).mapParams(...params).toString();
+  return new ClassBuilder(className).mapParams(...params).toString();
 }

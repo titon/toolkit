@@ -11,30 +11,30 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Mask extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static childContextTypes = CONTEXT_TYPES;
+  static childContextTypes = CONTEXT_TYPES;
 
-    state = {
-        expanded: false
-    };
+  state = {
+    expanded: false,
+  };
 
     /**
      * Define a context that is passed to all children.
      *
      * @returns {Object}
      */
-    getChildContext() {
-        return {
-            [MODULE.contextKey]: {
-                expanded: this.state.expanded,
-                hideOverlay: this.hideOverlay,
-                showOverlay: this.showOverlay,
-                toggleOverlay: this.toggleOverlay,
-                uid: this.getUID()
-            }
-        };
-    }
+  getChildContext() {
+    return {
+      [MODULE.contextKey]: {
+        expanded: this.state.expanded,
+        hideOverlay: this.hideOverlay,
+        showOverlay: this.showOverlay,
+        toggleOverlay: this.toggleOverlay,
+        uid: this.getUID(),
+      },
+    };
+  }
 
     /**
      * Only update if the `expanded` state changes.
@@ -43,59 +43,59 @@ export default class Mask extends Component {
      * @param {Object} nextState
      * @returns {Boolean}
      */
-    shouldComponentUpdate(nextProps, nextState) {
-        return (nextState.expanded !== this.state.expanded);
-    }
+  shouldComponentUpdate(nextProps, nextState) {
+    return (nextState.expanded !== this.state.expanded);
+  }
 
     /**
      * Conceal the overlay by marking it inactive.
      */
     @bind
-    hideOverlay() {
-        this.setState({
-            expanded: false
-        });
-    }
+  hideOverlay() {
+    this.setState({
+      expanded: false,
+    });
+  }
 
     /**
      * Reveal the overlay by marking it active.
      */
     @bind
-    showOverlay() {
-        this.setState({
-            expanded: true
-        });
-    }
+  showOverlay() {
+    this.setState({
+      expanded: true,
+    });
+  }
 
     /**
      * Toggle the active state of the overlay.
      */
     @bind
-    toggleOverlay() {
-        if (this.state.expanded) {
-            this.hideOverlay();
-        } else {
-            this.showOverlay();
-        }
+  toggleOverlay() {
+    if (this.state.expanded) {
+      this.hideOverlay();
+    } else {
+      this.showOverlay();
     }
+  }
 
     /**
      * Render the mask container.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <div
-                id={this.formatID('mask')}
-                className={this.formatClass()}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </div>
+    return (
+      <div
+        id={this.formatID('mask')}
+        className={this.formatClass()}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </div>
         );
-    }
+  }
 
 }

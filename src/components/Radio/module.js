@@ -7,7 +7,7 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Radio', '3.0.0', {
-    contextKey: 'radio',
-    blockClass: 'radio',
-    elementClasses: ['group', 'toggle']
+  contextKey: 'radio',
+  blockClass: 'radio',
+  elementClasses: ['group', 'toggle'],
 });

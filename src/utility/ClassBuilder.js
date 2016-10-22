@@ -59,16 +59,16 @@ export default class ClassBuilder {
      * @param {String} primaryClass     Primary class to utilizie with modifiers
      * @param {String} prefix           Prefix to prepend to all classes
      */
-    constructor(primaryClass, prefix = '') {
-        invariant(primaryClass, '`%s` requires a primary class name.', this.constructor.name);
+  constructor(primaryClass, prefix = '') {
+    invariant(primaryClass, '`%s` requires a primary class name.', this.constructor.name);
 
-        this.prefix = prefix;
-        this.classes = [];
+    this.prefix = prefix;
+    this.classes = [];
 
         // Add the primary class and then save a reference
-        this.addClass(primaryClass);
-        this.primaryClass = this.classes[0];
-    }
+    this.addClass(primaryClass);
+    this.primaryClass = this.classes[0];
+  }
 
     /**
      * Add a secondary BEM compatible class name.
@@ -79,13 +79,13 @@ export default class ClassBuilder {
      * @param {Boolean} [prefix]
      * @returns {ClassBuilder}
      */
-    addClass(block, element = '', modifier = '', prefix = true) {
-        this.classes.push(
+  addClass(block, element = '', modifier = '', prefix = true) {
+    this.classes.push(
             (prefix ? this.prefix : '') + formatBEM(block, element, modifier)
         );
 
-        return this;
-    }
+    return this;
+  }
 
     /**
      * Add a modifier class based on the current primary class.
@@ -93,11 +93,11 @@ export default class ClassBuilder {
      * @param {String} modifier
      * @returns {ClassBuilder}
      */
-    addModifier(modifier) {
-        this.addClass(this.primaryClass, '', modifier, false);
+  addModifier(modifier) {
+    this.addClass(this.primaryClass, '', modifier, false);
 
-        return this;
-    }
+    return this;
+  }
 
     /**
      * Map a list of secondary classes and append all who's value evaluates to true.
@@ -107,20 +107,19 @@ export default class ClassBuilder {
      * @param {Object} classes
      * @returns {ClassBuilder}
      */
-    mapClasses(classes) {
-        Object.keys(classes).forEach(key => {
-            if (classes[key]) {
-                if (key.charAt(0) === '@') {
-                    this.addModifier(key.substr(1));
+  mapClasses(classes) {
+    Object.keys(classes).forEach((key) => {
+      if (classes[key]) {
+        if (key.charAt(0) === '@') {
+          this.addModifier(key.substr(1));
+        } else {
+          this.classes.push(key);
+        }
+      }
+    });
 
-                } else {
-                    this.classes.push(key);
-                }
-            }
-        });
-
-        return this;
-    }
+    return this;
+  }
 
     /**
      * Loop through a list of possible classes and either add a secondary class,
@@ -129,30 +128,28 @@ export default class ClassBuilder {
      * @param {...String|Array|Object} params
      * @returns {ClassBuilder}
      */
-    mapParams(...params) {
-        params.forEach(param => {
-            if (typeof param === 'string' || Array.isArray(param)) {
-                this.addClass(param);
+  mapParams(...params) {
+    params.forEach((param) => {
+      if (typeof param === 'string' || Array.isArray(param)) {
+        this.addClass(param);
+      } else if (typeof param === 'object') {
+        if (param.block) {
+          this.addClass(param);
+        } else {
+          this.mapClasses(param);
+        }
+      }
+    });
 
-            } else if (typeof param === 'object') {
-                if (param.block) {
-                    this.addClass(param);
-
-                } else {
-                    this.mapClasses(param);
-                }
-            }
-        });
-
-        return this;
-    }
+    return this;
+  }
 
     /**
      * Return all classes as a CSS valid string.
      *
      * @returns {String}
      */
-    toString() {
-        return this.classes.join(' ').trim();
-    }
+  toString() {
+    return this.classes.join(' ').trim();
+  }
 }

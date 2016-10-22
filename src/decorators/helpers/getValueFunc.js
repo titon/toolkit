@@ -14,10 +14,10 @@ import invariant from '../../utility/invariant';
  * @returns {Function}
  */
 export default function getValueFunc(name, descriptor) {
-    let func = descriptor.value;
+  const func = descriptor.value;
 
-    invariant((typeof func === 'function'),
+  invariant((typeof func === 'function'),
         'Only functions can be used by @%s.', name);
 
-    return func;
+  return func;
 }

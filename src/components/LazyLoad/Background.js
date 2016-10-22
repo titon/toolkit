@@ -13,12 +13,12 @@ export default class Background extends LazyLoad {
      *
      * @returns {ReactElement}
      */
-    render() {
-        return this.transferToChild(this.props.children, {
-            className: this.formatChildClass('bg', {
-                'is-loaded': this.state.loaded
-            }),
-            ref: 'element'
-        });
-    }
+  render() {
+    return this.transferToChild(this.props.children, {
+      className: this.formatChildClass('bg', {
+        'is-loaded': this.state.loaded,
+      }),
+      ref: 'element',
+    });
+  }
 }

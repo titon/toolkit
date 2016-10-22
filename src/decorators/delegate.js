@@ -16,27 +16,27 @@ import getValueFunc from './helpers/getValueFunc';
  * @returns {Function}
  */
 export default function delegate(selector) {
-    return function delegateDecorator(target, name, descriptor) {
-        checkIsMethod('delegate', arguments);
+  return function delegateDecorator(target, name, descriptor) {
+    checkIsMethod('delegate', arguments);
 
-        let func = getValueFunc('delegate', descriptor);
+    const func = getValueFunc('delegate', descriptor);
 
-        descriptor.value = function delegateValue(event) {
-            checkIsEvent('delegate', event);
+    descriptor.value = function delegateValue(event) {
+      checkIsEvent('delegate', event);
 
-            let eventTarget = event.target;
+      let eventTarget = event.target;
 
-            while (eventTarget && eventTarget !== document) {
-                if (eventTarget.matches(selector)) {
-                    event.delegatedTarget = eventTarget;
-                    func.call(this, event);
-                    break;
-                }
+      while (eventTarget && eventTarget !== document) {
+        if (eventTarget.matches(selector)) {
+          event.delegatedTarget = eventTarget;
+          func.call(this, event);
+          break;
+        }
 
-                eventTarget = eventTarget.parentNode;
-            }
-        };
-
-        return descriptor;
+        eventTarget = eventTarget.parentNode;
+      }
     };
+
+    return descriptor;
+  };
 }

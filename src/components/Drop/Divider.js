@@ -10,23 +10,23 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Divider extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
     /**
      * Render the drop item divider.
      *
      * @returns {ReactElement}
      */
-    render() {
-        return (
-            <li
-                role="separator"
-                className={this.formatChildClass('divider')}
-                {...this.inheritNativeProps(this.props)}
-            />
+  render() {
+    return (
+      <li
+        role="separator"
+        className={this.formatChildClass('divider')}
+        {...this.inheritNativeProps(this.props)}
+      />
         );
-    }
+  }
 
 }

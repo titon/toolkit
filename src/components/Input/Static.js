@@ -10,35 +10,35 @@ import { defaultSizeProps, sizePropTypes } from '../../propTypes';
 import MODULE from './module';
 
 export default class Static extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        ...defaultSizeProps
-    };
+  static defaultProps = {
+    ...defaultSizeProps,
+  };
 
-    static propTypes = {
-        children: PropTypes.node,
-        ...sizePropTypes
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    ...sizePropTypes,
+  };
 
     /**
      * Render a static text input element.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <span
-                className={this.formatChildClass('static', {
-                    '@large': props.large,
-                    '@small': props.small
-                })}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </span>
+    return (
+      <span
+        className={this.formatChildClass('static', {
+          '@large': props.large,
+          '@small': props.small,
+        })}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </span>
         );
-    }
+  }
 }

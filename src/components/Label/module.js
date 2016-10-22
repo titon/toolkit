@@ -7,5 +7,5 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Label', '3.0.0', {
-    blockClass: 'label'
+  blockClass: 'label',
 });

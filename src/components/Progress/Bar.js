@@ -10,32 +10,32 @@ import { states } from '../../propTypes';
 import MODULE from './module';
 
 export default class Bar extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static propTypes = {
-        children: PropTypes.node,
-        percent: PropTypes.number.isRequired,
-        state: states
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    percent: PropTypes.number.isRequired,
+    state: states,
+  };
 
     /**
      * Render the progress bar segment.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <div
-                className={this.formatChildClass('bar', {
-                    ['is-' + props.state]: props.state
-                })}
-                style={{ width: props.percent + '%' }}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children || `${props.percent}%`}
-            </div>
+    return (
+      <div
+        className={this.formatChildClass('bar', {
+          [`is-${props.state}`]: props.state,
+        })}
+        style={{ width: `${props.percent}%` }}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children || `${props.percent}%`}
+      </div>
         );
-    }
+  }
 }

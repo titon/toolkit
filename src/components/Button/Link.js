@@ -8,8 +8,8 @@ import React, { PropTypes } from 'react';
 import Button from './Button';
 
 export default class Link extends Button {
-    static propTypes = {
-        ...Button.propTypes,
-        href: PropTypes.string.isRequired
-    };
+  static propTypes = {
+    ...Button.propTypes,
+    href: PropTypes.string.isRequired,
+  };
 }

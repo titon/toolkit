@@ -7,6 +7,6 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Fade', '3.0.0', {
-    blockClass: 'motion-fade',
-    elementClasses: ['group']
+  blockClass: 'motion-fade',
+  elementClasses: ['group'],
 });

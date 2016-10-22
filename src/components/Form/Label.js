@@ -9,30 +9,30 @@ import Component from '../../Component';
 import MODULE from './module';
 
 export default class Label extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static propTypes = {
-        children: PropTypes.node,
-        inputID: PropTypes.string.isRequired
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    inputID: PropTypes.string.isRequired,
+  };
 
     /**
      * Render the form field label.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let { children, inputID, ...props } = this.props;
+  render() {
+    let { children, inputID, ...props } = this.props;
 
-        return (
-            <label
-                id={inputID + '-label'}
-                htmlFor={inputID}
-                className={this.formatChildClass('label')}
-                {...this.inheritNativeProps(props)}
-            >
-                {children}
-            </label>
+    return (
+      <label
+        id={`${inputID}-label`}
+        htmlFor={inputID}
+        className={this.formatChildClass('label')}
+        {...this.inheritNativeProps(props)}
+      >
+        {children}
+      </label>
         );
-    }
+  }
 }

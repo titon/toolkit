@@ -13,6 +13,6 @@ import invariant from '../../utility/invariant';
  * @param {Arguments} args
  */
 export default function checkIsMethod(name, args) {
-    invariant((args.length === 3 && typeof args[2] === 'object'),
+  invariant((args.length === 3 && typeof args[2] === 'object'),
         'Only methods are supported by @%s.', name);
 }

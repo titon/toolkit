@@ -12,14 +12,14 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Next extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
-    static propTypes = {
-        children: PropTypes.node,
-        onClick: collectionOf.func
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    onClick: collectionOf.func,
+  };
 
     /**
      * Handles clicking the next button.
@@ -27,28 +27,28 @@ export default class Next extends Component {
      * @param {SyntheticEvent} e
      */
     @bind
-    handleOnClick(e) {
-        this.getContext().nextItem();
-        this.handleEvent('click', e);
-    }
+  handleOnClick(e) {
+    this.getContext().nextItem();
+    this.handleEvent('click', e);
+  }
 
     /**
      * Render a button that cycles to the next item.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <button
-                type="button" role="button"
-                className={this.formatChildClass('next')}
-                onClick={this.handleOnClick}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </button>
+    return (
+      <button
+        type="button" role="button"
+        className={this.formatChildClass('next')}
+        onClick={this.handleOnClick}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </button>
         );
-    }
+  }
 }

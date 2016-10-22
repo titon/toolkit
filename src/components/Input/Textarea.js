@@ -13,9 +13,9 @@ export default class Textarea extends Input {
      *
      * @returns {ReactElement}
      */
-    render() {
-        return (
-            <textarea {...this.gatherProps()} />
+  render() {
+    return (
+      <textarea {...this.gatherProps()} />
         );
-    }
+  }
 }

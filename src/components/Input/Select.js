@@ -11,32 +11,32 @@ import collectionOf from '../../prop-types/collectionOf';
 import { optionList } from '../../propTypes';
 
 export default class Select extends Input {
-    static defaultProps = {
-        ...Input.defaultProps,
-        defaultValue: []
-    };
+  static defaultProps = {
+    ...Input.defaultProps,
+    defaultValue: [],
+  };
 
-    static propTypes = {
-        ...Input.propTypes,
-        defaultValue: collectionOf.string,
-        options: optionList.isRequired
-    };
+  static propTypes = {
+    ...Input.propTypes,
+    defaultValue: collectionOf.string,
+    options: optionList.isRequired,
+  };
 
     /**
      * Handler that updates the selected state.
      */
     @bind
-    handleOnChange({ target }) {
-        let newState = {};
+  handleOnChange({ target }) {
+    const newState = {};
 
-        if (this.props.multiple) {
-            newState.value = Array.from(target.selectedOptions).map(option => option.value);
-        } else {
-            newState.value = target.value;
-        }
-
-        this.setState(newState);
+    if (this.props.multiple) {
+      newState.value = Array.from(target.selectedOptions).map(option => option.value);
+    } else {
+      newState.value = target.value;
     }
+
+    this.setState(newState);
+  }
 
     /**
      * Render the list of options as `<option>` and `<optgroup>` elements.
@@ -44,49 +44,49 @@ export default class Select extends Input {
      * @param {Object[]} options
      * @returns {ReactElement[]}
      */
-    renderOptions(options) {
-        let elements = [];
+  renderOptions(options) {
+    const elements = [];
 
-        options.forEach(option => {
+    options.forEach((option) => {
             // Optgroup
-            if (option.options) {
-                elements.push(
-                    <optgroup
-                        key={option.label}
-                        label={option.label}
-                        disabled={option.disabled}
-                    >
-                        {this.renderOptions(option.options)}
-                    </optgroup>
+      if (option.options) {
+        elements.push(
+          <optgroup
+            key={option.label}
+            label={option.label}
+            disabled={option.disabled}
+          >
+            {this.renderOptions(option.options)}
+          </optgroup>
                 );
 
             // Option
-            } else {
-                elements.push(
-                    <option
-                        key={option.value}
-                        value={option.value}
-                        disabled={option.disabled}
-                    >
-                        {option.label}
-                    </option>
+      } else {
+        elements.push(
+          <option
+            key={option.value}
+            value={option.value}
+            disabled={option.disabled}
+          >
+            {option.label}
+          </option>
                 );
-            }
-        });
+      }
+    });
 
-        return elements;
-    }
+    return elements;
+  }
 
     /**
      * Render the select drop down and generate a list of options.
      *
      * @returns {ReactElement}
      */
-    render() {
-        return (
-            <select {...this.gatherProps()}>
-                {this.renderOptions(this.props.options)}
-            </select>
+  render() {
+    return (
+      <select {...this.gatherProps()}>
+        {this.renderOptions(this.props.options)}
+      </select>
         );
-    }
+  }
 }

@@ -11,48 +11,48 @@ import Label from './Label';
 import MODULE from './module';
 
 export default class Field extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        invalid: false,
-        required: false
-    };
+  static defaultProps = {
+    invalid: false,
+    required: false,
+  };
 
-    static propTypes = {
-        children: PropTypes.node,
-        help: PropTypes.node,
-        inputID: PropTypes.string,
-        invalid: PropTypes.bool,
-        label: PropTypes.node,
-        required: PropTypes.bool
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    help: PropTypes.node,
+    inputID: PropTypes.string,
+    invalid: PropTypes.bool,
+    label: PropTypes.node,
+    required: PropTypes.bool,
+  };
 
     /**
      * Render the form field list item.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <div
-                className={this.formatChildClass('field', {
-                    'is-invalid': props.invalid,
-                    'is-required': props.required
-                })}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.label && (
-                    <Label inputID={props.inputID}>{props.label}</Label>
+    return (
+      <div
+        className={this.formatChildClass('field', {
+          'is-invalid': props.invalid,
+          'is-required': props.required,
+        })}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.label && (
+        <Label inputID={props.inputID}>{props.label}</Label>
                 )}
 
-                {props.children}
+        {props.children}
 
-                {props.help && (
-                    <Help inputID={props.inputID}>{props.help}</Help>
+        {props.help && (
+        <Help inputID={props.inputID}>{props.help}</Help>
                 )}
-            </div>
+      </div>
         );
-    }
+  }
 }

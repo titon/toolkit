@@ -10,36 +10,36 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Item extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
-    static propTypes = {
-        children: PropTypes.node,
-        index: PropTypes.number.isRequired
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+  };
 
     /**
      * Render the individual list item.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props,
-            index = props.index,
-            active = this.getContext().isItemActive(index);
+  render() {
+    let props = this.props,
+      index = props.index,
+      active = this.getContext().isItemActive(index);
 
-        return (
-            <li role="tabpanel"
-                id={this.formatID('carousel-item', index)}
-                className={this.formatChildClass('item', {
-                    'is-active': active
-                })}
-                aria-hidden={!active}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </li>
+    return (
+      <li role="tabpanel"
+        id={this.formatID('carousel-item', index)}
+        className={this.formatChildClass('item', {
+          'is-active': active,
+        })}
+        aria-hidden={!active}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </li>
         );
-    }
+  }
 }

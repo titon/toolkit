@@ -7,6 +7,6 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Form', '3.0.0', {
-    blockClass: 'form',
-    elementClasses: ['actions', 'field', 'field-list', 'help', 'label']
+  blockClass: 'form',
+  elementClasses: ['actions', 'field', 'field-list', 'help', 'label'],
 });

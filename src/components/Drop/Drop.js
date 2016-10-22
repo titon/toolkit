@@ -16,42 +16,42 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Drop extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static childContextTypes = CONTEXT_TYPES;
+  static childContextTypes = CONTEXT_TYPES;
 
-    static propTypes = {
-        ...showHidePropTypes,
-        children: childrenOf(Menu, Toggle)
-    };
+  static propTypes = {
+    ...showHidePropTypes,
+    children: childrenOf(Menu, Toggle),
+  };
 
-    state = {
-        expanded: false
-    };
+  state = {
+    expanded: false,
+  };
 
     /**
      * Define a context that is passed to all children.
      *
      * @returns {Object}
      */
-    getChildContext() {
-        return {
-            [MODULE.contextKey]: {
-                expanded: this.state.expanded,
-                hideMenu: this.hideMenu,
-                showMenu: this.showMenu,
-                toggleMenu: this.toggleMenu,
-                uid: this.getUID()
-            }
-        };
-    }
+  getChildContext() {
+    return {
+      [MODULE.contextKey]: {
+        expanded: this.state.expanded,
+        hideMenu: this.hideMenu,
+        showMenu: this.showMenu,
+        toggleMenu: this.toggleMenu,
+        uid: this.getUID(),
+      },
+    };
+  }
 
     /**
      * Bind handlers before mounting.
      */
-    componentWillMount() {
-        window.addEventListener('click', this.handleOnClickOut);
-    }
+  componentWillMount() {
+    window.addEventListener('click', this.handleOnClickOut);
+  }
 
     /**
      * Only update if the `expanded` state is different.
@@ -60,30 +60,30 @@ export default class Drop extends Component {
      * @param {Object} nextState
      * @returns {Boolean}
      */
-    shouldComponentUpdate(nextProps, nextState) {
-        return (nextState.expanded !== this.state.expanded);
-    }
+  shouldComponentUpdate(nextProps, nextState) {
+    return (nextState.expanded !== this.state.expanded);
+  }
 
     /**
      * Emit `showing` or `hiding` events before rendering.
      */
-    componentWillUpdate() {
-        this.emitEvent(this.state.expanded ? 'hiding' : 'showing');
-    }
+  componentWillUpdate() {
+    this.emitEvent(this.state.expanded ? 'hiding' : 'showing');
+  }
 
     /**
      * Emit `shown` or `hidden` events after rendering.
      */
-    componentDidUpdate() {
-        this.emitEvent(this.state.expanded ? 'shown' : 'hidden');
-    }
+  componentDidUpdate() {
+    this.emitEvent(this.state.expanded ? 'shown' : 'hidden');
+  }
 
     /**
      * Unbind handlers when unmounting.
      */
-    componentWillUnmount() {
-        window.removeEventListener('click', this.handleOnClickOut);
-    }
+  componentWillUnmount() {
+    window.removeEventListener('click', this.handleOnClickOut);
+  }
 
     /**
      * When a click occurs outside the drop container, and the menu is open,
@@ -92,54 +92,54 @@ export default class Drop extends Component {
      * @param {Event} e
      */
     @bind
-    handleOnClickOut(e) {
-        if (this.state.expanded && isOutsideElement(this.refs.container, e.target)) {
-            this.hideMenu();
-        }
+  handleOnClickOut(e) {
+    if (this.state.expanded && isOutsideElement(this.refs.container, e.target)) {
+      this.hideMenu();
     }
+  }
 
     /**
      * Hide the menu by setting the state to closed.
      */
     @bind
-    hideMenu() {
-        this.setState({
-            expanded: false
-        });
-    }
+  hideMenu() {
+    this.setState({
+      expanded: false,
+    });
+  }
 
     /**
      * Show the menu by setting the state to opened.
      */
     @bind
-    showMenu() {
-        this.setState({
-            expanded: true
-        });
-    }
+  showMenu() {
+    this.setState({
+      expanded: true,
+    });
+  }
 
     /**
      * Toggle the open state of the menu.
      */
     @bind
-    toggleMenu() {
-        if (this.state.expanded) {
-            this.hideMenu();
-        } else {
-            this.showMenu();
-        }
+  toggleMenu() {
+    if (this.state.expanded) {
+      this.hideMenu();
+    } else {
+      this.showMenu();
     }
+  }
 
     /**
      * Render the drop container.
      *
      * @returns {ReactElement}
      */
-    render() {
-        return (
-            <div id={this.formatID('drop')} ref="container">
-                {this.props.children}
-            </div>
+  render() {
+    return (
+      <div id={this.formatID('drop')} ref="container">
+        {this.props.children}
+      </div>
         );
-    }
+  }
 }

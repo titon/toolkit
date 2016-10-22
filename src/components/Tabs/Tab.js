@@ -13,16 +13,16 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Tab extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
-    static propTypes = {
-        children: PropTypes.node,
-        fragment: PropTypes.string,
-        index: PropTypes.number.isRequired,
-        onClick: collectionOf.func
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    fragment: PropTypes.string,
+    index: PropTypes.number.isRequired,
+    onClick: collectionOf.func,
+  };
 
     /**
      * Setup the state.
@@ -30,13 +30,13 @@ export default class Tab extends Component {
      * @param {Object} props
      * @param {Object} context
      */
-    constructor(props, context) {
-        super();
+  constructor(props, context) {
+    super();
 
-        this.state = {
-            active: this.getContext(context).isSectionActive(props.index)
-        };
-    }
+    this.state = {
+      active: this.getContext(context).isSectionActive(props.index),
+    };
+  }
 
     /**
      * Determine whether the tab is active not.
@@ -44,11 +44,11 @@ export default class Tab extends Component {
      * @param {Object} nextProps
      * @param {Object} nextContext
      */
-    componentWillReceiveProps(nextProps, nextContext) {
-        this.setState({
-            active: this.getContext(nextContext).isSectionActive(nextProps.index)
-        });
-    }
+  componentWillReceiveProps(nextProps, nextContext) {
+    this.setState({
+      active: this.getContext(nextContext).isSectionActive(nextProps.index),
+    });
+  }
 
     /**
      * Only update if the active state is different.
@@ -57,9 +57,9 @@ export default class Tab extends Component {
      * @param {Object} nextState
      * @returns {Boolean}
      */
-    shouldComponentUpdate(nextProps, nextState) {
-        return (nextState.active !== this.state.active);
-    }
+  shouldComponentUpdate(nextProps, nextState) {
+    return (nextState.active !== this.state.active);
+  }
 
     /**
      * Update the index on the parent component when clicked.
@@ -67,38 +67,38 @@ export default class Tab extends Component {
      * @param {SyntheticEvent} e
      */
     @bind
-    handleOnClick(e) {
-        this.getContext().toggleSection(this.props.index);
-        this.handleEvent('click', e);
-    }
+  handleOnClick(e) {
+    this.getContext().toggleSection(this.props.index);
+    this.handleEvent('click', e);
+  }
 
     /**
      * Render the tabs navigation tab.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props,
-            index = props.index,
-            active = this.state.active;
+  render() {
+    let props = this.props,
+      index = props.index,
+      active = this.state.active;
 
-        return (
-            <li>
-                <button
-                    type="button" role="tab"
-                    id={this.formatID('tabs-tab', index)}
-                    className={this.formatChildClass('tab', {
-                        'is-active': active
-                    })}
-                    aria-controls={this.formatID('tabs-section', index)}
-                    aria-selected={active}
-                    aria-expanded={active}
-                    tabIndex={generateTabIndex(this)}
-                    onClick={this.handleOnClick}
-                >
-                    {props.children}
-                </button>
-            </li>
+    return (
+      <li>
+        <button
+          type="button" role="tab"
+          id={this.formatID('tabs-tab', index)}
+          className={this.formatChildClass('tab', {
+            'is-active': active,
+          })}
+          aria-controls={this.formatID('tabs-section', index)}
+          aria-selected={active}
+          aria-expanded={active}
+          tabIndex={generateTabIndex(this)}
+          onClick={this.handleOnClick}
+        >
+          {props.children}
+        </button>
+      </li>
         );
-    }
+  }
 }

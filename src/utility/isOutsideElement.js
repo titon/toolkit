@@ -12,5 +12,5 @@
  * @returns {Boolean}
  */
 export default function isOutsideElement(element, target) {
-    return (element !== target && !element.contains(target));
+  return (element !== target && !element.contains(target));
 }

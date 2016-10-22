@@ -10,15 +10,15 @@ import Tooltip from './Tooltip';
 import MODULE from './module';
 
 export default class Gate extends BaseGate {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        ...BaseGate.defaultProps,
-        contract: Tooltip
-    };
+  static defaultProps = {
+    ...BaseGate.defaultProps,
+    contract: Tooltip,
+  };
 
-    static propTypes = {
-        ...BaseGate.propTypes,
-        animation: PropTypes.oneOf(['fade', 'from-above', 'from-below', 'flip-rotate'])
-    };
+  static propTypes = {
+    ...BaseGate.propTypes,
+    animation: PropTypes.oneOf(['fade', 'from-above', 'from-below', 'flip-rotate']),
+  };
 }

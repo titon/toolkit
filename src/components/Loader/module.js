@@ -7,6 +7,6 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Loader', '3.0.0', {
-    blockClass: 'loader',
-    elementClasses: ['message', 'spinner']
+  blockClass: 'loader',
+  elementClasses: ['message', 'spinner'],
 });

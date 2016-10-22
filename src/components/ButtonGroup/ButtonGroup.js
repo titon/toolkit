@@ -9,44 +9,44 @@ import Component from '../../Component';
 import MODULE from './module';
 
 export default class ButtonGroup extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        justified: false,
-        label: 'Button Group',
-        vertical: false
-    };
+  static defaultProps = {
+    justified: false,
+    label: 'Button Group',
+    vertical: false,
+  };
 
-    static propTypes = {
-        children: PropTypes.node,
-        justified: PropTypes.bool,
-        label: PropTypes.string,
-        vertical: PropTypes.bool
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    justified: PropTypes.bool,
+    label: PropTypes.string,
+    vertical: PropTypes.bool,
+  };
 
     /**
      * Render the button group as a list of buttons.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <ul
-                role="toolbar"
-                id={this.formatID('button-group')}
-                className={this.formatClass({
-                    ['@justified']: props.justified,
-                    ['@vertical']: props.vertical
-                })}
-                aria-label={props.label}
-                {...this.inheritNativeProps(props)}
-            >
-                {Children.map(props.children, child => (
-                    <li>{child}</li>
+    return (
+      <ul
+        role="toolbar"
+        id={this.formatID('button-group')}
+        className={this.formatClass({
+          '@justified': props.justified,
+          '@vertical': props.vertical,
+        })}
+        aria-label={props.label}
+        {...this.inheritNativeProps(props)}
+      >
+        {Children.map(props.children, child => (
+          <li>{child}</li>
                 ))}
-            </ul>
+      </ul>
         );
-    }
+  }
 }

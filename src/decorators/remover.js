@@ -17,20 +17,19 @@ import getValueFunc from './helpers/getValueFunc';
  * @returns {Object}
  */
 export default function remover(target, name, descriptor) {
-    checkIsMethod('remover', arguments);
+  checkIsMethod('remover', arguments);
 
-    let func = getValueFunc('remover', descriptor);
+  const func = getValueFunc('remover', descriptor);
 
-    descriptor.value = function removerValue(key) {
-        if (Array.isArray(key)) {
-            key.forEach(k => func.call(this, k));
+  descriptor.value = function removerValue(key) {
+    if (Array.isArray(key)) {
+      key.forEach(k => func.call(this, k));
+    } else {
+      func.call(this, key);
+    }
 
-        } else {
-            func.call(this, key);
-        }
+    return this;
+  };
 
-        return this;
-    };
-
-    return descriptor;
+  return descriptor;
 }

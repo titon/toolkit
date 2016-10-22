@@ -7,6 +7,6 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Checkbox', '3.0.0', {
-    blockClass: 'checkbox',
-    elementClasses: ['toggle']
+  blockClass: 'checkbox',
+  elementClasses: ['toggle'],
 });

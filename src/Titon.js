@@ -9,37 +9,37 @@ import flags from './flags';
 const Titon = Object.freeze({
 
     /** Build date hash. */
-    build: '%build%',
+  build: '%build%',
 
     /** Runtime flags. */
-    flags,
+  flags,
 
     /** Configurable options. */
-    options: {
+  options: {
         // Prefix prepended to every cookie
-        cookiePrefix: 'titon.',
+    cookiePrefix: 'titon.',
 
         // Global debugging
-        debug: false,
+    debug: false,
 
         // BEM element separator
-        elementSeparator: '__',
+    elementSeparator: '__',
 
         // Logger function that handles invariants
-        logger() {},
+    logger() {},
 
         // BEM modifier separator
-        modifierSeparator: '--',
+    modifierSeparator: '--',
 
         // CSS class namespace
-        namespace: '',
+    namespace: '',
 
         // Style states
-        states: ['info', 'debug', 'warning', 'error', 'success']
-    },
+    states: ['info', 'debug', 'warning', 'error', 'success'],
+  },
 
     /** Current version. */
-    version: '%version%'
+  version: '%version%',
 });
 
 export default Titon;

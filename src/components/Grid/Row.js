@@ -12,15 +12,15 @@ import childrenOf from '../../prop-types/childrenOf';
 import MODULE from './module';
 
 export default function Row({ children }) {
-    return (
-        <div className={MODULE.classNames.row}>
-            {children}
-        </div>
+  return (
+    <div className={MODULE.classNames.row}>
+      {children}
+    </div>
     );
 }
 
 Row.module = MODULE;
 
 Row.propTypes = {
-    children: childrenOf(Col)
+  children: childrenOf(Col),
 };

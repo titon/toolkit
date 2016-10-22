@@ -11,32 +11,32 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Toggle extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
-    static propTypes = {
-        children: PropTypes.node,
-        side: PropTypes.oneOf(['left', 'right']).isRequired
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    side: PropTypes.oneOf(['left', 'right']).isRequired,
+  };
 
     /**
      * Handle the display of which off canvas sidebar to toggle.
      */
     @bind
-    handleOnClick() {
-        this.getContext().toggleSidebar(this.props.side);
-    }
+  handleOnClick() {
+    this.getContext().toggleSidebar(this.props.side);
+  }
 
     /**
      * Render the child and wrap any `onClick` event handler.
      *
      * @returns {ReactElement}
      */
-    render() {
-        return this.transferToChild(this.props.children, {
-            className: this.getContext().isSidebarActive(this.props.side) ? 'is-active' : '',
-            onClick: this.handleOnClick
-        });
-    }
+  render() {
+    return this.transferToChild(this.props.children, {
+      className: this.getContext().isSidebarActive(this.props.side) ? 'is-active' : '',
+      onClick: this.handleOnClick,
+    });
+  }
 }

@@ -17,26 +17,26 @@ import checkIsMethod from './helpers/checkIsMethod';
  * @returns {Object}
  */
 export default function profile(target, name, descriptor) {
-    checkIsMethod('profile', arguments);
+  checkIsMethod('profile', arguments);
 
-    ['get', 'set', 'value'].forEach(method => {
-        if (typeof descriptor[method] === 'function') {
-            let oldMethod = descriptor[method];
+  ['get', 'set', 'value'].forEach((method) => {
+    if (typeof descriptor[method] === 'function') {
+      const oldMethod = descriptor[method];
 
-            descriptor[method] = function profileDescriptor() {
-                let start = Date.now(),
-                    result = oldMethod.apply(this, arguments),
-                    stop = (Date.now() - start).toFixed(4);
+      descriptor[method] = function profileDescriptor() {
+        let start = Date.now(),
+          result = oldMethod.apply(this, arguments),
+          stop = (Date.now() - start).toFixed(4);
 
-                console.info(
+        console.info(
                     `${name}() took ${stop} milliseconds to run using the arguments:`,
                     arguments
                 );
 
-                return result;
-            };
-        }
-    });
+        return result;
+      };
+    }
+  });
 
-    return descriptor;
+  return descriptor;
 }

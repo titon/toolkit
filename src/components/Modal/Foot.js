@@ -9,23 +9,23 @@ import Component from '../../Component';
 import MODULE from './module';
 
 export default class Foot extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
     /**
      * Render the modal inner foot.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <div
-                className={this.formatChildClass('foot')}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </div>
+    return (
+      <div
+        className={this.formatChildClass('foot')}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </div>
         );
-    }
+  }
 }

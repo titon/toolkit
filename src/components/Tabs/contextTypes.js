@@ -8,15 +8,15 @@ import { PropTypes } from 'react';
 import MODULE from './module';
 
 export const shape = Object.freeze({
-    activeIndex: PropTypes.number.isRequired,
-    hideSection: PropTypes.func.isRequired,
-    isSectionActive: PropTypes.func.isRequired,
-    isSectionCollapsible: PropTypes.func.isRequired,
-    showSection: PropTypes.func.isRequired,
-    toggleSection: PropTypes.func.isRequired,
-    uid: PropTypes.string.isRequired
+  activeIndex: PropTypes.number.isRequired,
+  hideSection: PropTypes.func.isRequired,
+  isSectionActive: PropTypes.func.isRequired,
+  isSectionCollapsible: PropTypes.func.isRequired,
+  showSection: PropTypes.func.isRequired,
+  toggleSection: PropTypes.func.isRequired,
+  uid: PropTypes.string.isRequired,
 });
 
 export default {
-    [MODULE.contextKey]: PropTypes.shape(shape).isRequired
+  [MODULE.contextKey]: PropTypes.shape(shape).isRequired,
 };

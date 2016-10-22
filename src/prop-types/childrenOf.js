@@ -15,40 +15,40 @@ import 'core-js/modules/es6.weak-set';
  * @returns {Function}
  */
 export default function childrenOf(...types) {
-    let components = new WeakSet(),
-        tags = new Map();
+  let components = new WeakSet(),
+    tags = new Map();
 
-    types.forEach(type => {
+  types.forEach((type) => {
         // HTML tags
-        if (typeof type === 'string') {
-            tags.set(type, type);
+    if (typeof type === 'string') {
+      tags.set(type, type);
 
         // React components
+    } else {
+      components.add(type);
+    }
+  });
+
+  return function childrenPropType(props, propName, componentName) {
+    try {
+      Children.forEach(props[propName], (child) => {
+        let passed = false,
+          type = child.type;
+
+        if (typeof type === 'string') {
+          passed = tags.has(type);
         } else {
-            components.add(type);
+          passed = components.has(type);
+          type = type.name;
         }
-    });
 
-    return function childrenPropType(props, propName, componentName) {
-        try {
-            Children.forEach(props[propName], child => {
-                let passed = false,
-                    type = child.type;
-
-                if (typeof type === 'string') {
-                    passed = tags.has(type);
-                } else {
-                    passed = components.has(type);
-                    type = type.name;
-                }
-
-                invariant(passed, '`%s` does not allow children of type `%s`.',
+        invariant(passed, '`%s` does not allow children of type `%s`.',
                     componentName, type);
-            });
-        } catch (e) {
-            return e;
-        }
+      });
+    } catch (e) {
+      return e;
+    }
 
-        return null;
-    };
+    return null;
+  };
 }

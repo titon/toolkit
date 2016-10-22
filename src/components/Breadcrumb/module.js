@@ -7,6 +7,6 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Breadcrumb', '3.0.0', {
-    blockClass: 'breadcrumb',
-    elementClasses: ['item']
+  blockClass: 'breadcrumb',
+  elementClasses: ['item'],
 });

@@ -7,6 +7,6 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Modal', '3.0.0', {
-    blockClass: 'modal',
-    elementClasses: ['head', 'body', 'foot', 'gate', 'outer', 'inner', 'close']
+  blockClass: 'modal',
+  elementClasses: ['head', 'body', 'foot', 'gate', 'outer', 'inner', 'close'],
 });

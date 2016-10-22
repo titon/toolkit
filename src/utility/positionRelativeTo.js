@@ -24,76 +24,70 @@ export default function positionRelativeTo(
     relativeTo,
     baseOffset = { left: 0, top: 0 }
 ) {
-    let { top, left } = baseOffset,
-        [ edgeY, edgeX ] = position.split('-'),
-        srcSize = sourceElement.getBoundingClientRect(),
-        srcWidth = srcSize.width,
-        srcHeight = srcSize.height,
-        relSize = {},
-        relTop = 0,
-        relHeight = 0,
-        relWidth = 0;
+  let { top, left } = baseOffset,
+    [ edgeY, edgeX ] = position.split('-'),
+    srcSize = sourceElement.getBoundingClientRect(),
+    srcWidth = srcSize.width,
+    srcHeight = srcSize.height,
+    relSize = {},
+    relTop = 0,
+    relHeight = 0,
+    relWidth = 0;
 
     // Fix the x axis
-    if (edgeY === 'left' || edgeY === 'right') {
-        edgeX = edgeY;
-        edgeY = null;
-    }
+  if (edgeY === 'left' || edgeY === 'right') {
+    edgeX = edgeY;
+    edgeY = null;
+  }
 
     // If an event is used, position it near the mouse
-    if (relativeTo.preventDefault) {
-        top += relativeTo.pageY;
-        left += relativeTo.pageX;
+  if (relativeTo.preventDefault) {
+    top += relativeTo.pageY;
+    left += relativeTo.pageX;
 
     // Else position it relative to the element
-    } else {
-        relSize = relativeTo.getBoundingClientRect();
-        relHeight = relSize.height;
-        relWidth = relSize.width;
-        relTop = relSize.top + window.scrollY;
+  } else {
+    relSize = relativeTo.getBoundingClientRect();
+    relHeight = relSize.height;
+    relWidth = relSize.width;
+    relTop = relSize.top + window.scrollY;
 
-        top += relTop;
-        left += relSize.left;
-    }
+    top += relTop;
+    left += relSize.left;
+  }
 
     // Shift around based on edge positioning
-    if (edgeY === 'top') {
-        top -= srcHeight;
+  if (edgeY === 'top') {
+    top -= srcHeight;
+  } else if (edgeY === 'bottom') {
+    top += relHeight;
+  } else {
+    top -= Math.round((srcHeight / 2) - (relHeight / 2));
+  }
 
-    } else if (edgeY === 'bottom') {
-        top += relHeight;
-
-    } else {
-        top -= Math.round((srcHeight / 2) - (relHeight / 2));
-    }
-
-    if (edgeX === 'left') {
-        left -= srcWidth;
-
-    } else if (edgeX === 'right') {
-        left += relWidth;
-
-    } else {
-        left -= Math.round((srcWidth / 2) - (relWidth / 2));
-    }
+  if (edgeX === 'left') {
+    left -= srcWidth;
+  } else if (edgeX === 'right') {
+    left += relWidth;
+  } else {
+    left -= Math.round((srcWidth / 2) - (relWidth / 2));
+  }
 
     // Shift again to keep it within the viewport
-    if (left < 0) {
-        left = 0;
+  if (left < 0) {
+    left = 0;
+  } else if ((left + srcWidth) > window.outerWidth) {
+    left = window.outerWidth - srcWidth;
+  }
 
-    } else if ((left + srcWidth) > window.outerWidth) {
-        left = window.outerWidth - srcWidth;
-    }
+  if (top < 0) {
+    top = 0;
+  } else if ((top + srcHeight) > (window.outerHeight + window.scrollY)) {
+    top = relTop - srcHeight;
+  }
 
-    if (top < 0) {
-        top = 0;
-
-    } else if ((top + srcHeight) > (window.outerHeight + window.scrollY)) {
-        top = relTop - srcHeight;
-    }
-
-    return {
-        left,
-        top
-    };
+  return {
+    left,
+    top,
+  };
 }

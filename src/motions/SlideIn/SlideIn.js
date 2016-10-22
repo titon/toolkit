@@ -10,21 +10,19 @@ import Component from '../../Component';
 import { axisPositions } from '../../propTypes';
 
 export default class SlideIn extends Component {
-    static propTypes = {
-        direction: axisPositions.isRequired
-    };
+  static propTypes = {
+    direction: axisPositions.isRequired,
+  };
 
-    handleOnLeave() {
+  handleOnLeave() {
 
-    }
+  }
 
-    render() {
-        return (
-            <TransitionMotion
-                willLeave={this.handleOnLeave}
-            >
-
-            </TransitionMotion>
+  render() {
+    return (
+      <TransitionMotion
+        willLeave={this.handleOnLeave}
+      />
         );
-    }
+  }
 }

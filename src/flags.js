@@ -24,10 +24,10 @@ export const LTR = !RTL;
 
 // Export as an object
 export default Object.freeze({
-    landscape: LANDSCAPE,
-    ltr: LTR,
-    portrait: PORTRAIT,
-    retina: RETINA,
-    rtl: RTL,
-    touch: TOUCH
+  landscape: LANDSCAPE,
+  ltr: LTR,
+  portrait: PORTRAIT,
+  retina: RETINA,
+  rtl: RTL,
+  touch: TOUCH,
 });

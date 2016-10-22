@@ -9,35 +9,35 @@ import Input from '../Input/Input';
 import MODULE from './module';
 
 export default class Checkbox extends Input {
-    static module = MODULE;
+  static module = MODULE;
 
     /**
      * Render the custom checkbox.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props,
-            inputProps = this.gatherProps(false),
-            stateClasses = this.gatherStateClasses();
+  render() {
+    let props = this.props,
+      inputProps = this.gatherProps(false),
+      stateClasses = this.gatherStateClasses();
 
-        return (
-            <span
-                id={this.formatID('checkbox', inputProps.id)}
-                className={this.formatClass(stateClasses)}
-                aria-checked={this.state.checked}
-                aria-disabled={props.disabled}
-                {...this.inheritNativeProps(props)}
-            >
-                <input {...inputProps} />
+    return (
+      <span
+        id={this.formatID('checkbox', inputProps.id)}
+        className={this.formatClass(stateClasses)}
+        aria-checked={this.state.checked}
+        aria-disabled={props.disabled}
+        {...this.inheritNativeProps(props)}
+      >
+        <input {...inputProps} />
 
-                <label
-                    htmlFor={inputProps.id}
-                    className={this.formatChildClass('toggle', stateClasses)}
-                />
+        <label
+          htmlFor={inputProps.id}
+          className={this.formatChildClass('toggle', stateClasses)}
+        />
 
-                {props.children}
-            </span>
+        {props.children}
+      </span>
         );
-    }
+  }
 }

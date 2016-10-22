@@ -12,50 +12,50 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Group extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static childContextTypes = CONTEXT_TYPES;
+  static childContextTypes = CONTEXT_TYPES;
 
-    static defaultProps = {
-        defaultChecked: ''
-    };
+  static defaultProps = {
+    defaultChecked: '',
+  };
 
-    static propTypes = {
-        defaultChecked: PropTypes.string,
-        name: PropTypes.string.isRequired
-    };
+  static propTypes = {
+    defaultChecked: PropTypes.string,
+    name: PropTypes.string.isRequired,
+  };
 
     /**
      * Setup state.
      *
      * @param {Object} props
      */
-    constructor(props) {
-        super();
+  constructor(props) {
+    super();
 
-        this.state = {
-            value: props.defaultChecked
-        };
-    }
+    this.state = {
+      value: props.defaultChecked,
+    };
+  }
 
     /**
      * Define a context that is passed to all children.
      *
      * @returns {Object}
      */
-    getChildContext() {
-        let name = this.props.name;
+  getChildContext() {
+    const name = this.props.name;
 
-        return {
-            [MODULE.contextKey]: {
-                checkedValue: this.state.value,
-                inputID: formatInputName(name),
-                inputName: name,
-                selectValue: this.selectValue,
-                uid: this.getUID()
-            }
-        };
-    }
+    return {
+      [MODULE.contextKey]: {
+        checkedValue: this.state.value,
+        inputID: formatInputName(name),
+        inputName: name,
+        selectValue: this.selectValue,
+        uid: this.getUID(),
+      },
+    };
+  }
 
     /**
      * Only update if the selected value changes.
@@ -64,9 +64,9 @@ export default class Group extends Component {
      * @param {Object} nextState
      * @returns {Boolean}
      */
-    shouldComponentUpdate(nextProps, nextState) {
-        return (nextState.value !== this.state.value);
-    }
+  shouldComponentUpdate(nextProps, nextState) {
+    return (nextState.value !== this.state.value);
+  }
 
     /**
      * Select a value to mark a radio as checked.
@@ -74,28 +74,28 @@ export default class Group extends Component {
      * @param {String} value
      */
     @bind
-    selectValue(value) {
-        this.setState({
-            value
-        });
-    }
+  selectValue(value) {
+    this.setState({
+      value,
+    });
+  }
 
     /**
      * Render a simple radio group container.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <div
-                id={this.formatID('radio-group')}
-                className={this.formatChildClass('group')}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </div>
+    return (
+      <div
+        id={this.formatID('radio-group')}
+        className={this.formatChildClass('group')}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </div>
         );
-    }
+  }
 }

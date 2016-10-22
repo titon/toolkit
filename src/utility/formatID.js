@@ -11,5 +11,5 @@
  * @returns {String}
  */
 export default function formatID(...params) {
-    return params.join('-').trim().replace(/[^a-zA-Z0-9\-_:\.]/, '-');
+  return params.join('-').trim().replace(/[^a-zA-Z0-9\-_:\.]/, '-');
 }

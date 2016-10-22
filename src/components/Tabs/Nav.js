@@ -12,32 +12,32 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Nav extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
-    static propTypes = {
-        children: childrenOf(Tab)
-    };
+  static propTypes = {
+    children: childrenOf(Tab),
+  };
 
     /**
      * Render the tabs navigation list.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <nav
-                id={this.formatID('tabs-nav')}
-                className={this.formatChildClass('nav')}
-                {...this.inheritNativeProps(props)}
-            >
-                <ol>
-                    {props.children}
-                </ol>
-            </nav>
+    return (
+      <nav
+        id={this.formatID('tabs-nav')}
+        className={this.formatChildClass('nav')}
+        {...this.inheritNativeProps(props)}
+      >
+        <ol>
+          {props.children}
+        </ol>
+      </nav>
         );
-    }
+  }
 }

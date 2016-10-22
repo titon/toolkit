@@ -10,22 +10,22 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Spacer extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
     /**
      * Render the pagination item spacer.
      *
      * @returns {ReactElement}
      */
-    render() {
-        return (
-            <li>
-                <span className={this.formatChildClass('spacer')}>
-                    {this.props.children}
-                </span>
-            </li>
+  render() {
+    return (
+      <li>
+        <span className={this.formatChildClass('spacer')}>
+          {this.props.children}
+        </span>
+      </li>
         );
-    }
+  }
 }

@@ -13,7 +13,7 @@ import { PropTypes } from 'react';
  * @returns {React.PropTypes.oneOfType}
  */
 function collectionOf(propType) {
-    return PropTypes.oneOfType([propType, PropTypes.arrayOf(propType)]);
+  return PropTypes.oneOfType([propType, PropTypes.arrayOf(propType)]);
 }
 
 // Presets

@@ -9,43 +9,43 @@ import Component from '../../Component';
 import MODULE from './module';
 
 export default class Form extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        inline: false,
-        method: 'get',
-        multipart: false
-    };
+  static defaultProps = {
+    inline: false,
+    method: 'get',
+    multipart: false,
+  };
 
-    static propTypes = {
-        action: PropTypes.string.isRequired,
-        children: PropTypes.node,
-        inline: PropTypes.bool,
-        method: PropTypes.oneOf(['get', 'post', 'put']),
-        multipart: PropTypes.bool
-    };
+  static propTypes = {
+    action: PropTypes.string.isRequired,
+    children: PropTypes.node,
+    inline: PropTypes.bool,
+    method: PropTypes.oneOf(['get', 'post', 'put']),
+    multipart: PropTypes.bool,
+  };
 
     /**
      * Render the form wrapper.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props,
-            encType = props.multipart ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
+  render() {
+    let props = this.props,
+      encType = props.multipart ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
 
-        return (
-            <form
-                action={props.action}
-                method={props.method}
-                encType={encType}
-                className={this.formatClass({
-                    '@inline': props.inline
-                })}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </form>
+    return (
+      <form
+        action={props.action}
+        method={props.method}
+        encType={encType}
+        className={this.formatClass({
+          '@inline': props.inline,
+        })}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </form>
         );
-    }
+  }
 }

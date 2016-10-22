@@ -9,37 +9,37 @@ import Component from '../../Component';
 import MODULE from './module';
 
 export default class Item extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        complete: false
-    };
+  static defaultProps = {
+    complete: false,
+  };
 
-    static propTypes = {
-        children: PropTypes.node,
-        complete: PropTypes.bool
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    complete: PropTypes.bool,
+  };
 
     /**
      * Render the individual step item.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <li>
-                <button
-                    type="button" role="button"
-                    className={this.formatChildClass('item', {
-                        'is-complete': props.complete
-                    })}
-                    {...this.inheritNativeProps(props)}
-                >
-                    {props.children}
-                </button>
-            </li>
+    return (
+      <li>
+        <button
+          type="button" role="button"
+          className={this.formatChildClass('item', {
+            'is-complete': props.complete,
+          })}
+          {...this.inheritNativeProps(props)}
+        >
+          {props.children}
+        </button>
+      </li>
         );
-    }
+  }
 }

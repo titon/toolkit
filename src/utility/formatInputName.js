@@ -11,7 +11,7 @@
  * @returns {String}
  */
 export default function formatInputName(name) {
-    return (name || '')
+  return (name || '')
         .replace('[]', '')
         .replace('[', '-')
         .replace('][', '-')

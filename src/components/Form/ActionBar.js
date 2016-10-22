@@ -9,23 +9,23 @@ import Component from '../../Component';
 import MODULE from './module';
 
 export default class ActionBar extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
     /**
      * Render the form action bar.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <div
-                className={this.formatChildClass('actions')}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </div>
+    return (
+      <div
+        className={this.formatChildClass('actions')}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </div>
         );
-    }
+  }
 }

@@ -7,6 +7,6 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Steps', '3.0.0', {
-    blockClass: 'steps',
-    elementClasses: ['item']
+  blockClass: 'steps',
+  elementClasses: ['item'],
 });

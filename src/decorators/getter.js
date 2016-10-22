@@ -17,22 +17,21 @@ import getValueFunc from './helpers/getValueFunc';
  * @returns {Object}
  */
 export default function getter(target, name, descriptor) {
-    checkIsMethod('getter', arguments);
+  checkIsMethod('getter', arguments);
 
-    let func = getValueFunc('getter', descriptor);
+  const func = getValueFunc('getter', descriptor);
 
-    descriptor.value = function getterValue(key) {
-        let value = {};
+  descriptor.value = function getterValue(key) {
+    let value = {};
 
-        if (Array.isArray(key)) {
-            key.forEach(k => value[k] = func.call(this, k));
+    if (Array.isArray(key)) {
+      key.forEach(k => value[k] = func.call(this, k));
+    } else {
+      value = func.call(this, key);
+    }
 
-        } else {
-            value = func.call(this, key);
-        }
+    return value;
+  };
 
-        return value;
-    };
-
-    return descriptor;
+  return descriptor;
 }

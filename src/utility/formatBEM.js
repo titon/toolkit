@@ -28,26 +28,25 @@ import Titon from '../Titon';
  * @returns {String}
  */
 export default function formatBEM(block, element = '', modifier = '') {
-    if (Array.isArray(block)) {
-        return formatBEM(...block);
+  if (Array.isArray(block)) {
+    return formatBEM(...block);
+  } else if (typeof block === 'object') {
+    return formatBEM(block.block, block.element, block.modifier);
+  }
 
-    } else if (typeof block === 'object') {
-        return formatBEM(block.block, block.element, block.modifier);
+  let className = block || '';
+
+  if (element) {
+    if (className) {
+      className += Titon.options.elementSeparator;
     }
 
-    let className = block || '';
+    className += element;
+  }
 
-    if (element) {
-        if (className) {
-            className += Titon.options.elementSeparator;
-        }
+  if (modifier && className) {
+    className += Titon.options.modifierSeparator + modifier;
+  }
 
-        className += element;
-    }
-
-    if (modifier && className) {
-        className += Titon.options.modifierSeparator + modifier;
-    }
-
-    return className;
+  return className;
 }

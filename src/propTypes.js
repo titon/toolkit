@@ -21,12 +21,12 @@ export const axisPositions = PropTypes.oneOf(['top', 'bottom', 'left', 'right'])
  * @type {Object}
  */
 export const defaultInputProps = {
-    defaultChecked: false,
-    defaultValue: '',
-    disabled: false,
-    multiple: false,
-    readOnly: false,
-    required: false
+  defaultChecked: false,
+  defaultValue: '',
+  disabled: false,
+  multiple: false,
+  readOnly: false,
+  required: false,
 };
 
 /**
@@ -35,8 +35,8 @@ export const defaultInputProps = {
  * @type {Object}
  */
 export const defaultSizeProps = {
-    large: false,
-    small: false
+  large: false,
+  small: false,
 };
 
 /**
@@ -45,16 +45,16 @@ export const defaultSizeProps = {
  * @type {Object}
  */
 export const inputPropTypes = {
-    defaultChecked: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    defaultValue: PropTypes.string,
-    disabled: PropTypes.bool,
-    id: PropTypes.string,
-    multiple: PropTypes.bool,
-    name: PropTypes.string.isRequired,
-    onChanged: collectionOf.func,
-    onChanging: collectionOf.func,
-    readOnly: PropTypes.bool,
-    required: PropTypes.bool
+  defaultChecked: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  defaultValue: PropTypes.string,
+  disabled: PropTypes.bool,
+  id: PropTypes.string,
+  multiple: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+  onChanged: collectionOf.func,
+  onChanging: collectionOf.func,
+  readOnly: PropTypes.bool,
+  required: PropTypes.bool,
 };
 
 /**
@@ -63,9 +63,9 @@ export const inputPropTypes = {
  * @returns {React.PropTypes.shape}
  */
 export const motionSpring = PropTypes.shape({
-    stiffness: PropTypes.number,
-    damping: PropTypes.number,
-    precision: PropTypes.number
+  stiffness: PropTypes.number,
+  damping: PropTypes.number,
+  precision: PropTypes.number,
 });
 
 /**
@@ -74,9 +74,9 @@ export const motionSpring = PropTypes.shape({
  * @returns {React.PropTypes.shape}
  */
 export const optionShape = PropTypes.shape({
-    disabled: PropTypes.bool,
-    label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired
+  disabled: PropTypes.bool,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 });
 
 /**
@@ -85,9 +85,9 @@ export const optionShape = PropTypes.shape({
  * @returns {React.PropTypes.shape}
  */
 export const optionGroupShape = PropTypes.shape({
-    disabled: PropTypes.bool,
-    label: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(optionShape).isRequired
+  disabled: PropTypes.bool,
+  label: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(optionShape).isRequired,
 });
 
 /**
@@ -96,7 +96,7 @@ export const optionGroupShape = PropTypes.shape({
  * @returns {React.PropTypes.arrayOf}
  */
 export const optionList = PropTypes.arrayOf(PropTypes.oneOfType([
-    optionShape, optionGroupShape
+  optionShape, optionGroupShape,
 ]));
 
 /**
@@ -105,9 +105,9 @@ export const optionList = PropTypes.arrayOf(PropTypes.oneOfType([
  * @returns {React.PropTypes.oneOf}
  */
 export const positions = PropTypes.oneOf([
-    'top-left', 'top', 'top-right',
-    'left', 'right',
-    'bottom-left', 'bottom', 'bottom-right'
+  'top-left', 'top', 'top-right',
+  'left', 'right',
+  'bottom-left', 'bottom', 'bottom-right',
 ]);
 
 /**
@@ -116,10 +116,10 @@ export const positions = PropTypes.oneOf([
  * @type {Object}
  */
 export const showHidePropTypes = {
-    onHidden: collectionOf.func,
-    onHiding: collectionOf.func,
-    onShowing: collectionOf.func,
-    onShown: collectionOf.func
+  onHidden: collectionOf.func,
+  onHiding: collectionOf.func,
+  onShowing: collectionOf.func,
+  onShown: collectionOf.func,
 };
 
 /**
@@ -128,8 +128,8 @@ export const showHidePropTypes = {
  * @type {Object}
  */
 export const sizePropTypes = {
-    large: PropTypes.bool,
-    small: PropTypes.bool
+  large: PropTypes.bool,
+  small: PropTypes.bool,
 };
 
 /**

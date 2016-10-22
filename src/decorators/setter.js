@@ -18,20 +18,19 @@ import getValueFunc from './helpers/getValueFunc';
  * @returns {Object}
  */
 export default function setter(target, name, descriptor) {
-    checkIsMethod('setter', arguments);
+  checkIsMethod('setter', arguments);
 
-    let func = getValueFunc('setter', descriptor);
+  const func = getValueFunc('setter', descriptor);
 
-    descriptor.value = function setterValue(key, value) {
-        if (isPlainObject(key)) {
-            Object.keys(key).forEach(k => func.call(this, k, key[k]));
+  descriptor.value = function setterValue(key, value) {
+    if (isPlainObject(key)) {
+      Object.keys(key).forEach(k => func.call(this, k, key[k]));
+    } else if (key) {
+      func.call(this, key, value);
+    }
 
-        } else if (key) {
-            func.call(this, key, value);
-        }
+    return this;
+  };
 
-        return this;
-    };
-
-    return descriptor;
+  return descriptor;
 }

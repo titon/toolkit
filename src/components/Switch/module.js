@@ -7,6 +7,6 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Switch', '3.0.0', {
-    blockClass: 'switch',
-    elementClasses: ['bar', 'toggle']
+  blockClass: 'switch',
+  elementClasses: ['bar', 'toggle'],
 });

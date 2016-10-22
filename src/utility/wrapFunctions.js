@@ -13,12 +13,12 @@ import invariant from './invariant';
  * @returns {Function}
  */
 export default function wrapFunctions(...funcs) {
-    return function wrapFunctionsHandler(...args) {
-        funcs.forEach(func => {
-            invariant((typeof func === 'function'),
+  return function wrapFunctionsHandler(...args) {
+    funcs.forEach((func) => {
+      invariant((typeof func === 'function'),
                 'Value passed to `wrapFunctions()` was not a function.');
 
-            func(...args);
-        });
-    };
+      func(...args);
+    });
+  };
 }

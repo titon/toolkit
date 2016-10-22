@@ -17,17 +17,17 @@ import getValueFunc from './helpers/getValueFunc';
  * @returns {Object}
  */
 export default function suppressErrors(target, name, descriptor) {
-    checkIsMethod('suppressErrors', arguments);
+  checkIsMethod('suppressErrors', arguments);
 
-    let func = getValueFunc('suppressErrors', descriptor);
+  const func = getValueFunc('suppressErrors', descriptor);
 
-    descriptor.value = function suppressErrorsValue() {
-        try {
-            return func.call(this, arguments);
-        } catch (e) {
-            return e;
-        }
-    };
+  descriptor.value = function suppressErrorsValue() {
+    try {
+      return func.call(this, arguments);
+    } catch (e) {
+      return e;
+    }
+  };
 
-    return descriptor;
+  return descriptor;
 }

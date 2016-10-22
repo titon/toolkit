@@ -7,7 +7,7 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Tabs', '3.0.0', {
-    contextKey: 'tabs',
-    blockClass: 'tabs',
-    elementClasses: ['tab', 'nav', 'section']
+  contextKey: 'tabs',
+  blockClass: 'tabs',
+  elementClasses: ['tab', 'nav', 'section'],
 });

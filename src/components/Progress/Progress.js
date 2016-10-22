@@ -11,40 +11,40 @@ import childrenOf from '../../prop-types/childrenOf';
 import MODULE from './module';
 
 export default class Progress extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        max: 100,
-        min: 0,
-        now: 0
-    };
+  static defaultProps = {
+    max: 100,
+    min: 0,
+    now: 0,
+  };
 
-    static propTypes = {
-        children: childrenOf(Bar),
-        max: PropTypes.number.isRequired,
-        min: PropTypes.number.isRequired,
-        now: PropTypes.number.isRequired
-    };
+  static propTypes = {
+    children: childrenOf(Bar),
+    max: PropTypes.number.isRequired,
+    min: PropTypes.number.isRequired,
+    now: PropTypes.number.isRequired,
+  };
 
     /**
      * Render the progress bar.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let { max, min, ...props } = this.props;
+  render() {
+    let { max, min, ...props } = this.props;
 
-        return (
-            <div
-                role="progressbar"
-                className={this.formatClass()}
-                aria-valuemin={min}
-                aria-valuemax={max}
-                aria-valuenow={Math.min(Math.max(props.now, min), max)}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </div>
+    return (
+      <div
+        role="progressbar"
+        className={this.formatClass()}
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={Math.min(Math.max(props.now, min), max)}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </div>
         );
-    }
+  }
 }

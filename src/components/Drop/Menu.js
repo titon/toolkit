@@ -14,52 +14,52 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Menu extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
-    static defaultProps = {
-        direction: 'down',
-        nested: false,
-        reverse: false
-    };
+  static defaultProps = {
+    direction: 'down',
+    nested: false,
+    reverse: false,
+  };
 
-    static propTypes = {
-        children: childrenOf(Divider, Header, Item),
-        direction: PropTypes.oneOf(['up', 'down', 'left', 'right']),
-        nested: PropTypes.bool,
-        reverse: PropTypes.bool
-    };
+  static propTypes = {
+    children: childrenOf(Divider, Header, Item),
+    direction: PropTypes.oneOf(['up', 'down', 'left', 'right']),
+    nested: PropTypes.bool,
+    reverse: PropTypes.bool,
+  };
 
     /**
      * Render the drop menu.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let { direction, ...props } = this.props,
-            { expanded } = this.getContext();
+  render() {
+    let { direction, ...props } = this.props,
+      { expanded } = this.getContext();
 
-        return (
-            <div
-                role="menu"
-                id={props.nested ? null : this.formatID('drop-menu')}
-                className={this.formatClass({
-                    ['@down']: (direction === 'down'),
-                    ['@left']: (direction === 'left'),
-                    ['@right']: (direction === 'right'),
-                    ['@up']: (direction === 'up'),
-                    'is-branch': props.nested,
-                    'is-expanded': (!props.nested && expanded),
-                    'is-root': !props.nested,
-                    'reverse-align': props.reverse
-                })}
-                {...this.inheritNativeProps(props)}
-            >
-                <ul>
-                    {props.children}
-                </ul>
-            </div>
+    return (
+      <div
+        role="menu"
+        id={props.nested ? null : this.formatID('drop-menu')}
+        className={this.formatClass({
+          '@down': (direction === 'down'),
+          '@left': (direction === 'left'),
+          '@right': (direction === 'right'),
+          '@up': (direction === 'up'),
+          'is-branch': props.nested,
+          'is-expanded': (!props.nested && expanded),
+          'is-root': !props.nested,
+          'reverse-align': props.reverse,
+        })}
+        {...this.inheritNativeProps(props)}
+      >
+        <ul>
+          {props.children}
+        </ul>
+      </div>
         );
-    }
+  }
 }

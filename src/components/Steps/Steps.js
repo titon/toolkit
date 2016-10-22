@@ -11,36 +11,36 @@ import childrenOf from '../../prop-types/childrenOf';
 import MODULE from './module';
 
 export default class Steps extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        label: 'Stepped Navigation'
-    };
+  static defaultProps = {
+    label: 'Stepped Navigation',
+  };
 
-    static propTypes = {
-        children: childrenOf(Item),
-        label: PropTypes.string
-    };
+  static propTypes = {
+    children: childrenOf(Item),
+    label: PropTypes.string,
+  };
 
     /**
      * Render the steps wrapper.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <nav
-                role="navigation"
-                className={this.formatClass()}
-                aria-label={props.label}
-                {...this.inheritNativeProps(props)}
-            >
-                <ol>
-                    {props.children}
-                </ol>
-            </nav>
+    return (
+      <nav
+        role="navigation"
+        className={this.formatClass()}
+        aria-label={props.label}
+        {...this.inheritNativeProps(props)}
+      >
+        <ol>
+          {props.children}
+        </ol>
+      </nav>
         );
-    }
+  }
 }

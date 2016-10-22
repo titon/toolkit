@@ -10,13 +10,13 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Target extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
-    state = {
-        expanded: false
-    };
+  state = {
+    expanded: false,
+  };
 
     /**
      * Determine whether the mask is expanded or not.
@@ -24,11 +24,11 @@ export default class Target extends Component {
      * @param {Object} nextProps
      * @param {Object} nextContext
      */
-    componentWillReceiveProps(nextProps, nextContext) {
-        this.setState({
-            expanded: this.getContext(nextContext).expanded
-        });
-    }
+  componentWillReceiveProps(nextProps, nextContext) {
+    this.setState({
+      expanded: this.getContext(nextContext).expanded,
+    });
+  }
 
     /**
      * Only update if the `expanded` state is different.
@@ -37,31 +37,31 @@ export default class Target extends Component {
      * @param {Object} nextState
      * @returns {Boolean}
      */
-    shouldComponentUpdate(nextProps, nextState) {
-        return (nextState.expanded !== this.state.expanded);
-    }
+  shouldComponentUpdate(nextProps, nextState) {
+    return (nextState.expanded !== this.state.expanded);
+  }
 
     /**
      * Render the mask target by transferring state to the child.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props,
-            expanded = this.state.expanded;
+  render() {
+    let props = this.props,
+      expanded = this.state.expanded;
 
-        return (
-            <div
-                id={this.formatID('mask-target')}
-                className={this.formatChildClass('target', {
-                    'is-masked': expanded
-                })}
-                aria-controls={this.formatID('mask-overlay')}
-                aria-expanded={expanded}
-            >
-                {props.children}
-            </div>
+    return (
+      <div
+        id={this.formatID('mask-target')}
+        className={this.formatChildClass('target', {
+          'is-masked': expanded,
+        })}
+        aria-controls={this.formatID('mask-overlay')}
+        aria-expanded={expanded}
+      >
+        {props.children}
+      </div>
         );
-    }
+  }
 
 }

@@ -11,7 +11,7 @@ import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
 import 'core-js/modules/es6.weak-map';
 
-let onceCache = new WeakMap();
+const onceCache = new WeakMap();
 
 /**
  * The `once` decorator will wrap a method and only execute it once.
@@ -24,36 +24,36 @@ let onceCache = new WeakMap();
  * @returns {Object}
  */
 export default function once(target, name, descriptor) {
-    checkIsMethod('once', arguments);
+  checkIsMethod('once', arguments);
 
-    let func = getValueFunc('once', descriptor),
-        response = null;
+  let func = getValueFunc('once', descriptor),
+    response = null;
 
     /**
      * @param {Event} event
      * @returns {*}
      */
-    function onceDecorator(event) {
-        if (onceCache.has(this)) {
-            return onceCache.get(this);
-        }
+  function onceDecorator(event) {
+    if (onceCache.has(this)) {
+      return onceCache.get(this);
+    }
 
         // Execute the original function and store its response
-        response = func.apply(this, arguments);
-        onceCache.set(this, response);
+    response = func.apply(this, arguments);
+    onceCache.set(this, response);
 
         // If we are dealing with an event
         // Let's attempt to remove the event listener
-        try {
-            checkIsEvent('once', event);
-            event.target.removeEventListener(event.type, onceDecorator);
-            onceCache.remove(this);
-        } catch (e) {}
+    try {
+      checkIsEvent('once', event);
+      event.target.removeEventListener(event.type, onceDecorator);
+      onceCache.remove(this);
+    } catch (e) {}
 
-        return response;
-    }
+    return response;
+  }
 
-    descriptor.value = onceDecorator;
+  descriptor.value = onceDecorator;
 
-    return descriptor;
+  return descriptor;
 }

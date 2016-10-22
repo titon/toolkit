@@ -16,11 +16,11 @@ import throttler from 'lodash.throttle';
  * @returns {Function}
  */
 export default function throttle(wait = 150) {
-    return function throttleDecorator(target, name, descriptor) {
-        checkIsMethod('throttle', arguments);
+  return function throttleDecorator(target, name, descriptor) {
+    checkIsMethod('throttle', arguments);
 
-        descriptor.value = throttler(getValueFunc('throttle', descriptor), wait);
+    descriptor.value = throttler(getValueFunc('throttle', descriptor), wait);
 
-        return descriptor;
-    };
+    return descriptor;
+  };
 }

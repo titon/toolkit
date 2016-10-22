@@ -8,8 +8,8 @@ import React from 'react';
 import Button from './Button';
 
 export default class Submit extends Button {
-    static defaultProps = {
-        ...Button.defaultProps,
-        type: 'submit'
-    };
+  static defaultProps = {
+    ...Button.defaultProps,
+    type: 'submit',
+  };
 }

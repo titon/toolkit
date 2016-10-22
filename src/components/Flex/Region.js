@@ -13,32 +13,32 @@ import formatClass from '../../utility/formatClass';
 import MODULE from './module';
 
 export default function Region(props) {
-    return (
-        <div
-            className={formatClass(MODULE.classNames.region, {
-                '@grid': props.grid,
-                '@wrap': props.wrap,
-                ['@' + props.orientation]: props.orientation,
-                ['flow-' + props.flow]: props.flow
-            })}
-            aria-orientation={props.orientation}
-        >
-            {props.children}
-        </div>
+  return (
+    <div
+      className={formatClass(MODULE.classNames.region, {
+        '@grid': props.grid,
+        '@wrap': props.wrap,
+        [`@${props.orientation}`]: props.orientation,
+        [`flow-${props.flow}`]: props.flow,
+      })}
+      aria-orientation={props.orientation}
+    >
+      {props.children}
+    </div>
     );
 }
 
 Region.module = MODULE;
 
 Region.defaultProps = {
-    grid: false,
-    wrap: false
+  grid: false,
+  wrap: false,
 };
 
 Region.propTypes = {
-    children: childrenOf(Block),
-    flow: PropTypes.oneOf(['top', 'left', 'bottom', 'right', 'center', 'between', 'around']),
-    grid: PropTypes.bool,
-    orientation: PropTypes.oneOf(['horizontal', 'vertical']),
-    wrap: PropTypes.bool
+  children: childrenOf(Block),
+  flow: PropTypes.oneOf(['top', 'left', 'bottom', 'right', 'center', 'between', 'around']),
+  grid: PropTypes.bool,
+  orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+  wrap: PropTypes.bool,
 };

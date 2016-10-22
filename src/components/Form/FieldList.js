@@ -9,25 +9,25 @@ import Component from '../../Component';
 import MODULE from './module';
 
 export default class FieldList extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
     /**
      * Render the form field list wrapper.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <ol
-                className={this.formatChildClass('field-list')}
-                {...this.inheritNativeProps(props)}
-            >
-                {Children.map(props.children, child => (
-                    <li>{child}</li>
+    return (
+      <ol
+        className={this.formatChildClass('field-list')}
+        {...this.inheritNativeProps(props)}
+      >
+        {Children.map(props.children, child => (
+          <li>{child}</li>
                 ))}
-            </ol>
+      </ol>
         );
-    }
+  }
 }

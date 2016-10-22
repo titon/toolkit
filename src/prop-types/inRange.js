@@ -12,15 +12,15 @@
  * @returns {Function}
  */
 function inRange(min, max) {
-    return function rangePropType(props, propName, componentName) {
-        let value = props[propName];
+  return function rangePropType(props, propName, componentName) {
+    const value = props[propName];
 
-        if (value < min || value > max) {
-            return new Error(`\`${componentName}\` requires a number between ${min} and ${max}.`);
-        }
+    if (value < min || value > max) {
+      return new Error(`\`${componentName}\` requires a number between ${min} and ${max}.`);
+    }
 
-        return null;
-    };
+    return null;
+  };
 }
 
 // Presets

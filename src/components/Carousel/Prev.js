@@ -12,14 +12,14 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Prev extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
-    static propTypes = {
-        children: PropTypes.node,
-        onClick: collectionOf.func
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    onClick: collectionOf.func,
+  };
 
     /**
      * Handles clicking the previous button.
@@ -27,28 +27,28 @@ export default class Prev extends Component {
      * @param {SyntheticEvent} e
      */
     @bind
-    handleOnClick(e) {
-        this.getContext().prevItem();
-        this.handleEvent('click', e);
-    }
+  handleOnClick(e) {
+    this.getContext().prevItem();
+    this.handleEvent('click', e);
+  }
 
     /**
      * Render a button that cycles to the previous item.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <button
-                type="button" role="button"
-                className={this.formatChildClass('prev')}
-                onClick={this.handleOnClick}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </button>
+    return (
+      <button
+        type="button" role="button"
+        className={this.formatChildClass('prev')}
+        onClick={this.handleOnClick}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </button>
         );
-    }
+  }
 }

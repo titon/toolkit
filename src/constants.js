@@ -15,7 +15,7 @@ export const PROD = (ENV === 'production' || ENV === 'prod');
 
 // Export as an object
 export default Object.freeze({
-    dev: DEV,
-    env: ENV,
-    prod: PROD
+  dev: DEV,
+  env: ENV,
+  prod: PROD,
 });

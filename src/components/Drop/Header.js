@@ -10,26 +10,26 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Header extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
     /**
      * Render the drop item header.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <li
-                className={this.formatChildClass('header')}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </li>
+    return (
+      <li
+        className={this.formatChildClass('header')}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </li>
         );
-    }
+  }
 
 }

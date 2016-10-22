@@ -11,42 +11,42 @@ import childrenOf from '../../prop-types/childrenOf';
 import MODULE from './module';
 
 export default class Wave extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        count: 5,
-        type: 'bar'
-    };
+  static defaultProps = {
+    count: 5,
+    type: 'bar',
+  };
 
-    static propTypes = {
-        children: childrenOf(Message),
-        count: PropTypes.number,
-        type: PropTypes.oneOf(['bar', 'bubble'])
-    };
+  static propTypes = {
+    children: childrenOf(Message),
+    count: PropTypes.number,
+    type: PropTypes.oneOf(['bar', 'bubble']),
+  };
 
     /**
      * Render the wave loader and generate a count of waves.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props,
-            waves = [];
+  render() {
+    let props = this.props,
+      waves = [];
 
-        for (let i = 0; i < props.count; i++) {
-            waves.push(<span key={i} />);
-        }
-
-        return (
-            <div
-                className={this.formatClass({
-                    [`@${props.type}-wave`]: true
-                })}
-                {...this.inheritNativeProps(props)}
-            >
-                {waves}
-                {props.children}
-            </div>
-        );
+    for (let i = 0; i < props.count; i++) {
+      waves.push(<span key={i} />);
     }
+
+    return (
+      <div
+        className={this.formatClass({
+          [`@${props.type}-wave`]: true,
+        })}
+        {...this.inheritNativeProps(props)}
+      >
+        {waves}
+        {props.children}
+      </div>
+        );
+  }
 }

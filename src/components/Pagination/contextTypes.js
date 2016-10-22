@@ -8,15 +8,15 @@ import { PropTypes } from 'react';
 import MODULE from './module';
 
 export const shape = Object.freeze({
-    currentPage: PropTypes.number.isRequired,
-    goToPage: PropTypes.func.isRequired,
-    nextPage: PropTypes.func.isRequired,
-    prevPage: PropTypes.func.isRequired,
-    totalPages: PropTypes.number.isRequired,
-    uid: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired
+  currentPage: PropTypes.number.isRequired,
+  goToPage: PropTypes.func.isRequired,
+  nextPage: PropTypes.func.isRequired,
+  prevPage: PropTypes.func.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  uid: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 });
 
 export default {
-    [MODULE.contextKey]: PropTypes.shape(shape).isRequired
+  [MODULE.contextKey]: PropTypes.shape(shape).isRequired,
 };

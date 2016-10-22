@@ -12,14 +12,14 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Start extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
-    static propTypes = {
-        children: PropTypes.node,
-        onClick: collectionOf.func
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    onClick: collectionOf.func,
+  };
 
     /**
      * Handles clicking the start button.
@@ -27,28 +27,28 @@ export default class Start extends Component {
      * @param {SyntheticEvent} e
      */
     @bind
-    handleOnClick(e) {
-        this.getContext().startCycle();
-        this.handleEvent('click', e);
-    }
+  handleOnClick(e) {
+    this.getContext().startCycle();
+    this.handleEvent('click', e);
+  }
 
     /**
      * Render a button that starts the automatic cycle.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <button
-                type="button" role="button"
-                className={this.formatChildClass('start')}
-                onClick={this.handleOnClick}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </button>
+    return (
+      <button
+        type="button" role="button"
+        className={this.formatChildClass('start')}
+        onClick={this.handleOnClick}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </button>
         );
-    }
+  }
 }

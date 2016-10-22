@@ -7,5 +7,5 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('ButtonGroup', '3.0.0', {
-    blockClass: 'button-group'
+  blockClass: 'button-group',
 });

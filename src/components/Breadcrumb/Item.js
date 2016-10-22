@@ -9,31 +9,31 @@ import Component from '../../Component';
 import MODULE from './module';
 
 export default class Item extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static propTypes = {
-        caret: PropTypes.node,
-        children: PropTypes.node.isRequired
-    };
+  static propTypes = {
+    caret: PropTypes.node,
+    children: PropTypes.node.isRequired,
+  };
 
     /**
      * Render the breadcrumb item link.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <li>
-                <a
-                    className={this.formatChildClass('item')}
-                    {...this.inheritNativeProps(props)}
-                >
-                    {props.children}
-                    <span className="caret">{props.caret || '/'}</span>
-                </a>
-            </li>
+    return (
+      <li>
+        <a
+          className={this.formatChildClass('item')}
+          {...this.inheritNativeProps(props)}
+        >
+          {props.children}
+          <span className="caret">{props.caret || '/'}</span>
+        </a>
+      </li>
         );
-    }
+  }
 }

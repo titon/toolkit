@@ -7,7 +7,7 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Mask', '3.0.0', {
-    contextKey: 'mask',
-    blockClass: 'mask',
-    elementClasses: ['overlay', 'target']
+  contextKey: 'mask',
+  blockClass: 'mask',
+  elementClasses: ['overlay', 'target'],
 });

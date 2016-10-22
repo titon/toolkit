@@ -8,7 +8,7 @@ import 'core-js/modules/es6.weak-map';
 
 // Start at a higher number to leave room for manual app-level indices
 let index = 10,
-    cache = new WeakMap();
+  cache = new WeakMap();
 
 /**
  * A function that generates a tab index in sequential order by keeping a map of
@@ -18,9 +18,9 @@ let index = 10,
  * @returns {Number}
  */
 export default function generateTabIndex(obj) {
-    if (!cache.has(obj)) {
-        cache.set(obj, index++);
-    }
+  if (!cache.has(obj)) {
+    cache.set(obj, index++);
+  }
 
-    return cache.get(obj);
+  return cache.get(obj);
 }

@@ -11,31 +11,31 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Item extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
     /**
      * Render the drop item.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props,
-            nested = Children.toArray(props.children)
+  render() {
+    let props = this.props,
+      nested = Children.toArray(props.children)
                 .some(node => node.type && node.type === Menu);
 
-        return (
-            <li
-                className={this.formatChildClass('item', {
-                    'has-children': nested
-                })}
-                aria-haspopup={nested}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </li>
+    return (
+      <li
+        className={this.formatChildClass('item', {
+          'has-children': nested,
+        })}
+        aria-haspopup={nested}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </li>
         );
-    }
+  }
 
 }

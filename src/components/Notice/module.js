@@ -7,6 +7,6 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Notice', '3.0.0', {
-    blockClass: 'notice',
-    elementClasses: ['head', 'body', 'close']
+  blockClass: 'notice',
+  elementClasses: ['head', 'body', 'close'],
 });

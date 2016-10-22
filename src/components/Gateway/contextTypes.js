@@ -8,11 +8,11 @@ import { PropTypes } from 'react';
 import MODULE from './module';
 
 export const shape = Object.freeze({
-    registerGate: PropTypes.func.isRequired,
-    warpIn: PropTypes.func.isRequired,
-    warpOut: PropTypes.func.isRequired
+  registerGate: PropTypes.func.isRequired,
+  warpIn: PropTypes.func.isRequired,
+  warpOut: PropTypes.func.isRequired,
 });
 
 export default {
-    [MODULE.contextKey]: PropTypes.shape(shape).isRequired
+  [MODULE.contextKey]: PropTypes.shape(shape).isRequired,
 };

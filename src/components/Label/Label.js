@@ -10,41 +10,41 @@ import { defaultSizeProps, sizePropTypes, states } from '../../propTypes';
 import MODULE from './module';
 
 export default class Label extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        ...defaultSizeProps
-    };
+  static defaultProps = {
+    ...defaultSizeProps,
+  };
 
-    static propTypes = {
-        ...sizePropTypes,
-        arrow: PropTypes.oneOf(['left', 'right']),
-        children: PropTypes.node,
-        ribbon: PropTypes.oneOf(['left', 'right']),
-        state: states
-    };
+  static propTypes = {
+    ...sizePropTypes,
+    arrow: PropTypes.oneOf(['left', 'right']),
+    children: PropTypes.node,
+    ribbon: PropTypes.oneOf(['left', 'right']),
+    state: states,
+  };
 
     /**
      * Render the inline label.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <span
-                className={this.formatClass({
-                    ['@arrow-' + props.arrow]: props.arrow,
-                    ['@large']: props.large,
-                    ['@small']: props.small,
-                    ['@ribbon-' + props.ribbon]: props.ribbon,
-                    ['@' + props.state]: props.state
-                })}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </span>
+    return (
+      <span
+        className={this.formatClass({
+          [`@arrow-${props.arrow}`]: props.arrow,
+          '@large': props.large,
+          '@small': props.small,
+          [`@ribbon-${props.ribbon}`]: props.ribbon,
+          [`@${props.state}`]: props.state,
+        })}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </span>
         );
-    }
+  }
 }

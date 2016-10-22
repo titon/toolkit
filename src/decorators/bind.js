@@ -17,39 +17,39 @@ import getValueFunc from './helpers/getValueFunc';
  * @returns {Object}
  */
 function bindMethod(target, name, descriptor) {
-    let func = getValueFunc('bind', descriptor);
+  const func = getValueFunc('bind', descriptor);
 
-    return {
-        configurable: true,
-        enumerable: false,
-        get() {
+  return {
+    configurable: true,
+    enumerable: false,
+    get() {
             // This happens if someone accesses the property directly on the prototype
             // Thanks to jayphelps/core-decorators.js for the snippet
-            if (this === target) {
-                return func;
-            }
+      if (this === target) {
+        return func;
+      }
 
             // The `this` here is the current class prototype
             // While `target` is the parent class prototype
-            let boundFunc = func.bind(this);
+      const boundFunc = func.bind(this);
 
             // Define a function on the target so that `get()` is only called once
             // Inherit the original methods descriptor as well
-            Object.defineProperty(this, name, {
-                ...descriptor,
-                enumerable: true,
-                value: boundFunc
-            });
+      Object.defineProperty(this, name, {
+        ...descriptor,
+        enumerable: true,
+        value: boundFunc,
+      });
 
-            return boundFunc;
-        },
-        set(value) {
-            Object.defineProperty(this, name, {
-                ...descriptor,
-                value
-            });
-        }
-    };
+      return boundFunc;
+    },
+    set(value) {
+      Object.defineProperty(this, name, {
+        ...descriptor,
+        value,
+      });
+    },
+  };
 }
 
 /**
@@ -59,19 +59,19 @@ function bindMethod(target, name, descriptor) {
  * @returns {Object}
  */
 function bindClass(target) {
-    let proto = target.prototype;
+  const proto = target.prototype;
 
-    Object.getOwnPropertyNames(proto).forEach(name => {
-        if (name.match(/^(on|handle)[A-Z]/)) {
-            Object.defineProperty(
+  Object.getOwnPropertyNames(proto).forEach((name) => {
+    if (name.match(/^(on|handle)[A-Z]/)) {
+      Object.defineProperty(
               proto,
               name,
               bindMethod(proto, name, Object.getOwnPropertyDescriptor(proto, name))
             );
-        }
-    });
+    }
+  });
 
-    return target;
+  return target;
 }
 
 /**
@@ -80,5 +80,5 @@ function bindClass(target) {
  * @returns {Object}
  */
 export default function bind() {
-    return decorate(bindClass, bindMethod, arguments);
+  return decorate(bindClass, bindMethod, arguments);
 }

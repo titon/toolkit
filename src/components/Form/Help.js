@@ -9,29 +9,29 @@ import Component from '../../Component';
 import MODULE from './module';
 
 export default class Help extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static propTypes = {
-        children: PropTypes.node,
-        inputID: PropTypes.string
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    inputID: PropTypes.string,
+  };
 
     /**
      * Render the form field help block.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let { children, inputID, ...props } = this.props;
+  render() {
+    let { children, inputID, ...props } = this.props;
 
-        return (
-            <div
-                id={inputID ? (inputID + '-help') : null}
-                className={this.formatChildClass('help')}
-                {...this.inheritNativeProps(props)}
-            >
-                {children}
-            </div>
+    return (
+      <div
+        id={inputID ? (`${inputID}-help`) : null}
+        className={this.formatChildClass('help')}
+        {...this.inheritNativeProps(props)}
+      >
+        {children}
+      </div>
         );
-    }
+  }
 }

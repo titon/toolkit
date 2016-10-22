@@ -22,30 +22,28 @@ import { DEV, PROD } from '../constants';
  * @returns {Boolean}
  */
 export default function invariant(condition, message = '', ...params) {
-    let error = null,
-        index = 0;
+  let error = null,
+    index = 0;
 
-    if (condition) {
-        return true;
+  if (condition) {
+    return true;
+  } else if (message === '') {
+    error = new Error('`invariant()` requires an error message.');
+  } else {
+    error = new Error(message.replace(/%s/g, () => params[index++]));
+  }
 
-    } else if (message === '') {
-        error = new Error('`invariant()` requires an error message.');
-
-    } else {
-        error = new Error(message.replace(/%s/g, () => params[index++]));
-    }
-
-    error.name = 'Invariant Violation';
-    error.framesToPop = 1;
+  error.name = 'Invariant Violation';
+  error.framesToPop = 1;
 
     // Log the error in production
-    if (PROD) {
-        Titon.options.logger(error);
+  if (PROD) {
+    Titon.options.logger(error);
 
     // Throw the error in development
-    } else if (DEV) {
-        throw error;
-    }
+  } else if (DEV) {
+    throw error;
+  }
 
-    return false;
+  return false;
 }

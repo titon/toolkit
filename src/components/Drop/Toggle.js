@@ -11,34 +11,34 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Toggle extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
     /**
      * Handle the display of the menu through toggling.
      */
     @bind
-    handleOnClick() {
-        this.getContext().toggleMenu();
-    }
+  handleOnClick() {
+    this.getContext().toggleMenu();
+  }
 
     /**
      * Render the child and wrap any `onClick` event handler.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let { expanded } = this.getContext();
+  render() {
+    const { expanded } = this.getContext();
 
-        return this.transferToChild(this.props.children, {
-            'aria-controls': this.formatID('drop-menu'),
-            'aria-expanded': expanded,
-            'aria-haspopup': true,
-            'aria-selected': expanded,
-            className: expanded ? 'is-active' : '',
-            onClick: this.handleOnClick
-        });
-    }
+    return this.transferToChild(this.props.children, {
+      'aria-controls': this.formatID('drop-menu'),
+      'aria-expanded': expanded,
+      'aria-haspopup': true,
+      'aria-selected': expanded,
+      className: expanded ? 'is-active' : '',
+      onClick: this.handleOnClick,
+    });
+  }
 
 }

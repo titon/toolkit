@@ -7,5 +7,5 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Grid', '3.0.0', {
-    elementClasses: ['row', 'col']
+  elementClasses: ['row', 'col'],
 });

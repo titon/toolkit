@@ -7,6 +7,6 @@
 import defineModule from '../../utility/defineModule';
 
 export default defineModule('Tooltip', '3.0.0', {
-    blockClass: 'tooltip',
-    elementClasses: ['inner', 'head', 'body', 'arrow', 'trigger', 'gate']
+  blockClass: 'tooltip',
+  elementClasses: ['inner', 'head', 'body', 'arrow', 'trigger', 'gate'],
 });

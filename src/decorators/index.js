@@ -20,5 +20,5 @@ import throttle from './throttle';
 
 export {
     bind, debounce, delegate, deprecate, getter, memoize, once,
-    profile, remover, setter, suppressConsole, suppressErrors, throttle
+    profile, remover, setter, suppressConsole, suppressErrors, throttle,
 };

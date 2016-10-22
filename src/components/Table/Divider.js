@@ -9,30 +9,30 @@ import Component from '../../Component';
 import MODULE from './module';
 
 export default class Divider extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static propTypes = {
-        children: PropTypes.node,
-        colSpan: PropTypes.number
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    colSpan: PropTypes.number,
+  };
 
     /**
      * Render the dividing table row.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <tr
-                className={this.formatChildClass('divider')}
-                {...this.inheritNativeProps(props)}
-            >
-                <td colSpan={props.colSpan}>
-                    {props.children}
-                </td>
-            </tr>
+    return (
+      <tr
+        className={this.formatChildClass('divider')}
+        {...this.inheritNativeProps(props)}
+      >
+        <td colSpan={props.colSpan}>
+          {props.children}
+        </td>
+      </tr>
         );
-    }
+  }
 }

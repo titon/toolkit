@@ -13,59 +13,59 @@ import throttle from '../../decorators/throttle';
 import MODULE from './module';
 
 export default class LazyLoad extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        delay: 0,
-        threshold: 200
-    };
+  static defaultProps = {
+    delay: 0,
+    threshold: 200,
+  };
 
-    static propTypes = {
-        delay: PropTypes.number,
-        threshold: PropTypes.number
-    };
+  static propTypes = {
+    delay: PropTypes.number,
+    threshold: PropTypes.number,
+  };
 
     /**
      * Setup state.
      */
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.timer = 0;
-        this.state = {
-            elementHeight: 0,
-            elementLeft: 0,
-            elementTop: 0,
-            elementWidth: 0,
-            loaded: false,
-            scrollX: window.pageXOffset,
-            scrollY: window.pageYOffset,
-            viewportHeight: window.innerHeight,
-            viewportWidth: window.innerWidth
-        };
-    }
+    this.timer = 0;
+    this.state = {
+      elementHeight: 0,
+      elementLeft: 0,
+      elementTop: 0,
+      elementWidth: 0,
+      loaded: false,
+      scrollX: window.pageXOffset,
+      scrollY: window.pageYOffset,
+      viewportHeight: window.innerHeight,
+      viewportWidth: window.innerWidth,
+    };
+  }
 
     /**
      * Bind events before mounting.
      */
-    componentWillMount() {
-        window.addEventListener('resize', this.handleOnResize);
-        window.addEventListener('scroll', this.handleOnScroll);
-    }
+  componentWillMount() {
+    window.addEventListener('resize', this.handleOnResize);
+    window.addEventListener('scroll', this.handleOnScroll);
+  }
 
     /**
      * Calculate element once we have a DOM element,
      * and start the delay timer.
      */
-    componentDidMount() {
-        let delay = this.props.delay;
+  componentDidMount() {
+    const delay = this.props.delay;
 
-        if (delay > 0) {
-            this.timer = setTimeout(this.handleDelay, delay);
-        }
-
-        this.calculateElement();
+    if (delay > 0) {
+      this.timer = setTimeout(this.handleDelay, delay);
     }
+
+    this.calculateElement();
+  }
 
     /**
      * Emit a `loading` event if the element is being loaded.
@@ -73,11 +73,11 @@ export default class LazyLoad extends Component {
      * @param {Object} nextProps
      * @param {Object} nextState
      */
-    componentWillUpdate(nextProps, nextState) {
-        if (nextState.loaded && !this.state.loaded) {
-            this.emitEvent('loading');
-        }
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.loaded && !this.state.loaded) {
+      this.emitEvent('loading');
     }
+  }
 
     /**
      * Emit a `loaded` event if the element was loaded.
@@ -85,92 +85,92 @@ export default class LazyLoad extends Component {
      * @param {Object} prevProps
      * @param {Object} prevState
      */
-    componentDidUpdate(prevProps, prevState) {
-        if (this.state.loaded && !prevState.loaded) {
-            this.emitEvent('loaded');
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.loaded && !prevState.loaded) {
+      this.emitEvent('loaded');
 
         // Attempt to load anytime the state changes
-        } else {
-            this.attemptToLoad();
-        }
+    } else {
+      this.attemptToLoad();
     }
+  }
 
     /**
      * Unbind events before mounting.
      */
-    componentWillUnmount() {
-        this.clearEvents();
-        this.clearTimer();
-    }
+  componentWillUnmount() {
+    this.clearEvents();
+    this.clearTimer();
+  }
 
     /**
      * Attempt to load the element by checking the viewport.
      */
-    attemptToLoad() {
-        if (this.inViewport()) {
-            this.loadElement();
-        }
+  attemptToLoad() {
+    if (this.inViewport()) {
+      this.loadElement();
     }
+  }
 
     /**
      * Calculate and cache the elements dimensions and offsets.
      */
-    calculateElement() {
-        let element = this.refs.element;
+  calculateElement() {
+    const element = this.refs.element;
 
-        invariant(typeof element !== 'undefined', 'An `element` ref must be defined.');
+    invariant(typeof element !== 'undefined', 'An `element` ref must be defined.');
 
-        this.setState({
-            elementHeight: element.offsetHeight,
-            elementLeft: element.offsetLeft,
-            elementTop: element.offsetTop,
-            elementWidth: element.offsetWidth
-        });
-    }
+    this.setState({
+      elementHeight: element.offsetHeight,
+      elementLeft: element.offsetLeft,
+      elementTop: element.offsetTop,
+      elementWidth: element.offsetWidth,
+    });
+  }
 
     /**
      * Calculate the size of the viewport and current scroll.
      */
-    calculateViewport() {
-        this.setState({
-            scrollX: window.pageXOffset,
-            scrollY: window.pageYOffset,
-            viewportHeight: window.innerHeight,
-            viewportWidth: window.innerWidth
-        });
-    }
+  calculateViewport() {
+    this.setState({
+      scrollX: window.pageXOffset,
+      scrollY: window.pageYOffset,
+      viewportHeight: window.innerHeight,
+      viewportWidth: window.innerWidth,
+    });
+  }
 
     /**
      * Remove all bound event listeners.
      */
-    clearEvents() {
-        window.removeEventListener('resize', this.handleOnResize);
-        window.removeEventListener('scroll', this.handleOnScroll);
-    }
+  clearEvents() {
+    window.removeEventListener('resize', this.handleOnResize);
+    window.removeEventListener('scroll', this.handleOnScroll);
+  }
 
     /**
      * Remove the delay timer.
      */
-    clearTimer() {
-        clearTimeout(this.timer);
-    }
+  clearTimer() {
+    clearTimeout(this.timer);
+  }
 
     /**
      * Verify that the element is within the current browser viewport.
      *
      * @returns {Boolean}
      */
-    inViewport() {
+  inViewport() {
         /* eslint operator-linebreak: 0 */
 
-        let { scrollX, scrollY, ...state } = this.state,
-            top = state.elementTop,
-            left = state.elementLeft,
-            width = state.viewportWidth,
-            height = state.viewportHeight,
-            threshold = this.props.threshold;
+    let { scrollX, scrollY, ...state } = this.state,
+      top = state.elementTop,
+      left = state.elementLeft,
+      width = state.viewportWidth,
+      height = state.viewportHeight,
+      threshold = this.props.threshold;
 
-        return (
+    return (
             // Below the top
             (top >= (scrollY - threshold)) &&
             // Above the bottom
@@ -180,43 +180,43 @@ export default class LazyLoad extends Component {
             // Left of the right
             (left <= (scrollX + width + threshold))
         );
-    }
+  }
 
     /**
      * Set the loaded state to true, unbind events, and clear the timer.
      */
-    loadElement() {
-        this.clearEvents();
-        this.clearTimer();
-        this.setState({
-            loaded: true
-        });
-    }
+  loadElement() {
+    this.clearEvents();
+    this.clearTimer();
+    this.setState({
+      loaded: true,
+    });
+  }
 
     /**
      * Handler that loads the element after the delay has triggered.
      */
     @bind
-    handleDelay() {
-        this.loadElement();
-    }
+  handleDelay() {
+    this.loadElement();
+  }
 
     /**
      * Handler that re-calculates the element and viewport when the browser is resized.
      */
     @bind
     @debounce(150)
-    handleOnResize() {
-        this.calculateElement();
-        this.calculateViewport();
-    }
+  handleOnResize() {
+    this.calculateElement();
+    this.calculateViewport();
+  }
 
     /**
      * Handler that checks if the element is within the viewport and loads it.
      */
     @bind
     @throttle(50)
-    handleOnScroll() {
-        this.calculateViewport();
-    }
+  handleOnScroll() {
+    this.calculateViewport();
+  }
 }

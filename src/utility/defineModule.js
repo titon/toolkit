@@ -16,23 +16,23 @@ import generateClassNames from './generateClassNames';
  * @returns {Object}
  */
 export default function defineModule(name, version, options = {}) {
-    const module = {};
+  const module = {};
 
-    Object.defineProperty(module, 'name', { value: name });
-    Object.defineProperty(module, 'version', { value: version });
+  Object.defineProperty(module, 'name', { value: name });
+  Object.defineProperty(module, 'version', { value: version });
 
     // The name of the key in the context
-    if (options.contextKey) {
-        Object.defineProperty(module, 'contextKey', { value: options.contextKey });
-    }
+  if (options.contextKey) {
+    Object.defineProperty(module, 'contextKey', { value: options.contextKey });
+  }
 
     // Generate BEM styled class names
-    if (options.blockClass || options.elementClasses) {
-        Object.defineProperty(module, 'classNames', {
-            value: generateClassNames(options.blockClass || '', options.elementClasses || []),
-            writable: true
-        });
-    }
+  if (options.blockClass || options.elementClasses) {
+    Object.defineProperty(module, 'classNames', {
+      value: generateClassNames(options.blockClass || '', options.elementClasses || []),
+      writable: true,
+    });
+  }
 
-    return module;
+  return module;
 }

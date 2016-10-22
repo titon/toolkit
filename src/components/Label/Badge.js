@@ -10,38 +10,38 @@ import { defaultSizeProps, sizePropTypes, states } from '../../propTypes';
 import MODULE from './module';
 
 export default class Badge extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        ...defaultSizeProps
-    };
+  static defaultProps = {
+    ...defaultSizeProps,
+  };
 
-    static propTypes = {
-        ...sizePropTypes,
-        children: PropTypes.string,
-        state: states
-    };
+  static propTypes = {
+    ...sizePropTypes,
+    children: PropTypes.string,
+    state: states,
+  };
 
     /**
      * Render the inline badge.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <span
-                className={this.formatClass({
-                    '@badge': true,
-                    ['@large']: props.large,
-                    ['@small']: props.small,
-                    ['@' + props.state]: props.state
-                })}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </span>
+    return (
+      <span
+        className={this.formatClass({
+          '@badge': true,
+          '@large': props.large,
+          '@small': props.small,
+          [`@${props.state}`]: props.state,
+        })}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </span>
         );
-    }
+  }
 }

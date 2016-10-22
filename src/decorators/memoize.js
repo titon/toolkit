@@ -18,14 +18,14 @@ import memoizer from 'lodash.memoize';
  * @returns {Object}
  */
 export default function memoize(target, name, descriptor) {
-    checkIsMethod('memoize', arguments);
+  checkIsMethod('memoize', arguments);
 
-    descriptor.value = memoizer(
+  descriptor.value = memoizer(
         getValueFunc('memoize', descriptor),
-        function memoizeValue(...args) {
-            return JSON.stringify(args);
+        (...args) => {
+          return JSON.stringify(args);
         }
     );
 
-    return descriptor;
+  return descriptor;
 }

@@ -10,18 +10,18 @@ import Modal from './Modal';
 import MODULE from './module';
 
 export default class Gate extends BaseGate {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        ...BaseGate.defaultProps,
-        contract: Modal
-    };
+  static defaultProps = {
+    ...BaseGate.defaultProps,
+    contract: Modal,
+  };
 
-    static propTypes = {
-        ...BaseGate.propTypes,
-        animation: PropTypes.oneOf([
-            'fade', 'from-above', 'from-below', 'slide-in-top',
-            'slide-in-bottom', 'slide-in-left', 'slide-in-right'
-        ])
-    };
+  static propTypes = {
+    ...BaseGate.propTypes,
+    animation: PropTypes.oneOf([
+      'fade', 'from-above', 'from-below', 'slide-in-top',
+      'slide-in-bottom', 'slide-in-left', 'slide-in-right',
+    ]),
+  };
 }

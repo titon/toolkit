@@ -11,41 +11,41 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Section extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
-    static propTypes = {
-        children: PropTypes.node,
-        expanded: PropTypes.bool.isRequired,
-        index: PropTypes.number.isRequired
-    };
+  static propTypes = {
+    children: PropTypes.node,
+    expanded: PropTypes.bool.isRequired,
+    index: PropTypes.number.isRequired,
+  };
 
     /**
      * Render the accordion item section content and wrap with a collapsible slide transition.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props,
-            index = props.index,
-            expanded = props.expanded;
+  render() {
+    let props = this.props,
+      index = props.index,
+      expanded = props.expanded;
 
-        return (
-            <Collapse expanded={expanded}>
-                <section
-                    role="tabpanel"
-                    id={this.formatID('accordion-section', index)}
-                    className={this.formatChildClass('section', {
-                        'is-expanded': expanded
-                    })}
-                    aria-labelledby={this.formatID('accordion-header', index)}
-                    aria-hidden={!expanded}
-                    aria-expanded={expanded}
-                >
-                    {props.children}
-                </section>
-            </Collapse>
+    return (
+      <Collapse expanded={expanded}>
+        <section
+          role="tabpanel"
+          id={this.formatID('accordion-section', index)}
+          className={this.formatChildClass('section', {
+            'is-expanded': expanded,
+          })}
+          aria-labelledby={this.formatID('accordion-header', index)}
+          aria-hidden={!expanded}
+          aria-expanded={expanded}
+        >
+          {props.children}
+        </section>
+      </Collapse>
         );
-    }
+  }
 }

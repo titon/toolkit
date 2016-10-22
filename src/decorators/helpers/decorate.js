@@ -13,9 +13,9 @@
  * @returns {Object}
  */
 export default function decorate(classHandler, methodHandler, args) {
-    if (args.length === 1) {
-        return classHandler(...args);
-    }
+  if (args.length === 1) {
+    return classHandler(...args);
+  }
 
-    return methodHandler(...args);
+  return methodHandler(...args);
 }

@@ -10,26 +10,26 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class MainContent extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
     /**
      * Render the off canvas main content.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <main
-                role="main"
-                className={this.formatChildClass('content')}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </main>
+    return (
+      <main
+        role="main"
+        className={this.formatChildClass('content')}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </main>
         );
-    }
+  }
 }

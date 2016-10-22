@@ -9,23 +9,23 @@ import Component from '../../Component';
 import MODULE from './module';
 
 export default class InputGroup extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
     /**
      * Render the input group wrapper.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <span
-                className={this.formatClass()}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </span>
+    return (
+      <span
+        className={this.formatClass()}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </span>
         );
-    }
+  }
 }

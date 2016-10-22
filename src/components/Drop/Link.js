@@ -10,27 +10,27 @@ import CONTEXT_TYPES from './contextTypes';
 import MODULE from './module';
 
 export default class Link extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static contextTypes = CONTEXT_TYPES;
+  static contextTypes = CONTEXT_TYPES;
 
     /**
      * Render the drop link.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <a
-                role="menuitem"
-                className={this.formatChildClass('link')}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </a>
+    return (
+      <a
+        role="menuitem"
+        className={this.formatChildClass('link')}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </a>
         );
-    }
+  }
 
 }

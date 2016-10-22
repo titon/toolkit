@@ -11,37 +11,37 @@ import childrenOf from '../../prop-types/childrenOf';
 import MODULE from './module';
 
 export default class Breadcrumb extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        label: 'Navigation'
-    };
+  static defaultProps = {
+    label: 'Navigation',
+  };
 
-    static propTypes = {
-        children: childrenOf(Item),
-        label: PropTypes.string
-    };
+  static propTypes = {
+    children: childrenOf(Item),
+    label: PropTypes.string,
+  };
 
     /**
      * Render the breadcrumb list.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <nav
-                role="navigation"
-                id={this.formatID('breadcrumb')}
-                className={this.formatClass()}
-                aria-label={props.label}
-                {...this.inheritNativeProps(props)}
-            >
-                <ol>
-                    {props.children}
-                </ol>
-            </nav>
+    return (
+      <nav
+        role="navigation"
+        id={this.formatID('breadcrumb')}
+        className={this.formatClass()}
+        aria-label={props.label}
+        {...this.inheritNativeProps(props)}
+      >
+        <ol>
+          {props.children}
+        </ol>
+      </nav>
         );
-    }
+  }
 }

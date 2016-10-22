@@ -9,20 +9,20 @@ import { optionShape, optionList } from '../../propTypes';
 import MODULE from './module';
 
 export const shape = Object.freeze({
-    expanded: PropTypes.bool.isRequired,
-    hideMenu: PropTypes.func.isRequired,
-    inputID: PropTypes.string.isRequired,
-    inputName: PropTypes.string.isRequired,
-    mappedOptions: PropTypes.objectOf(optionShape).isRequired,
-    multiple: PropTypes.bool.isRequired,
-    options: optionList.isRequired,
-    selectValue: PropTypes.func.isRequired,
-    selectedValues: PropTypes.arrayOf(PropTypes.string).isRequired,
-    showMenu: PropTypes.func.isRequired,
-    toggleMenu: PropTypes.func.isRequired,
-    uid: PropTypes.string.isRequired
+  expanded: PropTypes.bool.isRequired,
+  hideMenu: PropTypes.func.isRequired,
+  inputID: PropTypes.string.isRequired,
+  inputName: PropTypes.string.isRequired,
+  mappedOptions: PropTypes.objectOf(optionShape).isRequired,
+  multiple: PropTypes.bool.isRequired,
+  options: optionList.isRequired,
+  selectValue: PropTypes.func.isRequired,
+  selectedValues: PropTypes.arrayOf(PropTypes.string).isRequired,
+  showMenu: PropTypes.func.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
+  uid: PropTypes.string.isRequired,
 });
 
 export default {
-    [MODULE.contextKey]: PropTypes.shape(shape).isRequired
+  [MODULE.contextKey]: PropTypes.shape(shape).isRequired,
 };

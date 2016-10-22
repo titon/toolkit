@@ -10,15 +10,15 @@ import React, { PropTypes } from 'react';
 import MODULE from './module';
 
 export default function Divider({ children }) {
-    return (
-        <div role="separator" className={MODULE.classNames.default}>
-            <span>{children}</span>
-        </div>
+  return (
+    <div role="separator" className={MODULE.classNames.default}>
+      <span>{children}</span>
+    </div>
     );
 }
 
 Divider.module = MODULE;
 
 Divider.propTypes = {
-    children: PropTypes.node
+  children: PropTypes.node,
 };

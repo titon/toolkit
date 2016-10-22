@@ -22,5 +22,5 @@ export {
     ClassBuilder, defineModule,
     formatBEM, formatClass, formatID, formatInputName,
     generateClassNames, generateTabIndex, generateUID,
-    invariant, isOutsideElement, positionRelativeTo, wrapFunctions
+    invariant, isOutsideElement, positionRelativeTo, wrapFunctions,
 };

@@ -8,10 +8,10 @@ import React from 'react';
 import Tooltip from '../Tooltip';
 
 export default class Popover extends Tooltip {
-    static defaultProps = {
-        position: 'top',
-        type: 'popover',
-        xOffset: 0,
-        yOffset: 0
-    };
+  static defaultProps = {
+    position: 'top',
+    type: 'popover',
+    xOffset: 0,
+    yOffset: 0,
+  };
 }

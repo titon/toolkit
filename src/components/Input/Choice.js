@@ -10,37 +10,37 @@ import { defaultSizeProps, sizePropTypes } from '../../propTypes';
 import MODULE from './module';
 
 export default class Choice extends Component {
-    static module = MODULE;
+  static module = MODULE;
 
-    static defaultProps = {
-        ...defaultSizeProps
-    };
+  static defaultProps = {
+    ...defaultSizeProps,
+  };
 
-    static propTypes = {
-        ...sizePropTypes,
-        children: PropTypes.node,
-        inputID: PropTypes.string.isRequired
-    };
+  static propTypes = {
+    ...sizePropTypes,
+    children: PropTypes.node,
+    inputID: PropTypes.string.isRequired,
+  };
 
     /**
      * Render either a checkbox or radio input wrapping label.
      *
      * @returns {ReactElement}
      */
-    render() {
-        let props = this.props;
+  render() {
+    const props = this.props;
 
-        return (
-            <label
-                htmlFor={props.inputID}
-                className={this.formatChildClass('choice', {
-                    '@large': props.large,
-                    '@small': props.small
-                })}
-                {...this.inheritNativeProps(props)}
-            >
-                {props.children}
-            </label>
+    return (
+      <label
+        htmlFor={props.inputID}
+        className={this.formatChildClass('choice', {
+          '@large': props.large,
+          '@small': props.small,
+        })}
+        {...this.inheritNativeProps(props)}
+      >
+        {props.children}
+      </label>
         );
-    }
+  }
 }
