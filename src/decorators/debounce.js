@@ -5,7 +5,7 @@
  */
 
 import checkIsMethod from './helpers/checkIsMethod';
-import debouncer from 'lodash/debounce';
+import debouncer from 'lodash.debounce';
 import getValueFunc from './helpers/getValueFunc';
 
 /**

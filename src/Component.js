@@ -7,14 +7,13 @@
 /* eslint react/prop-types: 0 */
 
 import React, { Children, PropTypes } from 'react';
+import omit from 'lodash.omit';
 import Titon from './Titon';
-import assign from 'lodash/assign';
 import bind from './decorators/bind';
 import formatClass from './utility/formatClass';
 import formatID from './utility/formatID';
 import generateUID from './utility/generateUID';
 import invariant from './utility/invariant';
-import omit from 'lodash/omit';
 import wrapFunctions from './utility/wrapFunctions';
 
 export default class Component extends React.Component {
@@ -132,8 +131,10 @@ export default class Component extends React.Component {
 
         // Merge nested object
         if (typeof props[propName] === 'object') {
-            assign(obj, props[propName]);
-            obj.enabled = true;
+            obj = {
+              ...props[propName],
+              enabled: true,
+            };
         } else {
             obj.enabled = Boolean(props[propName]);
         }

@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
 import Component from '../../Component';
-import debounce from 'lodash/debounce';
+import debounce from 'lodash.debounce';
 import { motionSpring } from '../../propTypes';
 import MODULE from './module';
 
