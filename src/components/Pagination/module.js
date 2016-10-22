@@ -6,7 +6,7 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Pagination', '3.0.0', {
+export default defineModule('Pagination', {
   contextKey: 'pagination',
   blockClass: 'pagination',
   elementClasses: ['item', 'spacer'],

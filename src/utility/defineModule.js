@@ -11,15 +11,13 @@ import generateClassNames from './generateClassNames';
  * Furthermore, generate a mapping of customizable CSS class names.
  *
  * @param {String} name
- * @param {String} version
  * @param {Object} options
  * @returns {Object}
  */
-export default function defineModule(name, version, options = {}) {
+export default function defineModule(name, options = {}) {
   const module = {};
 
   Object.defineProperty(module, 'name', { value: name });
-  Object.defineProperty(module, 'version', { value: version });
 
   // The name of the key in the context
   if (options.contextKey) {

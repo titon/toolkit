@@ -6,6 +6,6 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Collapse', '3.0.0', {
+export default defineModule('Collapse', {
   blockClass: 'motion-collapse',
 });

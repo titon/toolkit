@@ -6,7 +6,7 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Carousel', '3.0.0', {
+export default defineModule('Carousel', {
   contextKey: 'carousel',
   blockClass: 'carousel',
   elementClasses: ['item', 'item-list', 'next', 'prev', 'start', 'stop', 'tab', 'tab-list'],

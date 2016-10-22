@@ -6,6 +6,6 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Grid', '3.0.0', {
+export default defineModule('Grid', {
   elementClasses: ['row', 'col'],
 });

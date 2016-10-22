@@ -6,6 +6,6 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Button', '3.0.0', {
+export default defineModule('Button', {
   blockClass: 'button',
 });

@@ -6,7 +6,7 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Progress', '3.0.0', {
+export default defineModule('Progress', {
   blockClass: 'progress',
   elementClasses: ['bar'],
 });

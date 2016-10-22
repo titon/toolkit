@@ -6,6 +6,6 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('ButtonGroup', '3.0.0', {
+export default defineModule('ButtonGroup', {
   blockClass: 'button-group',
 });

@@ -6,6 +6,6 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Divider', '3.0.0', {
+export default defineModule('Divider', {
   blockClass: 'divider',
 });

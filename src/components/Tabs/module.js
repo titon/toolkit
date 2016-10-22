@@ -6,7 +6,7 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Tabs', '3.0.0', {
+export default defineModule('Tabs', {
   contextKey: 'tabs',
   blockClass: 'tabs',
   elementClasses: ['tab', 'nav', 'section'],

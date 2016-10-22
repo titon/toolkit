@@ -6,7 +6,7 @@
 
 import defineModule from '../../utility/defineModule';
 
-const module = defineModule('Gateway', '3.0.0', {
+const module = defineModule('Gateway', {
   contextKey: 'gateway',
   blockClass: 'gateway',
   elementClasses: ['gate'],

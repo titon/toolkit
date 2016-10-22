@@ -6,7 +6,7 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Table', '3.0.0', {
+export default defineModule('Table', {
   blockClass: 'table',
   elementClasses: ['responsive', 'divider'],
 });

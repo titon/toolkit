@@ -6,7 +6,7 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Input', '3.0.0', {
+export default defineModule('Input', {
   blockClass: 'input',
   elementClasses: ['choice', 'static'],
 });

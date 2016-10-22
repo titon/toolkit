@@ -6,7 +6,7 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Breadcrumb', '3.0.0', {
+export default defineModule('Breadcrumb', {
   blockClass: 'breadcrumb',
   elementClasses: ['item'],
 });

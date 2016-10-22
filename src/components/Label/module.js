@@ -6,6 +6,6 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Label', '3.0.0', {
+export default defineModule('Label', {
   blockClass: 'label',
 });

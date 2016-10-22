@@ -6,6 +6,6 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Flex', '3.0.0', {
+export default defineModule('Flex', {
   elementClasses: ['region', 'block'],
 });

@@ -6,7 +6,7 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('LazyLoad', '3.0.0', {
+export default defineModule('LazyLoad', {
   blockClass: 'lazy-load',
   elementClasses: ['bg', 'image'],
 });

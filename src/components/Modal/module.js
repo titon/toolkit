@@ -6,7 +6,7 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Modal', '3.0.0', {
+export default defineModule('Modal', {
   blockClass: 'modal',
   elementClasses: ['head', 'body', 'foot', 'gate', 'outer', 'inner', 'close'],
 });

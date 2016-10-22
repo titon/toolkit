@@ -6,7 +6,7 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('Notice', '3.0.0', {
+export default defineModule('Notice', {
   blockClass: 'notice',
   elementClasses: ['head', 'body', 'close'],
 });

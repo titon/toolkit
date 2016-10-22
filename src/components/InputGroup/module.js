@@ -6,7 +6,7 @@
 
 import defineModule from '../../utility/defineModule';
 
-export default defineModule('InputGroup', '3.0.0', {
+export default defineModule('InputGroup', {
   blockClass: 'input-group',
   elementClasses: ['addon'],
 });
