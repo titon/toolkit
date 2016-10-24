@@ -14,11 +14,6 @@ export default class Header extends Component {
 
   static contextTypes = CONTEXT_TYPES;
 
-  /**
-   * Render the drop item header.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const props = this.props;
 

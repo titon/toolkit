@@ -29,12 +29,6 @@ export default class Toast extends Component {
     gateName: PropTypes.string.isRequired,
   };
 
-  /**
-   * Validate that a toast is instantiated within a gateway.
-   *
-   * @param {Object} props
-   * @param {Object} context
-   */
   constructor(props, context) {
     super();
 
@@ -42,9 +36,6 @@ export default class Toast extends Component {
       'A `Toast` must be instantiated within a `Gateway`.');
   }
 
-  /**
-   * Set a timer to automatically remove the toast after a duration.
-   */
   componentDidMount() {
     const { duration } = this.props;
 
@@ -53,11 +44,6 @@ export default class Toast extends Component {
     }
   }
 
-  /**
-   * Handle the clicking of the toast.
-   *
-   * @param {Event} e
-   */
   @bind
   handleOnClick(e) {
     e.preventDefault();
@@ -67,19 +53,11 @@ export default class Toast extends Component {
     }
   }
 
-  /**
-   * Conceal the toast by removing its element from the gateway.
-   */
   @bind
   hideToast() {
     this.getContext(null, contextKey).warpOut(this.props.gateName, this.getInternalElement());
   }
 
-  /**
-   * Render the toast wrapper.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, dismissable } = this.props;
 

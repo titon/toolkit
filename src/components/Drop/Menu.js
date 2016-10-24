@@ -31,11 +31,6 @@ export default class Menu extends Component {
     reverse: PropTypes.bool,
   };
 
-  /**
-   * Render the drop menu.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, direction, nested, reverse } = this.props;
     const { expanded } = this.getContext();

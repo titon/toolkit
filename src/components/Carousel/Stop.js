@@ -21,22 +21,12 @@ export default class Stop extends Component {
     onClick: collectionOf.func,
   };
 
-  /**
-   * Handles clicking the stop button.
-   *
-   * @param {SyntheticEvent} e
-   */
   @bind
   handleOnClick(e) {
     this.getContext().stopCycle();
     this.handleEvent('click', e);
   }
 
-  /**
-   * Render a button that stops the cycle.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const props = this.props;
 

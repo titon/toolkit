@@ -24,11 +24,6 @@ export default class Label extends Component {
     state: states,
   };
 
-  /**
-   * Render the inline label.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const props = this.props;
 

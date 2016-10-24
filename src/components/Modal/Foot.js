@@ -15,11 +15,6 @@ export default class Foot extends Component {
     children: PropTypes.node,
   };
 
-  /**
-   * Render the modal inner foot.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <div className={this.formatChildClass('foot')}>

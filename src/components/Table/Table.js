@@ -25,11 +25,6 @@ export default class Table extends Component {
     striped: PropTypes.bool,
   };
 
-  /**
-   * Render the outer table element.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, hoverable, sortable, striped } = this.props;
 

@@ -18,11 +18,6 @@ export default class MainContent extends Component {
     children: PropTypes.node,
   };
 
-  /**
-   * Render the off canvas main content.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <main

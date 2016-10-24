@@ -21,11 +21,6 @@ export default class Static extends Component {
     ...sizePropTypes,
   };
 
-  /**
-   * Render a static text input element.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, large, small } = this.props;
 

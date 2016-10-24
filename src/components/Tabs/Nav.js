@@ -20,11 +20,6 @@ export default class Nav extends Component {
     children: childrenOf(Tab),
   };
 
-  /**
-   * Render the tabs navigation list.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <nav

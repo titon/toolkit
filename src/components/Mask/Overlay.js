@@ -31,48 +31,24 @@ export default class Overlay extends Component {
     expanded: false,
   };
 
-  /**
-   * Determine whether the mask is expanded or not.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextContext
-   */
   componentWillReceiveProps(nextProps, nextContext) {
     this.setState({
       expanded: this.getContext(nextContext).expanded,
     });
   }
 
-  /**
-   * Only update if the `expanded` state is different.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   * @returns {Boolean}
-   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.expanded !== this.state.expanded);
   }
 
-  /**
-   * Emit `showing` or `hiding` events before rendering.
-   */
   componentWillUpdate() {
     emitEvent(this, this.state.expanded ? 'onHiding' : 'onShowing');
   }
 
-  /**
-   * Emit `shown` or `hidden` events after rendering.
-   */
   componentDidUpdate() {
     emitEvent(this, this.state.expanded ? 'onShown' : 'onHidden');
   }
 
-  /**
-   * Handler to hide the overlay when clicked if `collapsible` is true.
-   *
-   * @param {SyntheticEvent} e
-   */
   @bind
   handleOnClick(e) {
     e.preventDefault();
@@ -82,11 +58,6 @@ export default class Overlay extends Component {
     }
   }
 
-  /**
-   * Render the mask overlay.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, collapsible } = this.props;
     const { expanded } = this.state;

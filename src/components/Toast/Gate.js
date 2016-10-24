@@ -27,11 +27,6 @@ export default class Gate extends BaseGate {
     position: positions,
   };
 
-  /**
-   * Render the gateway and its children.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { animation, position } = this.props;
 

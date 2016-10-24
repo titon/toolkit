@@ -38,11 +38,6 @@ export default class Accordion extends Component {
 
   uid = generateUID();
 
-  /**
-   * Define a context that is passed to all children.
-   *
-   * @returns {Object}
-   */
   getChildContext() {
     return {
       [MODULE.contextKey]: {
@@ -57,29 +52,14 @@ export default class Accordion extends Component {
     };
   }
 
-  /**
-   * Set the default index before mounting.
-   */
   componentWillMount() {
     this.showItem(this.props.defaultIndex);
   }
 
-  /**
-   * Only update if item indices are different.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   * @returns {Boolean}
-   */
   shouldComponentUpdate(nextProps, nextState) {
     return (this.props.multiple || nextState.indices !== this.state.indices);
   }
 
-  /**
-   * Conceal an item by removing its index from the active state.
-   *
-   * @param {Number|Number[]} index
-   */
   @bind
   hideItem(index) {
     const indices = new Set(this.state.indices);
@@ -95,33 +75,16 @@ export default class Accordion extends Component {
     });
   }
 
-  /**
-   * Returns true if the item at the specified index can be collapsed.
-   *
-   * @param {Number} index
-   * @returns {Boolean}
-   */
   @bind
   isItemCollapsible(index) {
     return ((this.props.multiple || this.props.collapsible) && this.isItemActive(index));
   }
 
-  /**
-   * Returns true if the item at the specified index is active based on the current indices.
-   *
-   * @param {Number} index
-   * @returns {Boolean}
-   */
   @bind
   isItemActive(index) {
     return (this.state.indices.has(index));
   }
 
-  /**
-   * Reveal the item at the defined index, and collapse all other items.
-   *
-   * @param {Number|Number[]} index
-   */
   @bind
   showItem(index) {
     const multiple = this.props.multiple;
@@ -147,11 +110,6 @@ export default class Accordion extends Component {
     });
   }
 
-  /**
-   * Toggle the display state of a specific index.
-   *
-   * @param {Number|Number[]} index
-   */
   @bind
   toggleItem(index) {
     if (this.isItemCollapsible(index)) {
@@ -161,11 +119,6 @@ export default class Accordion extends Component {
     }
   }
 
-  /**
-   * Render the wrapping accordion element.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, collapsible, multiple } = this.props;
 

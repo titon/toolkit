@@ -22,12 +22,6 @@ export default class Sidebar extends Component {
     side: PropTypes.oneOf(['left', 'right']).isRequired,
   };
 
-  /**
-   * Verify the `expanded` state.
-   *
-   * @param {Object} props
-   * @param {Object} context
-   */
   constructor(props, context) {
     super();
 
@@ -36,48 +30,24 @@ export default class Sidebar extends Component {
     };
   }
 
-  /**
-   * Determine whether the sidebar is expanded or not.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextContext
-   */
   componentWillReceiveProps(nextProps, nextContext) {
     this.setState({
       expanded: this.getContext(nextContext).isSidebarActive(nextProps.side),
     });
   }
 
-  /**
-   * Only update if the expanded state is different.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   * @returns {Boolean}
-   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.expanded !== this.state.expanded);
   }
 
-  /**
-   * Emit `showing` or `hiding` events before rendering.
-   */
   componentWillUpdate() {
     emitEvent(this, this.state.expanded ? 'onHiding' : 'onShowing');
   }
 
-  /**
-   * Emit `shown` or `hidden` events after rendering.
-   */
   componentDidUpdate() {
     emitEvent(this, this.state.expanded ? 'onShown' : 'onHidden');
   }
 
-  /**
-   * Render the off canvas sidebar.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, side } = this.props;
     const { expanded } = this.state;

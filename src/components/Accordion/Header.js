@@ -24,11 +24,6 @@ export default class Header extends Component {
     onClick: collectionOf.func,
   };
 
-  /**
-   * Update the index on the parent component when clicked.
-   *
-   * @param {SyntheticEvent} e
-   */
   @bind
   handleOnClick(e) {
     e.preventDefault();
@@ -37,11 +32,6 @@ export default class Header extends Component {
     this.handleEvent('click', e);
   }
 
-  /**
-   * Render the accordion item header tab and set the relevant active state.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, index, active } = this.props;
 

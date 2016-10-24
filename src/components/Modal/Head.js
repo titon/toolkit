@@ -15,11 +15,6 @@ export default class Head extends Component {
     children: PropTypes.node,
   };
 
-  /**
-   * Render the modal inner head.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <div

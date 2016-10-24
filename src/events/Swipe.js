@@ -48,14 +48,6 @@ export default class Swipe extends Component {
     swiping: false,
   };
 
-  /**
-   * Extract the X, Y, and Z vaues from the elements `transform: translate` properties.
-   *
-   * TODO: Add support for non-px and percentages, maybe?
-   *
-   * @param {Element} element
-   * @returns {{x: Number, y: Number, z: Number}}
-   */
   extractTranslateOffsets(element) {
     const match = element.style.transform.match(/translate(Z|X|Y|3d)?\(([,a-z%\-\d\s]+)\)/);
     const mapping = ['x', 'y', 'z'];
@@ -95,12 +87,6 @@ export default class Swipe extends Component {
     return offsets;
   }
 
-  /**
-   * Return the page coordinates from the current event.
-   *
-   * @param {SyntheticEvent|SyntheticTouchEvent} e
-   * @returns {{time: Number, x: Number, y: Number}}
-   */
   packageCoordinates(e) {
     const data = e.changedTouches ? e.changedTouches[0] : e;
 
@@ -111,9 +97,6 @@ export default class Swipe extends Component {
     };
   }
 
-  /**
-   * Reset the swipe state.
-   */
   resetState() {
     this.setState({
       startCoords: null,
@@ -121,9 +104,6 @@ export default class Swipe extends Component {
     });
   }
 
-  /**
-   * Reset the state when `touchcancel` is triggered.
-   */
   handleOnCancel() {
     this.resetState();
   }
@@ -159,11 +139,6 @@ export default class Swipe extends Component {
     }
   }
 
-  /**
-   * Start the swipe process by logging the original target and coordinates.
-   *
-   * @param {SyntheticEvent} e
-   */
   handleOnStart(e) {
     // Calling `preventDefault()` will disable clicking of elements (links, inputs, etc).
     // So only do it on an `img` element so it cannot be dragged.
@@ -182,14 +157,6 @@ export default class Swipe extends Component {
     });
   }
 
-  /**
-   * Once the touch or mouse event stops, validate the final coordinates against the
-   * starting coordinates, and determine the direction the swipe occurred.
-   *
-   * If everything went smoothly, dispatch the `swipe` and direction specific swipe events.
-   *
-   * @param {SyntheticEvent} e
-   */
   handleOnStop(e) {
     const { duration, distance, restraint } = this.props;
     const start = this.state.startCoords;
@@ -229,12 +196,6 @@ export default class Swipe extends Component {
     this.resetState();
   }
 
-  /**
-   * Rendering requires a single child, that will be cloned and modified
-   * by passing custom touch and swipe events.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, enabled } = this.props;
     const swipeProps = {

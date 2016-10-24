@@ -26,9 +26,6 @@ export default class LazyLoad extends Component {
     threshold: PropTypes.number,
   };
 
-  /**
-   * Setup state.
-   */
   constructor() {
     super();
 
@@ -46,18 +43,11 @@ export default class LazyLoad extends Component {
     };
   }
 
-  /**
-   * Bind events before mounting.
-   */
   componentWillMount() {
     window.addEventListener('resize', this.handleOnResize);
     window.addEventListener('scroll', this.handleOnScroll);
   }
 
-  /**
-   * Calculate element once we have a DOM element,
-   * and start the delay timer.
-   */
   componentDidMount() {
     const { delay } = this.props;
 
@@ -68,24 +58,12 @@ export default class LazyLoad extends Component {
     this.calculateElement();
   }
 
-  /**
-   * Emit a `loading` event if the element is being loaded.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   */
   componentWillUpdate(nextProps, nextState) {
     if (nextState.loaded && !this.state.loaded) {
       emitEvent(this, 'onLoading');
     }
   }
 
-  /**
-   * Emit a `loaded` event if the element was loaded.
-   *
-   * @param {Object} prevProps
-   * @param {Object} prevState
-   */
   componentDidUpdate(prevProps, prevState) {
     if (this.state.loaded && !prevState.loaded) {
       emitEvent(this, 'onLoaded');
@@ -96,26 +74,17 @@ export default class LazyLoad extends Component {
     }
   }
 
-  /**
-   * Unbind events before mounting.
-   */
   componentWillUnmount() {
     this.clearEvents();
     this.clearTimer();
   }
 
-  /**
-   * Attempt to load the element by checking the viewport.
-   */
   attemptToLoad() {
     if (this.inViewport()) {
       this.loadElement();
     }
   }
 
-  /**
-   * Calculate and cache the elements dimensions and offsets.
-   */
   calculateElement() {
     const element = this.element;
 
@@ -129,9 +98,6 @@ export default class LazyLoad extends Component {
     });
   }
 
-  /**
-   * Calculate the size of the viewport and current scroll.
-   */
   calculateViewport() {
     this.setState({
       scrollX: window.pageXOffset,
@@ -141,26 +107,15 @@ export default class LazyLoad extends Component {
     });
   }
 
-  /**
-   * Remove all bound event listeners.
-   */
   clearEvents() {
     window.removeEventListener('resize', this.handleOnResize);
     window.removeEventListener('scroll', this.handleOnScroll);
   }
 
-  /**
-   * Remove the delay timer.
-   */
   clearTimer() {
     clearTimeout(this.timer);
   }
 
-  /**
-   * Verify that the element is within the current browser viewport.
-   *
-   * @returns {Boolean}
-   */
   inViewport() {
     const { scrollX, scrollY, ...state } = this.state;
     const { threshold } = this.props;
@@ -181,9 +136,6 @@ export default class LazyLoad extends Component {
     );
   }
 
-  /**
-   * Set the loaded state to true, unbind events, and clear the timer.
-   */
   loadElement() {
     this.clearEvents();
     this.clearTimer();
@@ -192,17 +144,11 @@ export default class LazyLoad extends Component {
     });
   }
 
-  /**
-   * Handler that loads the element after the delay has triggered.
-   */
   @bind
   handleDelay() {
     this.loadElement();
   }
 
-  /**
-   * Handler that re-calculates the element and viewport when the browser is resized.
-   */
   @bind
   @debounce(150)
   handleOnResize() {
@@ -210,9 +156,6 @@ export default class LazyLoad extends Component {
     this.calculateViewport();
   }
 
-  /**
-   * Handler that checks if the element is within the viewport and loads it.
-   */
   @bind
   @throttle(50)
   handleOnScroll() {

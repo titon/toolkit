@@ -33,11 +33,6 @@ export default class Drop extends Component {
 
   uid = generateUID();
 
-  /**
-   * Define a context that is passed to all children.
-   *
-   * @returns {Object}
-   */
   getChildContext() {
     return {
       [MODULE.contextKey]: {
@@ -50,51 +45,26 @@ export default class Drop extends Component {
     };
   }
 
-  /**
-   * Bind handlers before mounting.
-   */
   componentWillMount() {
     window.addEventListener('click', this.handleOnClickOut);
   }
 
-  /**
-   * Only update if the `expanded` state is different.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   * @returns {Boolean}
-   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.expanded !== this.state.expanded);
   }
 
-  /**
-   * Emit `showing` or `hiding` events before rendering.
-   */
   componentWillUpdate() {
     emitEvent(this, this.state.expanded ? 'onHiding' : 'onShowing');
   }
 
-  /**
-   * Emit `shown` or `hidden` events after rendering.
-   */
   componentDidUpdate() {
     emitEvent(this, this.state.expanded ? 'onShown' : 'onHidden');
   }
 
-  /**
-   * Unbind handlers when unmounting.
-   */
   componentWillUnmount() {
     window.removeEventListener('click', this.handleOnClickOut);
   }
 
-  /**
-   * When a click occurs outside the drop container, and the menu is open,
-   * automatically hide the menu.
-   *
-   * @param {Event} e
-   */
   @bind
   handleOnClickOut(e) {
     if (this.state.expanded && isOutsideElement(this.container, e.target)) {
@@ -102,9 +72,6 @@ export default class Drop extends Component {
     }
   }
 
-  /**
-   * Hide the menu by setting the state to closed.
-   */
   @bind
   hideMenu() {
     this.setState({
@@ -112,9 +79,6 @@ export default class Drop extends Component {
     });
   }
 
-  /**
-   * Show the menu by setting the state to opened.
-   */
   @bind
   showMenu() {
     this.setState({
@@ -122,9 +86,6 @@ export default class Drop extends Component {
     });
   }
 
-  /**
-   * Toggle the open state of the menu.
-   */
   @bind
   toggleMenu() {
     if (this.state.expanded) {
@@ -134,11 +95,6 @@ export default class Drop extends Component {
     }
   }
 
-  /**
-   * Render the drop container.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <div id={this.formatID('drop')} ref={(ref) => { this.container = ref; }}>

@@ -21,11 +21,6 @@ export default class Addon extends Component {
     children: PropTypes.node,
   };
 
-  /**
-   * Render the inline input group add-on.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const props = this.props;
 

@@ -27,11 +27,6 @@ export default class Field extends Component {
     required: PropTypes.bool,
   };
 
-  /**
-   * Render the form field list item.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, invalid, required, label, help, inputID } = this.props;
 

@@ -45,11 +45,6 @@ export default class Select extends InputSelect {
 
   uid = generateUID();
 
-  /**
-   * Map options, values, and setup state.
-   *
-   * @param {Object} props
-   */
   constructor(props) {
     super(props);
 
@@ -66,11 +61,6 @@ export default class Select extends InputSelect {
     };
   }
 
-  /**
-   * Define a context that is passed to all children.
-   *
-   * @returns {Object}
-   */
   getChildContext() {
     const { name, options, multiple } = this.props;
     const { expanded, value } = this.state;
@@ -93,61 +83,30 @@ export default class Select extends InputSelect {
     };
   }
 
-  /**
-   * Bind handlers before mounting.
-   */
   componentWillMount() {
     window.addEventListener('click', this.handleOnClickOut);
   }
 
-  /**
-   * Always return true as we need to update the dropdown menu.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   * @returns {Boolean}
-   */
   shouldComponentUpdate(nextProps, nextState) {
     return this.hasMenu() ? true : super.shouldComponentUpdate(nextProps, nextState);
   }
 
-  /**
-   * Only trigger `changing` events when appropriate.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   */
   componentWillUpdate(nextProps, nextState) {
     if (nextState.value !== this.state.value) {
       super.componentWillUpdate(nextProps, nextState);
     }
   }
 
-  /**
-   * Only trigger `changed` events when appropriate.
-   *
-   * @param {Object} prevProps
-   * @param {Object} prevState
-   */
   componentDidUpdate(prevProps, prevState) {
     if (prevState.value !== this.state.value) {
       super.componentDidUpdate(prevProps, prevState);
     }
   }
 
-  /**
-   * Unbind handlers when unmounting.
-   */
   componentWillUnmount() {
     window.removeEventListener('click', this.handleOnClickOut);
   }
 
-  /**
-   * Extract the list of options (and nested optgroups) and map them to a key and label.
-   *
-   * @param {Object[]} options
-   * @returns {Object}
-   */
   extractOptions(options) {
     const map = {};
 
@@ -167,13 +126,6 @@ export default class Select extends InputSelect {
     return map;
   }
 
-  /**
-   * Extract a value, or list of values, and return the default set.
-   *
-   * @param {String|String[]} value
-   * @param {Boolean} multiple
-   * @returns {String|String[]}
-   */
   extractValues(value, multiple) {
     const values = Array.isArray(value) ? value : [value];
 
@@ -184,13 +136,6 @@ export default class Select extends InputSelect {
     return values;
   }
 
-  /**
-   * Return a label for the currently selected option(s).
-   * If `multiple` options are selected, attempt to format them based
-   * on the `multipleFormat` prop.
-   *
-   * @returns {String}
-   */
   getSelectedLabel() {
     const { options } = this.state;
     const { listLimit, defaultLabel, multipleFormat, countMessage } = this.props;
@@ -233,18 +178,10 @@ export default class Select extends InputSelect {
     }
   }
 
-  /**
-   * Returns true if a custom drop down menu is being used.
-   *
-   * @returns {Boolean}
-   */
   hasMenu() {
     return (Children.count(this.props.children) > 0);
   }
 
-  /**
-   * Hide the menu by setting the state to closed.
-   */
   @bind
   hideMenu() {
     this.setState({
@@ -252,11 +189,6 @@ export default class Select extends InputSelect {
     });
   }
 
-  /**
-   * Select a value or list of values.
-   *
-   * @param {String|String[]} value
-   */
   @bind
   selectValue(value) {
     this.setState({
@@ -264,9 +196,6 @@ export default class Select extends InputSelect {
     });
   }
 
-  /**
-   * Show the menu by setting the state to opened.
-   */
   @bind
   showMenu() {
     this.setState({
@@ -274,9 +203,6 @@ export default class Select extends InputSelect {
     });
   }
 
-  /**
-   * Toggle the open state of the menu.
-   */
   @bind
   toggleMenu() {
     if (this.props.disabled || !this.hasMenu()) {
@@ -290,9 +216,6 @@ export default class Select extends InputSelect {
     }
   }
 
-  /**
-   * Handler that closes the menu when focus is lost.
-   */
   @bind
   handleOnBlur() {
     if (!this.props.disabled && this.state.expanded && this.hasMenu()) {
@@ -300,9 +223,6 @@ export default class Select extends InputSelect {
     }
   }
 
-  /**
-   * Handler that toggles the display of the menu.
-   */
   @bind
   handleOnClickLabel(e) {
     e.preventDefault();
@@ -310,11 +230,6 @@ export default class Select extends InputSelect {
     this.toggleMenu();
   }
 
-  /**
-   * Handler that hides the menu if clicked outside the menu element.
-   *
-   * @param {SyntheticEvent} e
-   */
   @bind
   handleOnClickOut(e) {
     if (
@@ -325,9 +240,6 @@ export default class Select extends InputSelect {
     }
   }
 
-  /**
-   * Handler that shows the menu when the select is focused.
-   */
   @bind
   handleOnFocus() {
     if (!this.props.disabled && !this.state.expanded && this.hasMenu()) {
@@ -335,11 +247,6 @@ export default class Select extends InputSelect {
     }
   }
 
-  /**
-   * Render the custom select.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, native, disabled, options, arrow } = this.props;
     const { expanded } = this.state;

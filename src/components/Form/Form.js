@@ -25,11 +25,6 @@ export default class Form extends Component {
     multipart: PropTypes.bool,
   };
 
-  /**
-   * Render the form wrapper.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, action, method, inline, multipart } = this.props;
     const encType = multipart ? 'multipart/form-data' : 'application/x-www-form-urlencoded';

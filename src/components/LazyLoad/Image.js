@@ -23,15 +23,6 @@ export default class Image extends LazyLoad {
     src: PropTypes.string.isRequired,
   };
 
-  /**
-   * Determine the correct image source path based on the loaded state,
-   * whether the browser supports retina, and the default source and filler images.
-   *
-   * If `cacheBust` is enabled, a query string param will be appended
-   * with the current timestamp.
-   *
-   * @returns {String}
-   */
   getSourcePath() {
     const { src, retinaSrc, filler, cacheBust } = this.props;
     let sourcePath = filler || '';
@@ -52,11 +43,6 @@ export default class Image extends LazyLoad {
     return sourcePath;
   }
 
-  /**
-   * Render the lazy loaded image.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { alt, retinaSrc } = this.props;
 

@@ -49,11 +49,6 @@ export default class Tabs extends Component {
 
   uid = generateUID();
 
-  /**
-   * Define a context that is passed to all children.
-   *
-   * @returns {Object}
-   */
   getChildContext() {
     return {
       [MODULE.contextKey]: {
@@ -68,9 +63,6 @@ export default class Tabs extends Component {
     };
   }
 
-  /**
-   * Set the default index before mounting.
-   */
   componentWillMount() {
     const { persistState, useCookie, useFragment, fragments, defaultIndex } = this.props;
     let index = null;
@@ -101,20 +93,10 @@ export default class Tabs extends Component {
     this.showSection(Number(index));
   }
 
-  /**
-   * Only update if the index is different.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   * @returns {Boolean}
-   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.index !== this.state.index);
   }
 
-  /**
-   * Persist the state through a cookie.
-   */
   componentDidUpdate() {
     const { persistState, useCookie, cookieDuration, useFragment, fragments } = this.props;
     const { index } = this.state;
@@ -136,11 +118,6 @@ export default class Tabs extends Component {
     }
   }
 
-  /**
-   * Conceal a section by removing its index from the active state.
-   *
-   * @param {Number} index
-   */
   @bind
   hideSection(index) {
     if (this.state.index === index) {
@@ -150,33 +127,16 @@ export default class Tabs extends Component {
     }
   }
 
-  /**
-   * Returns true if the section at the specified index can be collapsed.
-   *
-   * @param {Number} index
-   * @returns {Boolean}
-   */
   @bind
   isSectionCollapsible(index) {
     return (this.props.collapsible && this.isSectionActive(index));
   }
 
-  /**
-   * Returns true if the section at the specified index is active.
-   *
-   * @param {Number} index
-   * @returns {Boolean}
-   */
   @bind
   isSectionActive(index) {
     return (this.state.index === index);
   }
 
-  /**
-   * Reveal the section at the defined index, and collapse all other sections.
-   *
-   * @param {Number} index
-   */
   @bind
   showSection(index) {
     this.setState({
@@ -184,11 +144,6 @@ export default class Tabs extends Component {
     });
   }
 
-  /**
-   * Toggle the display state of a specific index.
-   *
-   * @param {Number} index
-   */
   @bind
   toggleSection(index) {
     if (this.isSectionCollapsible(index)) {
@@ -198,11 +153,6 @@ export default class Tabs extends Component {
     }
   }
 
-  /**
-   * Render the wrapping tabs element.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, collapsible } = this.props;
 

@@ -30,9 +30,6 @@ export default class Notice extends Component {
     dismissed: false,
   };
 
-  /**
-   * Handler that dismisses the notice when the close button is clicked.
-   */
   @bind
   handleOnClick() {
     this.setState({
@@ -40,11 +37,6 @@ export default class Notice extends Component {
     });
   }
 
-  /**
-   * Render the notice and or alert.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, state, dismissable, title, close } = this.props;
     const role = ['warn', 'warning', 'error', 'danger', 'failure', 'critical']

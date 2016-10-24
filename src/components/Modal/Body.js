@@ -15,11 +15,6 @@ export default class Body extends Component {
     children: PropTypes.node,
   };
 
-  /**
-   * Render the modal inner body.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <div

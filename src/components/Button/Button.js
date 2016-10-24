@@ -35,10 +35,6 @@ export default class Button extends Component {
     pressed: false,
   };
 
-  /**
-   * Handler for setting `pressed` to true when the mouse clicks the button.
-   * Exists for proper ARIA support.
-   */
   @bind
   handleOnMouseDown() {
     this.setState({
@@ -46,10 +42,6 @@ export default class Button extends Component {
     });
   }
 
-  /**
-   * Handler for setting `pressed` to false when the mouse releases the button.
-   * Exists for proper ARIA support.
-   */
   @bind
   handleOnMouseUp() {
     this.setState({
@@ -57,11 +49,6 @@ export default class Button extends Component {
     });
   }
 
-  /**
-   * Render the button as either an anchor link or button.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { pressed } = this.state;
     const props = this.props;

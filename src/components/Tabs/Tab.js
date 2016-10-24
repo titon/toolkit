@@ -24,12 +24,6 @@ export default class Tab extends Component {
     onClick: collectionOf.func,
   };
 
-  /**
-   * Setup the state.
-   *
-   * @param {Object} props
-   * @param {Object} context
-   */
   constructor(props, context) {
     super();
 
@@ -38,45 +32,22 @@ export default class Tab extends Component {
     };
   }
 
-  /**
-   * Determine whether the tab is active not.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextContext
-   */
   componentWillReceiveProps(nextProps, nextContext) {
     this.setState({
       active: this.getContext(nextContext).isSectionActive(nextProps.index),
     });
   }
 
-  /**
-   * Only update if the active state is different.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   * @returns {Boolean}
-   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.active !== this.state.active);
   }
 
-  /**
-   * Update the index on the parent component when clicked.
-   *
-   * @param {SyntheticEvent} e
-   */
   @bind
   handleOnClick(e) {
     this.getContext().toggleSection(this.props.index);
     this.handleEvent('click', e);
   }
 
-  /**
-   * Render the tabs navigation tab.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, index } = this.props;
     const { active } = this.state;

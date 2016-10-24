@@ -22,11 +22,6 @@ export default class Badge extends Component {
     state: states,
   };
 
-  /**
-   * Render the inline badge.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const props = this.props;
 

@@ -22,11 +22,6 @@ export default class Breadcrumb extends Component {
     label: PropTypes.string,
   };
 
-  /**
-   * Render the breadcrumb list.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const props = this.props;
 

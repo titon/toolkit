@@ -22,22 +22,12 @@ export default class Tab extends Component {
     onClick: collectionOf.func,
   };
 
-  /**
-   * Handles clicking the tab buttons.
-   *
-   * @param {SyntheticEvent} e
-   */
   @bind
   handleOnClick(e) {
     this.getContext().showItem(this.props.index);
     this.handleEvent('click', e);
   }
 
-  /**
-   * Render a button that cycles to a specific item.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { index } = this.props;
     const active = this.getContext().isItemActive(index);

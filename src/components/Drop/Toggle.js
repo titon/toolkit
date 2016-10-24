@@ -19,19 +19,11 @@ export default class Toggle extends Component {
     children: PropTypes.node,
   };
 
-  /**
-   * Handle the display of the menu through toggling.
-   */
   @bind
   handleOnClick() {
     this.getContext().toggleMenu();
   }
 
-  /**
-   * Render the child and wrap any `onClick` event handler.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { expanded } = this.getContext();
 

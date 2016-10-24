@@ -14,11 +14,6 @@ export default class Divider extends Component {
 
   static contextTypes = CONTEXT_TYPES;
 
-  /**
-   * Render the drop item divider.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <li

@@ -32,11 +32,6 @@ export default class Input extends Component {
     type: PropTypes.string,
   };
 
-  /**
-   * Setup state.
-   *
-   * @param {Object} props
-   */
   constructor(props) {
     super();
 
@@ -77,23 +72,10 @@ export default class Input extends Component {
     };
   }
 
-  /**
-   * Only update if the value of the state changes.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   * @returns {Boolean}
-   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.value !== this.state.value || nextState.checked !== this.state.checked);
   }
 
-  /**
-   * Emit `changing` events before rendering.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   */
   componentWillUpdate(nextProps, nextState) {
     const { checked, value } = nextState;
     const args = this.isChoiceType() ? [checked, value] : [value, this.state.value];
@@ -101,12 +83,6 @@ export default class Input extends Component {
     emitEvent(this, 'onChanging', ...args);
   }
 
-  /**
-   * Emit `changed` events after rendering.
-   *
-   * @param {Object} prevProps
-   * @param {Object} prevState
-   */
   componentDidUpdate(prevProps, prevState) {
     const { checked, value } = this.state;
     const args = this.isChoiceType() ? [checked, value] : [value, prevState.value];
@@ -114,14 +90,6 @@ export default class Input extends Component {
     emitEvent(this, 'onChanged', ...args);
   }
 
-  /**
-   * Gather all the props that will be passed to the input element.
-   * We only need to define a few hard requirements for props,
-   * as all other props can be passed through natively.
-   *
-   * @param {Boolean} native
-   * @returns {Object}
-   */
   gatherProps(native = true) {
     const props = this.props;
     const state = this.state;
@@ -180,11 +148,6 @@ export default class Input extends Component {
     return inputProps;
   }
 
-  /**
-   * Gather a list of possible CSS class names based on the standard input HTML attributes.
-   *
-   * @returns {Object}
-   */
   gatherStateClasses() {
     const { disabled, multiple, readOnly, required } = this.props;
 
@@ -197,18 +160,10 @@ export default class Input extends Component {
     };
   }
 
-  /**
-   * Return true if the input element is a radio or checkbox.
-   *
-   * @returns {Boolean}
-   */
   isChoiceType() {
     return ['checkbox', 'radio', 'switch'].includes(this.state.type);
   }
 
-  /**
-   * Handler that updates the input value or checked state.
-   */
   @bind
   handleOnChange(e) {
     const newState = {};
@@ -222,11 +177,6 @@ export default class Input extends Component {
     this.setState(newState);
   }
 
-  /**
-   * Render the input with the props gathered from its declaration.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <input {...this.gatherProps()} />

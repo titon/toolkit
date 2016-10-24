@@ -20,11 +20,6 @@ export default class Item extends Component {
     complete: PropTypes.bool,
   };
 
-  /**
-   * Render the individual step item.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, complete } = this.props;
 

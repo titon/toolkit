@@ -21,22 +21,12 @@ export default class Next extends Component {
     onClick: collectionOf.func,
   };
 
-  /**
-   * Handles clicking the next button.
-   *
-   * @param {SyntheticEvent} e
-   */
   @bind
   handleOnClick(e) {
     this.getContext().nextItem();
     this.handleEvent('click', e);
   }
 
-  /**
-   * Render a button that cycles to the next item.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const props = this.props;
 

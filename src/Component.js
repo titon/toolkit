@@ -22,16 +22,6 @@ export default class Component extends React.Component {
   static contextTypes = {};
 
   /**
-   * Generate a UID for all components.
-   */
-  constructor() {
-    super();
-
-    this.state = {};
-    this.element = null;
-  }
-
-  /**
    * Format an element level class name based on the defined argument.
    *
    * @param {String} elementName
@@ -141,17 +131,6 @@ export default class Component extends React.Component {
       element, moduleName, name);
 
     return classNames[element];
-  }
-
-  /**
-   * Define a context that is passed to all children.
-   *
-   * @returns {Object}
-   */
-  getDefaultChildContext() {
-    return {
-      uid: this.uid,
-    };
   }
 
   /**

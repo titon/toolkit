@@ -15,11 +15,6 @@ export default class ActionBar extends Component {
     children: PropTypes.node,
   };
 
-  /**
-   * Render the form action bar.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <div className={this.formatChildClass('actions')}>

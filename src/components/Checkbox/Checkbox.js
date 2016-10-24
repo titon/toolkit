@@ -11,11 +11,6 @@ import MODULE from './module';
 export default class Checkbox extends Input {
   static module = MODULE;
 
-  /**
-   * Render the custom checkbox.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, disabled } = this.props;
     const inputProps = this.gatherProps(false);

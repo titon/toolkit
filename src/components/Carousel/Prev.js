@@ -21,22 +21,12 @@ export default class Prev extends Component {
     onClick: collectionOf.func,
   };
 
-  /**
-   * Handles clicking the previous button.
-   *
-   * @param {SyntheticEvent} e
-   */
   @bind
   handleOnClick(e) {
     this.getContext().prevItem();
     this.handleEvent('click', e);
   }
 
-  /**
-   * Render a button that cycles to the previous item.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const props = this.props;
 

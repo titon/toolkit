@@ -20,11 +20,6 @@ export default class Item extends Component {
     page: PropTypes.number.isRequired,
   };
 
-  /**
-   * Handler the jumps to another page.
-   *
-   * @param {SyntheticEvent} e
-   */
   @bind
   handleOnClick(e) {
     e.preventDefault();
@@ -32,11 +27,6 @@ export default class Item extends Component {
     this.getContext().goToPage(this.props.page);
   }
 
-  /**
-   * Render the pagination item link.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, page } = this.props;
     const context = this.getContext();

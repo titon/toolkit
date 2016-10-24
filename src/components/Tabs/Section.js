@@ -22,12 +22,6 @@ export default class Section extends Component {
     index: PropTypes.number.isRequired,
   };
 
-  /**
-   * Setup the state.
-   *
-   * @param {Object} props
-   * @param {Object} context
-   */
   constructor(props, context) {
     super();
 
@@ -36,48 +30,24 @@ export default class Section extends Component {
     };
   }
 
-  /**
-   * Determine whether the section is expanded or not.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextContext
-   */
   componentWillReceiveProps(nextProps, nextContext) {
     this.setState({
       expanded: this.getContext(nextContext).isSectionActive(nextProps.index),
     });
   }
 
-  /**
-   * Only update if the expanded state is different.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   * @returns {Boolean}
-   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.expanded !== this.state.expanded);
   }
 
-  /**
-   * Emit `showing` or `hiding` events before rendering.
-   */
   componentWillUpdate() {
     emitEvent(this, this.state.expanded ? 'onHiding' : 'onShowing');
   }
 
-  /**
-   * Emit `shown` or `hidden` events after rendering.
-   */
   componentDidUpdate() {
     emitEvent(this, this.state.expanded ? 'onShown' : 'onHidden');
   }
 
-  /**
-   * Render the tabs section content.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, index } = this.props;
     const { expanded } = this.state;

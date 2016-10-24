@@ -26,12 +26,6 @@ export default class Menu extends Component {
     hideSelected: PropTypes.bool,
   };
 
-  /**
-   * Setup state.
-   *
-   * @param {Object} props
-   * @param {Object} context
-   */
   constructor(props, context) {
     super();
 
@@ -45,19 +39,10 @@ export default class Menu extends Component {
     };
   }
 
-  /**
-   * Bind events before mounting.
-   */
   componentWillMount() {
     window.addEventListener('keydown', this.handleOnKeyDown);
   }
 
-  /**
-   * Update the list of selected values.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextContext
-   */
   componentWillReceiveProps(nextProps, nextContext) {
     const newContext = this.getContext(nextContext);
 
@@ -67,43 +52,22 @@ export default class Menu extends Component {
     });
   }
 
-  /**
-   * Emit `showing` or `hiding` events before rendering.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   */
   componentWillUpdate(nextProps, nextState) {
     if (nextState.expanded !== this.state.expanded) {
       emitEvent(this, this.state.expanded ? 'onHiding' : 'onShowing');
     }
   }
 
-  /**
-   * Emit `shown` or `hidden` events after rendering.
-   *
-   * @param {Object} prevProps
-   * @param {Object} prevState
-   */
   componentDidUpdate(prevProps, prevState) {
     if (prevState.expanded !== this.state.expanded) {
       emitEvent(this, this.state.expanded ? 'onShown' : 'onHidden');
     }
   }
 
-  /**
-   * Remove events when unmounting.
-   */
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleOnKeyDown);
   }
 
-  /**
-   * Create an option element with the defined settings.
-   *
-   * @param {Object} option
-   * @returns {ReactElement}
-   */
   createOption(option) {
     const { disabled, description, value, label } = option;
     const selected = this.state.values.has(value);
@@ -142,12 +106,6 @@ export default class Menu extends Component {
     );
   }
 
-  /**
-   * Create an option group element with the defined settings.
-   *
-   * @param {Object} group
-   * @returns {ReactElement}
-   */
   createOptGroup(group) {
     return (
       <li key={group.label}>
@@ -163,12 +121,6 @@ export default class Menu extends Component {
     );
   }
 
-  /**
-   * When a list item is clicked, update the list of selected options.
-   * If `multiple` is enabled, toggle the value, else clear all previous values.
-   *
-   * @param {String} value
-   */
   selectValue(value) {
     const context = this.getContext();
     const values = new Set(this.state.values);
@@ -192,14 +144,6 @@ export default class Menu extends Component {
     context.selectValue(Array.from(values));
   }
 
-  /**
-   * Handler that cycles through the menu options when a specific key is pressed.
-   * If `ArrowUp` or `ArrowDown` is pressed, it will highlight the next or previous option.
-   * If `Enter` is pressed, the value will be selected, else if `Escape` is pressed,
-   * the menu and state will be closed.
-   *
-   * @param {SyntheticEvent} e
-   */
   @bind
   handleOnKeyDown(e) {
     if (!this.state.expanded || !['ArrowUp', 'ArrowDown', 'Escape', 'Enter'].includes(e.key)) {
@@ -253,11 +197,6 @@ export default class Menu extends Component {
     }
   }
 
-  /**
-   * Render the list of options as `<li>` elements.
-   *
-   * @returns {ReactElement[]}
-   */
   renderOptions() {
     const options = this.getContext().options;
     const elements = [];
@@ -280,11 +219,6 @@ export default class Menu extends Component {
     return elements;
   }
 
-  /**
-   * Render the custom select dropdown menu.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { hideSelected } = this.props;
     const { expanded } = this.state;

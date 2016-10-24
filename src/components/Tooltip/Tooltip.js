@@ -38,18 +38,10 @@ export default class Tooltip extends Component {
     sourceElement: null,
   };
 
-  /**
-   * Bind a handler to re-position the tooltip on resize.
-   */
   componentWillMount() {
     window.addEventListener('resize', this.handleOnResize);
   }
 
-  /**
-   * We need to mount the component before we can calculate the dimensions of the element,
-   * as well as find the element in the DOM. It kind of sucks we need to do this in did mount,
-   * but other solutions aren't as viable.
-   */
   componentDidMount() {
     if (this.props.targetElement) {
       this.setState({
@@ -58,19 +50,10 @@ export default class Tooltip extends Component {
     }
   }
 
-  /**
-   * Unbind the resize handler.
-   */
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleOnResize);
   }
 
-  /**
-   * Calculate the `top` and `left` values to position the tooltip to.
-   * This requires a source element and target element (provided by `Warp`).
-   *
-   * @returns {Object}
-   */
   calculatePosition() {
     const { sourceElement } = this.state;
     const { targetElement, position, xOffset, yOffset } = this.props;
@@ -85,20 +68,12 @@ export default class Tooltip extends Component {
     return {};
   }
 
-  /**
-   * Handler that will force an update and a render, once a resize event has finished.
-   */
   @bind
   @debounce(150)
   handleOnResize() {
     this.forceUpdate();
   }
 
-  /**
-   * Render the tooltip element.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { type, position, title, children } = this.props;
 

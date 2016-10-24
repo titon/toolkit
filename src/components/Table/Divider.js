@@ -16,11 +16,6 @@ export default class Divider extends Component {
     colSpan: PropTypes.number,
   };
 
-  /**
-   * Render the dividing table row.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, colSpan } = this.props;
 

@@ -43,9 +43,6 @@ export default class ItemList extends Component {
     phase: 'initialRender',
   };
 
-  /**
-   * Calculate the initial transform translate offset before rendering.
-   */
   componentWillMount() {
     console.log('componentWillMount');
 
@@ -54,12 +51,6 @@ export default class ItemList extends Component {
     });
   }
 
-  /**
-   * When receiving a new index, determine what indices to transition from and to.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextContext
-   */
   componentWillReceiveProps(nextProps, nextContext) {
     console.log('componentWillReceiveProps'); // , nextContext);
 
@@ -88,14 +79,6 @@ export default class ItemList extends Component {
     }
   }
 
-  /**
-   * Once the parent component has updated, we must re-render this component with the new children.
-   * To do this, we must disable transitions temporarily.
-   *
-   * @param {Object} prevProps
-   * @param {Object} prevState
-   * @param {Object} prevContext
-   */
   componentDidUpdate(prevProps, prevState, prevContext) {
     console.log('componentDidUpdate');
 
@@ -110,11 +93,6 @@ export default class ItemList extends Component {
     }
   }
 
-  /**
-   * Calculate the size to cycle with based on the sum of all items up to but not including the defined index.
-   *
-   * @returns {String}
-   */
   getTranslateOffset() {
     let index = 0,
       fromIndex = this.state.fromIndex,
@@ -141,12 +119,6 @@ export default class ItemList extends Component {
     return `translate3d(${x}%, ${y}%, 0)`;
   }
 
-  /**
-   * Callback to trigger once the containers animation finishes.
-   * Emit `cycled` event after transitioning.
-   *
-   * @param {TransitionEvent} e
-   */
   @bind
   handleOnTransitionEnd(e) {
     if (e.propertyName === 'transform') {
@@ -154,11 +126,6 @@ export default class ItemList extends Component {
     }
   }
 
-  /**
-   * Render a specific range of items into the carousel item list.
-   *
-   * @returns {*[]}
-   */
   renderChildren() {
     let children = Children.toArray(this.props.children),
       visibleChildren = [],
@@ -184,11 +151,6 @@ export default class ItemList extends Component {
     return visibleChildren;
   }
 
-  /**
-   * Render the item list and attach swipe and transition functionality to the `ol` tag.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     let context = this.getContext(),
       props = this.generateNestedProps(this.props, 'swipe', [

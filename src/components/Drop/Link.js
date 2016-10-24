@@ -18,11 +18,6 @@ export default class Link extends Component {
     children: PropTypes.node,
   };
 
-  /**
-   * Render the drop link.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <a

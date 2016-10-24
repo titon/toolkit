@@ -22,11 +22,6 @@ export default class Trigger extends Component {
     tooltip: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,
   };
 
-  /**
-   * Render the tooltip trigger element.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, inline } = this.props;
     const Tag = inline ? 'span' : 'div';

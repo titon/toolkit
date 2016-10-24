@@ -7,7 +7,5 @@
 import Fade from './Fade';
 import Group from './Group';
 
-Fade.Group = Group;
-
 export { Group };
 export default Fade;

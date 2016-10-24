@@ -44,12 +44,6 @@ export default class Modal extends Component {
     expanded: false,
   };
 
-  /**
-   * Validate that a modal is instantiated within a gateway.
-   *
-   * @param {Object} props
-   * @param {Object} context
-   */
   constructor(props, context) {
     super();
 
@@ -57,9 +51,6 @@ export default class Modal extends Component {
             'A `Modal` must be instantiated within a `Gateway`.');
   }
 
-  /**
-   * Before mounting, lock scrolling and display a blackout, it applicable.
-   */
   componentWillMount() {
     const { dismissable, blackOut, stopScroll } = this.props;
 
@@ -76,19 +67,12 @@ export default class Modal extends Component {
     }
   }
 
-  /**
-   * Set the expanded state once mounted to trigger any transitions.
-   * We must do this after a mount, as modal's are passed through to gateways.
-   */
   componentDidMount() {
     this.setState({
       expanded: true,
     });
   }
 
-  /**
-   * Reverse the logic that was initialized during mounting.
-   */
   componentWillUnmount() {
     const { dismissable, blackOut, stopScroll } = this.props;
 
@@ -105,27 +89,16 @@ export default class Modal extends Component {
     }
   }
 
-  /**
-   * Conceal the modal by removing its element from the gateway.
-   */
   @bind
   hideModal() {
     this.getContext(null, contextKey).warpOut(this.props.gateName, this.getInternalElement());
   }
 
-  /**
-   * Handler for clicking the close button.
-   */
   @bind
   handleOnClick() {
     this.hideModal();
   }
 
-  /**
-   * Handler for closing the modal when a click occurs outside the outer element.
-   *
-   * @param {SyntheticEvent} e
-   */
   @bind
   handleOnClickOut({ target, currentTarget }) {
     if (target === currentTarget) {
@@ -133,11 +106,6 @@ export default class Modal extends Component {
     }
   }
 
-  /**
-   * Handler for closing the modal when the `esc` key is pressed.
-   *
-   * @param {SyntheticEvent} e
-   */
   @bind
   handleOnKeyUp({ key }) {
     if (key === 'Escape') {
@@ -145,11 +113,6 @@ export default class Modal extends Component {
     }
   }
 
-  /**
-   * Render the modal element.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, dismissable, fullScreen, close } = this.props;
     const { expanded } = this.state;

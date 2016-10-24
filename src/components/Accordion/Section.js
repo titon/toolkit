@@ -21,11 +21,6 @@ export default class Section extends Component {
     index: PropTypes.number.isRequired,
   };
 
-  /**
-   * Render the accordion item section content and wrap with a collapsible slide transition.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, index, expanded } = this.props;
 

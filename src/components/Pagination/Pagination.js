@@ -54,11 +54,6 @@ export default class Pagination extends Component {
 
   uid = generateUID();
 
-  /**
-   * Setup state.
-   *
-   * @param {Object} props
-   */
   constructor(props) {
     super();
 
@@ -67,11 +62,6 @@ export default class Pagination extends Component {
     };
   }
 
-  /**
-   * Define a context that is passed to all children.
-   *
-   * @returns {Object}
-   */
   getChildContext() {
     return {
       [MODULE.contextKey]: {
@@ -86,78 +76,35 @@ export default class Pagination extends Component {
     };
   }
 
-  /**
-   * Only update if the `page` has changed.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   * @returns {Boolean}
-   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.page !== this.state.page);
   }
 
-  /**
-   * Emit `paging` events before rendering.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   */
   componentWillUpdate(nextProps, nextState) {
     emitEvent(this, 'onPaging', nextState.page, this.state.page);
   }
 
-  /**
-   * Emit `paged` events before rendering.
-   *
-   * @param {Object} prevProps
-   * @param {Object} prevState
-   */
   componentDidUpdate(prevProps, prevState) {
     emitEvent(this, 'onPaged', this.state.page, prevState.page);
   }
 
-  /**
-   * Clamp a page between 1 and the total number of pages.
-   *
-   * @param {Number} page
-   * @param {Number} total
-   * @returns {Number}
-   */
   clampPage(page, total) {
     // eslint-disable-next-line no-nested-ternary
     return (page < 1) ? 1 : ((page > total) ? total : page);
   }
 
-  /**
-   * Create an `Item` with the defined page number.
-   *
-   * @param {Number} page
-   * @returns {ReactElement}
-   */
   createItem(page) {
     return (
       <Item key={page} page={page} />
     );
   }
 
-  /**
-   * Create a `Spacer` with the defined spacer content.
-   *
-   * @param {String} key
-   * @returns {ReactElement}
-   */
   createSpacer(key) {
     return (
       <Spacer key={key}>{this.props.spacer}</Spacer>
     );
   }
 
-  /**
-   * Go to a specific page by updating the state.
-   *
-   * @param {Number} page
-   */
   @bind
   goToPage(page) {
     this.setState({
@@ -165,27 +112,16 @@ export default class Pagination extends Component {
     });
   }
 
-  /**
-   * Go to the next page. If the last page is hit, stop there.
-   */
   @bind
   nextPage() {
     this.goToPage(this.state.page + 1);
   }
 
-  /**
-   * Go to the previous page. If the first page is hit, stop there.
-   */
   @bind
   prevPage() {
     this.goToPage(this.state.page - 1);
   }
 
-  /**
-   * Render a list of items based on the defined format.
-   *
-   * @returns {Spacer[]|Item[]}
-   */
   renderItems() {
     const { totalPages, edges, format } = this.props;
     const { page } = this.state;
@@ -281,11 +217,6 @@ export default class Pagination extends Component {
     return items;
   }
 
-  /**
-   * Render the pagination list.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const {
       first,

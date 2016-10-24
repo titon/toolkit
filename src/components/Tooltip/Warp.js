@@ -35,12 +35,6 @@ export default class Warp extends Component {
     visible: false,
   };
 
-  /**
-   * Validate that a tooltip is instantiated within a gateway.
-   *
-   * @param {Object} props
-   * @param {Object} context
-   */
   constructor(props, context) {
     super();
 
@@ -48,9 +42,6 @@ export default class Warp extends Component {
       'A `Tooltip.Warp` must be instantiated within a `Gateway`.');
   }
 
-  /**
-   * Hide the tooltip by removing its element from the gateway.
-   */
   @bind
   hideTooltip() {
     this.getContext(null, contextKey).warpOut(this.props.gateName, this.state.element);
@@ -61,12 +52,6 @@ export default class Warp extends Component {
     });
   }
 
-  /**
-   * Show the tooltip by adding its element to the gateway.
-   *
-   * We need to clone the provided tooltip element and pass along the
-   * warp target to position relative to.
-   */
   @bind
   showTooltip() {
     const { tooltip } = this.props;
@@ -94,9 +79,6 @@ export default class Warp extends Component {
     });
   }
 
-  /**
-   * Toggles the display of the tooltip.
-   */
   @bind
   toggleTooltip() {
     if (this.state.visible) {
@@ -106,11 +88,6 @@ export default class Warp extends Component {
     }
   }
 
-  /**
-   * Render the child and wrap event handlers.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, mode } = this.props;
     const props = {

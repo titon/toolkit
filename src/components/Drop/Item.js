@@ -19,11 +19,6 @@ export default class Item extends Component {
     children: PropTypes.node,
   };
 
-  /**
-   * Render the drop item.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children } = this.props;
     const nested = Children.toArray(children).some(node => node.type && node.type === Menu);

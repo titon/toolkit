@@ -49,11 +49,6 @@ export default class OffCanvas extends Component {
 
   uid = generateUID();
 
-  /**
-   * Validate props.
-   *
-   * @param {Object} props
-   */
   constructor(props) {
     super();
 
@@ -65,11 +60,6 @@ export default class OffCanvas extends Component {
       'for `showOnLoad` when `multiple` sidebars are enabled.');
   }
 
-  /**
-   * Define a context that is passed to all children.
-   *
-   * @returns {Object}
-   */
   getChildContext() {
     return {
       [MODULE.contextKey]: {
@@ -83,37 +73,19 @@ export default class OffCanvas extends Component {
     };
   }
 
-  /**
-   * Manage sidebars and scrollbars before mounting.
-   */
   componentWillMount() {
     this.showOnLoad();
     this.toggleScrolling();
   }
 
-  /**
-   * Only update if the active sides change.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   * @returns {Boolean}
-   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.sides !== this.state.sides);
   }
 
-  /**
-   * Manage sidebars and scrollbars after updating.
-   */
   componentDidUpdate() {
     this.toggleScrolling();
   }
 
-  /**
-   * Conceal a sidebar by removing its side from the active list.
-   *
-   * @param {String} side
-   */
   @bind
   hideSidebar(side) {
     const sides = new Set(this.state.sides);
@@ -125,22 +97,11 @@ export default class OffCanvas extends Component {
     });
   }
 
-  /**
-   * Returns true if the defined side is currently active.
-   *
-   * @param {String} side
-   * @returns {Boolean}
-   */
   @bind
   isSidebarActive(side) {
     return this.state.sides.has(side);
   }
 
-  /**
-   * Reveal a sidebar by adding the side to the active list.
-   *
-   * @param {String} side
-   */
   @bind
   showSidebar(side) {
     const sides = new Set(this.state.sides);
@@ -164,9 +125,6 @@ export default class OffCanvas extends Component {
     });
   }
 
-  /**
-   * Show all sidebar(s) on page load.
-   */
   showOnLoad() {
     const { children, multiple, showOnLoad } = this.props;
 
@@ -189,20 +147,12 @@ export default class OffCanvas extends Component {
     }
   }
 
-  /**
-   * Toggle document scrollbars on and off.
-   */
   toggleScrolling() {
     if (this.props.stopScroll) {
       DocumentState.toggleScrolling(this.state.sides.size === 0);
     }
   }
 
-  /**
-   * Toggle the active state of the defined sidebar.
-   *
-   * @param {String} side
-   */
   @bind
   toggleSidebar(side) {
     if (this.isSidebarActive(side)) {
@@ -212,12 +162,6 @@ export default class OffCanvas extends Component {
     }
   }
 
-  /**
-   * Handles all `swipe` events by toggling the display of sidebars
-   * based on the direction of the swipe.
-   *
-   * @param {Event} e
-   */
   @bind
   handleOnSwipe(e) {
     const side = e.target.getAttribute('data-offcanvas-sidebar');
@@ -233,11 +177,6 @@ export default class OffCanvas extends Component {
     }
   }
 
-  /**
-   * Render the off canvas container.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const props = this.props;
     const swipeProps = this.generateNestedProps(props, 'swipe', [

@@ -22,11 +22,6 @@ export default class Spinner extends Component {
     type: PropTypes.oneOf(['bubble']),
   };
 
-  /**
-   * Render the spinner loader and generate a count of spinners.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, type } = this.props;
     const spinners = [];

@@ -24,11 +24,6 @@ export default class Switch extends Input {
     stacked: PropTypes.bool,
   };
 
-  /**
-   * Render the custom switch using a checkbox.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { disabled, labelOn, labelOff } = this.props;
     const inputProps = this.gatherProps(false);

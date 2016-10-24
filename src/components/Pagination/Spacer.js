@@ -18,11 +18,6 @@ export default class Spacer extends Component {
     children: PropTypes.node,
   };
 
-  /**
-   * Render the pagination item spacer.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <li>

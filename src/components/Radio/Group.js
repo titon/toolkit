@@ -29,11 +29,6 @@ export default class Group extends Component {
 
   uid = generateUID();
 
-  /**
-   * Setup state.
-   *
-   * @param {Object} props
-   */
   constructor(props) {
     super();
 
@@ -42,11 +37,6 @@ export default class Group extends Component {
     };
   }
 
-  /**
-   * Define a context that is passed to all children.
-   *
-   * @returns {Object}
-   */
   getChildContext() {
     const { name } = this.props;
 
@@ -61,22 +51,10 @@ export default class Group extends Component {
     };
   }
 
-  /**
-   * Only update if the selected value changes.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   * @returns {Boolean}
-   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.value !== this.state.value);
   }
 
-  /**
-   * Select a value to mark a radio as checked.
-   *
-   * @param {String} value
-   */
   @bind
   selectValue(value) {
     this.setState({
@@ -84,11 +62,6 @@ export default class Group extends Component {
     });
   }
 
-  /**
-   * Render a simple radio group container.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <div

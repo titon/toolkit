@@ -16,11 +16,6 @@ export default class Item extends Component {
     children: PropTypes.node.isRequired,
   };
 
-  /**
-   * Render the breadcrumb item link.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const props = this.props;
 

@@ -24,11 +24,6 @@ export default class Wave extends Component {
     type: PropTypes.oneOf(['bar', 'bubble']),
   };
 
-  /**
-   * Render the wave loader and generate a count of waves.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, type, count } = this.props;
     const waves = [];

@@ -26,11 +26,6 @@ export default class Progress extends Component {
     now: PropTypes.number.isRequired,
   };
 
-  /**
-   * Render the progress bar.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, max, min, now } = this.props;
 

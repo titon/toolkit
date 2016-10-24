@@ -18,11 +18,6 @@ export default class Bar extends Component {
     state: states,
   };
 
-  /**
-   * Render the progress bar segment.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, state, percent } = this.props;
 

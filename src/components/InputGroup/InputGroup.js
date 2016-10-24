@@ -11,11 +11,6 @@ import MODULE from './module';
 export default class InputGroup extends Component {
   static module = MODULE;
 
-  /**
-   * Render the input group wrapper.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const props = this.props;
 

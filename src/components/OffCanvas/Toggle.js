@@ -20,19 +20,11 @@ export default class Toggle extends Component {
     side: PropTypes.oneOf(['left', 'right']).isRequired,
   };
 
-  /**
-   * Handle the display of which off canvas sidebar to toggle.
-   */
   @bind
   handleOnClick() {
     this.getContext().toggleSidebar(this.props.side);
   }
 
-  /**
-   * Render the child and wrap any `onClick` event handler.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return this.transferToChild(this.props.children, {
       className: this.getContext().isSidebarActive(this.props.side) ? 'is-active' : '',

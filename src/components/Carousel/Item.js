@@ -19,11 +19,6 @@ export default class Item extends Component {
     index: PropTypes.number.isRequired,
   };
 
-  /**
-   * Render the individual list item.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children, index } = this.props;
     const active = this.getContext().isItemActive(index);

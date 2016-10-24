@@ -15,11 +15,6 @@ export default class FieldList extends Component {
     children: PropTypes.node,
   };
 
-  /**
-   * Render the form field list wrapper.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { children } = this.props;
 

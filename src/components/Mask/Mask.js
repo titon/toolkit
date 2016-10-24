@@ -26,11 +26,6 @@ export default class Mask extends Component {
 
   uid = generateUID();
 
-  /**
-   * Define a context that is passed to all children.
-   *
-   * @returns {Object}
-   */
   getChildContext() {
     return {
       [MODULE.contextKey]: {
@@ -43,20 +38,10 @@ export default class Mask extends Component {
     };
   }
 
-  /**
-   * Only update if the `expanded` state changes.
-   *
-   * @param {Object} nextProps
-   * @param {Object} nextState
-   * @returns {Boolean}
-   */
   shouldComponentUpdate(nextProps, nextState) {
     return (nextState.expanded !== this.state.expanded);
   }
 
-  /**
-   * Conceal the overlay by marking it inactive.
-   */
   @bind
   hideOverlay() {
     this.setState({
@@ -64,9 +49,6 @@ export default class Mask extends Component {
     });
   }
 
-  /**
-   * Reveal the overlay by marking it active.
-   */
   @bind
   showOverlay() {
     this.setState({
@@ -74,9 +56,6 @@ export default class Mask extends Component {
     });
   }
 
-  /**
-   * Toggle the active state of the overlay.
-   */
   @bind
   toggleOverlay() {
     if (this.state.expanded) {
@@ -86,11 +65,6 @@ export default class Mask extends Component {
     }
   }
 
-  /**
-   * Render the mask container.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <div

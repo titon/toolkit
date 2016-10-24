@@ -19,19 +19,11 @@ export default class Toggle extends Component {
     children: PropTypes.node,
   };
 
-  /**
-   * Handlers for toggling the display of the mask overlay.
-   */
   @bind
   handleOnClick() {
     this.getContext().toggleOverlay();
   }
 
-  /**
-   * Render the child and wrap any `onClick` event handlers.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return this.transferToChild(this.props.children, {
       className: this.getContext().expanded ? 'is-active' : '',

@@ -18,9 +18,6 @@ export default class Gateway extends Component {
 
   static childContextTypes = CONTEXT_TYPES;
 
-  /**
-   * Only one instance of the `Gateway` should be used.
-   */
   constructor() {
     super();
 
@@ -30,11 +27,6 @@ export default class Gateway extends Component {
     this.gates = {};
   }
 
-  /**
-   * Define a context that is passed to all children.
-   *
-   * @returns {Object}
-   */
   getChildContext() {
     return {
       [MODULE.contextKey]: {
@@ -45,26 +37,12 @@ export default class Gateway extends Component {
     };
   }
 
-  /**
-   * Checks to see if a `Gate` has been registered.
-   *
-   * @param {String} gate
-   * @returns {Boolean}
-   */
   hasGate(gate) {
     invariant(this.gates[gate], 'The `Gate` "%s" does not exist.', gate);
 
     return true;
   }
 
-  /**
-   * Register a child `Gate` component with a unique name
-   * and two handler functions for warping in and out components.
-   *
-   * @param {String} gate
-   * @param {Function} warpIn
-   * @param {Function} warpOut
-   */
   @bind
   registerGate(gate, warpIn, warpOut) {
     invariant(!this.gates[gate],
@@ -76,12 +54,6 @@ export default class Gateway extends Component {
     this.gates[gate] = { warpIn, warpOut };
   }
 
-  /**
-   * Render the passed in React element within the defined gate.
-   *
-   * @param {String} gate
-   * @param {ReactElement} element
-   */
   @bind
   warpIn(gate, element) {
     if (this.hasGate(gate)) {
@@ -89,12 +61,6 @@ export default class Gateway extends Component {
     }
   }
 
-  /**
-   * Remove the passed in React element from the defined gate.
-   *
-   * @param {String} gate
-   * @param {ReactElement} element
-   */
   @bind
   warpOut(gate, element) {
     if (this.hasGate(gate)) {
@@ -102,11 +68,6 @@ export default class Gateway extends Component {
     }
   }
 
-  /**
-   * Render the gateway and its children.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <div className={this.formatClass()}>

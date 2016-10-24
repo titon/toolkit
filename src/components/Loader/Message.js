@@ -15,11 +15,6 @@ export default class Message extends Component {
     children: PropTypes.node,
   };
 
-  /**
-   * Render the message within a loader.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     return (
       <div className={this.formatChildClass('message')}>

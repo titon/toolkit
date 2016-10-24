@@ -22,11 +22,6 @@ export default class Steps extends Component {
     label: PropTypes.string,
   };
 
-  /**
-   * Render the steps wrapper.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const { label, children } = this.props;
 

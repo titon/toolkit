@@ -20,11 +20,6 @@ export default class TabList extends Component {
     onClick: collectionOf.func,
   };
 
-  /**
-   * Render a list of tabs that can be clicked on to jump to specific items.
-   *
-   * @returns {ReactElement}
-   */
   render() {
     const children = [];
     const { onClick } = this.props;
