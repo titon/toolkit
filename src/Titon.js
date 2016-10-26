@@ -6,40 +6,54 @@
 
 import flags from './flags';
 
-const Titon = Object.freeze({
+class Titon {
+  constructor() {
+    this.version = '%version%';
+    this.build = '%build%';
+    this.logger = null;
+    this.options = {
+      cookiePrefix: 'titon.',
+      debug: false,
+      elementSeparator: '__',
+      modifierSeparator: '--',
+      namespace: '',
+      states: ['info', 'debug', 'warning', 'error', 'success'],
+    };
+  }
 
-  /** Build date hash. */
-  build: '%build%',
+  debug() {
+    this.options.debug = true;
 
-  /** Runtime flags. */
-  flags,
+    return this;
+  }
 
-  /** Configurable options. */
-  options: {
-    // Prefix prepended to every cookie
-    cookiePrefix: 'titon.',
+  log(message, ...args) {
+    if (this.logger) {
+      this.logger(message, args);
+    }
 
-    // Global debugging
-    debug: false,
+    return this;
+  }
 
-    // BEM element separator
-    elementSeparator: '__',
+  setLogger(logger) {
+    if (typeof logger !== 'function') {
+      throw new TypeError('Logger must be a function.');
+    }
 
-    // Logger function that handles invariants
-    logger() {},
+    this.logger = logger;
 
-    // BEM modifier separator
-    modifierSeparator: '--',
+    return this;
+  }
 
-    // CSS class namespace
-    namespace: '',
+  setStyleFormat(namespace, elementSeparator = '__', modifierSeparator = '--') {
+    this.options.namespace = namespace || '';
+    this.options.elementSeparator = elementSeparator;
+    this.options.modifierSeparator = modifierSeparator;
 
-    // Style states
-    states: ['info', 'debug', 'warning', 'error', 'success'],
-  },
+    return this;
+  }
+}
 
-  /** Current version. */
-  version: '%version%',
-});
+Titon.flags = flags;
 
-export default Titon;
+export default new Titon();
