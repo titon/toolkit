@@ -7,9 +7,10 @@
 import { PropTypes } from 'react';
 import Button from './Button';
 
-export default class Link extends Button {
-  static propTypes = {
-    ...Button.propTypes,
-    href: PropTypes.string.isRequired,
-  };
-}
+const Link = Button.extendStyles({}, {
+  styleName: 'ToolkitLink',
+});
+
+Link.propTypes.href = PropTypes.string.isRequired;
+
+export default Link;

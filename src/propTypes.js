@@ -10,17 +10,22 @@ import collectionOf from './prop-types/collectionOf';
 
 /**
  * A prop type for a list of positions on the x and y axis.
- *
- * @returns {React.PropTypes.oneOf}
  */
 export const axisPositions = PropTypes.oneOf(['top', 'bottom', 'left', 'right']);
 
 /**
- * Common default props between input components.
- *
- * @type {Object}
+ * A prop type for the styles object passed by `Aesthetic`.
+ * Should accept both class names (strings) and style objects (objects).
  */
-export const defaultInputProps = {
+export const classStyles = PropTypes.objectOf(PropTypes.oneOfType([
+  PropTypes.string,
+  PropTypes.object,
+]));
+
+/**
+ * Common default props between input components.
+ */
+export const inputDefaults = {
   defaultChecked: false,
   defaultValue: '',
   disabled: false,
@@ -30,19 +35,7 @@ export const defaultInputProps = {
 };
 
 /**
- * Common default props for supported sizes.
- *
- * @type {Object}
- */
-export const defaultSizeProps = {
-  large: false,
-  small: false,
-};
-
-/**
  * Common prop types between input components.
- *
- * @type {Object}
  */
 export const inputPropTypes = {
   defaultChecked: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
@@ -59,8 +52,6 @@ export const inputPropTypes = {
 
 /**
  * A prop type shape for react-motion spring configuration.
- *
- * @returns {React.PropTypes.shape}
  */
 export const motionSpring = PropTypes.shape({
   stiffness: PropTypes.number,
@@ -70,8 +61,6 @@ export const motionSpring = PropTypes.shape({
 
 /**
  * A prop type shape for an option within a select input list.
- *
- * @returns {React.PropTypes.shape}
  */
 export const optionShape = PropTypes.shape({
   disabled: PropTypes.bool,
@@ -81,8 +70,6 @@ export const optionShape = PropTypes.shape({
 
 /**
  * A prop type shape for an optgroup within a select input list.
- *
- * @returns {React.PropTypes.shape}
  */
 export const optionGroupShape = PropTypes.shape({
   disabled: PropTypes.bool,
@@ -92,8 +79,6 @@ export const optionGroupShape = PropTypes.shape({
 
 /**
  * A prop type for a list of options.
- *
- * @returns {React.PropTypes.arrayOf}
  */
 export const optionList = PropTypes.arrayOf(PropTypes.oneOfType([
   optionShape, optionGroupShape,
@@ -101,8 +86,6 @@ export const optionList = PropTypes.arrayOf(PropTypes.oneOfType([
 
 /**
  * A prop type for a list of positions in each direction.
- *
- * @returns {React.PropTypes.oneOf}
  */
 export const positions = PropTypes.oneOf([
   'top-left', 'top', 'top-right',
@@ -112,8 +95,6 @@ export const positions = PropTypes.oneOf([
 
 /**
  * Common prop types for show and hide events.
- *
- * @type {Object}
  */
 export const showHidePropTypes = {
   onHidden: collectionOf.func,
@@ -123,9 +104,15 @@ export const showHidePropTypes = {
 };
 
 /**
+ * Common default props for supported sizes.
+ */
+export const sizeDefaults = {
+  large: false,
+  small: false,
+};
+
+/**
  * Common prop types for small and large sizes.
- *
- * @type {Object}
  */
 export const sizePropTypes = {
   large: PropTypes.bool,
@@ -134,7 +121,5 @@ export const sizePropTypes = {
 
 /**
  * A prop type for a list of configurable states.
- *
- * @returns {React.PropTypes.oneOf}
  */
 export const states = PropTypes.oneOf(Titon.options.states);

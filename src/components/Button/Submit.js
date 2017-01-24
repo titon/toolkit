@@ -6,9 +6,10 @@
 
 import Button from './Button';
 
-export default class Submit extends Button {
-  static defaultProps = {
-    ...Button.defaultProps,
-    type: 'submit',
-  };
-}
+const Submit = Button.extendStyles({}, {
+  styleName: 'ToolkitSubmitButton',
+});
+
+Submit.defaultProps.type = 'submit';
+
+export default Submit;

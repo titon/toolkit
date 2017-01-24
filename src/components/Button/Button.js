@@ -5,16 +5,13 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import bind from '../../decorators/bind';
-import { defaultSizeProps, sizePropTypes, states } from '../../propTypes';
-import MODULE from './module';
+import style, { classes } from '../../styler';
+import { sizeDefaults, sizePropTypes, classStyles } from '../../propTypes';
 
-export default class Button extends Component {
-  static module = MODULE;
-
+export class ToolkitButton extends React.PureComponent {
   static defaultProps = {
-    ...defaultSizeProps,
+    ...sizeDefaults,
+    disabled: false,
     primary: false,
     secondary: false,
     type: 'button',
@@ -23,11 +20,11 @@ export default class Button extends Component {
   static propTypes = {
     ...sizePropTypes,
     children: PropTypes.node,
+    classNames: classStyles,
     disabled: PropTypes.bool,
     href: PropTypes.string,
     primary: PropTypes.bool,
     secondary: PropTypes.bool,
-    state: states,
     type: PropTypes.oneOf(['button', 'submit']),
   };
 
@@ -35,61 +32,78 @@ export default class Button extends Component {
     pressed: false,
   };
 
-  @bind
-  handleOnMouseDown() {
+  handleOnMouseDown = () => {
     this.setState({
       pressed: true,
     });
-  }
+  };
 
-  @bind
-  handleOnMouseUp() {
+  handleOnMouseUp = () => {
     this.setState({
       pressed: false,
     });
-  }
+  };
 
   render() {
     const { pressed } = this.state;
-    const props = this.props;
-    let buttonProps = {
-      className: this.formatClass({
-        '@large': props.large,
-        '@primary': props.primary,
-        '@secondary': props.secondary,
-        '@small': props.small,
-        [`@${props.state}`]: props.state,
-        'is-disabled': props.disabled,
-        'is-pressed': pressed,
-      }),
+    const {
+      classNames,
+      children,
+      disabled,
+      small,
+      large,
+      primary,
+      secondary,
+      href,
+      type,
+    } = this.props;
+    let props = {
       role: 'button',
+      className: classes(classNames.button, {
+        [classNames.small]: small,
+        [classNames.large]: large,
+        [classNames.primary]: primary,
+        [classNames.secondary]: secondary,
+        [classNames.pressed]: pressed,
+        [classNames.disabled]: disabled,
+      }),
     };
 
     // If an anchor link
-    if (props.href) {
-      buttonProps.href = props.href;
+    if (href) {
+      props.href = href;
 
       return (
-        <a {...buttonProps}>
-          {props.children}
+        <a {...props}>
+          {children}
         </a>
       );
     }
 
     // If a button
-    buttonProps = {
-      ...buttonProps,
+    props = {
+      ...props,
+      type,
+      disabled,
       'aria-pressed': pressed,
-      disabled: props.disabled,
       onMouseDown: this.handleOnMouseDown,
       onMouseUp: this.handleOnMouseUp,
-      type: props.type,
     };
 
     return (
-      <button {...buttonProps}>
-        {props.children}
+      <button {...props}>
+        {children}
       </button>
     );
   }
 }
+
+export default style({
+  button: 'button',
+  small: 'button--small',
+  large: 'button--large',
+  primary: 'button--primary',
+  secondary: 'button--secondary',
+  pressed: 'is-pressed',
+  disabled: 'is-disabled',
+})(ToolkitButton);
