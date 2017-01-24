@@ -5,12 +5,12 @@
  */
 
 import React, { Children, PropTypes } from 'react';
-import Component from '../../Component';
-import MODULE from './module';
+import style, { classes } from '../../styler';
+import { classStyles } from '../../propTypes';
+import formatID from '../../utility/formatID';
+import generateUID from '../../utility/generateUID';
 
-export default class ButtonGroup extends Component {
-  static module = MODULE;
-
+export class ToolkitButtonGroup extends React.PureComponent {
   static defaultProps = {
     justified: false,
     label: 'Button Group',
@@ -19,28 +19,37 @@ export default class ButtonGroup extends Component {
 
   static propTypes = {
     children: PropTypes.node,
+    classNames: classStyles,
     justified: PropTypes.bool,
     label: PropTypes.string,
     vertical: PropTypes.bool,
   };
 
+  uid = generateUID();
+
   render() {
-    const props = this.props;
+    const { children, classNames, justified, vertical, label } = this.props;
 
     return (
       <ul
         role="toolbar"
-        id={this.formatID('button-group')}
-        className={this.formatClass({
-          '@justified': props.justified,
-          '@vertical': props.vertical,
+        id={formatID('button-group', this.uid)}
+        className={classes(classNames.buttonGroup, {
+          [classNames.justified]: justified,
+          [classNames.vertical]: vertical,
         })}
-        aria-label={props.label}
+        aria-label={label}
       >
-        {Children.map(props.children, child => (
+        {Children.map(children, child => (
           <li>{child}</li>
         ))}
       </ul>
     );
   }
 }
+
+export default style({
+  buttonGroup: 'button-group',
+  justified: 'button-group--justified',
+  vertical: 'button-group--vertical',
+})(ToolkitButtonGroup);

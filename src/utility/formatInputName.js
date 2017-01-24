@@ -15,5 +15,5 @@ export default function formatInputName(name) {
     .replace('[]', '')
     .replace('[', '-')
     .replace('][', '-')
-    .replace(/[^a-z0-9_\-]+/i, '');
+    .replace(/[^a-z0-9_-]+/i, '');
 }
