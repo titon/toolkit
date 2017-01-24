@@ -43,7 +43,7 @@ export default function Block({ shrink, order, grow, ...props }) {
     >
       {props.children}
     </div>
-    );
+  );
 }
 
 Block.module = MODULE;

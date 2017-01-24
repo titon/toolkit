@@ -48,7 +48,7 @@ export default class Select extends Input {
             disabled={option.disabled}
           >
             {this.renderOptions(option.options)}
-          </optgroup>
+          </optgroup>,
         );
 
       // Option
@@ -60,7 +60,7 @@ export default class Select extends Input {
             disabled={option.disabled}
           >
             {option.label}
-          </option>
+          </option>,
         );
       }
     });

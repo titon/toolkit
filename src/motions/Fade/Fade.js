@@ -31,7 +31,7 @@ export default class Fade extends Component {
   };
 
   render() {
-    let { children, motion, onRest, style, visible } = this.props;
+    const { children, motion, onRest, style, visible } = this.props;
 
     return (
       <Motion

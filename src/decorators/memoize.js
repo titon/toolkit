@@ -22,7 +22,7 @@ export default function memoize(target, name, descriptor) {
 
   descriptor.value = memoizer(
     getValueFunc('memoize', descriptor),
-    (...args) => JSON.stringify(args)
+    (...args) => JSON.stringify(args),
   );
 
   return descriptor;

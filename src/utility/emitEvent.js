@@ -27,7 +27,7 @@ export default function emitEvent(compInstance, eventName, ...args) {
       `${module.name}.${name}${uid ? `#${uid}` : ''}`,
       (Date.now() / 1000).toFixed(3),
       eventName,
-      args
+      args,
     );
 
     if (debug === 'verbose') {

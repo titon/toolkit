@@ -30,7 +30,7 @@ export default function profile(target, name, descriptor) {
 
         console.info(
           `${name}() took ${stop} milliseconds to run using the arguments:`,
-          arguments
+          arguments,
         );
 
         return result;

@@ -19,10 +19,10 @@
  * @returns {{left: number, top: number}}
  */
 export default function positionRelativeTo(
-    position,
-    sourceElement,
-    relativeTo,
-    baseOffset = { left: 0, top: 0 }
+  position,
+  sourceElement,
+  relativeTo,
+  baseOffset = { left: 0, top: 0 },
 ) {
   const srcSize = sourceElement.getBoundingClientRect();
   const srcWidth = srcSize.width;

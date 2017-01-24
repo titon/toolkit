@@ -76,8 +76,8 @@ export default class Group extends Component {
   }
 
   render() {
-    let { children, style } = this.props;
-    let { styles, defaultStyles } = this.mapStylesFromChildren(children);
+    const { children, style } = this.props;
+    const { styles, defaultStyles } = this.mapStylesFromChildren(children);
 
     console.log(styles, defaultStyles);
 
@@ -88,27 +88,25 @@ export default class Group extends Component {
             // defaultStyles={defaultStyles}
         styles={styles}
       >
-        {(motionStyles) => {
-          return (
-            <div className={this.formatChildClass('group')}>
-              {motionStyles.map((motionStyle, i) => {
-                console.log('base', motionStyle.style.opacity);
+        {motionStyles => (
+          <div className={this.formatChildClass('group')}>
+            {motionStyles.map((motionStyle, i) => {
+              console.log('base', motionStyle.style.opacity);
 
-                if (!children[i]) {
-                  return null;
-                }
+              if (!children[i]) {
+                return null;
+              }
 
-                return React.cloneElement(children[i], {
-                  key: motionStyle.key,
-                  style: {
-                    ...style,
-                    ...motionStyle.style,
-                  },
-                });
-              })}
-            </div>
-                );
-        }}
+              return React.cloneElement(children[i], {
+                key: motionStyle.key,
+                style: {
+                  ...style,
+                  ...motionStyle.style,
+                },
+              });
+            })}
+          </div>
+                )}
       </TransitionMotion>
     );
   }

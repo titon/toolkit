@@ -25,7 +25,7 @@ export default function Region(props) {
     >
       {props.children}
     </div>
-    );
+  );
 }
 
 Region.module = MODULE;

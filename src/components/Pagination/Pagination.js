@@ -234,13 +234,13 @@ export default class Pagination extends Component {
     // Prepend first and previous
     if (first && (page > 1 || showControls)) {
       items.push(
-        <Item key="first" page={1}>{first}</Item>
+        <Item key="first" page={1}>{first}</Item>,
       );
     }
 
     if (prev && (page > 1 || showControls)) {
       items.push(
-        <Item key="prev" page={page - 1}>{prev}</Item>
+        <Item key="prev" page={page - 1}>{prev}</Item>,
       );
     }
 
@@ -250,13 +250,13 @@ export default class Pagination extends Component {
     // Append next and last
     if (next && (page < totalPages || showControls)) {
       items.push(
-        <Item key="next" page={page + 1}>{next}</Item>
+        <Item key="next" page={page + 1}>{next}</Item>,
       );
     }
 
     if (last && (page < totalPages || showControls)) {
       items.push(
-        <Item key="last" page={totalPages}>{last}</Item>
+        <Item key="last" page={totalPages}>{last}</Item>,
       );
     }
 

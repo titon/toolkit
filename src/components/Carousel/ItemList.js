@@ -166,7 +166,8 @@ export default class ItemList extends Component {
     return (
       <div className={this.formatChildClass('item-list')}>
         <Swipe {...props}>
-          <ol style={{ transform: this.state.translate }}
+          <ol
+            style={{ transform: this.state.translate }}
             className={this.state.reset ? 'no-transition' : ''}
             onTransitionEnd={this.handleOnTransitionEnd}
           >

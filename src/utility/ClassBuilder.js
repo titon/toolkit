@@ -81,7 +81,7 @@ export default class ClassBuilder {
    */
   addClass(block, element = '', modifier = '', prefix = true) {
     this.classes.push(
-            (prefix ? this.prefix : '') + formatBEM(block, element, modifier)
+            (prefix ? this.prefix : '') + formatBEM(block, element, modifier),
     );
 
     return this;

@@ -120,7 +120,7 @@ export default class Collapse extends Component {
         <div style={{ [direction]: 'auto' }}>
           {content}
         </div>
-        );
+      );
     }
 
     return (

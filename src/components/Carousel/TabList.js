@@ -30,7 +30,7 @@ export default class TabList extends Component {
           index={i}
           key={`tab-${i}`}
           onClick={onClick}
-        />
+        />,
       );
     }
 

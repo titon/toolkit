@@ -66,7 +66,7 @@ function bindClass(target) {
       Object.defineProperty(
               proto,
               name,
-              bindMethod(proto, name, Object.getOwnPropertyDescriptor(proto, name))
+              bindMethod(proto, name, Object.getOwnPropertyDescriptor(proto, name)),
         );
     }
   });
