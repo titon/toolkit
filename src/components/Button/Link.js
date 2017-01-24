@@ -5,12 +5,14 @@
  */
 
 import { PropTypes } from 'react';
-import Button from './Button';
+import { ToolkitButton, CLASSES } from './Button';
+import style from '../../styler';
 
-const Link = Button.extendStyles({}, {
-  styleName: 'ToolkitLink',
-});
+export class ToolkitLink extends ToolkitButton {
+  static propTypes = {
+    ...ToolkitButton.propTypes,
+    href: PropTypes.string.isRequired,
+  };
+}
 
-Link.propTypes.href = PropTypes.string.isRequired;
-
-export default Link;
+export default style(CLASSES)(ToolkitLink);

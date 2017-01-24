@@ -98,7 +98,7 @@ export class ToolkitButton extends React.PureComponent {
   }
 }
 
-export default style({
+export const CLASSES = {
   button: 'button',
   small: 'button--small',
   large: 'button--large',
@@ -106,4 +106,6 @@ export default style({
   secondary: 'button--secondary',
   pressed: 'is-pressed',
   disabled: 'is-disabled',
-})(ToolkitButton);
+};
+
+export default style(CLASSES)(ToolkitButton);

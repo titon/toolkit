@@ -4,12 +4,14 @@
  * @link        http://titon.io
  */
 
-import Button from './Button';
+import { ToolkitButton, CLASSES } from './Button';
+import style from '../../styler';
 
-const Submit = Button.extendStyles({}, {
-  styleName: 'ToolkitSubmitButton',
-});
+export class ToolkitSubmit extends ToolkitButton {
+  static defaultProps = {
+    ...ToolkitButton.defaultProps,
+    type: 'submit',
+  };
+}
 
-Submit.defaultProps.type = 'submit';
-
-export default Submit;
+export default style(CLASSES)(ToolkitSubmit);
