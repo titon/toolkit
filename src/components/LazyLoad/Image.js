@@ -23,7 +23,7 @@ export default class Image extends LazyLoad {
     src: PropTypes.string.isRequired,
   };
 
-  getSourcePath() {
+  getSourcePath = () => {
     const { src, retinaSrc, filler, cacheBust } = this.props;
     let sourcePath = filler || '';
 
@@ -41,7 +41,7 @@ export default class Image extends LazyLoad {
     }
 
     return sourcePath;
-  }
+  };
 
   render() {
     const { alt, retinaSrc } = this.props;
