@@ -5,13 +5,11 @@
  */
 
 import { PropTypes, Component } from 'react';
+import { bind, debounce, throttle } from 'lodash';
 import style, { classes } from '../../styler';
 import { classStyles } from '../../propTypes';
-import bind from '../../decorators/bind';
-import debounce from '../../decorators/debounce';
 import invariant from '../../utility/invariant';
 import emitEvent from '../../utility/emitEvent';
-import throttle from '../../decorators/throttle';
 
 class ToolKitLazyLoad extends Component {
   static defaultProps = {
@@ -42,12 +40,12 @@ class ToolKitLazyLoad extends Component {
     };
   }
 
-  componentWillMount = () => {
+  componentWillMount() {
     window.addEventListener('resize', this.handleOnResize);
     window.addEventListener('scroll', this.handleOnScroll);
   };
 
-  componentDidMount = () => {
+  componentDidMount() {
     const { delay } = this.props;
 
     if (delay > 0) {
@@ -57,13 +55,13 @@ class ToolKitLazyLoad extends Component {
     this.calculateElement();
   };
 
-  componentWillUpdate = (nextProps, nextState) => {
+  componentWillUpdate(nextProps, nextState) {
     if (nextState.loaded && !this.state.loaded) {
       emitEvent(this, 'onLoading');
     }
   };
 
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate(prevProps, prevState) {
     if (this.state.loaded && !prevState.loaded) {
       emitEvent(this, 'onLoaded');
 
@@ -73,18 +71,18 @@ class ToolKitLazyLoad extends Component {
     }
   };
 
-  componentWillUnmount = () => {
+  componentWillUnmount() {
     this.clearEvents();
     this.clearTimer();
   };
 
-  attemptToLoad = () => {
+  attemptToLoad() {
     if (this.inViewport()) {
       this.loadElement();
     }
   };
 
-  calculateElement = () => {
+  calculateElement() {
     const element = this.element;
 
     invariant(typeof element !== 'undefined', 'An `element` ref must be defined.');
@@ -97,7 +95,7 @@ class ToolKitLazyLoad extends Component {
     });
   };
 
-  calculateViewport = () => {
+  calculateViewport() {
     this.setState({
       scrollX: window.pageXOffset,
       scrollY: window.pageYOffset,
@@ -106,16 +104,16 @@ class ToolKitLazyLoad extends Component {
     });
   };
 
-  clearEvents = () => {
+  clearEvents() {
     window.removeEventListener('resize', this.handleOnResize);
     window.removeEventListener('scroll', this.handleOnScroll);
   };
 
-  clearTimer = () => {
+  clearTimer() {
     clearTimeout(this.timer);
   };
 
-  inViewport = () => {
+  inViewport() {
     const { scrollX, scrollY, ...state } = this.state;
     const { threshold } = this.props;
     const top = state.elementTop;
@@ -135,7 +133,7 @@ class ToolKitLazyLoad extends Component {
     );
   };
 
-  loadElement = () => {
+  loadElement() {
     this.clearEvents();
     this.clearTimer();
     this.setState({
@@ -143,7 +141,8 @@ class ToolKitLazyLoad extends Component {
     });
   };
 
-  @bind
+
+
   handleDelay = () => {
     this.loadElement();
   };
