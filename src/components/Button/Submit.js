@@ -4,14 +4,17 @@
  * @link        http://titon.io
  */
 
-import { ToolkitButton, CLASSES } from './Button';
-import style from '../../styler';
+import React, { PropTypes } from 'react';
+import Button from './Button';
 
-export class ToolkitSubmit extends ToolkitButton {
-  static defaultProps = {
-    ...ToolkitButton.defaultProps,
-    type: 'submit',
-  };
+export default function ToolkitSubmit({ children, ...props }) {
+  return (
+    <Button {...props} type="submit">
+      {children}
+    </Button>
+  );
 }
 
-export default style(CLASSES)(ToolkitSubmit);
+ToolkitSubmit.propTypes = {
+  children: PropTypes.node,
+};

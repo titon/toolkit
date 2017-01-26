@@ -12,8 +12,6 @@ export class ToolkitButton extends React.PureComponent {
   static defaultProps = {
     ...sizeDefaults,
     disabled: false,
-    primary: false,
-    secondary: false,
     type: 'button',
   };
 
@@ -23,8 +21,9 @@ export class ToolkitButton extends React.PureComponent {
     classNames: classStyles,
     disabled: PropTypes.bool,
     href: PropTypes.string,
-    primary: PropTypes.bool,
-    secondary: PropTypes.bool,
+    onClick: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func,
     type: PropTypes.oneOf(['button', 'submit']),
   };
 
@@ -32,13 +31,13 @@ export class ToolkitButton extends React.PureComponent {
     pressed: false,
   };
 
-  handleOnMouseDown = () => {
+  handleMouseDown = () => {
     this.setState({
       pressed: true,
     });
   };
 
-  handleOnMouseUp = () => {
+  handleMouseUp = () => {
     this.setState({
       pressed: false,
     });
@@ -47,23 +46,25 @@ export class ToolkitButton extends React.PureComponent {
   render() {
     const { pressed } = this.state;
     const {
-      classNames,
       children,
+      classNames,
       disabled,
       small,
       large,
-      primary,
-      secondary,
       href,
       type,
+      onClick,
+      onMouseOver,
+      onMouseOut,
     } = this.props;
     let props = {
+      onClick,
+      onMouseOver,
+      onMouseOut,
       role: 'button',
       className: classes(classNames.button, {
         [classNames.small]: small,
         [classNames.large]: large,
-        [classNames.primary]: primary,
-        [classNames.secondary]: secondary,
         [classNames.pressed]: pressed,
         [classNames.disabled]: disabled,
       }),
@@ -85,9 +86,9 @@ export class ToolkitButton extends React.PureComponent {
       ...props,
       type,
       disabled,
+      onMouseDown: this.handleMouseDown,
+      onMouseUp: this.handleMouseUp,
       'aria-pressed': pressed,
-      onMouseDown: this.handleOnMouseDown,
-      onMouseUp: this.handleOnMouseUp,
     };
 
     return (
@@ -98,14 +99,10 @@ export class ToolkitButton extends React.PureComponent {
   }
 }
 
-export const CLASSES = {
+export default style({
   button: 'button',
   small: 'button--small',
   large: 'button--large',
-  primary: 'button--primary',
-  secondary: 'button--secondary',
   pressed: 'is-pressed',
   disabled: 'is-disabled',
-};
-
-export default style(CLASSES)(ToolkitButton);
+})(ToolkitButton);

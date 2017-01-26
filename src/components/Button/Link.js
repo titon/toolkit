@@ -4,15 +4,18 @@
  * @link        http://titon.io
  */
 
-import { PropTypes } from 'react';
-import { ToolkitButton, CLASSES } from './Button';
-import style from '../../styler';
+import React, { PropTypes } from 'react';
+import Button from './Button';
 
-export class ToolkitLink extends ToolkitButton {
-  static propTypes = {
-    ...ToolkitButton.propTypes,
-    href: PropTypes.string.isRequired,
-  };
+export default function ToolkitLink({ children, ...props }) {
+  return (
+    <Button {...props}>
+      {children}
+    </Button>
+  );
 }
 
-export default style(CLASSES)(ToolkitLink);
+ToolkitLink.propTypes = {
+  children: PropTypes.node,
+  href: PropTypes.string.isRequired,
+};
