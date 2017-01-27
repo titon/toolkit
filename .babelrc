@@ -1,5 +1,9 @@
 {
   "presets": ["latest", "react", "stage-2"],
-  "plugins": ["transform-decorators-legacy", "transform-class-properties"],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-export-extensions",
+  ],
   "sourceMaps": false
 }

@@ -6,9 +6,6 @@
 
 /**
  * Format a unique HTML ID based on the passed parameters.
- *
- * @param {...String} params
- * @returns {String}
  */
 export default function formatID(...params) {
   return ['titon', ...params].join('-').trim().replace(/[^a-zA-Z0-9\-_:.]/, '-');

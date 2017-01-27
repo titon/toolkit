@@ -44,7 +44,7 @@ export default class ToolkitAccordionHeader extends React.PureComponent {
         role="tab"
         id={formatID('accordion-header', accordion.uid, index)}
         className={classes(classNames.header, active && classNames.header__active)}
-        aria-controls={formatID('accordion-section', index)}
+        aria-controls={formatID('accordion-section', accordion.uid, index)}
         aria-selected={active}
         aria-expanded={active}
       >
