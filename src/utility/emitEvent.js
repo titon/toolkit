@@ -10,45 +10,43 @@ import Titon from '../Titon';
 
 /**
  * Emit a custom event on an instance of a React component,
- * and notify all listeners defined on the prop with the same event name.
+ * and notify the listener defined on the prop with the same event name.
  * If the `debug` prop is enabled, print out helpful information.
- *
- * @param {ReactComponent} compInstance
- * @param {String} eventName
- * @param {...*} [args]
  */
-export default function emitEvent(compInstance, eventName, ...args) {
-  const { module, name } = compInstance.constructor;
-  const debug = compInstance.props.debug || Titon.options.debug;
-  const uid = compInstance.context[module.contextKey].uid || compInstance.uid;
+export default function emitEvent(component, contextName, eventName, ...args) {
+  const displayName = component.constructor.name || component.displayName;
+  const debug = component.props.debug || Titon.options.debug;
+  let uid = null;
 
-  if (debug && window.console) {
-    console.log(
-      `${module.name}.${name}${uid ? `#${uid}` : ''}`,
+  if (component.context[contextName]) {
+    uid = component.context[contextName].uid;
+  } else {
+    uid = component.uid;
+  }
+
+  if (debug) {
+    console.info(
+      `${displayName}${uid ? `#${uid}` : ''}`,
       (Date.now() / 1000).toFixed(3),
       eventName,
       args,
     );
 
     if (debug === 'verbose') {
-      console.dir(compInstance);
+      console.dir(component);
     }
   }
 
   args.unshift({
-    component: name,
+    component: displayName,
     timestamp: Date.now(),
     eventName,
     uid,
   });
 
-  let listeners = this.props[eventName];
+  const listener = component.props[eventName];
 
-  if (!listeners) {
-    return;
-  } else if (!Array.isArray(listeners)) {
-    listeners = [listeners];
+  if (listener) {
+    listener(...args);
   }
-
-  listeners.forEach((func) => { func(...args); });
 }

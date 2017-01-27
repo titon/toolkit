@@ -93,14 +93,21 @@ export const positions = PropTypes.oneOf([
   'bottom-left', 'bottom', 'bottom-right',
 ]);
 
+export const showHideDefaults = {
+  onHidden() {},
+  onHiding() {},
+  onShowing() {},
+  onShown() {},
+};
+
 /**
  * Common prop types for show and hide events.
  */
 export const showHidePropTypes = {
-  onHidden: collectionOf.func,
-  onHiding: collectionOf.func,
-  onShowing: collectionOf.func,
-  onShown: collectionOf.func,
+  onHidden: PropTypes.func,
+  onHiding: PropTypes.func,
+  onShowing: PropTypes.func,
+  onShown: PropTypes.func,
 };
 
 /**

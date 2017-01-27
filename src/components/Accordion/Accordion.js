@@ -5,31 +5,32 @@
  */
 
 import React, { Children, PropTypes } from 'react';
-import Component from '../../Component';
 import Item from './Item';
-import bind from '../../decorators/bind';
 import childrenOf from '../../prop-types/childrenOf';
 import collectionOf from '../../prop-types/collectionOf';
 import generateUID from '../../utility/generateUID';
-import CONTEXT_TYPES from './contextTypes';
-import MODULE from './module';
+import formatID from '../../utility/formatID';
+import style, { classes } from '../../styler';
+import { classStyles } from '../../propTypes';
+import contextTypes from './contextTypes';
 
-export default class Accordion extends Component {
-  static module = MODULE;
+export class ToolkitAccordion extends React.Component {
+  static childContextTypes = {
+    accordion: contextTypes.isRequired,
+  };
 
-  static childContextTypes = CONTEXT_TYPES;
+  static propTypes = {
+    children: childrenOf(Item),
+    classNames: classStyles,
+    collapsible: PropTypes.bool,
+    defaultIndex: collectionOf.number,
+    multiple: PropTypes.bool,
+  };
 
   static defaultProps = {
     collapsible: false,
     defaultIndex: 0,
     multiple: false,
-  };
-
-  static propTypes = {
-    children: childrenOf(Item),
-    collapsible: PropTypes.bool,
-    defaultIndex: collectionOf.number,
-    multiple: PropTypes.bool,
   };
 
   state = {
@@ -40,7 +41,7 @@ export default class Accordion extends Component {
 
   getChildContext() {
     return {
-      [MODULE.contextKey]: {
+      accordion: {
         activeIndices: Array.from(this.state.indices),
         hideItem: this.hideItem,
         isItemActive: this.isItemActive,
@@ -60,33 +61,24 @@ export default class Accordion extends Component {
     return (this.props.multiple || nextState.indices !== this.state.indices);
   }
 
-  @bind
-  hideItem(index) {
+  hideItem = (index) => {
     const indices = new Set(this.state.indices);
 
-    if (!Array.isArray(index)) {
-      index = [index];
-    }
-
-    index.forEach(i => indices.delete(i));
+    (Array.isArray(index) ? index : [index])
+      .forEach(i => indices.delete(i));
 
     this.setState({
       indices,
     });
-  }
+  };
 
-  @bind
-  isItemCollapsible(index) {
-    return ((this.props.multiple || this.props.collapsible) && this.isItemActive(index));
-  }
+  isItemCollapsible = index => (
+    (this.props.multiple || this.props.collapsible) && this.isItemActive(index)
+  );
 
-  @bind
-  isItemActive(index) {
-    return (this.state.indices.has(index));
-  }
+  isItemActive = index => this.state.indices.has(index);
 
-  @bind
-  showItem(index) {
+  showItem = (index) => {
     const multiple = this.props.multiple;
     const indices = new Set(multiple ? this.state.indices : []);
     const total = Children.count(this.props.children);
@@ -108,27 +100,26 @@ export default class Accordion extends Component {
     this.setState({
       indices,
     });
-  }
+  };
 
-  @bind
-  toggleItem(index) {
+  toggleItem = (index) => {
     if (this.isItemCollapsible(index)) {
       this.hideItem(index);
     } else {
       this.showItem(index);
     }
-  }
+  };
 
   render() {
-    const { children, collapsible, multiple } = this.props;
+    const { children, classNames, collapsible, multiple } = this.props;
 
     return (
       <ul
         role="tablist"
-        id={this.formatID('accordion')}
-        className={this.formatClass({
-          'is-collapsible': collapsible,
-          'is-multiple': multiple,
+        id={formatID('accordion', this.uid)}
+        className={classes(classNames.accordion, {
+          [classNames.accordion__collapsible]: collapsible,
+          [classNames.accordion__multiple]: multiple,
         })}
         aria-live="off"
       >
@@ -137,3 +128,9 @@ export default class Accordion extends Component {
     );
   }
 }
+
+export default style({
+  accordion: 'accordion',
+  accordion__collapsible: 'is-collapsible',
+  accordion__multiple: 'is-multiple',
+})(ToolkitAccordion);

@@ -9,11 +9,7 @@
         @extend %placeholder-list;
     }
 
-    #{generate-class-name($titon-accordion, "header")} {
-        padding: theme-setting("medium-padding");
-        cursor: pointer;
-    }
-
+    #{generate-class-name($titon-accordion, "header-link")},
     #{generate-class-name($titon-accordion, "section")} {
         padding: theme-setting("medium-padding");
     }

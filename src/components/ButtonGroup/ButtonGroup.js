@@ -11,18 +11,18 @@ import formatID from '../../utility/formatID';
 import generateUID from '../../utility/generateUID';
 
 export class ToolkitButtonGroup extends React.PureComponent {
-  static defaultProps = {
-    justified: false,
-    label: 'Button Group',
-    vertical: false,
-  };
-
   static propTypes = {
     children: PropTypes.node,
     classNames: classStyles,
     justified: PropTypes.bool,
     label: PropTypes.string,
     vertical: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    justified: false,
+    label: 'Button Group',
+    vertical: false,
   };
 
   uid = generateUID();
@@ -35,8 +35,8 @@ export class ToolkitButtonGroup extends React.PureComponent {
         role="toolbar"
         id={formatID('button-group', this.uid)}
         className={classes(classNames.buttonGroup, {
-          [classNames.justified]: justified,
-          [classNames.vertical]: vertical,
+          [classNames.buttonGroup__justified]: justified,
+          [classNames.buttonGroup__vertical]: vertical,
         })}
         aria-label={label}
       >
@@ -50,6 +50,6 @@ export class ToolkitButtonGroup extends React.PureComponent {
 
 export default style({
   buttonGroup: 'button-group',
-  justified: 'button-group--justified',
-  vertical: 'button-group--vertical',
+  buttonGroup__justified: 'button-group--justified',
+  buttonGroup__vertical: 'button-group--vertical',
 })(ToolkitButtonGroup);

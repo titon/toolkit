@@ -5,39 +5,43 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
 import Header from './Header';
 import Section from './Section';
-import collectionOf from '../../prop-types/collectionOf';
 import emitEvent from '../../utility/emitEvent';
-import { showHidePropTypes } from '../../propTypes';
-import CONTEXT_TYPES from './contextTypes';
-import MODULE from './module';
+import style from '../../styler';
+import { classStyles, showHideDefaults, showHidePropTypes } from '../../propTypes';
+import contextTypes from './contextTypes';
 
-export default class Item extends Component {
-  static module = MODULE;
-
-  static contextTypes = CONTEXT_TYPES;
+export class ToolkitAccordionItem extends React.Component {
+  static contextTypes = {
+    accordion: contextTypes.isRequired,
+  };
 
   static propTypes = {
     ...showHidePropTypes,
     children: PropTypes.node,
+    classNames: classStyles,
     header: PropTypes.node.isRequired,
     index: PropTypes.number.isRequired,
-    onClickHeader: collectionOf.func,
+    onClickHeader: PropTypes.func,
   };
 
-  constructor(props, context) {
+  static defaultProps = {
+    ...showHideDefaults,
+    onClickHeader() {},
+  };
+
+  constructor({ index }, { accordion }) {
     super();
 
     this.state = {
-      expanded: this.getContext(context).isItemActive(props.index),
+      expanded: accordion.isItemActive(index),
     };
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
+  componentWillReceiveProps({ index }, { accordion }) {
     this.setState({
-      expanded: this.getContext(nextContext).isItemActive(nextProps.index),
+      expanded: accordion.isItemActive(index),
     });
   }
 
@@ -46,24 +50,24 @@ export default class Item extends Component {
   }
 
   componentWillUpdate() {
-    emitEvent(this, this.state.expanded ? 'onHiding' : 'onShowing');
+    emitEvent(this, 'accordion', this.state.expanded ? 'onHiding' : 'onShowing');
   }
 
   componentDidUpdate() {
-    emitEvent(this, this.state.expanded ? 'onShown' : 'onHidden');
+    emitEvent(this, 'accordion', this.state.expanded ? 'onShown' : 'onHidden');
   }
 
   render() {
-    const { children, index, header, onClickHeader } = this.props;
+    const { children, classNames, index, header, onClickHeader } = this.props;
     const { expanded } = this.state;
 
     return (
       <li>
         <Header
-          role="tab"
           index={index}
           active={expanded}
           onClick={onClickHeader}
+          classNames={classNames}
         >
           {header}
         </Header>
@@ -71,6 +75,7 @@ export default class Item extends Component {
         <Section
           index={index}
           expanded={expanded}
+          classNames={classNames}
         >
           {children}
         </Section>
@@ -78,3 +83,11 @@ export default class Item extends Component {
     );
   }
 }
+
+export default style({
+  header: 'accordion__header',
+  header_link: 'accordion__header-link',
+  header__active: 'is-active',
+  section: 'accordion__section',
+  section__expanded: 'is-expanded',
+})(ToolkitAccordionItem);

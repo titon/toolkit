@@ -5,40 +5,44 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
 import Collapse from '../../motions/Collapse';
-import CONTEXT_TYPES from './contextTypes';
-import MODULE from './module';
+import formatID from '../../utility/formatID';
+import { classes } from '../../styler';
+import { classStyles } from '../../propTypes';
+import contextTypes from './contextTypes';
 
-export default class Section extends Component {
-  static module = MODULE;
-
-  static contextTypes = CONTEXT_TYPES;
-
-  static propTypes = {
-    children: PropTypes.node,
-    expanded: PropTypes.bool.isRequired,
-    index: PropTypes.number.isRequired,
-  };
-
-  render() {
-    const { children, index, expanded } = this.props;
-
-    return (
-      <Collapse expanded={expanded}>
-        <section
-          role="tabpanel"
-          id={this.formatID('accordion-section', index)}
-          className={this.formatChildClass('section', {
-            'is-expanded': expanded,
-          })}
-          aria-labelledby={this.formatID('accordion-header', index)}
-          aria-hidden={!expanded}
-          aria-expanded={expanded}
-        >
-          {children}
-        </section>
-      </Collapse>
-    );
-  }
+// Private
+export default function ToolkitAccordionSection({
+  children,
+  classNames,
+  expanded = false,
+  index = 0,
+}, {
+  accordion,
+}) {
+  return (
+    <Collapse expanded={expanded}>
+      <section
+        role="tabpanel"
+        id={formatID('accordion-section', accordion.uid, index)}
+        className={classes(classNames.section, expanded && classNames.section__expanded)}
+        aria-labelledby={formatID('accordion-header', accordion.uid, index)}
+        aria-hidden={!expanded}
+        aria-expanded={expanded}
+      >
+        {children}
+      </section>
+    </Collapse>
+  );
 }
+
+ToolkitAccordionSection.contextTypes = {
+  accordion: contextTypes.isRequired,
+};
+
+ToolkitAccordionSection.propTypes = {
+  children: PropTypes.node,
+  classNames: classStyles,
+  expanded: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired,
+};

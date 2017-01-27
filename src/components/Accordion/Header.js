@@ -5,49 +5,52 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import bind from '../../decorators/bind';
-import collectionOf from '../../prop-types/collectionOf';
-import generateTabIndex from '../../utility/generateTabIndex';
-import CONTEXT_TYPES from './contextTypes';
-import MODULE from './module';
+import formatID from '../../utility/formatID';
+import { classes } from '../../styler';
+import { classStyles } from '../../propTypes';
+import contextTypes from './contextTypes';
 
-export default class Header extends Component {
-  static module = MODULE;
-
-  static contextTypes = CONTEXT_TYPES;
+// Private
+export default class ToolkitAccordionHeader extends React.PureComponent {
+  static contextTypes = {
+    accordion: contextTypes.isRequired,
+  };
 
   static propTypes = {
     active: PropTypes.bool.isRequired,
     children: PropTypes.node,
+    classNames: classStyles,
     index: PropTypes.number.isRequired,
-    onClick: collectionOf.func,
+    onClick: PropTypes.func,
   };
 
-  @bind
-  handleOnClick(e) {
+  static defaultProps = {
+    onClick() {},
+  };
+
+  handleClick = (e) => {
     e.preventDefault();
 
-    this.getContext().toggleItem(this.props.index);
-    this.handleEvent('click', e);
-  }
+    this.context.accordion.toggleItem(this.props.index);
+    this.props.onClick(e);
+  };
 
   render() {
-    const { children, index, active } = this.props;
+    const { children, classNames, index, active } = this.props;
+    const { accordion } = this.context;
 
     return (
       <header
         role="tab"
-        id={this.formatID('accordion-header', index)}
-        className={this.formatChildClass('header', {
-          'is-active': active,
-        })}
-        tabIndex={generateTabIndex(this)}
-        aria-controls={this.formatID('accordion-section', index)}
+        id={formatID('accordion-header', accordion.uid, index)}
+        className={classes(classNames.header, active && classNames.header__active)}
+        aria-controls={formatID('accordion-section', index)}
         aria-selected={active}
         aria-expanded={active}
       >
-        <a href="" onClick={this.handleOnClick}>{children}</a>
+        <a href="" className={classNames.header_link} onClick={this.handleClick}>
+          {children}
+        </a>
       </header>
     );
   }

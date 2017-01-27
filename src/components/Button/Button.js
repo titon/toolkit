@@ -9,12 +9,6 @@ import style, { classes } from '../../styler';
 import { sizeDefaults, sizePropTypes, classStyles } from '../../propTypes';
 
 export class ToolkitButton extends React.PureComponent {
-  static defaultProps = {
-    ...sizeDefaults,
-    disabled: false,
-    type: 'button',
-  };
-
   static propTypes = {
     ...sizePropTypes,
     children: PropTypes.node,
@@ -25,6 +19,12 @@ export class ToolkitButton extends React.PureComponent {
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
     type: PropTypes.oneOf(['button', 'submit']),
+  };
+
+  static defaultProps = {
+    ...sizeDefaults,
+    disabled: false,
+    type: 'button',
   };
 
   state = {
@@ -63,10 +63,10 @@ export class ToolkitButton extends React.PureComponent {
       onMouseOut,
       role: 'button',
       className: classes(classNames.button, {
-        [classNames.small]: small,
-        [classNames.large]: large,
-        [classNames.pressed]: pressed,
-        [classNames.disabled]: disabled,
+        [classNames.button__small]: small,
+        [classNames.button__large]: large,
+        [classNames.button__pressed]: pressed,
+        [classNames.button__disabled]: disabled,
       }),
     };
 
@@ -101,8 +101,8 @@ export class ToolkitButton extends React.PureComponent {
 
 export default style({
   button: 'button',
-  small: 'button--small',
-  large: 'button--large',
-  pressed: 'is-pressed',
-  disabled: 'is-disabled',
+  button__small: 'button--small',
+  button__large: 'button--large',
+  button__pressed: 'is-pressed',
+  button__disabled: 'is-disabled',
 })(ToolkitButton);
