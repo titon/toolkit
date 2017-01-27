@@ -8,15 +8,15 @@ import React, { PropTypes } from 'react';
 import Collapse from '../../motions/Collapse';
 import formatID from '../../utility/formatID';
 import { classes } from '../../styler';
-import { classStyles } from '../../propTypes';
+import { classStylePropType } from '../../propTypes';
 import contextTypes from './contextTypes';
 
 // Private
 export default function ToolkitAccordionSection({
   children,
   classNames,
-  expanded = false,
-  index = 0,
+  expanded,
+  index,
 }, {
   accordion,
 }) {
@@ -42,7 +42,7 @@ ToolkitAccordionSection.contextTypes = {
 
 ToolkitAccordionSection.propTypes = {
   children: PropTypes.node,
-  classNames: classStyles,
+  classNames: classStylePropType,
   expanded: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
 };

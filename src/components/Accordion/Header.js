@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import formatID from '../../utility/formatID';
 import { classes } from '../../styler';
-import { classStyles } from '../../propTypes';
+import { classStylePropType } from '../../propTypes';
 import contextTypes from './contextTypes';
 
 // Private
@@ -19,7 +19,7 @@ export default class ToolkitAccordionHeader extends React.PureComponent {
   static propTypes = {
     active: PropTypes.bool.isRequired,
     children: PropTypes.node,
-    classNames: classStyles,
+    classNames: classStylePropType,
     index: PropTypes.number.isRequired,
     onClick: PropTypes.func,
   };

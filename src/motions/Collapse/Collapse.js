@@ -6,13 +6,19 @@
 
 import React, { PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
-import Component from '../../Component';
 import debounce from 'lodash.debounce';
-import { motionSpring } from '../../propTypes';
-import MODULE from './module';
+import { motionSpringPropType, stylePropType } from '../../propTypes';
 
-export default class Collapse extends Component {
-  static module = MODULE;
+export default class Collapse extends React.Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    direction: PropTypes.oneOf(['width', 'height']),
+    expanded: PropTypes.bool,
+    fixedAt: PropTypes.number,
+    motion: motionSpringPropType,
+    onRest: PropTypes.func,
+    style: stylePropType,
+  };
 
   static defaultProps = {
     direction: 'height',
@@ -24,30 +30,14 @@ export default class Collapse extends Component {
     style: {},
   };
 
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    direction: PropTypes.oneOf(['width', 'height']),
-    expanded: PropTypes.bool.isRequired,
-    fixedAt: PropTypes.number,
-    motion: motionSpring,
-    onRest: PropTypes.func,
-    style: PropTypes.object,
+  state = {
+    size: 0,
+    calculate: true,
+    changed: false,
   };
 
-  constructor() {
-    super();
-
-    this.state = {
-      size: 0,
-      calculate: true,
-      changed: false,
-    };
-
-    this.handleOnResize = debounce(this.handleOnResize.bind(this), 100);
-  }
-
   componentWillMount() {
-    window.addEventListener('resize', this.handleOnResize);
+    window.addEventListener('resize', this.handleResize);
   }
 
   componentDidMount() {
@@ -62,9 +52,9 @@ export default class Collapse extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
-            nextState.calculate !== this.state.calculate ||
-            nextState.size !== this.state.size ||
-            nextProps.expanded !== this.props.expanded
+      nextState.calculate !== this.state.calculate ||
+      nextState.size !== this.state.size ||
+      nextProps.expanded !== this.props.expanded
     );
   }
 
@@ -73,7 +63,7 @@ export default class Collapse extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleOnResize);
+    window.removeEventListener('resize', this.handleResize);
   }
 
   calculateSize() {
@@ -85,32 +75,25 @@ export default class Collapse extends Component {
     }
   }
 
-  handleOnResize() {
+  handleResize = debounce(() => {
     this.setState({
       calculate: true,
     });
-  }
+  }, 100);
 
   getMotionSize() {
-    let { size, changed } = this.state,
-      { expanded, fixedAt, motion } = this.props,
-      expandedSize = expanded ? (fixedAt || size) : 0;
+    const { size, changed } = this.state;
+    const { expanded, fixedAt, motion } = this.props;
+    const expandedSize = expanded ? (fixedAt || size) : 0;
 
     return changed ? spring(expandedSize, motion) : expandedSize;
   }
 
   render() {
-    let { calculate } = this.state,
-      { children, direction, expanded, style, onRest, ...props } = this.props;
-
+    const { calculate } = this.state;
+    const { children, direction, style, onRest } = this.props;
     const content = (
-      <div
-        ref={(ref) => { this.element = ref; }}
-        className={this.formatClass({
-          [`@${direction}`]: true,
-          'is-expanded': expanded,
-        })}
-      >
+      <div ref={(ref) => { this.element = ref; }}>
         {children}
       </div>
     );

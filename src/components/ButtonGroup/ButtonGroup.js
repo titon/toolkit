@@ -6,14 +6,14 @@
 
 import React, { Children, PropTypes } from 'react';
 import style, { classes } from '../../styler';
-import { classStyles } from '../../propTypes';
+import { classStylePropType } from '../../propTypes';
 import formatID from '../../utility/formatID';
 import generateUID from '../../utility/generateUID';
 
 export class ToolkitButtonGroup extends React.PureComponent {
   static propTypes = {
     children: PropTypes.node,
-    classNames: classStyles,
+    classNames: classStylePropType,
     justified: PropTypes.bool,
     label: PropTypes.string,
     vertical: PropTypes.bool,

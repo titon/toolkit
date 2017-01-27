@@ -6,13 +6,13 @@
 
 import React, { PropTypes } from 'react';
 import style, { classes } from '../../styler';
-import { sizeDefaults, sizePropTypes, classStyles } from '../../propTypes';
+import { sizeDefaults, sizePropTypes, classStylePropType } from '../../propTypes';
 
 export class ToolkitButton extends React.PureComponent {
   static propTypes = {
     ...sizePropTypes,
     children: PropTypes.node,
-    classNames: classStyles,
+    classNames: classStylePropType,
     disabled: PropTypes.bool,
     href: PropTypes.string,
     onClick: PropTypes.func,

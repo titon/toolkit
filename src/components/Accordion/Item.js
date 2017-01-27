@@ -9,7 +9,7 @@ import Header from './Header';
 import Section from './Section';
 import emitEvent from '../../utility/emitEvent';
 import style from '../../styler';
-import { classStyles, showHideDefaults, showHidePropTypes } from '../../propTypes';
+import { classStylePropType, showHideDefaults, showHidePropTypes } from '../../propTypes';
 import contextTypes from './contextTypes';
 
 export class ToolkitAccordionItem extends React.Component {
@@ -20,7 +20,7 @@ export class ToolkitAccordionItem extends React.Component {
   static propTypes = {
     ...showHidePropTypes,
     children: PropTypes.node,
-    classNames: classStyles,
+    classNames: classStylePropType,
     header: PropTypes.node.isRequired,
     index: PropTypes.number.isRequired,
     onClickHeader: PropTypes.func,
