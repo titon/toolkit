@@ -2,10 +2,12 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 /* eslint-disable no-console */
 
+import React from 'react';
 import Titon from '../Titon';
 
 /**
@@ -13,7 +15,13 @@ import Titon from '../Titon';
  * and notify the listener defined on the prop with the same event name.
  * If the `debug` prop is enabled, print out helpful information.
  */
-export default function emitEvent(component, contextName, eventName, ...args) {
+export default function emitEvent(
+  component: React.Component<*, *, *>,
+  contextName: string,
+  eventName: string,
+  ...args: *[]
+) {
+  // $FlowIgnore
   const displayName = component.constructor.name || component.displayName;
   const debug = component.props.debug || Titon.options.debug;
   let uid = null;
@@ -21,6 +29,7 @@ export default function emitEvent(component, contextName, eventName, ...args) {
   if (component.context[contextName]) {
     uid = component.context[contextName].uid;
   } else {
+    // $FlowIgnore
     uid = component.uid;
   }
 
@@ -36,13 +45,6 @@ export default function emitEvent(component, contextName, eventName, ...args) {
       console.dir(component);
     }
   }
-
-  args.unshift({
-    component: displayName,
-    timestamp: Date.now(),
-    eventName,
-    uid,
-  });
 
   const listener = component.props[eventName];
 

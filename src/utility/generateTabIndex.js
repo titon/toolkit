@@ -4,6 +4,7 @@
  * @link        http://titon.io
  */
 
+// TODO
 // Start at a higher number to leave room for manual app-level indices
 const cache = new WeakMap();
 let index = 10;

@@ -2,6 +2,7 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 import Titon from '../Titon';
@@ -15,13 +16,12 @@ import { DEV, PROD } from '../constants';
  *
  * Messages can utilize parameters that are interpolated using
  * sprintf() styled `%s` syntax.
- *
- * @param {*} condition
- * @param {String} message
- * @param {...String} params
- * @returns {Boolean}
  */
-export default function invariant(condition, message = '', ...params) {
+export default function invariant(
+  condition: boolean,
+  message: string,
+  ...params: string[]
+): boolean {
   let error = null;
   let index = 0;
 
@@ -40,7 +40,6 @@ export default function invariant(condition, message = '', ...params) {
   }
 
   error.name = 'Invariant Violation';
-  error.framesToPop = 1;
 
   // Log the error in production
   if (PROD) {

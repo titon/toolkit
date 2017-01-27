@@ -20,9 +20,9 @@ describe('motions/Collapse/<Collapse/>', () => {
       </Collapse>,
     );
 
-    setTimeout(() => {
+    processInThread(() => {
       expect(wrapper.state('size')).toBe(250);
-    }, 0);
+    });
   });
 
   it('calculates element width on mount', () => {
@@ -32,9 +32,9 @@ describe('motions/Collapse/<Collapse/>', () => {
       </Collapse>,
     );
 
-    setTimeout(() => {
+    processInThread(() => {
       expect(wrapper.state('size')).toBe(250);
-    }, 0);
+    });
   });
 
   it('can fix the size using `fixedAt`', () => {
@@ -44,8 +44,8 @@ describe('motions/Collapse/<Collapse/>', () => {
       </Collapse>,
     );
 
-    setTimeout(() => {
+    processInThread(() => {
       expect(wrapper.state('size')).toBe(300);
-    }, 0);
+    });
   });
 });

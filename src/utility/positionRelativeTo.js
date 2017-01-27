@@ -2,28 +2,30 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 /* eslint max-params: 0, array-bracket-spacing: 0 */
 
+type AxisPositions =
+  'top' | 'top-left' | 'top-right' | 'left' |
+  'right' | 'bottom' | 'bottom-left' | 'bottom-right';
+
+type OffsetStruct = {
+  left: number,
+  top: number,
+};
+
 /**
  * Calculate `top` and `left` values to position an element relative to another element using
  * absolute positioning.
- *
- * Supported positions: top, top-left, top-right, left, right, bottom, bottom-left, bottom-right.
- *
- * @param {String} position
- * @param {Element} sourceElement - The element to position
- * @param {Element|Event} relativeTo - The element or event to calculate relative to
- * @param {Object} baseOffset - Initial top and left values
- * @returns {{left: number, top: number}}
  */
 export default function positionRelativeTo(
-  position,
-  sourceElement,
-  relativeTo,
-  baseOffset = { left: 0, top: 0 },
-) {
+  position: AxisPositions,
+  sourceElement: HTMLElement,
+  relativeTo: HTMLElement | MouseEvent,
+  baseOffset: OffsetStruct = { left: 0, top: 0 },
+): OffsetStruct {
   const srcSize = sourceElement.getBoundingClientRect();
   const srcWidth = srcSize.width;
   const srcHeight = srcSize.height;
@@ -41,7 +43,7 @@ export default function positionRelativeTo(
   }
 
   // If an event is used, position it near the mouse
-  if (relativeTo.preventDefault) {
+  if (relativeTo instanceof MouseEvent) {
     top += relativeTo.pageY;
     left += relativeTo.pageX;
 
