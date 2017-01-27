@@ -7,18 +7,20 @@
 /* eslint require-jsdoc: 0 */
 
 import React, { PropTypes } from 'react';
-import MODULE from './module';
+import style, { classes } from '../../styler';
+import { classStyles } from '../../propTypes';
 
-export default function Divider({ children }) {
+function ToolkitDivider({ children }) {
   return (
-    <div role="separator" className={MODULE.classNames.default}>
+    <div role="separator" className={this.props.classNames.default}>
       <span>{children}</span>
     </div>
   );
 }
 
-Divider.module = MODULE;
-
 Divider.propTypes = {
   children: PropTypes.node,
+  classNames: classStyles,
 };
+
+export default style()(ToolkitDivider);
