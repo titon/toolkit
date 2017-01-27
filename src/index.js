@@ -4,8 +4,4 @@
  * @link        http://titon.io
  */
 
-import Titon from './Titon';
-import Component from './Component';
-
-export { Component };
-export default Titon;
+export default from './Titon';

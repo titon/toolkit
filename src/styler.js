@@ -7,9 +7,7 @@
 import Aesthetic, { createStyler, classes, ClassNameAdapter } from 'aesthetic';
 
 const aesthetic = new Aesthetic(new ClassNameAdapter(), {
-  // All Toolkit components should be extendable
   extendable: true,
-  // We only work with class names
   stylesPropName: 'classNames',
 });
 

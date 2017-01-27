@@ -2,25 +2,26 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 // Is the device in landscape mode?
-export const LANDSCAPE = (window.innerWidth > window.innerHeight);
+export const LANDSCAPE: boolean = (window.innerWidth > window.innerHeight);
 
 // Or is the device in portrait mode?
-export const PORTRAIT = !LANDSCAPE;
+export const PORTRAIT: boolean = !LANDSCAPE;
 
 // Does the device support retina display?
-export const RETINA = (window.devicePixelRatio > 1);
+export const RETINA: boolean = (window.devicePixelRatio > 1);
 
 // Does the device support touch controls?
-export const TOUCH = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+export const TOUCH: boolean = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
 // Is the HTML document currently set to RTL mode?
-export const RTL = (document.documentElement.dir === 'rtl');
+export const RTL: boolean = (!!document.documentElement && document.documentElement.dir === 'rtl');
 
 // Or is it set to LTR mode?
-export const LTR = !RTL;
+export const LTR: boolean = !RTL;
 
 // Export as an object
 export default Object.freeze({
