@@ -2,23 +2,26 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 import { PropTypes } from 'react';
 import collectionOf from './prop-types/collectionOf';
 
+import type { InputPropTypes, ShowHidePropTypes, SizePropTypes } from './types';
+
 export const axisPositionPropType = PropTypes.oneOf(['top', 'bottom', 'left', 'right']);
 
-export const classStylePropType = PropTypes.objectOf(PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.object,
-]));
+export const classNamesPropType = PropTypes.objectOf(PropTypes.string);
 
-export const inputDefaults = {
+export const inputDefaults: InputPropTypes = {
   defaultChecked: false,
   defaultValue: '',
   disabled: false,
+  id: '',
   multiple: false,
+  onChanged() {},
+  onChanging() {},
   readOnly: false,
   required: false,
 };
@@ -65,7 +68,7 @@ export const positionPropType = PropTypes.oneOf([
   'bottom-left', 'bottom', 'bottom-right',
 ]);
 
-export const showHideDefaults = {
+export const showHideDefaults: ShowHidePropTypes = {
   onHidden() {},
   onHiding() {},
   onShowing() {},
@@ -79,7 +82,7 @@ export const showHidePropTypes = {
   onShown: PropTypes.func,
 };
 
-export const sizeDefaults = {
+export const sizeDefaults: SizePropTypes = {
   large: false,
   small: false,
 };

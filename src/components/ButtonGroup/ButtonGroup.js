@@ -6,14 +6,18 @@
 
 import React, { Children, PropTypes } from 'react';
 import style, { classes } from '../../styler';
-import { classStylePropType } from '../../propTypes';
+import { classNamesPropType } from '../../propTypes';
 import formatID from '../../utility/formatID';
 import generateUID from '../../utility/generateUID';
 
+import type { ButtonGroupProps } from './types';
+
 export class ToolkitButtonGroup extends React.PureComponent {
+  props: ButtonGroupProps;
+
   static propTypes = {
-    children: PropTypes.node,
-    classNames: classStylePropType,
+    children: PropTypes.node.isRequired,
+    classNames: classNamesPropType.isRequired,
     justified: PropTypes.bool,
     label: PropTypes.string,
     vertical: PropTypes.bool,
@@ -25,7 +29,7 @@ export class ToolkitButtonGroup extends React.PureComponent {
     vertical: false,
   };
 
-  uid = generateUID();
+  uid: string = generateUID();
 
   render() {
     const { children, classNames, justified, vertical, label } = this.props;

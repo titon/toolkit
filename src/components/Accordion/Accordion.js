@@ -11,7 +11,7 @@ import collectionOf from '../../prop-types/collectionOf';
 import generateUID from '../../utility/generateUID';
 import formatID from '../../utility/formatID';
 import style, { classes } from '../../styler';
-import { classStylePropType } from '../../propTypes';
+import { classNamesPropType } from '../../propTypes';
 import contextTypes from './contextTypes';
 
 export class ToolkitAccordion extends React.Component {
@@ -21,7 +21,7 @@ export class ToolkitAccordion extends React.Component {
 
   static propTypes = {
     children: childrenOf(Item),
-    classNames: classStylePropType,
+    classNames: classNamesPropType,
     collapsible: PropTypes.bool,
     defaultIndex: collectionOf.number,
     multiple: PropTypes.bool,

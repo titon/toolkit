@@ -2,17 +2,22 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 import React, { PropTypes } from 'react';
 import style, { classes } from '../../styler';
-import { sizeDefaults, sizePropTypes, classStylePropType } from '../../propTypes';
+import { sizeDefaults, sizePropTypes, classNamesPropType } from '../../propTypes';
+
+import type { ButtonProps, ButtonState } from './types';
 
 export class ToolkitButton extends React.PureComponent {
+  props: ButtonProps;
+
   static propTypes = {
     ...sizePropTypes,
-    children: PropTypes.node,
-    classNames: classStylePropType,
+    children: PropTypes.node.isRequired,
+    classNames: classNamesPropType.isRequired,
     disabled: PropTypes.bool,
     href: PropTypes.string,
     onClick: PropTypes.func,
@@ -24,10 +29,14 @@ export class ToolkitButton extends React.PureComponent {
   static defaultProps = {
     ...sizeDefaults,
     disabled: false,
+    href: '',
+    onClick() {},
+    onMouseOver() {},
+    onMouseOut() {},
     type: 'button',
   };
 
-  state = {
+  state: ButtonState = {
     pressed: false,
   };
 
@@ -72,10 +81,8 @@ export class ToolkitButton extends React.PureComponent {
 
     // If an anchor link
     if (href) {
-      props.href = href;
-
       return (
-        <a {...props}>
+        <a {...props} href={href}>
           {children}
         </a>
       );

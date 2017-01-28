@@ -4,6 +4,7 @@
     "transform-decorators-legacy",
     "transform-class-properties",
     "transform-export-extensions",
+    "transform-flow-comments",
   ],
   "sourceMaps": false
 }

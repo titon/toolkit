@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import Collapse from '../../motions/Collapse';
 import formatID from '../../utility/formatID';
 import { classes } from '../../styler';
-import { classStylePropType } from '../../propTypes';
+import { classNamesPropType } from '../../propTypes';
 import contextTypes from './contextTypes';
 
 // Private
@@ -42,7 +42,7 @@ ToolkitAccordionSection.contextTypes = {
 
 ToolkitAccordionSection.propTypes = {
   children: PropTypes.node,
-  classNames: classStylePropType,
+  classNames: classNamesPropType,
   expanded: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
 };
