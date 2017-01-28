@@ -2,20 +2,26 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 import React, { PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
 import debounce from 'lodash.debounce';
-import { motionSpringPropType, stylePropType } from '../../propTypes';
+import { motionPropType, stylePropType } from '../../propTypes';
+
+import type { CollapseProps, CollapseState } from './types';
 
 export default class Collapse extends React.Component {
+  element: HTMLElement;
+  props: CollapseProps;
+
   static propTypes = {
     children: PropTypes.node.isRequired,
     direction: PropTypes.oneOf(['width', 'height']),
     expanded: PropTypes.bool,
     fixedAt: PropTypes.number,
-    motion: motionSpringPropType,
+    motion: motionPropType,
     onRest: PropTypes.func,
     style: stylePropType,
   };
@@ -23,14 +29,16 @@ export default class Collapse extends React.Component {
   static defaultProps = {
     direction: 'height',
     expanded: true,
+    fixedAt: 0,
     motion: {
       stiffness: 210,
       damping: 20,
     },
+    onRest() {},
     style: {},
   };
 
-  state = {
+  state: CollapseState = {
     size: 0,
     calculate: true,
     changed: false,
@@ -44,13 +52,13 @@ export default class Collapse extends React.Component {
     this.calculateSize();
   }
 
-  componentWillReceiveProps({ expanded }) {
+  componentWillReceiveProps({ expanded }: CollapseProps) {
     this.setState({
       changed: (expanded !== this.props.expanded),
     });
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps: CollapseProps, nextState: CollapseState) {
     return (
       nextState.calculate !== this.state.calculate ||
       nextState.size !== this.state.size ||
@@ -69,6 +77,7 @@ export default class Collapse extends React.Component {
   calculateSize() {
     if (this.state.calculate) {
       this.setState({
+        // $FlowIgnore
         size: this.element.getBoundingClientRect()[this.props.direction],
         calculate: false,
       });

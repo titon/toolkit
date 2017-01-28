@@ -39,7 +39,7 @@ export const inputPropTypes = {
   required: PropTypes.bool,
 };
 
-export const motionSpringPropType = PropTypes.shape({
+export const motionPropType = PropTypes.shape({
   stiffness: PropTypes.number,
   damping: PropTypes.number,
   precision: PropTypes.number,

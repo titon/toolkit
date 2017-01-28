@@ -13,11 +13,19 @@ export type ReactChildren = ?Element<any>;
 
 // Types
 
-export type PrimitiveType = string | number | boolean;
+export type Callback = ?() => void;
 
 export type ClassNameMap = { [key: string]: string };
 
-export type Callback = ?() => void;
+export type MotionConfig = {
+  stiffness?: number,
+  damping?: number,
+  precision?: number,
+};
+
+export type PrimitiveType = string | number | boolean;
+
+export type StyleDeclaration = { [key: string]: PrimitiveType };
 
 // PropTypes
 
