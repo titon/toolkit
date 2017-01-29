@@ -5,10 +5,12 @@
  * @flow
  */
 
+import type { PrimitiveType } from '../types';
+
 /**
  * Format a unique HTML ID based on the passed parameters.
  */
-export default function formatID(...params: string[]): string {
+export default function formatID(...params: PrimitiveType[]): string {
   return ['titon', ...params]
     .map(id => String(id).trim())
     .join('-')

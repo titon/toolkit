@@ -2,6 +2,7 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 import React, { Children, PropTypes } from 'react';
@@ -14,14 +15,19 @@ import style, { classes } from '../../styler';
 import { classNamesPropType } from '../../propTypes';
 import contextTypes from './contextTypes';
 
+import type { AccordionContext, AccordionProps, AccordionState } from './types';
+
 export class ToolkitAccordion extends React.Component {
+  context: AccordionContext;
+  props: AccordionProps;
+
   static childContextTypes = {
     accordion: contextTypes.isRequired,
   };
 
   static propTypes = {
-    children: childrenOf(Item),
-    classNames: classNamesPropType,
+    children: childrenOf(Item).isRequired,
+    classNames: classNamesPropType.isRequired,
     collapsible: PropTypes.bool,
     defaultIndex: collectionOf.number,
     multiple: PropTypes.bool,
@@ -33,11 +39,11 @@ export class ToolkitAccordion extends React.Component {
     multiple: false,
   };
 
-  state = {
+  state: AccordionState = {
     indices: new Set(),
   };
 
-  uid = generateUID();
+  uid: string = generateUID();
 
   getChildContext() {
     return {
@@ -57,11 +63,11 @@ export class ToolkitAccordion extends React.Component {
     this.showItem(this.props.defaultIndex);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps: AccordionProps, nextState: AccordionState) {
     return (this.props.multiple || nextState.indices !== this.state.indices);
   }
 
-  hideItem = (index) => {
+  hideItem = (index: number) => {
     const indices = new Set(this.state.indices);
 
     (Array.isArray(index) ? index : [index])
@@ -72,26 +78,29 @@ export class ToolkitAccordion extends React.Component {
     });
   };
 
-  isItemCollapsible = index => (
+  isItemCollapsible = (index: number) => (
     (this.props.multiple || this.props.collapsible) && this.isItemActive(index)
   );
 
-  isItemActive = index => this.state.indices.has(index);
+  isItemActive = (index: number) => this.state.indices.has(index);
 
-  showItem = (index) => {
+  showItem = (index: number) => {
     const multiple = this.props.multiple;
-    const indices = new Set(multiple ? this.state.indices : []);
     const total = Children.count(this.props.children);
+    const indices = new Set(multiple ? this.state.indices : []);
+    const newIndices = [];
 
     if (Array.isArray(index)) {
       if (!multiple) {
-        index = [index[0]];
+        newIndices.push(index[0]);
+      } else {
+        newIndices.push(...index);
       }
     } else {
-      index = [index];
+      newIndices.push(index);
     }
 
-    index.forEach((i) => {
+    newIndices.forEach((i) => {
       if (i >= 0 && i < total) {
         indices.add(i);
       }
@@ -102,7 +111,7 @@ export class ToolkitAccordion extends React.Component {
     });
   };
 
-  toggleItem = (index) => {
+  toggleItem = (index: number) => {
     if (this.isItemCollapsible(index)) {
       this.hideItem(index);
     } else {

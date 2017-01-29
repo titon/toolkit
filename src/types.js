@@ -13,7 +13,7 @@ export type ReactChildren = ?Element<any>;
 
 // Types
 
-export type Callback = ?() => void;
+export type Callback = () => void;
 
 export type ClassNameMap = { [key: string]: string };
 

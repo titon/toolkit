@@ -2,6 +2,7 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 import React, { PropTypes } from 'react';
@@ -10,16 +11,21 @@ import { classes } from '../../styler';
 import { classNamesPropType } from '../../propTypes';
 import contextTypes from './contextTypes';
 
+import type { AccordionContext, AccordionHeaderProps } from './types';
+
 // Private
 export default class ToolkitAccordionHeader extends React.PureComponent {
+  context: AccordionContext;
+  props: AccordionHeaderProps;
+
   static contextTypes = {
     accordion: contextTypes.isRequired,
   };
 
   static propTypes = {
     active: PropTypes.bool.isRequired,
-    children: PropTypes.node,
-    classNames: classNamesPropType,
+    children: PropTypes.node.isRequired,
+    classNames: classNamesPropType.isRequired,
     index: PropTypes.number.isRequired,
     onClick: PropTypes.func,
   };
@@ -28,7 +34,7 @@ export default class ToolkitAccordionHeader extends React.PureComponent {
     onClick() {},
   };
 
-  handleClick = (e) => {
+  handleClick = (e: Event) => {
     e.preventDefault();
 
     this.context.accordion.toggleItem(this.props.index);

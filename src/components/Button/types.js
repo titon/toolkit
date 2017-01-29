@@ -10,14 +10,14 @@ import type { ReactChildren, ClassNameMap, Callback } from '../../types';
 export type ButtonProps = {
   children: ReactChildren,
   classNames: ClassNameMap,
-  disabled?: boolean,
-  href?: string,
-  large?: boolean,
-  onClick?: Callback,
-  onMouseOver?: Callback,
-  onMouseOut?: Callback,
-  small?: boolean,
-  type?: 'button' | 'submit',
+  disabled: boolean,
+  href: string,
+  large: boolean,
+  onClick: Callback,
+  onMouseOver: Callback,
+  onMouseOut: Callback,
+  small: boolean,
+  type: 'button' | 'submit',
 };
 
 export type ButtonState = {

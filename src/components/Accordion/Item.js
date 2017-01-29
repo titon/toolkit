@@ -2,6 +2,7 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 import React, { PropTypes } from 'react';
@@ -12,15 +13,21 @@ import style from '../../styler';
 import { classNamesPropType, showHideDefaults, showHidePropTypes } from '../../propTypes';
 import contextTypes from './contextTypes';
 
+import type { AccordionContext, AccordionItemProps, AccordionItemState } from './types';
+
 export class ToolkitAccordionItem extends React.Component {
+  context: AccordionContext;
+  props: AccordionItemProps;
+  state: AccordionItemState;
+
   static contextTypes = {
     accordion: contextTypes.isRequired,
   };
 
   static propTypes = {
     ...showHidePropTypes,
-    children: PropTypes.node,
-    classNames: classNamesPropType,
+    children: PropTypes.node.isRequired,
+    classNames: classNamesPropType.isRequired,
     header: PropTypes.node.isRequired,
     index: PropTypes.number.isRequired,
     onClickHeader: PropTypes.func,
@@ -31,7 +38,7 @@ export class ToolkitAccordionItem extends React.Component {
     onClickHeader() {},
   };
 
-  constructor({ index }, { accordion }) {
+  constructor({ index }: AccordionItemProps, { accordion }: AccordionContext) {
     super();
 
     this.state = {
@@ -39,13 +46,13 @@ export class ToolkitAccordionItem extends React.Component {
     };
   }
 
-  componentWillReceiveProps({ index }, { accordion }) {
+  componentWillReceiveProps({ index }: AccordionItemProps, { accordion }: any) {
     this.setState({
       expanded: accordion.isItemActive(index),
     });
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps: AccordionItemProps, nextState: AccordionItemState) {
     return (nextState.expanded !== this.state.expanded);
   }
 

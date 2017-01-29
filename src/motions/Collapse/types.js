@@ -15,11 +15,11 @@ import type {
 export type CollapseProps = {
   children: ReactChildren,
   direction: 'width' | 'height',
-  expanded?: boolean,
-  fixedAt?: number,
-  motion?: MotionConfig,
-  onRest?: Callback,
-  style?: StyleDeclaration,
+  expanded: boolean,
+  fixedAt: number,
+  motion: MotionConfig,
+  onRest: Callback,
+  style: StyleDeclaration,
 };
 
 export type CollapseState = {

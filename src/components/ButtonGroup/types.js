@@ -10,7 +10,7 @@ import type { ReactChildren, ClassNameMap } from '../../types';
 export type ButtonGroupProps = {
   children: ReactChildren,
   classNames: ClassNameMap,
-  justified?: boolean,
-  label?: string,
-  vertical?: boolean,
+  justified: boolean,
+  label: string,
+  vertical: boolean,
 };
