@@ -7,18 +7,16 @@
 
 import type { ReactChildren, ClassNameMap, Callback } from '../../types';
 
-export type Context = {
-  activeIndices: number[],
-  hideItem: (index: number) => void,
-  isItemActive: (index: number) => boolean,
-  isItemCollapsible: (index: number) => boolean,
-  showItem: (index: number) => void,
-  toggleItem: (index: number) => void,
-  uid: string,
-};
-
 export type AccordionContext = {
-  accordion: Context,
+  accordion: {
+    activeIndices: number[],
+    hideItem: (index: number) => void,
+    isItemActive: (index: number) => boolean,
+    isItemCollapsible: (index: number) => boolean,
+    showItem: (index: number) => void,
+    toggleItem: (index: number) => void,
+    uid: string,
+  },
 };
 
 export type AccordionProps = {

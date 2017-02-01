@@ -6,8 +6,8 @@
  */
 
 import React, { Children, PropTypes } from 'react';
+import { childrenOfType } from 'airbnb-prop-types';
 import Item from './Item';
-import childrenOf from '../../prop-types/childrenOf';
 import collectionOf from '../../prop-types/collectionOf';
 import generateUID from '../../utility/generateUID';
 import formatID from '../../utility/formatID';
@@ -26,7 +26,7 @@ export class ToolkitAccordion extends React.Component {
   };
 
   static propTypes = {
-    children: childrenOf(Item).isRequired,
+    children: childrenOfType(Item).isRequired,
     classNames: classNamesPropType.isRequired,
     collapsible: PropTypes.bool,
     defaultIndex: collectionOf.number,
@@ -64,14 +64,13 @@ export class ToolkitAccordion extends React.Component {
   }
 
   shouldComponentUpdate(nextProps: AccordionProps, nextState: AccordionState) {
-    return (this.props.multiple || nextState.indices !== this.state.indices);
+    return (nextProps.multiple || nextState.indices !== this.state.indices);
   }
 
   hideItem = (index: number) => {
     const indices = new Set(this.state.indices);
 
-    (Array.isArray(index) ? index : [index])
-      .forEach(i => indices.delete(i));
+    (Array.isArray(index) ? index : [index]).forEach(i => indices.delete(i));
 
     this.setState({
       indices,
@@ -85,8 +84,8 @@ export class ToolkitAccordion extends React.Component {
   isItemActive = (index: number) => this.state.indices.has(index);
 
   showItem = (index: number) => {
-    const multiple = this.props.multiple;
-    const total = Children.count(this.props.children);
+    const { children, multiple } = this.props;
+    const total = Children.count(children);
     const indices = new Set(multiple ? this.state.indices : []);
     const newIndices = [];
 
