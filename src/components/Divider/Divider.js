@@ -13,7 +13,7 @@ import style, { classes } from '../../styler';
 
 function ToolkitDivider({ children, classNames }) {
   return (
-    <div role="separator" className={classNames.default}>
+    <div role="separator" className={classNames.divider}>
       <span>{children}</span>
     </div>
   );
@@ -24,4 +24,4 @@ ToolkitDivider.propTypes = {
   classNames: ClassNamesPropTypes
 };
 
-export default style({ default: 'default' })(ToolkitDivider);
+export default style({ divider: 'divider' })(ToolkitDivider);
