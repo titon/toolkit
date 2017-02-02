@@ -32,7 +32,7 @@
   "repository": "github:titon/toolkit",
   "scripts": {
     "js": "babel ./src -d ./lib",
-    "js:lint": "eslint ./src ./tests",
+    "js:lint": "eslint ./src ./tests ./stories",
     "css": "node-sass --indent-width 4 --output-style expanded --source-map ./build --importer ./build/tasks/import-scss-index.js ./src/testing/style.scss ./build/titon.css",
     "css:lint": "sass-lint --config ./.scsslint.yml",
     "css:prefix": "postcss --use autoprefixer --config ./.postcss.json --output ./build/titon.css ./build/titon.css",
@@ -43,7 +43,8 @@
     "flow": "flow check",
     "pretest": "yarn run lint",
     "test": "yarn run jest",
-    "posttest": "yarn run flow"
+    "posttest": "yarn run flow",
+    "storybook": "start-storybook -p 9001 -c ./stories -s ./stories"
   },
   "dependencies": {
     "airbnb-prop-types": "^2.0.1",
@@ -60,6 +61,7 @@
     "react-motion": "^0.4.7"
   },
   "devDependencies": {
+    "@kadira/storybook": "^2.35.3",
     "aesthetic": "^0.5.0",
     "babel-cli": "^6.22.0",
     "babel-eslint": "^7.1.1",

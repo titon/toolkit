@@ -8,6 +8,7 @@
 import React, { PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
 import debounce from 'lodash.debounce';
+import calculateDimensions from '../../utility/calculateDimensions';
 import { motionPropType, stylePropType } from '../../propTypes';
 
 import type { CollapseProps, CollapseState } from './types';
@@ -77,12 +78,15 @@ export default class Collapse extends React.Component {
   calculateSize() {
     if (this.state.calculate) {
       this.setState({
-        // $FlowIgnore
-        size: this.element.getBoundingClientRect()[this.props.direction],
+        size: calculateDimensions(this.element, this.props.direction),
         calculate: false,
       });
     }
   }
+
+  handleRef = (ref: HTMLElement) => {
+    this.element = ref;
+  };
 
   handleResize = debounce(() => {
     this.setState({
@@ -101,16 +105,14 @@ export default class Collapse extends React.Component {
   render() {
     const { calculate } = this.state;
     const { children, direction, style, onRest } = this.props;
-    const content = (
-      <div ref={(ref) => { this.element = ref; }}>
-        {children}
-      </div>
-    );
 
     if (calculate) {
       return (
-        <div style={{ [direction]: 'auto' }}>
-          {content}
+        <div
+          ref={this.handleRef}
+          style={{ [direction]: 'auto' }}
+        >
+          {children}
         </div>
       );
     }
@@ -121,13 +123,18 @@ export default class Collapse extends React.Component {
         style={{ [direction]: this.getMotionSize() }}
         onRest={onRest}
       >
-        {motionStyle => React.cloneElement(content, {
-          style: {
-            ...style,
-            ...motionStyle,
-            overflow: 'hidden',
-          },
-        })}
+        {motionStyle => (
+          <div
+            ref={this.handleRef}
+            style={{
+              ...style,
+              ...motionStyle,
+              overflow: 'hidden',
+            }}
+          >
+            {children}
+          </div>
+        )}
       </Motion>
     );
   }
