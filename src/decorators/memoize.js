@@ -2,22 +2,24 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 import memoizer from 'lodash.memoize';
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
 
+import type { DecoratorTarget, Descriptor } from '../types';
+
 /**
  * The `memoize` decorator will cache the result of a function/method and return that same value
  * on each subsequent call. Makes use of Lo-dash's `memoize` function.
- *
- * @param {Object} target
- * @param {String} name
- * @param {Object} descriptor
- * @returns {Object}
  */
-export default function memoize(target, name, descriptor) {
+export default function memoize(
+  target: DecoratorTarget,
+  name: string,
+  descriptor: Descriptor,
+): Descriptor {
   checkIsMethod('memoize', arguments);
 
   descriptor.value = memoizer(

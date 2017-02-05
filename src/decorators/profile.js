@@ -2,24 +2,26 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 /* eslint no-console: 0 */
 
 import checkIsMethod from './helpers/checkIsMethod';
 
+import type { DecoratorTarget, Descriptor } from '../types';
+
 /**
  * The `profile` decorator can be used for profiling the time it took to execute a specific method.
- *
- * @param {Object} target
- * @param {String} name
- * @param {Object} descriptor
- * @returns {Object}
  */
-export default function profile(target, name, descriptor) {
+export default function profile(
+  target: DecoratorTarget,
+  name: string,
+  descriptor: Descriptor,
+): Descriptor {
   checkIsMethod('profile', arguments);
 
-  ['get', 'set', 'value'].forEach((method) => {
+  ['get', 'set', 'value'].forEach((method: string) => {
     if (typeof descriptor[method] === 'function') {
       const oldMethod = descriptor[method];
 

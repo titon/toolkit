@@ -2,6 +2,7 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 import bind from './bind';
@@ -19,6 +20,6 @@ import suppressErrors from './suppressErrors';
 import throttle from './throttle';
 
 export {
-    bind, debounce, delegate, deprecate, getter, memoize, once,
-    profile, remover, setter, suppressConsole, suppressErrors, throttle,
+  bind, debounce, delegate, deprecate, getter, memoize, once,
+  profile, remover, setter, suppressConsole, suppressErrors, throttle,
 };

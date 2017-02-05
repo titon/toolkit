@@ -1,0 +1,21 @@
+declare module 'lodash.debounce' {
+  declare export default function debounce(func: Function, wait?: number, options?: {
+    leading?: boolean,
+    maxWait?: number,
+    trailing?: boolean,
+  }): Function;
+}
+
+declare module 'lodash.isplainobject' {
+  declare export default function isPlainObject<T>(value: T): boolean;
+}
+
+declare module 'lodash.memoize' {
+  declare export default function memoize(func: Function, resolver: Function): Function;
+}
+
+declare module 'lodash.throttle' {
+  import type debounce from 'lodash.debounce';
+
+  declare export default debounce;
+}

@@ -52,3 +52,24 @@ export type SizePropTypes = {
   large?: boolean,
   small?: boolean,
 };
+
+// Decorators
+
+export type Descriptor = {
+  writable?: boolean,
+  enumerable?: boolean,
+  configurable?: boolean,
+  value?: any,
+  get?: () => any,
+  set?: (any) => void,
+};
+
+export type DecoratorTarget = Function | Class<*>;
+
+export type MethodDecorator = (
+  target: DecoratorTarget,
+  name: string,
+  descriptor: Descriptor,
+) => Descriptor;
+
+export type ClassDecorator = (target: DecoratorTarget) => DecoratorTarget;

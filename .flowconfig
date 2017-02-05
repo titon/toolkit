@@ -5,6 +5,7 @@
 [include]
 
 [libs]
+./flow/
 
 [options]
 esproposal.class_instance_fields=enable

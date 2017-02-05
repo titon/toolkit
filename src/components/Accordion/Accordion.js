@@ -63,7 +63,7 @@ export class ToolkitAccordion extends React.Component {
     this.showItem(this.props.defaultIndex);
   }
 
-  shouldComponentUpdate(nextProps: AccordionProps, nextState: AccordionState) {
+  shouldComponentUpdate(nextProps: AccordionProps, nextState: AccordionState): boolean {
     return (nextProps.multiple || nextState.indices !== this.state.indices);
   }
 

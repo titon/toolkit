@@ -2,21 +2,23 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
 
+import type { DecoratorTarget, Descriptor } from '../types';
+
 /**
  * The `suppressErrors` decorator will catch all thrown errors and
  * return the `Error` object if thrown.
- *
- * @param {Object} target
- * @param {String} name
- * @param {Object} descriptor
- * @returns {Object}
  */
-export default function suppressErrors(target, name, descriptor) {
+export default function suppressErrors(
+  target: DecoratorTarget,
+  name: string,
+  descriptor: Descriptor,
+): Descriptor {
   checkIsMethod('suppressErrors', arguments);
 
   const func = getValueFunc('suppressErrors', descriptor);

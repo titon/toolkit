@@ -2,6 +2,7 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 /* eslint no-console: 0, no-native-reassign: 0, no-undef: 0, no-global-assign: 0 */
@@ -9,17 +10,16 @@
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
 
+import type { DecoratorTarget, Descriptor } from '../types';
+
 const suppressedLogs = [];
 const originalConsole = console;
 
 /**
  * Curries a function that preserves the original console message.
- *
- * @param {String} name
- * @returns {Function}
  */
-function preserveLog(name) {
-  return function preserveLogHandler(...args) {
+function preserveLog(name: string) {
+  return function preserveLogHandler(...args: *[]) {
     suppressedLogs.push({
       args,
       type: name,
@@ -35,7 +35,7 @@ const shimConsole = (() => {
     'log', 'info', 'warn', 'error', 'exception', 'debug', 'table', 'trace', 'dir', 'dirxml',
     'group', 'groupCollapsed', 'groupEnd', 'time', 'timeEnd', 'timeStamp', 'profile',
     'profileEnd', 'assert', 'count', 'clear', 'markTimeline', 'timeline', 'timelineEnd',
-  ].forEach((name) => {
+  ].forEach((name: string) => {
     shim[name] = preserveLog(name);
   });
 
@@ -45,13 +45,12 @@ const shimConsole = (() => {
 /**
  * The `suppressConsole` decorator will temporarily disable all console messages
  * for the duration of hte methods execution. All suppressed messages will be logged.
- *
- * @param {Object} target
- * @param {String} name
- * @param {Object} descriptor
- * @returns {Object}
  */
-function suppressConsole(target, name, descriptor) {
+function suppressConsole(
+  target: DecoratorTarget,
+  name: string,
+  descriptor: Descriptor,
+): Descriptor {
   checkIsMethod('suppressConsole', arguments);
 
   const func = getValueFunc('suppressConsole', descriptor);
@@ -68,8 +67,6 @@ function suppressConsole(target, name, descriptor) {
 
   return descriptor;
 }
-
-suppressConsole.logs = suppressedLogs;
 
 export { suppressedLogs };
 export default suppressConsole;

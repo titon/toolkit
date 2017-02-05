@@ -1,0 +1,19 @@
+import type { ReactPropsChainableTypeChecker as PropType } from 'react';
+
+declare module 'airbnb-prop-types' {
+  declare export var and: (validators: Function[], name?: string) => PropType;
+  declare export var childrenHavePropXorChildren: (prop: string) => PropType;
+  declare export var childrenOfType: (types: Function[]) => PropType;
+  declare export var componentWithName: (name: string) => PropType;
+  declare export var forbidExtraProps: (props: Object) => PropType;
+  declare export var mutuallyExclusiveProps: (propType: Function, props?: string[]) => PropType;
+  declare export var mutuallyExclusiveTrueProps: (props: string[]) => PropType;
+  declare export var nChildren: (n: number) => PropType;
+  declare export var nonNegativeInteger: PropType;
+  declare export var or: (validators: Function[], name?: string) => PropType;
+  declare export var range: (min: number, max: number) => PropType;
+  declare export var restrictedProp: PropType;
+  declare export var uniqueArray: PropType;
+  declare export var uniqueArrayOf: (type: Function, name?: string) => PropType;
+  declare export var withShape: (type: Function, shape: Object) => PropType;
+}
