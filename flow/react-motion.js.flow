@@ -1,0 +1,22 @@
+import React from 'react';
+
+declare module 'react-motion' {
+  declare type SpringHelperConfig = {
+    stiffness?: number,
+    damping?: number,
+    precision?: number,
+  };
+
+  declare type OpaqueConfig = {
+    val: number,
+    stiffness: number,
+    damping: number,
+    precision: number,
+  };
+
+  declare export class Motion extends React.Component {}
+  declare export class StaggeredMotion extends React.Component {}
+  declare export class TransitionMotion extends React.Component {}
+
+  declare export function spring(val: number, config?: SpringHelperConfig): OpaqueConfig;
+}

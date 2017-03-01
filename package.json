@@ -51,7 +51,8 @@
     "lodash": "^4.17.0"
   },
   "peerDependencies": {
-    "aesthetic": "^0.5.2"
+    "aesthetic": "^0.5.2",
+    "react": "^15.4.0"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
