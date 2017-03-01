@@ -5,5 +5,5 @@
   "resetMocks": false,
   "resetModules": false,
   "setupFiles": ["./tests/setup.js"],
-  "testPathDirs": ["./tests"]
+  "roots": ["./src", "./tests"]
 }
