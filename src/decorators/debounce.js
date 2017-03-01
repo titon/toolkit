@@ -5,7 +5,7 @@
  * @flow
  */
 
-import debouncer from 'lodash.debounce';
+import debouncer from 'lodash/debounce';
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
 

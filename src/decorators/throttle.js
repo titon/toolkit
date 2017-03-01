@@ -5,7 +5,7 @@
  * @flow
  */
 
-import throttler from 'lodash.throttle';
+import throttler from 'lodash/throttle';
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
 

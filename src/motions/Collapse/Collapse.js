@@ -7,7 +7,7 @@
 
 import React, { PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
-import debounce from 'lodash.debounce';
+import debounce from 'lodash/debounce';
 import calculateDimensions from '../../utility/calculateDimensions';
 import { motionPropType, stylePropType } from '../../propTypes';
 

@@ -5,7 +5,7 @@
  * @flow
  */
 
-import memoizer from 'lodash.memoize';
+import memoizer from 'lodash/memoize';
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
 
