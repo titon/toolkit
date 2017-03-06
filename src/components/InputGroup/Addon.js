@@ -2,37 +2,46 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import { defaultSizeProps, sizePropTypes } from '../../propTypes';
-import MODULE from './module';
+import style, { classes } from '../../styler';
+import { classNamesPropType, sizeDefaults, sizePropTypes } from '../../propTypes';
 
-export default class Addon extends Component {
-  static module = MODULE;
+import type { InputGroupAddonProps } from './types';
 
-  static defaultProps = {
-    ...defaultSizeProps,
-  };
-
-  static propTypes = {
-    ...sizePropTypes,
-    children: PropTypes.node,
-  };
-
-  render() {
-    const props = this.props;
-
-    return (
-      <span
-        className={this.formatChildClass('addon', {
-          '@large': props.large,
-          '@small': props.small,
-        })}
-      >
-        {props.children}
-      </span>
-    );
-  }
+export function ToolkitInputGroupAddon({
+  children,
+  classNames,
+  large,
+  small,
+}: InputGroupAddonProps) {
+  return (
+    <span
+      className={classes(classNames.addon, {
+        [classNames.addon__large]: large,
+        [classNames.addon__small]: small,
+      })}
+    >
+      {children}
+    </span>
+  );
 }
+
+ToolkitInputGroupAddon.propTypes = {
+  ...sizePropTypes,
+  children: PropTypes.node,
+  classNames: classNamesPropType.isRequired,
+};
+
+ToolkitInputGroupAddon.defaultProps = {
+  ...sizeDefaults,
+  children: null,
+};
+
+export default style({
+  addon: 'input-group__addon',
+  addon__large: 'input-group__addon--large',
+  addon__small: 'input-group__addon--small',
+})(ToolkitInputGroupAddon);

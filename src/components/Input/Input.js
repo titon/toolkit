@@ -163,12 +163,9 @@ export default class BaseInput extends React.Component {
         inputProps.checked = state.checked;
         inputProps.multiple = props.multiple;
 
-        if (
-          !props.id &&
-          (props.multiple || props.type === 'radio') &&
-          typeof state.value === 'string'
-        ) {
-          inputProps.id += `-${state.value}`;
+        if (!props.id && (props.multiple || props.type === 'radio')) {
+          // $FlowIgnore We know these are strings
+          inputProps.id = `${inputProps.id}-${state.value}`;
         }
 
       // eslint-disable-next-line no-fallthrough
