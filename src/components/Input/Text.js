@@ -12,13 +12,12 @@ import { INPUT_CLASSES } from './types';
 
 import type { InputProps } from './types';
 
-export function ToolkitTextarea(props: InputProps) {
+export function ToolkitText(props: InputProps) {
   return (
-    <Input {...props} type="textarea" />
+    <Input {...props} />
   );
 }
 
 export default style({
   ...INPUT_CLASSES,
-  input: 'input input-textarea',
-})(ToolkitTextarea);
+})(ToolkitText);

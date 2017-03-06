@@ -2,39 +2,42 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import { defaultSizeProps, sizePropTypes } from '../../propTypes';
-import MODULE from './module';
+import style, { classes } from '../../styler';
+import { classNamesPropType, sizeDefaults, sizePropTypes } from '../../propTypes';
 
-export default class Choice extends Component {
-  static module = MODULE;
+import type { InputChoiceProps } from './types';
 
-  static defaultProps = {
-    ...defaultSizeProps,
-  };
-
-  static propTypes = {
-    ...sizePropTypes,
-    children: PropTypes.node,
-    inputID: PropTypes.string.isRequired,
-  };
-
-  render() {
-    const { children, large, small, inputID } = this.props;
-
-    return (
-      <label
-        htmlFor={inputID}
-        className={this.formatChildClass('choice', {
-          '@large': large,
-          '@small': small,
-        })}
-      >
-        {children}
-      </label>
-    );
-  }
+export function ToolkitChoice({ children, classNames, large, small, inputID }: InputChoiceProps) {
+  return (
+    <label
+      htmlFor={inputID}
+      className={classes(classNames.input, {
+        [classNames.input__large]: large,
+        [classNames.input__small]: small,
+      })}
+    >
+      {children}
+    </label>
+  );
 }
+
+ToolkitChoice.propTypes = {
+  ...sizePropTypes,
+  children: PropTypes.node,
+  classNames: classNamesPropType.isRequired,
+  inputID: PropTypes.string.isRequired,
+};
+
+ToolkitChoice.defaultProps = {
+  ...sizeDefaults,
+};
+
+export default style({
+  input: 'input-choice',
+  input__large: 'input-choice--large',
+  input__small: 'input-choice--small',
+})(ToolkitChoice);

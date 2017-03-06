@@ -15,7 +15,11 @@ export type ReactChildren = ?Element<any>;
 
 export type Callback = () => void;
 
+export type EventCallback = (e: Event) => void;
+
 export type ClassNameMap = { [key: string]: string };
+
+export type ClassNameAccumulator = { [className: string]: boolean };
 
 export type MotionConfig = {
   stiffness?: number,
@@ -26,6 +30,14 @@ export type MotionConfig = {
 export type PrimitiveType = string | number | boolean;
 
 export type StyleDeclaration = { [key: string]: PrimitiveType };
+
+// Components
+
+export type PropValue = string | string[] | number | number[] | boolean | Callback | EventCallback;
+
+export type PropsMap = {
+  [key: string]: PropValue,
+};
 
 // PropTypes
 

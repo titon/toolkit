@@ -26,7 +26,7 @@ export default function emitEvent(
   const debug = component.props.debug || Titon.options.debug;
   let uid = null;
 
-  if (component.context[contextName]) {
+  if (contextName && component.context[contextName]) {
     uid = component.context[contextName].uid;
   } else {
     // $FlowIgnore

@@ -6,7 +6,6 @@
  */
 
 import { PropTypes } from 'react';
-import collectionOf from './prop-types/collectionOf';
 
 import type { InputPropTypes, ShowHidePropTypes, SizePropTypes } from './types';
 
@@ -20,6 +19,7 @@ export const inputDefaults: InputPropTypes = {
   disabled: false,
   id: '',
   multiple: false,
+  native: true,
   onChanged() {},
   onChanging() {},
   readOnly: false,
@@ -33,8 +33,9 @@ export const inputPropTypes = {
   id: PropTypes.string,
   multiple: PropTypes.bool,
   name: PropTypes.string.isRequired,
-  onChanged: collectionOf.func,
-  onChanging: collectionOf.func,
+  native: PropTypes.bool,
+  onChanged: PropTypes.func,
+  onChanging: PropTypes.func,
   readOnly: PropTypes.bool,
   required: PropTypes.bool,
 };
