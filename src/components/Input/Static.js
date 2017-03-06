@@ -14,9 +14,9 @@ import type { InputStaticProps } from './types';
 export function ToolkitStatic({ children, classNames, large, small }: InputStaticProps) {
   return (
     <span
-      className={classes(classNames.input, {
-        [classNames.input__large]: large,
-        [classNames.input__small]: small,
+      className={classes(classNames.static, {
+        [classNames.static__large]: large,
+        [classNames.static__small]: small,
       })}
     >
       {children}
@@ -35,7 +35,7 @@ ToolkitStatic.defaultProps = {
 };
 
 export default style({
-  input: 'input-static',
-  input__large: 'input-static--large',
-  input__small: 'input-static--small',
+  static: 'input-static',
+  static__large: 'input-static--large',
+  static__small: 'input-static--small',
 })(ToolkitStatic);

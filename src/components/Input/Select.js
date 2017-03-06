@@ -23,7 +23,7 @@ export function renderOptions(options: SelectOption[]) {
         <optgroup
           key={option.label}
           label={option.label}
-          disabled={option.disabled}
+          disabled={option.disabled || false}
         >
           {renderOptions(option.options)}
         </optgroup>,
@@ -35,7 +35,7 @@ export function renderOptions(options: SelectOption[]) {
         <option
           key={option.value}
           value={option.value}
-          disabled={option.disabled}
+          disabled={option.disabled || false}
         >
           {option.label}
         </option>,
@@ -46,7 +46,7 @@ export function renderOptions(options: SelectOption[]) {
   return elements;
 }
 
-export function ToolkitSelect({ options, ...props }: InputSelectProps) {
+export function ToolkitNativeSelect({ options, ...props }: InputSelectProps) {
   return (
     <Input {...props} type="select">
       {renderOptions(options)}
@@ -54,11 +54,11 @@ export function ToolkitSelect({ options, ...props }: InputSelectProps) {
   );
 }
 
-ToolkitSelect.propTypes = {
+ToolkitNativeSelect.propTypes = {
   options: optionListPropType.isRequired,
 };
 
 export default style({
   ...INPUT_CLASSES,
   input: 'input input-select',
-})(ToolkitSelect);
+})(ToolkitNativeSelect);

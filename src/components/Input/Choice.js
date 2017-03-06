@@ -15,9 +15,9 @@ export function ToolkitChoice({ children, classNames, large, small, inputID }: I
   return (
     <label
       htmlFor={inputID}
-      className={classes(classNames.input, {
-        [classNames.input__large]: large,
-        [classNames.input__small]: small,
+      className={classes(classNames.choice, {
+        [classNames.choice__large]: large,
+        [classNames.choice__small]: small,
       })}
     >
       {children}
@@ -37,7 +37,7 @@ ToolkitChoice.defaultProps = {
 };
 
 export default style({
-  input: 'input-choice',
-  input__large: 'input-choice--large',
-  input__small: 'input-choice--small',
+  choice: 'input-choice',
+  choice__large: 'input-choice--large',
+  choice__small: 'input-choice--small',
 })(ToolkitChoice);

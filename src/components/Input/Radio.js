@@ -12,7 +12,7 @@ import { INPUT_CLASSES } from './types';
 
 import type { InputProps } from './types';
 
-export function ToolkitRadio(props: InputProps) {
+export function ToolkitNativeRadio(props: InputProps) {
   return (
     <Input {...props} type="radio" />
   );
@@ -21,4 +21,4 @@ export function ToolkitRadio(props: InputProps) {
 export default style({
   ...INPUT_CLASSES,
   input: 'input input-radio',
-})(ToolkitRadio);
+})(ToolkitNativeRadio);

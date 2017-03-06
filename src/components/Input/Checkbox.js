@@ -12,7 +12,7 @@ import { INPUT_CLASSES } from './types';
 
 import type { InputProps } from './types';
 
-export function ToolkitCheckbox(props: InputProps) {
+export function ToolkitNativeCheckbox(props: InputProps) {
   return (
     <Input {...props} type="checkbox" />
   );
@@ -21,4 +21,4 @@ export function ToolkitCheckbox(props: InputProps) {
 export default style({
   ...INPUT_CLASSES,
   input: 'input input-checkbox',
-})(ToolkitCheckbox);
+})(ToolkitNativeCheckbox);
