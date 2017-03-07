@@ -3,6 +3,7 @@
 .sass-cache/
 node_modules/
 build/titon.*
+coverage/
 npm-debug.log
 
 !.gitkeep

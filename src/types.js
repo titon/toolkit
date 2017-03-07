@@ -22,9 +22,9 @@ export type HandlerEvent = {
   stopPropagation: () => void,
   // Flow event types are incomplete
   target: {
-    checked?: boolean,
+    checked: boolean,
     name: string,
-    selectedOptions?: NodeList<HTMLOptionElement>,
+    selectedOptions: NodeList<HTMLOptionElement>,
     value: string,
   },
 };

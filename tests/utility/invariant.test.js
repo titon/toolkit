@@ -21,11 +21,11 @@ describe('utility/invariant()', () => {
   });
 
   it('errors with an interpolated message', () => {
-    const error = new Error('Custom error message: foo bar.');
+    const error = new Error('Custom error message: foo bar .');
     error.name = 'Invariant Violation';
 
     expect(() => {
-      invariant(false, 'Custom error message: %s %s.', 'foo', 'bar');
+      invariant(false, 'Custom error message: %s %s %s.', 'foo', 'bar');
     }).toThrowError(error);
   });
 

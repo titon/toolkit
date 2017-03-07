@@ -11,6 +11,5 @@ import invariant from '../../utility/invariant';
  * Verifies that an object provided is a DOM event.
  */
 export default function checkIsEvent(name: string, event: Event) {
-  invariant((event && (event instanceof Event || (event.type && event.preventDefault))),
-    'Only event handlers can use @%s.', name);
+  invariant((event && event instanceof Event), 'Only event handlers can use @%s.', name);
 }

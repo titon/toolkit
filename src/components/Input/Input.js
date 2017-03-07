@@ -114,7 +114,7 @@ export default class BaseInput extends React.Component {
     switch (type) {
       case 'select':
         if (multiple) {
-          nextState.value = Array.from(target.selectedOptions || []).map(option => option.value);
+          nextState.value = Array.from(target.selectedOptions).map(option => option.value);
         } else {
           nextState.value = target.value;
         }

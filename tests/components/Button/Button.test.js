@@ -73,6 +73,11 @@ describe('components/Button/<Button/>', () => {
 
     expect(wrapper.prop('aria-pressed')).toBe(true);
     expect(wrapper.prop('className')).toBe('button is-pressed');
+
+    wrapper.simulate('mouseup');
+
+    expect(wrapper.prop('aria-pressed')).toBe(false);
+    expect(wrapper.prop('className')).toBe('button');
   });
 
   it('doesnt trigger pressed state if an anchor link', () => {
