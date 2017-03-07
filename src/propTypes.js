@@ -28,6 +28,7 @@ export const inputDefaults: InputPropTypes = {
 };
 
 export const inputPropTypes = {
+  classNames: classNamesPropType.isRequired,
   defaultChecked: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   defaultValue: PropTypes.string,
   disabled: PropTypes.bool,

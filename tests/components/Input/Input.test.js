@@ -51,7 +51,7 @@ describe('components/Input/<Input/>', () => {
   it('doesnt apply classes if not native', () => {
     const wrapper = shallow(<Input name="foo" type="text" native={false} />).dive();
 
-    expect(wrapper.prop('className')).toBeUndefined();
+    expect(wrapper.prop('className')).toBe('');
   });
 
   describe('text', () => {
@@ -97,6 +97,16 @@ describe('components/Input/<Input/>', () => {
         value: 'Titon',
       });
     });
+
+    it('emits `onChanged` event when mounting', () => {
+      const spy = jest.fn();
+      shallow(<Input name="foo" type="text" defaultValue="Titon" onChanged={spy} />).dive();
+
+      expect(spy).toHaveBeenCalledWith({
+        name: 'foo',
+        value: 'Titon',
+      });
+    });
   });
 
   describe('textarea', () => {
@@ -136,6 +146,16 @@ describe('components/Input/<Input/>', () => {
       wrapper.find('textarea').simulate('change', {
         target: { value: 'Titon' },
       });
+
+      expect(spy).toHaveBeenCalledWith({
+        name: 'foo',
+        value: 'Titon',
+      });
+    });
+
+    it('emits `onChanged` event when mounting', () => {
+      const spy = jest.fn();
+      shallow(<Input name="foo" type="textarea" defaultValue="Titon" onChanged={spy} />).dive();
 
       expect(spy).toHaveBeenCalledWith({
         name: 'foo',
@@ -226,6 +246,17 @@ describe('components/Input/<Input/>', () => {
       const wrapper = shallow(<Input name="foo" type="checkbox" onChanged={spy} />).dive();
 
       wrapper.find('input').simulate('change', {});
+
+      expect(spy).toHaveBeenCalledWith({
+        name: 'foo',
+        value: '1',
+        checked: true,
+      });
+    });
+
+    it('emits `onChanged` event when mounting', () => {
+      const spy = jest.fn();
+      shallow(<Input name="foo" type="checkbox" defaultChecked onChanged={spy} />).dive();
 
       expect(spy).toHaveBeenCalledWith({
         name: 'foo',
@@ -326,6 +357,19 @@ describe('components/Input/<Input/>', () => {
       });
     });
 
+    it('emits `onChanged` event when mounting', () => {
+      const spy = jest.fn();
+      shallow(
+        <Input name="foo" type="radio" defaultValue="bar" defaultChecked="bar" onChanged={spy} />,
+      ).dive();
+
+      expect(spy).toHaveBeenCalledWith({
+        name: 'foo',
+        value: 'bar',
+        checked: true,
+      });
+    });
+
     it('toggles checked stated when changing input', () => {
       const wrapper = shallow(<Input name="foo" type="radio" defaultValue="bar" />).dive();
 
@@ -399,6 +443,16 @@ describe('components/Input/<Input/>', () => {
       wrapper.find('select').simulate('change', {
         target: { value: 'Titon' },
       });
+
+      expect(spy).toHaveBeenCalledWith({
+        name: 'foo',
+        value: 'Titon',
+      });
+    });
+
+    it('emits `onChanged` event when mounting', () => {
+      const spy = jest.fn();
+      shallow(<Input name="foo" type="select" defaultValue="Titon" onChanged={spy} />).dive();
 
       expect(spy).toHaveBeenCalledWith({
         name: 'foo',

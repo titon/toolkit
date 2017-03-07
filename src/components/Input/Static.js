@@ -25,9 +25,9 @@ export function ToolkitStatic({ children, classNames, large, small }: InputStati
 }
 
 ToolkitStatic.propTypes = {
+  ...sizePropTypes,
   children: PropTypes.node,
   classNames: classNamesPropType.isRequired,
-  ...sizePropTypes,
 };
 
 ToolkitStatic.defaultProps = {

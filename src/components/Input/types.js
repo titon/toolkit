@@ -21,6 +21,8 @@ export const INPUT_CLASSES = {
   input__required: 'is-required',
 };
 
+export type InputValue = string | string[];
+
 export type SelectOption = {
   disabled: boolean,
   label: string,
@@ -30,7 +32,7 @@ export type SelectOption = {
 
 export type ChangedData = {
   name: string,
-  value: string | string[],
+  value: InputValue,
   checked?: boolean,
 };
 
@@ -45,20 +47,21 @@ export type RenderedProps = {
   readOnly: boolean,
   required: boolean,
   type?: string,
-  value: string | string[],
+  value: InputValue,
 };
 
 export type InputProps = {
   children: ReactChildren,
   classNames: ClassNameMap,
   defaultChecked: string | boolean,
-  defaultValue: string,
+  defaultValue: InputValue,
   disabled: boolean,
   id: string,
   invalid: boolean,
   large: boolean,
   multiple: boolean,
   name: string,
+  native: boolean,
   onChanged: Callback,
   onChanging: Callback,
   readOnly: boolean,
@@ -69,7 +72,7 @@ export type InputProps = {
 
 export type InputState = {
   checked: boolean,
-  value: string | string[],
+  value: InputValue,
 };
 
 export type InputChoiceProps = {

@@ -33,8 +33,6 @@ export type Handler = (event: HandlerEvent) => void;
 
 export type ClassNameMap = { [key: string]: string };
 
-export type ClassNameAccumulator = { [className: string]: boolean };
-
 export type MotionConfig = {
   stiffness?: number,
   damping?: number,

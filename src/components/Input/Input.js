@@ -10,14 +10,10 @@ import formatInputName from '../../utility/formatInputName';
 import emitEvent from '../../utility/emitEvent';
 import invariant from '../../utility/invariant';
 import toArray from '../../utility/toArray';
-import { classes } from '../../styler';
-import {
-  classNamesPropType,
-  inputDefaults, sizeDefaults,
-  inputPropTypes, sizePropTypes,
-} from '../../propTypes';
+import { inputDefaults, sizeDefaults, inputPropTypes, sizePropTypes } from '../../propTypes';
+import combineClasses from './combineClasses';
 
-import type { InputProps, InputState, ChangedData, RenderedProps } from './types';
+import type { InputProps, InputState, InputValue, ChangedData, RenderedProps } from './types';
 import type { HandlerEvent } from '../../types';
 
 // Private
@@ -30,7 +26,6 @@ export default class BaseInput extends React.Component {
     ...inputPropTypes,
     ...sizePropTypes,
     children: PropTypes.node,
-    classNames: classNamesPropType.isRequired,
     type: PropTypes.string.isRequired,
   };
 
@@ -81,23 +76,27 @@ export default class BaseInput extends React.Component {
     };
   }
 
+  componentWillMount() {
+    const { checked, value } = this.state;
+
+    this.emitEvent('onChanged', value, checked);
+  }
+
   shouldComponentUpdate(nextProps: InputProps, { checked, value }: InputState) {
     return (value !== this.state.value || checked !== this.state.checked);
   }
 
   componentWillUpdate(nextProps: InputProps, { checked, value }: InputState) {
-    const { name, type } = this.props;
-    const data: ChangedData = { name, value };
-
-    if (type === 'checkbox' || type === 'radio') {
-      data.checked = checked;
-    }
-
-    emitEvent(this, 'input', 'onChanging', data);
+    this.emitEvent('onChanging', value, checked);
   }
 
   componentDidUpdate() {
     const { checked, value } = this.state;
+
+    this.emitEvent('onChanged', value, checked);
+  }
+
+  emitEvent(eventName: string, value: InputValue, checked: boolean) {
     const { name, type } = this.props;
     const data: ChangedData = { name, value };
 
@@ -105,7 +104,7 @@ export default class BaseInput extends React.Component {
       data.checked = checked;
     }
 
-    emitEvent(this, 'input', 'onChanged', data);
+    emitEvent(this, 'input', eventName, data);
   }
 
   handleOnChange = ({ target }: HandlerEvent) => {
@@ -135,9 +134,10 @@ export default class BaseInput extends React.Component {
   };
 
   render() {
-    const { children, classNames, ...props } = this.props;
+    const { children, ...props } = this.props;
     const state = this.state;
     const inputProps: RenderedProps = {
+      className: props.native ? combineClasses('input', props, state) : '',
       disabled: props.disabled,
       id: this.uid,
       invalid: props.invalid,
@@ -147,19 +147,6 @@ export default class BaseInput extends React.Component {
       required: props.required,
       value: state.value,
     };
-
-    if (props.native) {
-      inputProps.className = classes(classNames.input, {
-        [classNames.input__small]: props.small,
-        [classNames.input__large]: props.large,
-        [classNames.input__checked]: state.checked,
-        [classNames.input__disabled]: props.disabled,
-        [classNames.input__invalid]: props.invalid,
-        [classNames.input__multiple]: props.multiple,
-        [classNames.input__readOnly]: props.readOnly,
-        [classNames.input__required]: props.required,
-      });
-    }
 
     switch (props.type) {
       case 'select':
