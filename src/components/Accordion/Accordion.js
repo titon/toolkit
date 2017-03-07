@@ -8,11 +8,10 @@
 import React, { Children, PropTypes } from 'react';
 import { childrenOfType } from 'airbnb-prop-types';
 import Item from './Item';
-import collectionOf from '../../prop-types/collectionOf';
 import generateUID from '../../utility/generateUID';
 import formatID from '../../utility/formatID';
 import style, { classes } from '../../styler';
-import { classNamesPropType } from '../../propTypes';
+import { classNamesPropType, numberCollectionPropType } from '../../propTypes';
 import contextTypes from './contextTypes';
 
 import type { AccordionContext, AccordionProps, AccordionState } from './types';
@@ -29,7 +28,7 @@ export class ToolkitAccordion extends React.Component {
     children: childrenOfType(Item).isRequired,
     classNames: classNamesPropType.isRequired,
     collapsible: PropTypes.bool,
-    defaultIndex: collectionOf.number,
+    defaultIndex: numberCollectionPropType,
     multiple: PropTypes.bool,
   };
 

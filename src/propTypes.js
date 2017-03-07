@@ -49,6 +49,11 @@ export const motionPropType = PropTypes.shape({
   precision: PropTypes.number,
 });
 
+export const numberCollectionPropType = PropTypes.oneOfType([
+  PropTypes.number,
+  PropTypes.arrayOf(PropTypes.number),
+]);
+
 export const optionPropType = PropTypes.shape({
   disabled: PropTypes.bool,
   label: PropTypes.string.isRequired,
