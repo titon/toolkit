@@ -31,13 +31,12 @@ export function ToolkitInputGroupAddon({
 
 ToolkitInputGroupAddon.propTypes = {
   ...sizePropTypes,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   classNames: classNamesPropType.isRequired,
 };
 
 ToolkitInputGroupAddon.defaultProps = {
   ...sizeDefaults,
-  children: null,
 };
 
 export default style({
