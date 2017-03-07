@@ -19,7 +19,9 @@ export default function getter(
   name: string,
   descriptor: Descriptor,
 ): Descriptor {
-  checkIsMethod('getter', arguments);
+  if (process.env.NODE_ENV !== 'production') {
+    checkIsMethod('getter', arguments);
+  }
 
   const func = getValueFunc('getter', descriptor);
 

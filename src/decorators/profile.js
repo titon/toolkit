@@ -19,26 +19,28 @@ export default function profile(
   name: string,
   descriptor: Descriptor,
 ): Descriptor {
-  checkIsMethod('profile', arguments);
+  if (process.env.NODE_ENV !== 'production') {
+    checkIsMethod('profile', arguments);
 
-  ['get', 'set', 'value'].forEach((method: string) => {
-    if (typeof descriptor[method] === 'function') {
-      const oldMethod = descriptor[method];
+    ['get', 'set', 'value'].forEach((method: string) => {
+      if (typeof descriptor[method] === 'function') {
+        const oldMethod = descriptor[method];
 
-      descriptor[method] = function profileDescriptor() {
-        const start = Date.now();
-        const result = oldMethod.apply(this, arguments);
-        const stop = (Date.now() - start).toFixed(4);
+        descriptor[method] = function profileDescriptor() {
+          const start = Date.now();
+          const result = oldMethod.apply(this, arguments);
+          const stop = (Date.now() - start).toFixed(4);
 
-        console.info(
-          `${name}() took ${stop} milliseconds to run using the arguments:`,
-          arguments,
-        );
+          console.info(
+            `${name}() took ${stop} milliseconds to run using the arguments:`,
+            arguments,
+          );
 
-        return result;
-      };
-    }
-  });
+          return result;
+        };
+      }
+    });
+  }
 
   return descriptor;
 }

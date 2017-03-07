@@ -51,7 +51,9 @@ function suppressConsole(
   name: string,
   descriptor: Descriptor,
 ): Descriptor {
-  checkIsMethod('suppressConsole', arguments);
+  if (process.env.NODE_ENV !== 'production') {
+    checkIsMethod('suppressConsole', arguments);
+  }
 
   const func = getValueFunc('suppressConsole', descriptor);
 

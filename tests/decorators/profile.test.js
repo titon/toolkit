@@ -1,0 +1,51 @@
+/* eslint no-console: 0 */
+
+import profile from '../../src/decorators/profile';
+
+class ProfileStub {
+  constructor() {
+    this.value = null;
+  }
+
+  @profile
+  method() {}
+
+  @profile
+  get getter() {
+    return this.value;
+  }
+
+  @profile
+  set setter(value) {
+    this.value = value;
+  }
+}
+
+describe('decorators/profile()', () => {
+  it('should wrap `get`, `set`, and `value` descriptors', () => {
+    const info = console.info;
+    const obj = new ProfileStub();
+    const messages = [];
+    let value = null;
+
+    // Override `console.info()` temporarily
+    console.info = function shimInfo(message) {
+      messages.push(message.trim());
+    };
+
+    expect(obj.value).toBe(null);
+
+    obj.method();
+    obj.setter = 123;
+    value = obj.getter;
+
+    expect(value).toBe(123);
+
+    messages.forEach((message) => {
+      expect(message).toMatch(/^(method|getter|setter)\(\) took [\d.]+ milliseconds to run using the arguments:$/);
+    });
+
+    // Reset `console.info()`
+    console.info = info;
+  });
+});

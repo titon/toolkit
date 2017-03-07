@@ -21,7 +21,9 @@ export default function debounce(wait: number = 150) {
     name: string,
     descriptor: Descriptor,
   ): Descriptor {
-    checkIsMethod('debounce', arguments);
+    if (process.env.NODE_ENV !== 'production') {
+      checkIsMethod('debounce', arguments);
+    }
 
     descriptor.value = debouncer(getValueFunc('debounce', descriptor), wait);
 

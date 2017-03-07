@@ -21,12 +21,16 @@ export default function delegate(selector: string) {
     name: string,
     descriptor: Descriptor,
   ): Descriptor {
-    checkIsMethod('delegate', arguments);
+    if (process.env.NODE_ENV !== 'production') {
+      checkIsMethod('delegate', arguments);
+    }
 
     const func = getValueFunc('delegate', descriptor);
 
     descriptor.value = function delegateValue(event: Event) {
-      checkIsEvent('delegate', event);
+      if (process.env.NODE_ENV !== 'production') {
+        checkIsEvent('delegate', event);
+      }
 
       let eventTarget = event.target;
 

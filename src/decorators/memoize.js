@@ -20,7 +20,9 @@ export default function memoize(
   name: string,
   descriptor: Descriptor,
 ): Descriptor {
-  checkIsMethod('memoize', arguments);
+  if (process.env.NODE_ENV !== 'production') {
+    checkIsMethod('memoize', arguments);
+  }
 
   descriptor.value = memoizer(
     getValueFunc('memoize', descriptor),

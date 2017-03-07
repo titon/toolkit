@@ -19,7 +19,9 @@ export default function remover(
   name: string,
   descriptor: Descriptor,
 ): Descriptor {
-  checkIsMethod('remover', arguments);
+  if (process.env.NODE_ENV !== 'production') {
+    checkIsMethod('remover', arguments);
+  }
 
   const func = getValueFunc('remover', descriptor);
 

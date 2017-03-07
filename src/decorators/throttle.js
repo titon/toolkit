@@ -21,7 +21,9 @@ export default function throttle(wait: number = 150) {
     name: string,
     descriptor: Descriptor,
   ): Descriptor {
-    checkIsMethod('throttle', arguments);
+    if (process.env.NODE_ENV !== 'production') {
+      checkIsMethod('throttle', arguments);
+    }
 
     descriptor.value = throttler(getValueFunc('throttle', descriptor), wait);
 

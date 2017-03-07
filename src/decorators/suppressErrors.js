@@ -19,7 +19,9 @@ export default function suppressErrors(
   name: string,
   descriptor: Descriptor,
 ): Descriptor {
-  checkIsMethod('suppressErrors', arguments);
+  if (process.env.NODE_ENV !== 'production') {
+    checkIsMethod('suppressErrors', arguments);
+  }
 
   const func = getValueFunc('suppressErrors', descriptor);
 

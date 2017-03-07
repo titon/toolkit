@@ -21,19 +21,21 @@ export default function deprecate(message: string = '') {
     name: string,
     descriptor: Descriptor,
   ): Descriptor {
-    checkIsMethod('deprecated', arguments);
+    if (process.env.NODE_ENV !== 'production') {
+      checkIsMethod('deprecated', arguments);
 
-    ['get', 'set', 'value'].forEach((method: string) => {
-      if (typeof descriptor[method] === 'function') {
-        const oldMethod = descriptor[method];
+      ['get', 'set', 'value'].forEach((method: string) => {
+        if (typeof descriptor[method] === 'function') {
+          const oldMethod = descriptor[method];
 
-        descriptor[method] = function deprecateDescriptor(): mixed {
-          console.warn(`${target.constructor.name}#${name}() is deprecated. ${message}`);
+          descriptor[method] = function deprecateDescriptor(): mixed {
+            console.warn(`${target.constructor.name}#${name}() is deprecated. ${message}`);
 
-          return oldMethod.apply(this, arguments);
-        };
-      }
-    });
+            return oldMethod.apply(this, arguments);
+          };
+        }
+      });
+    }
 
     return descriptor;
   };

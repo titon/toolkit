@@ -20,7 +20,9 @@ export default function setter(
   name: string,
   descriptor: Descriptor,
 ): Descriptor {
-  checkIsMethod('setter', arguments);
+  if (process.env.NODE_ENV !== 'production') {
+    checkIsMethod('setter', arguments);
+  }
 
   const func = getValueFunc('setter', descriptor);
 

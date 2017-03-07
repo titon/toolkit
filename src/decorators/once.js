@@ -25,7 +25,9 @@ export default function once(
   name: string,
   descriptor: Descriptor,
 ): Descriptor {
-  checkIsMethod('once', arguments);
+  if (process.env.NODE_ENV !== 'production') {
+    checkIsMethod('once', arguments);
+  }
 
   const func = getValueFunc('once', descriptor);
   let response = null;
@@ -42,9 +44,11 @@ export default function once(
     // If we are dealing with an event
     // Let's attempt to remove the event listener
     try {
-      checkIsEvent('once', event);
+      if (process.env.NODE_ENV !== 'production') {
+        checkIsEvent('once', event);
+      }
+
       event.target.removeEventListener(event.type, onceDecorator);
-      onceCache.delete(this);
     } catch (e) {}
 
     return response;
