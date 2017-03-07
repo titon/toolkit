@@ -15,6 +15,6 @@ describe('components/Button/<Link/>', () => {
   it('errors if `href` is not defined', () => {
     shallow(<Link>Foo</Link>);
 
-    expect(console.error).toHaveBeenCalled();
+    expect(console.error).toBeCalled();
   });
 });

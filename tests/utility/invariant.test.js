@@ -49,7 +49,7 @@ describe('utility/invariant()', () => {
       const error = new Error('Will throw.');
       error.name = 'Invariant Violation';
 
-      expect(spy).toHaveBeenCalledWith(error);
+      expect(spy).toBeCalledWith(error);
     }).not.toThrow();
   });
 });

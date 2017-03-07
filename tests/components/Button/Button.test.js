@@ -98,7 +98,7 @@ describe('components/Button/<Button/>', () => {
 
     wrapper.simulate('click');
 
-    expect(spy).toHaveBeenCalled();
+    expect(spy).toBeCalled();
   });
 
   it('can pass and trigger `onMouseOver`', () => {
@@ -107,7 +107,7 @@ describe('components/Button/<Button/>', () => {
 
     wrapper.simulate('mouseover');
 
-    expect(spy).toHaveBeenCalled();
+    expect(spy).toBeCalled();
   });
 
   it('can pass and trigger `onMouseOut`', () => {
@@ -116,6 +116,6 @@ describe('components/Button/<Button/>', () => {
 
     wrapper.simulate('mouseout');
 
-    expect(spy).toHaveBeenCalled();
+    expect(spy).toBeCalled();
   });
 });

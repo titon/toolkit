@@ -118,7 +118,7 @@ describe('components/Checkbox/<Checkbox/>', () => {
       checked: true,
     });
 
-    expect(spy).toHaveBeenCalledWith({
+    expect(spy).toBeCalledWith({
       name: 'foo',
       value: '1',
       checked: true,

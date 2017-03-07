@@ -90,8 +90,8 @@ describe('components/Accordion/<Header/>', () => {
       preventDefault,
     });
 
-    expect(preventDefault).toHaveBeenCalled();
-    expect(toggleItem).toHaveBeenCalledWith(10);
+    expect(preventDefault).toBeCalled();
+    expect(toggleItem).toBeCalledWith(10);
   });
 
   it('clicking header link triggers `onClick` prop', () => {
@@ -107,6 +107,6 @@ describe('components/Accordion/<Header/>', () => {
 
     wrapper.find('a').simulate('click', event);
 
-    expect(onClick).toHaveBeenCalledWith(event);
+    expect(onClick).toBeCalledWith(event);
   });
 });

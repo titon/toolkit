@@ -85,7 +85,7 @@ describe('components/Input/<Input/>', () => {
         target: { value: 'Toolkit' },
       });
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: 'Toolkit',
       });
@@ -99,7 +99,7 @@ describe('components/Input/<Input/>', () => {
         target: { value: 'Titon' },
       });
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: 'Titon',
       });
@@ -109,7 +109,7 @@ describe('components/Input/<Input/>', () => {
       const spy = jest.fn();
       shallow(<Input name="foo" type="text" defaultValue="Titon" onChanged={spy} />).dive();
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: 'Titon',
       });
@@ -140,7 +140,7 @@ describe('components/Input/<Input/>', () => {
         target: { value: 'Toolkit' },
       });
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: 'Toolkit',
       });
@@ -154,7 +154,7 @@ describe('components/Input/<Input/>', () => {
         target: { value: 'Titon' },
       });
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: 'Titon',
       });
@@ -164,7 +164,7 @@ describe('components/Input/<Input/>', () => {
       const spy = jest.fn();
       shallow(<Input name="foo" type="textarea" defaultValue="Titon" onChanged={spy} />).dive();
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: 'Titon',
       });
@@ -241,7 +241,7 @@ describe('components/Input/<Input/>', () => {
 
       wrapper.find('input').simulate('change', {});
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: '1',
         checked: true,
@@ -254,7 +254,7 @@ describe('components/Input/<Input/>', () => {
 
       wrapper.find('input').simulate('change', {});
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: '1',
         checked: true,
@@ -265,7 +265,7 @@ describe('components/Input/<Input/>', () => {
       const spy = jest.fn();
       shallow(<Input name="foo" type="checkbox" defaultChecked onChanged={spy} />).dive();
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: '1',
         checked: true,
@@ -344,7 +344,7 @@ describe('components/Input/<Input/>', () => {
 
       wrapper.find('input').simulate('change', {});
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: 'foo',
         checked: true,
@@ -357,7 +357,7 @@ describe('components/Input/<Input/>', () => {
 
       wrapper.find('input').simulate('change', {});
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: 'bar',
         checked: true,
@@ -370,7 +370,7 @@ describe('components/Input/<Input/>', () => {
         <Input name="foo" type="radio" defaultValue="bar" defaultChecked="bar" onChanged={spy} />,
       ).dive();
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: 'bar',
         checked: true,
@@ -435,7 +435,7 @@ describe('components/Input/<Input/>', () => {
         target: { value: 'Toolkit' },
       });
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: 'Toolkit',
       });
@@ -451,7 +451,7 @@ describe('components/Input/<Input/>', () => {
         target: { value: 'Titon' },
       });
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: 'Titon',
       });
@@ -461,7 +461,7 @@ describe('components/Input/<Input/>', () => {
       const spy = jest.fn();
       shallow(<Input name="foo" type="select" defaultValue="Titon" onChanged={spy} />).dive();
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: 'Titon',
       });
@@ -485,7 +485,7 @@ describe('components/Input/<Input/>', () => {
         },
       });
 
-      expect(spy).toHaveBeenCalledWith({
+      expect(spy).toBeCalledWith({
         name: 'foo',
         value: ['foo', 'bar'],
       });
