@@ -34,6 +34,13 @@ describe('components/Input/<Input/>', () => {
     expect(wrapper.prop('className')).toBe('input is-invalid');
   });
 
+  it('can mark a field as `multiple`', () => {
+    const wrapper = shallow(<Input name="foo" type="text" multiple />).dive();
+
+    // Multiple prop isn't always passed
+    expect(wrapper.prop('className')).toBe('input is-multiple');
+  });
+
   it('can mark a field as `required`', () => {
     const wrapper = shallow(<Input name="foo" type="text" required />).dive();
 
