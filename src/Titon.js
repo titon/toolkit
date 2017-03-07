@@ -2,40 +2,49 @@
  * @copyright   2010-2017, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
+ * @flow
  */
 
+import { Adapter } from 'aesthetic';
 import flags from './flags';
+import { aesthetic } from './styler';
 
-class Titon {
-  constructor() {
-    this.version = '%version%';
-    this.build = '%build%';
-    this.logger = null;
-    this.options = {
-      cookiePrefix: 'titon.',
-      debug: false,
-      elementSeparator: '__',
-      modifierSeparator: '--',
-      namespace: '',
-      states: ['info', 'debug', 'warning', 'error', 'success'],
-    };
-  }
+type FlagsMap = { [flag: string]: boolean };
+type Logger = (message: string | Error, ...args: string[]) => void;
+type OptionsMap = { [option: string]: boolean | string };
 
-  debug() {
+export class TitonToolkit {
+  version: string = '%version%';
+  build: string = '%build%';
+  logger: ?Logger = null;
+  options: OptionsMap = {
+    cookiePrefix: 'titon.',
+    debug: false,
+  };
+
+  static flags: FlagsMap = flags;
+
+  debug(): this {
     this.options.debug = true;
 
     return this;
   }
 
-  log(message, ...args) {
+  log(message: string | Error, ...args: string[]): this {
     if (this.logger) {
-      this.logger(message, args);
+      this.logger(message, ...args);
     }
 
     return this;
   }
 
-  setLogger(logger) {
+  setAdapter(adapter: Adapter): this {
+    aesthetic.setAdapter(adapter);
+
+    return this;
+  }
+
+  setLogger(logger: Logger): this {
     if (typeof logger !== 'function') {
       throw new TypeError('Logger must be a function.');
     }
@@ -44,16 +53,6 @@ class Titon {
 
     return this;
   }
-
-  setStyleFormat(namespace, elementSeparator = '__', modifierSeparator = '--') {
-    this.options.namespace = namespace || '';
-    this.options.elementSeparator = elementSeparator;
-    this.options.modifierSeparator = modifierSeparator;
-
-    return this;
-  }
 }
 
-Titon.flags = flags;
-
-export default new Titon();
+export default new TitonToolkit();

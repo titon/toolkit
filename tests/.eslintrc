@@ -1,4 +1,8 @@
 {
+  "globals": {
+    "processInThread": true,
+    "runInProduction": true
+  },
   "rules": {
     "no-console": 0
   }

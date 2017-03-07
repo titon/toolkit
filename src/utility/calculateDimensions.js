@@ -13,7 +13,7 @@ export default function calculateDimensions(
   let size = (axis === 'width') ? element.offsetWidth : element.offsetHeight;
 
   if (includeMargin) {
-    const styles = window.getComputedStyle(element);
+    const styles = getComputedStyle(element);
 
     if (axis === 'width') {
       size += parseFloat(styles.marginTop);

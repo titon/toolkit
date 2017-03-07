@@ -6,7 +6,6 @@
  */
 
 import Titon from '../Titon';
-import { DEV, PROD } from '../constants';
 
 /**
  * Asserts that a condition is true or throws an error otherwise.
@@ -23,7 +22,7 @@ export default function invariant(
   ...params: string[]
 ): boolean {
   let error = null;
-  let index = 0;
+  let index = -1;
 
   if (condition) {
     return true;
@@ -41,13 +40,13 @@ export default function invariant(
 
   error.name = 'Invariant Violation';
 
-  // Log the error in production
-  if (PROD) {
-    Titon.options.logger(error);
-
   // Throw the error in development
-  } else if (DEV) {
+  if (process.env.NODE_ENV !== 'production') {
     throw error;
+
+  // Log the error in production
+  } else {
+    Titon.log(error);
   }
 
   return false;

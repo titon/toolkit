@@ -17,10 +17,10 @@ export type ReactChildren = ?Element<any>;
 
 export type Callback = () => void;
 
-// Flow event types are incomplete
 export type HandlerEvent = {
   preventDefault: () => void,
   stopPropagation: () => void,
+  // Flow event types are incomplete
   target: {
     checked?: boolean,
     name: string,

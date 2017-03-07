@@ -7,8 +7,7 @@
     "jest": true
   },
   "globals": {
-    "Toolkit": true,
-    "processInThread": true
+    "Toolkit": true
   },
   "rules": {
     "padded-blocks": 0,

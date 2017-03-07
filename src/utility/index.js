@@ -11,9 +11,10 @@ import generateUID from './generateUID';
 import invariant from './invariant';
 import isOutsideElement from './isOutsideElement';
 import positionRelativeTo from './positionRelativeTo';
+import toArray from './toArray';
 import wrapFunctions from './wrapFunctions';
 
 export {
-  formatID, formatInputName, generateTabIndex, generateUID,
-  invariant, isOutsideElement, positionRelativeTo, wrapFunctions,
+  formatID, formatInputName, generateTabIndex, generateUID, invariant,
+  isOutsideElement, positionRelativeTo, toArray, wrapFunctions,
 };

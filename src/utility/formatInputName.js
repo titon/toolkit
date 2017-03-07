@@ -9,7 +9,7 @@
  * Format a form field input name by removing invalid characters.
  */
 export default function formatInputName(name: string): string {
-  return (name || '')
+  return (name || '').trim()
     .replace('[]', '')
     .replace('[', '-')
     .replace('][', '-')
