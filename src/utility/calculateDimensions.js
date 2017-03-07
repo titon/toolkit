@@ -16,11 +16,11 @@ export default function calculateDimensions(
     const styles = getComputedStyle(element);
 
     if (axis === 'width') {
-      size += parseFloat(styles.marginTop);
-      size += parseFloat(styles.marginBottom);
-    } else {
       size += parseFloat(styles.marginLeft);
       size += parseFloat(styles.marginRight);
+    } else {
+      size += parseFloat(styles.marginTop);
+      size += parseFloat(styles.marginBottom);
     }
   }
 

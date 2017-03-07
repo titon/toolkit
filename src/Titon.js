@@ -6,23 +6,25 @@
  */
 
 import { Adapter } from 'aesthetic';
-import flags from './flags';
 import { aesthetic } from './styler';
+import flags from './flags';
 
 type FlagsMap = { [flag: string]: boolean };
 type Logger = (message: string | Error, ...args: string[]) => void;
-type OptionsMap = { [option: string]: boolean | string };
+type Options = {
+  cookiePrefix: string,
+  debug: boolean,
+};
 
 export class TitonToolkit {
-  version: string = '%version%';
   build: string = '%build%';
+  flags: FlagsMap = flags;
   logger: ?Logger = null;
-  options: OptionsMap = {
+  options: Options = {
     cookiePrefix: 'titon.',
     debug: false,
   };
-
-  static flags: FlagsMap = flags;
+  version: string = '%version%';
 
   debug(): this {
     this.options.debug = true;
@@ -45,8 +47,10 @@ export class TitonToolkit {
   }
 
   setLogger(logger: Logger): this {
-    if (typeof logger !== 'function') {
-      throw new TypeError('Logger must be a function.');
+    if (process.env.NODE_ENV !== 'production') {
+      if (typeof logger !== 'function') {
+        throw new TypeError('Logger must be a function.');
+      }
     }
 
     this.logger = logger;

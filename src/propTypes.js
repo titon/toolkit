@@ -7,7 +7,32 @@
 
 import { PropTypes } from 'react';
 
-import type { InputPropTypes, ShowHidePropTypes, SizePropTypes } from './types';
+import type { Callback } from './types';
+
+type InputPropTypes = {
+  defaultChecked?: boolean,
+  defaultValue?: string,
+  disabled?: boolean,
+  id?: string,
+  multiple?: boolean,
+  native?: boolean,
+  onChanged?: Callback,
+  onChanging?: Callback,
+  readOnly?: boolean,
+  required?: boolean,
+};
+
+type ShowHidePropTypes = {
+  onHidden?: Callback,
+  onHiding?: Callback,
+  onShowing?: Callback,
+  onShown?: Callback,
+};
+
+type SizePropTypes = {
+  large?: boolean,
+  small?: boolean,
+};
 
 export const axisPositionPropType = PropTypes.oneOf(['top', 'bottom', 'left', 'right']);
 

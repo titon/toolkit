@@ -51,32 +51,6 @@ export type PropsMap = {
   [key: string]: PropValue,
 };
 
-// PropTypes
-
-export type InputPropTypes = {
-  defaultChecked?: boolean,
-  defaultValue?: string,
-  disabled?: boolean,
-  id?: string,
-  multiple?: boolean,
-  onChanged?: Callback,
-  onChanging?: Callback,
-  readOnly?: boolean,
-  required?: boolean,
-};
-
-export type ShowHidePropTypes = {
-  onHidden?: Callback,
-  onHiding?: Callback,
-  onShowing?: Callback,
-  onShown?: Callback,
-};
-
-export type SizePropTypes = {
-  large?: boolean,
-  small?: boolean,
-};
-
 // Decorators
 
 export type Descriptor = {
