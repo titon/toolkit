@@ -5,6 +5,8 @@
  * @flow
  */
 
+/* eslint-disable no-undef */
+
 import type { Element } from 'react';
 
 // React
@@ -15,7 +17,19 @@ export type ReactChildren = ?Element<any>;
 
 export type Callback = () => void;
 
-export type EventCallback = (e: Event) => void;
+// Flow event types are incomplete
+export type HandlerEvent = {
+  preventDefault: () => void,
+  stopPropagation: () => void,
+  target: {
+    checked?: boolean,
+    name: string,
+    selectedOptions?: NodeList<HTMLOptionElement>,
+    value: string,
+  },
+};
+
+export type Handler = (event: HandlerEvent) => void;
 
 export type ClassNameMap = { [key: string]: string };
 
@@ -33,7 +47,7 @@ export type StyleDeclaration = { [key: string]: PrimitiveType };
 
 // Components
 
-export type PropValue = string | string[] | number | number[] | boolean | Callback | EventCallback;
+export type PropValue = string | string[] | number | number[] | boolean | Callback | Handler;
 
 export type PropsMap = {
   [key: string]: PropValue,

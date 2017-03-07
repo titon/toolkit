@@ -9,6 +9,7 @@ import React, { PropTypes } from 'react';
 import formatInputName from '../../utility/formatInputName';
 import emitEvent from '../../utility/emitEvent';
 import invariant from '../../utility/invariant';
+import toArray from '../../utility/toArray';
 import { classes } from '../../styler';
 import {
   classNamesPropType,
@@ -16,8 +17,8 @@ import {
   inputPropTypes, sizePropTypes,
 } from '../../propTypes';
 
-import type { InputProps, InputState } from './types';
-import type { PropsMap } from '../../types';
+import type { InputProps, InputState, ChangedData, RenderedProps } from './types';
+import type { HandlerEvent } from '../../types';
 
 // Private
 export default class BaseInput extends React.Component {
@@ -44,29 +45,33 @@ export default class BaseInput extends React.Component {
     let defaultValue = props.defaultValue;
     let defaultChecked = props.defaultChecked;
 
-    // Select
-    if (props.type === 'select') {
-      if (props.multiple) {
-        defaultValue = Array.isArray(defaultValue) ? defaultValue : [defaultValue];
-      } else {
-        defaultValue = String(defaultValue);
-      }
+    switch (props.type) {
+      case 'select':
+        if (props.multiple) {
+          defaultValue = toArray(defaultValue).map(String);
+        } else {
+          defaultValue = String(defaultValue);
+        }
+        break;
 
-    // Checkbox, Switch
-    } else if (props.type === 'checkbox') {
-      if (props.multiple) {
-        invariant(defaultValue, 'A default value is required when using `multiple` checkboxes.');
-      } else {
-        defaultValue = defaultValue || '1';
-      }
+      case 'checkbox':
+        if (props.multiple) {
+          invariant(defaultValue, 'A default value is required when using `multiple` checkboxes.');
 
-    // Radio
-    } else if (props.type === 'radio') {
-      invariant(defaultValue, 'A default value is required when using radios.');
+          defaultChecked = (defaultValue === defaultChecked);
 
-      if (typeof defaultChecked === 'string') {
+        } else if (!defaultValue) {
+          defaultValue = '1';
+        }
+        break;
+
+      case 'radio':
+        invariant(defaultValue, 'A default value is required when using radios.');
+
         defaultChecked = (defaultValue === defaultChecked);
-      }
+        break;
+
+      default: break;
     }
 
     this.uid = props.id || formatInputName(props.name);
@@ -76,51 +81,66 @@ export default class BaseInput extends React.Component {
     };
   }
 
-  shouldComponentUpdate(nextProps: InputProps, nextState: InputState) {
-    return (nextState.value !== this.state.value || nextState.checked !== this.state.checked);
+  shouldComponentUpdate(nextProps: InputProps, { checked, value }: InputState) {
+    return (value !== this.state.value || checked !== this.state.checked);
   }
 
-  componentWillUpdate(nextProps: InputProps, nextState: InputState) {
-    const { checked, value } = nextState;
-    const args = this.isChoiceType() ? [checked, value] : [value, this.state.value];
+  componentWillUpdate(nextProps: InputProps, { checked, value }: InputState) {
+    const { name, type } = this.props;
+    const data: ChangedData = { name, value };
 
-    emitEvent(this, 'input', 'onChanging', ...args);
-  }
-
-  componentDidUpdate(prevProps: InputProps, prevState: InputState) {
-    const { checked, value } = this.state;
-    const args = this.isChoiceType() ? [checked, value] : [value, prevState.value];
-
-    emitEvent(this, 'input', 'onChanged', ...args);
-  }
-
-  isChoiceType(): boolean {
-    return ['checkbox', 'radio'].includes(this.props.type);
-  }
-
-  handleOnChange = ({ target }: Event) => {
-    const { type, multiple } = this.props;
-    const newState = {};
-
-    if (this.isChoiceType()) {
-      newState.checked = !this.state.checked;
-    } else {
-      newState.value = target.value;
-
-      if (type === 'select' && multiple) {
-        newState.value = Array.from(target.selectedOptions).map(option => option.value);
-      }
+    if (type === 'checkbox' || type === 'radio') {
+      data.checked = checked;
     }
 
-    this.setState(newState);
+    emitEvent(this, 'input', 'onChanging', data);
+  }
+
+  componentDidUpdate() {
+    const { checked, value } = this.state;
+    const { name, type } = this.props;
+    const data: ChangedData = { name, value };
+
+    if (type === 'checkbox' || type === 'radio') {
+      data.checked = checked;
+    }
+
+    emitEvent(this, 'input', 'onChanged', data);
+  }
+
+  handleOnChange = ({ target }: HandlerEvent) => {
+    const { type, multiple } = this.props;
+    const nextState = {};
+
+    switch (type) {
+      case 'select':
+        if (multiple) {
+          nextState.value = Array.from(target.selectedOptions || []).map(option => option.value);
+        } else {
+          nextState.value = target.value;
+        }
+        break;
+
+      case 'checkbox':
+      case 'radio':
+        nextState.checked = !this.state.checked;
+        break;
+
+      default:
+        nextState.value = target.value;
+        break;
+    }
+
+    this.setState(nextState);
   };
 
   render() {
     const { children, classNames, ...props } = this.props;
     const state = this.state;
-    const inputProps: PropsMap = {
+    const inputProps: RenderedProps = {
       disabled: props.disabled,
       id: this.uid,
+      invalid: props.invalid,
       name: props.name,
       onChange: this.handleOnChange,
       readOnly: props.readOnly,
@@ -128,8 +148,6 @@ export default class BaseInput extends React.Component {
       value: state.value,
     };
 
-    // Native elements inherit more base functionality
-    // Custom elements define their own classes and props
     if (props.native) {
       inputProps.className = classes(classNames.input, {
         [classNames.input__small]: props.small,

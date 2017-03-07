@@ -7,7 +7,7 @@
 
 /* eslint-disable import/prefer-default-export */
 
-import type { ReactChildren, ClassNameMap, Callback } from '../../types';
+import type { ReactChildren, ClassNameMap, Callback, Handler } from '../../types';
 
 export const INPUT_CLASSES = {
   input: 'input',
@@ -21,6 +21,33 @@ export const INPUT_CLASSES = {
   input__required: 'is-required',
 };
 
+export type SelectOption = {
+  disabled: boolean,
+  label: string,
+  value: string,
+  options?: SelectOption[],
+};
+
+export type ChangedData = {
+  name: string,
+  value: string | string[],
+  checked?: boolean,
+};
+
+export type RenderedProps = {
+  checked?: boolean,
+  className?: string,
+  disabled: boolean,
+  id: string,
+  multiple?: boolean,
+  name: string,
+  onChange: Handler,
+  readOnly: boolean,
+  required: boolean,
+  type?: string,
+  value: string | string[],
+};
+
 export type InputProps = {
   children: ReactChildren,
   classNames: ClassNameMap,
@@ -28,6 +55,7 @@ export type InputProps = {
   defaultValue: string,
   disabled: boolean,
   id: string,
+  invalid: boolean,
   large: boolean,
   multiple: boolean,
   name: string,
@@ -57,13 +85,6 @@ export type InputStaticProps = {
   classNames: ClassNameMap,
   large: boolean,
   small: boolean,
-};
-
-export type SelectOption = {
-  disabled: boolean,
-  label: string,
-  value: string,
-  options?: SelectOption[],
 };
 
 export type InputSelectProps = {

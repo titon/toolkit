@@ -21,28 +21,30 @@ export default function emitEvent(
   eventName: string,
   ...args: *[]
 ) {
-  // $FlowIgnore
-  const displayName = component.constructor.name || component.displayName;
-  const debug = component.props.debug || Titon.options.debug;
-  let uid = null;
-
-  if (contextName && component.context[contextName]) {
-    uid = component.context[contextName].uid;
-  } else {
+  if (process.env.NODE_ENV !== 'production') {
     // $FlowIgnore
-    uid = component.uid;
-  }
+    const displayName = component.constructor.name || component.displayName;
+    const debug = component.props.debug || Titon.options.debug;
+    let uid = '';
 
-  if (debug) {
-    console.info(
-      `${displayName}${uid ? `#${uid}` : ''}`,
-      (Date.now() / 1000).toFixed(3),
-      eventName,
-      args,
-    );
+    if (contextName && component.context[contextName]) {
+      uid = component.context[contextName].uid;
+    } else {
+      // $FlowIgnore
+      uid = component.uid;
+    }
 
-    if (debug === 'verbose') {
-      console.dir(component);
+    if (debug) {
+      console.info(
+        `${displayName}${uid ? `#${uid}` : ''}`,
+        (Date.now() / 1000).toFixed(3),
+        eventName,
+        args,
+      );
+
+      if (debug === 'verbose') {
+        console.dir(component);
+      }
     }
   }
 
