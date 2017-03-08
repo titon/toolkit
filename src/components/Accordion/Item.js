@@ -52,8 +52,8 @@ export class ToolkitAccordionItem extends React.Component {
     });
   }
 
-  shouldComponentUpdate(nextProps: AccordionItemProps, nextState: AccordionItemState) {
-    return (nextState.expanded !== this.state.expanded);
+  shouldComponentUpdate(nextProps: AccordionItemProps, { expanded }: AccordionItemState) {
+    return (expanded !== this.state.expanded);
   }
 
   componentWillUpdate() {
