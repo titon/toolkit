@@ -6,9 +6,6 @@
     "browser": true,
     "jest": true
   },
-  "globals": {
-    "Toolkit": true
-  },
   "rules": {
     "padded-blocks": 0,
     "no-lonely-if": 0,
