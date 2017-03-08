@@ -52,7 +52,8 @@
   },
   "peerDependencies": {
     "aesthetic": "^0.5.2",
-    "react": "^15.4.0"
+    "react": "^15.4.0",
+    "react-motion": "^0.4.7"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
