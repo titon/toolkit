@@ -1,11 +1,11 @@
 language: node_js
-
 node_js:
   - 4
   - 5
   - 6
   - 7
   - node
-
+script:
+  - yarn run jest
 notifications:
   email: false

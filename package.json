@@ -52,13 +52,13 @@
     "lodash": "^4.17.0"
   },
   "peerDependencies": {
-    "aesthetic": "^0.5.2",
+    "aesthetic": "^1.0.0",
     "react": "^15.4.0",
     "react-motion": "^0.4.7"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
-    "aesthetic": "^0.5.2",
+    "aesthetic": "^1.0.1",
     "babel-cli": "^6.23.0",
     "babel-eslint": "^7.1.1",
     "babel-jest": "^19.0.0",

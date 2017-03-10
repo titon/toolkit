@@ -1,0 +1,192 @@
+import React from 'react';
+import Aesthetic, { Adapter } from 'aesthetic';
+import UnifiedSyntax from 'aesthetic/unified';
+import AphroditeAdapter from 'aesthetic-adapter-aphrodite';
+import FelaAdapter from 'aesthetic-adapter-fela';
+import GlamorAdapter from 'aesthetic-adapter-glamor';
+import JSSAdapter from 'aesthetic-adapter-jss';
+
+declare module 'aesthetic' {
+  declare export type PrimitiveType = string | number | boolean;
+
+  declare export type CSSStyleValue = PrimitiveType | CSSStyle;
+
+  declare export type CSSStyle = { [propName: string]: CSSStyleValue | CSSStyleValue[] };
+
+  declare export type AtRuleMap = { [ruleName: string]: CSSStyle };
+
+  declare export type AtRuleSet = { [setName: string]: AtRuleMap };
+
+  declare export type AtRuleCache = { [ruleName: string]: string };
+
+  declare export type StyleDeclaration = string | CSSStyle;
+
+  declare export type StyleDeclarationMap = { [setName: string]: StyleDeclaration };
+
+  declare export type StyleCallback = (theme: CSSStyle, prevStyles: StyleDeclarationMap) => StyleDeclarationMap;
+
+  declare export type StyleDeclarationOrCallback = StyleDeclarationMap | StyleCallback;
+
+  declare export type MaybeClassName = PrimitiveType | { [key: string]: boolean } | MaybeClassName[];
+
+  declare export type ClassNameMap = { [setName: string]: string };
+
+  declare export type TransformedStylesMap = StyleDeclarationMap | ClassNameMap;
+
+  declare export type WrappedComponent = ReactClass<*>;
+
+  declare export type HOCComponent = ReactClass<*>;
+
+  declare export type HOCOptions = {
+   extendable?: boolean,
+   extendFrom?: string,
+   pure?: boolean,
+   styleName?: string,
+   stylesPropName?: string,
+   themePropName?: string,
+  };
+
+  declare export type EventCallback = (() => void) |
+   ((setName: string, properties: CSSStyle) => void) |
+   ((setName: string, atRuleName: string, properties: CSSStyle) => void);
+
+  declare export type FallbackMap = { [setName: string]: CSSStyle };
+
+  declare export type AestheticOptions = {
+   extendable: boolean,
+   stylesPropName: string,
+   themePropName: string,
+  };
+
+  declare export class Adapter {
+    bypassNativeStyleSheet: boolean;
+    native: boolean;
+    options: Object;
+    unifiedSyntax: boolean;
+    transform(styleName: string, declarations: StyleDeclarationMap): TransformedStylesMap;
+  }
+
+  declare export class ClassNameAdapter extends Adapter {}
+
+  declare export class ThemeProvider extends React.Component<*, *, *> {}
+
+  declare export default class Aesthetic {
+    adapter: Adapter;
+    cache: { [styleName: string]: TransformedStylesMap };
+    native: boolean;
+    options: AestheticOptions;
+    parents: { [childStyleName: string]: string };
+    styles: { [styleName: string]: StyleDeclarationOrCallback };
+    themes: { [themeName: string]: CSSStyle };
+    constructor(adapter: Adapter, options?: Object): this;
+    extendTheme(parentThemeName: string, themeName: string, theme?: CSSStyle, globals?: StyleDeclarationMap): this;
+    getStyles(styleName: string, themeName?: string): StyleDeclarationMap;
+    getTheme(themeName: string): CSSStyle;
+    registerTheme(themeName: string, theme?: CSSStyle, globals?: StyleDeclarationMap): this;
+    setAdapter(adapter: Adapter): this;
+    setStyles(styleName: string, declarations: StyleDeclarationOrCallback, extendFrom?: string): this;
+    transformStyles(styleName: string, themeName?: string): TransformedStylesMap;
+    validateTransform(styleName: string, setName: string, value: StyleDeclaration): StyleDeclaration;
+  }
+
+  declare export function style(aesthetic: Aesthetic, styles: StyleDeclarationOrCallback, options?: HOCOptions): (WrappedComponent) => HOCComponent;
+
+  declare export function createStyler(aesthetic: Aesthetic): style;
+
+  declare export function classes(...values: MaybeClassName[]): string;
+}
+
+declare module 'aesthetic/unified' {
+  import type { CSSStyle, StyleDeclarationMap, AtRuleSet, AtRuleMap, AtRuleCache, FallbackMap, EventCallback } from 'aesthetic';
+
+  declare export default class UnifiedSyntax {
+    static LOCAL: string;
+    static GLOBAL: string;
+    events: { [eventName: string]: EventCallback };
+    fallbacks: FallbackMap;
+    fontFaces: AtRuleMap;
+    fontFaceNames: AtRuleCache;
+    keyframes: AtRuleMap;
+    keyframeNames: AtRuleCache;
+    mediaQueries: AtRuleSet;
+    convert(declarations: StyleDeclarationMap): StyleDeclarationMap;
+    convertDeclaration(setName: string, properties: CSSStyle): CSSStyle;
+    emit(eventName: string, args: mixed[]): this;
+    extract(setName: string, atRule: string, rules: any, fromScope: string): void;
+    extractFallbacks(setName: string, properties: CSSStyle, fromScope: string): void;
+    extractFontFaces(setName: string, rules: AtRuleMap, fromScope: string): void;
+    extractKeyframes(setName: string, rules: AtRuleMap, fromScope: string): void;
+    extractMediaQueries(setName: string, rules: AtRuleMap, fromScope: string): void;
+    off(eventName: string): this;
+    on(eventName: string, callback: EventCallback): this;
+    resetGlobalCache(): void;
+    resetLocalCache(): void;
+  }
+}
+
+declare module 'aesthetic-adapter-aphrodite' {
+  declare export default class AphroditeAdapter extends Adapter {}
+}
+
+declare module 'aesthetic-adapter-aphrodite/unified' {
+  declare export default class UnifiedAphroditeAdapter extends AphroditeAdapter {
+    syntax: UnifiedSyntax;
+  }
+}
+
+declare module 'aesthetic-adapter-css-modules' {
+  declare export default class CSSModulesAdapter extends Adapter {}
+}
+
+declare module 'aesthetic-adapter-fela' {
+  declare export default class FelaAdapter extends Adapter {}
+}
+
+declare module 'aesthetic-adapter-fela/unified' {
+  declare export default class UnifiedFelaAdapter extends FelaAdapter {
+    syntax: UnifiedSyntax;
+  }
+}
+
+declare module 'aesthetic-adapter-glamor' {
+  declare export default class GlamorAdapter extends Adapter {}
+}
+
+declare module 'aesthetic-adapter-glamor/unified' {
+  declare export default class UnifiedGlamorAdapter extends GlamorAdapter {
+    syntax: UnifiedSyntax;
+  }
+}
+
+declare module 'aesthetic-adapter-jss' {
+  declare export default class JSSAdapter extends Adapter {}
+}
+
+declare module 'aesthetic-adapter-jss/unified' {
+  declare export default class UnifiedJSSAdapter extends JSSAdapter {
+    syntax: UnifiedSyntax;
+  }
+}
+
+declare module 'aesthetic-native' {
+  declare export default class ReactNativeAesthetic extends Aesthetic {
+    native: boolean;
+  }
+}
+
+declare module 'aesthetic-utils' {
+  import type { CSSStyle, AtRuleMap, AtRuleCache } from 'aesthetic';
+
+  declare export function createStyleElement(id: string): HTMLElement;
+  declare export function injectAtRules(properties: CSSStyle, atName: string, rules: AtRuleMap): void;
+  declare export function injectFallbacks(properties: CSSStyle, fallbacks: CSSStyle): void;
+  declare export function injectRuleByLookup(
+    properties: CSSStyle,
+    propName: string,
+    lookup: AtRuleMap | AtRuleCache,
+    flatten: boolean,
+  ): void;
+  declare export function isObject<T>(value: T): boolean;
+  declare export function isPrimitive<T>(value: T): boolean;
+  declare export function toArray<T>(value: T | T[]): T[];
+}
