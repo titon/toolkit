@@ -5,7 +5,8 @@
  * @flow
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import formatInputName from '../../utility/formatInputName';
 import emitEvent from '../../utility/emitEvent';
 import invariant from '../../utility/invariant';

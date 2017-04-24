@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { storiesOf, action } from '@kadira/storybook';
 import Collapse from '../../src/motions/Collapse';
 

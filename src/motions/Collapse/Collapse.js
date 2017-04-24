@@ -5,7 +5,8 @@
  * @flow
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
 import debounce from 'lodash/debounce';
 import calculateDimensions from '../../utility/calculateDimensions';

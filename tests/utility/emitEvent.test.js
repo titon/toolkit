@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { shallow } from 'enzyme';
 import Titon from '../../src/Titon';
 import emitEvent from '../../src/utility/emitEvent';

@@ -4,7 +4,8 @@
  * @link        http://titon.io
  */
 
-import React, { Children, PropTypes } from 'react';
+import React, { Children } from 'react';
+import PropTypes from 'prop-types';
 import style, { classes } from '../../styler';
 import { classNamesPropType } from '../../propTypes';
 import formatID from '../../utility/formatID';

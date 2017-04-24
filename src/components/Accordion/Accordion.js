@@ -5,7 +5,8 @@
  * @flow
  */
 
-import React, { Children, PropTypes } from 'react';
+import React, { Children } from 'react';
+import PropTypes from 'prop-types';
 import { childrenOfType } from 'airbnb-prop-types';
 import Item from './Item';
 import generateUID from '../../utility/generateUID';
