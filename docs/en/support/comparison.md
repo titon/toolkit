@@ -681,7 +681,6 @@ The following plugins are found within Semantic UI that have not been mentioned 
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
         </tr>
-
         <tr class="table-divider">
             <td colspan="5">Packagers</td>
         </tr>
@@ -713,7 +712,6 @@ The following plugins are found within Semantic UI that have not been mentioned 
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
         </tr>
-
         <tr class="table-divider">
             <td colspan="5">Functionality</td>
         </tr>
